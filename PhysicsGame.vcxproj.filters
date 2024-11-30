@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Source/Log.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Source/ModuleAudio.cpp">
+      <Filter>Modules\Types %28Module%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source/ModulePhysics.cpp">
+      <Filter>Modules\Types %28Module%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source/ModuleRender.cpp">
+      <Filter>Modules\Types %28Module%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source/ModuleWindow.cpp">
+      <Filter>Modules\Types %28Module%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source/CollisionSensor.cpp">
+      <Filter>Systems\CollisionDetection</Filter>
+    </ClCompile>
+    <ClCompile Include="Source/CollisionsManager.cpp">
+      <Filter>Systems\CollisionDetection</Filter>
+    </ClCompile>
+    <ClCompile Include="Source/Application.cpp" />
+    <ClCompile Include="Source/Main.cpp" />
+    <ClCompile Include="Source/ModuleTexture.cpp">
+      <Filter>Modules\Types %28Module%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source/ModuleGame.cpp">
+      <Filter>Modules\Types %28Module%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source/ModuleAssetLoader.cpp">
+      <Filter>Modules\Types %28Module%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source/Timer.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source/Module.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source/ModuleAudio.h">
+      <Filter>Modules\Types %28Module%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source/ModulePhysics.h">
+      <Filter>Modules\Types %28Module%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source/ModuleRender.h">
+      <Filter>Modules\Types %28Module%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source/ModuleWindow.h">
+      <Filter>Modules\Types %28Module%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source/p2Point.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source/CollisionSensor.h">
+      <Filter>Systems\CollisionDetection</Filter>
+    </ClInclude>
+    <ClInclude Include="Source/CollisionsManager.h">
+      <Filter>Systems\CollisionDetection</Filter>
+    </ClInclude>
+    <ClInclude Include="Source/Application.h" />
+    <ClInclude Include="Source/Globals.h" />
+    <ClInclude Include="Source/MemLeaks.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source/ModuleTexture.h">
+      <Filter>Modules\Types %28Module%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source/ModuleGame.h">
+      <Filter>Modules\Types %28Module%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source/ModuleAssetLoader.h">
+      <Filter>Modules\Types %28Module%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source/Timer.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Modules">
+      <UniqueIdentifier>{da1477a0-3b85-452d-b797-f3d73bfdeae1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Types %28Module%29">
+      <UniqueIdentifier>{c80449a4-3c41-41d4-9723-3dde02f4c919}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems">
+      <UniqueIdentifier>{ba21d3b3-a5a7-4b2a-9339-df43e08f93fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\CollisionDetection">
+      <UniqueIdentifier>{a39048e8-eb44-4f09-bba8-868240b90c55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{ec9ad275-a972-4053-a79c-711f1f81b544}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Config">
+      <UniqueIdentifier>{74f1a4f9-6514-4185-8fcd-c013893079c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MapObjects">
+      <UniqueIdentifier>{58cd7e9f-362e-49fa-ac35-a9d566a4e35b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MapObjects\Type %28MapObject%29">
+      <UniqueIdentifier>{90f4784c-4118-40dd-a55b-edfda197453c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Source\resources.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vcpkg.json">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="vcpkg-configuration.json">
+      <Filter>Config</Filter>
+    </None>
+  </ItemGroup>
+</Project>
