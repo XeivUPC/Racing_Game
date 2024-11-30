@@ -1,1 +1,0 @@
-G:\fisica2-CleanTemplate\vs2022\Win32_Debug\pugixml.lib
