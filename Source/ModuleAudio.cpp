@@ -79,7 +79,7 @@ unsigned int ModuleAudio::LoadFx(std::string path, bool loadEvenIfItExist)
 	if(IsEnabled() == false)
 		return -1;
 
-	unsigned int ret = -1;
+	unsigned int ret = 0;
 
 	for (const auto& soundMapEntry : soundsMap) {
 		if (soundMapEntry.second.soundPath == path) {
@@ -102,6 +102,11 @@ unsigned int ModuleAudio::LoadFx(std::string path, bool loadEvenIfItExist)
 		}
 		else
 		{
+			if (ret == 0) {
+				ret = soundsMap.size();
+				soundsMap[ret] = SoundData{path};
+
+			}
 			soundsMap.at(ret).sounds.emplace_back(sound);
 		}
 	}
@@ -116,7 +121,7 @@ bool ModuleAudio::PlayFx(unsigned int soundId, bool overrideIfSoundPlaying)
 	{
 		return false;
 	}
-	if (soundId == -1 || IsSoundLoaded(soundId))
+	if (soundId == -1 || !IsSoundLoaded(soundId))
 	{
 		LOG("Sound not loaded: Id --> %d", soundId);
 		return false;

@@ -71,8 +71,8 @@
     <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\obj\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)</OutDir>
-    <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\obj</IntDir>
+    <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\obj\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\</OutDir>
@@ -82,8 +82,8 @@
     <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\obj\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)</OutDir>
-    <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\obj</IntDir>
+    <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\obj\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerWorkingDirectory>$(SolutionDir)</LocalDebuggerWorkingDirectory>
@@ -193,7 +193,6 @@
     <ClInclude Include="Source/ModuleRender.h" />
     <ClInclude Include="Source/ModuleWindow.h" />
     <ClInclude Include="Source/p2Point.h" />
-    <ClInclude Include="Source/MemLeaks.h" />
     <ClInclude Include="Source/ModuleAssetLoader.h" />
     <ClInclude Include="Source/ModuleGame.h" />
     <ClInclude Include="Source/ModuleTexture.h" />

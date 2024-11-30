@@ -17,7 +17,5 @@ bool ModuleAssetLoader::Init()
 	ModuleAudio* audioModule = App->audio;
 
 	//// Load All Requiered Files Here
-	
-
 	return true;
 }

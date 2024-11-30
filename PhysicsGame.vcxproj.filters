@@ -64,9 +64,6 @@
     </ClInclude>
     <ClInclude Include="Source/Application.h" />
     <ClInclude Include="Source/Globals.h" />
-    <ClInclude Include="Source/MemLeaks.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Source/ModuleTexture.h">
       <Filter>Modules\Types %28Module%29</Filter>
     </ClInclude>
