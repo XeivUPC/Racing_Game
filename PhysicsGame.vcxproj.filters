@@ -31,6 +31,9 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{6e251ee0-272d-46ed-bd41-859c7664fd32}</UniqueIdentifier>
     </Filter>
+    <Filter Include="_Lib\Pugixml">
+      <UniqueIdentifier>{f79505bd-d4a3-420f-8569-ff24cde47719}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleAssetLoader.cpp">
@@ -67,6 +70,9 @@
     </ClCompile>
     <ClCompile Include="Source\CollisionsManager.cpp">
       <Filter>Systems\CollisionDetection</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\external\pugi\pugixml.cpp">
+      <Filter>_Lib\Pugixml</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +113,12 @@
     </ClInclude>
     <ClInclude Include="Source\CollisionsManager.h">
       <Filter>Systems\CollisionDetection</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\external\pugi\pugixml.hpp">
+      <Filter>_Lib\Pugixml</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\external\pugi\pugiconfig.hpp">
+      <Filter>_Lib\Pugixml</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

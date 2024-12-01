@@ -194,6 +194,7 @@
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\CollisionSensor.cpp" />
     <ClCompile Include="Source\CollisionsManager.cpp" />
+    <ClCompile Include="Source\external\pugi\pugixml.cpp" />
     <ClCompile Include="Source\Log.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\ModuleAssetLoader.cpp" />
@@ -209,6 +210,8 @@
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\CollisionSensor.h" />
     <ClInclude Include="Source\CollisionsManager.h" />
+    <ClInclude Include="Source\external\pugi\pugiconfig.hpp" />
+    <ClInclude Include="Source\external\pugi\pugixml.hpp" />
     <ClInclude Include="Source\Globals.h" />
     <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\ModuleAssetLoader.h" />
