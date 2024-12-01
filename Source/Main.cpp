@@ -2,10 +2,8 @@
 
 #include "Application.h"
 #include "Globals.h"
-#include "MemLeaks.h"
 
 #include "raylib.h"
-
 
 #include <stdlib.h>
 
@@ -20,7 +18,6 @@ enum main_states
 
 int main(int argc, char ** argv)
 {
-	ReportMemoryLeaks();
 	LOG("Starting game '%s'...", TITLE);
 
 	int main_return = EXIT_FAILURE;

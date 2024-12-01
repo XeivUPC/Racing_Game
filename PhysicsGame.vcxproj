@@ -71,8 +71,8 @@
     <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\obj\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\</OutDir>
-    <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\obj\</IntDir>
+    <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)</OutDir>
+    <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\obj</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\</OutDir>
@@ -82,8 +82,8 @@
     <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\obj\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\</OutDir>
-    <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\obj\</IntDir>
+    <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)</OutDir>
+    <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\obj</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerWorkingDirectory>$(SolutionDir)</LocalDebuggerWorkingDirectory>
@@ -92,9 +92,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LocalDebuggerWorkingDirectory>$(SolutionDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-  </PropertyGroup>
-  <PropertyGroup Label="Vcpkg">
-    <VcpkgEnableManifest>true</VcpkgEnableManifest>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -105,7 +102,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ShowIncludes>false</ShowIncludes>
-      <AdditionalIncludeDirectories>$(SolutionDir)Source\external\raylib\src;$(SolutionDir)Source\external\box2d\include\box2d;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\external\raylib\src;$(SolutionDir)Source\external\box2d\include;$(SolutionDir)Source\external\pugi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -125,7 +122,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ShowIncludes>false</ShowIncludes>
-      <AdditionalIncludeDirectories>$(SolutionDir)Source\external\raylib\src;$(SolutionDir)Source\external\box2d\include\box2d;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\external\raylib\src;$(SolutionDir)Source\external\box2d\include;$(SolutionDir)Source\external\pugi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -148,7 +145,7 @@
       <UseFullPaths>false</UseFullPaths>
       <ShowIncludes>false</ShowIncludes>
       <PreprocessorDefinitions>WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Source\external\raylib\src;$(SolutionDir)Source\external\box2d\include\box2d;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\external\raylib\src;$(SolutionDir)Source\external\box2d\include;$(SolutionDir)Source\external\pugi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -170,7 +167,7 @@
       <UseFullPaths>false</UseFullPaths>
       <ShowIncludes>false</ShowIncludes>
       <PreprocessorDefinitions>WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Source\external\raylib\src;$(SolutionDir)Source\external\box2d\include\box2d;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\external\raylib\src;$(SolutionDir)Source\external\box2d\include;$(SolutionDir)Source\external\pugi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -183,42 +180,46 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Source/CollisionSensor.h" />
-    <ClInclude Include="Source/CollisionsManager.h" />
-    <ClInclude Include="Source/Application.h" />
-    <ClInclude Include="Source/Globals.h" />
-    <ClInclude Include="Source/ModulePhysics.h" />
-    <ClInclude Include="Source/Module.h" />
-    <ClInclude Include="Source/ModuleAudio.h" />
-    <ClInclude Include="Source/ModuleRender.h" />
-    <ClInclude Include="Source/ModuleWindow.h" />
-    <ClInclude Include="Source/p2Point.h" />
-    <ClInclude Include="Source/ModuleAssetLoader.h" />
-    <ClInclude Include="Source/ModuleGame.h" />
-    <ClInclude Include="Source/ModuleTexture.h" />
-    <ClInclude Include="Source/Timer.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Source/CollisionSensor.cpp" />
-    <ClCompile Include="Source/CollisionsManager.cpp" />
-    <ClCompile Include="Source/Application.cpp" />
-    <ClCompile Include="Source/Log.cpp" />
-    <ClCompile Include="Source/Main.cpp" />
-    <ClCompile Include="Source/ModuleAudio.cpp" />
-    <ClCompile Include="Source/ModulePhysics.cpp" />
-    <ClCompile Include="Source/ModuleRender.cpp" />
-    <ClCompile Include="Source/ModuleWindow.cpp" />
-    <ClCompile Include="Source/ModuleAssetLoader.cpp" />
-    <ClCompile Include="Source/ModuleGame.cpp" />
-    <ClCompile Include="Source/ModuleTexture.cpp" />
-    <ClCompile Include="Source/Timer.cpp" />
+    <ProjectReference Include="$(SolutionDir)raylib.vcxproj">
+      <Project>{e89d61ac-55de-4482-afd4-df7242ebc859}</Project>
+    </ProjectReference>
+    <ProjectReference Include="box2d.vcxproj">
+      <Project>{920f0b3f-ef11-4e35-b122-add482acdf15}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\resources.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="vcpkg-configuration.json" />
-    <None Include="vcpkg.json" />
+    <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\CollisionSensor.cpp" />
+    <ClCompile Include="Source\CollisionsManager.cpp" />
+    <ClCompile Include="Source\Log.cpp" />
+    <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\ModuleAssetLoader.cpp" />
+    <ClCompile Include="Source\ModuleAudio.cpp" />
+    <ClCompile Include="Source\ModuleGame.cpp" />
+    <ClCompile Include="Source\ModulePhysics.cpp" />
+    <ClCompile Include="Source\ModuleRender.cpp" />
+    <ClCompile Include="Source\ModuleTexture.cpp" />
+    <ClCompile Include="Source\ModuleWindow.cpp" />
+    <ClCompile Include="Source\Timer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\CollisionSensor.h" />
+    <ClInclude Include="Source\CollisionsManager.h" />
+    <ClInclude Include="Source\Globals.h" />
+    <ClInclude Include="Source\Module.h" />
+    <ClInclude Include="Source\ModuleAssetLoader.h" />
+    <ClInclude Include="Source\ModuleAudio.h" />
+    <ClInclude Include="Source\ModuleGame.h" />
+    <ClInclude Include="Source\ModulePhysics.h" />
+    <ClInclude Include="Source\ModuleRender.h" />
+    <ClInclude Include="Source\ModuleTexture.h" />
+    <ClInclude Include="Source\ModuleWindow.h" />
+    <ClInclude Include="Source\p2Point.h" />
+    <ClInclude Include="Source\Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
