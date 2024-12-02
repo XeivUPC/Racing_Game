@@ -8,9 +8,6 @@
 #include "raylib.h"
 #include <vector>
 
-class PhysBody;
-class PhysicEntity;
-
 
 class ModuleGame : public Module
 {

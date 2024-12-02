@@ -3,6 +3,7 @@
 #include "ModuleRender.h"
 #include "ModuleGame.h"
 #include "ModuleAudio.h"
+#include "ModuleTexture.h"
 #include "ModulePhysics.h"
 #include "ModuleAssetLoader.h"
 
@@ -34,6 +35,5 @@ bool ModuleGame::CleanUp()
 // Update: draw background
 update_status ModuleGame::Update()
 {
-
 	return UPDATE_CONTINUE;
 }

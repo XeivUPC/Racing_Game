@@ -120,5 +120,8 @@
     <ClInclude Include="Source\external\pugi\pugiconfig.hpp">
       <Filter>_Lib\Pugixml</Filter>
     </ClInclude>
+    <ClInclude Include="Source\MemLeaks.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
