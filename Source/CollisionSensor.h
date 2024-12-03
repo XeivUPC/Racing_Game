@@ -1,38 +1,40 @@
 #pragma once
-#pragma warning(disable:)
-#include "box2d/box2d.h"
-#pragma warning(default:)
+#include "ModulePhysics.h"
 #include <set>
+
+class PhysBody;
 
 class CollisionSensor
 {
 public:
     CollisionSensor();
     ~CollisionSensor();
-    void SetBodyToTrack(b2Fixture* bodyToTrack);
+    void SetFixtureToTrack(PhysBody* physBodyToTrack, size_t fixtureIndex);
     bool IsBeingTriggered();
     void AcceptOnlyTriggers(bool acceptOnlyTriggers);
     bool OnTriggerEnter();
     bool OnTriggerExit();
 
-    b2Body* OnTriggerEnterGet();
-    b2Body* OnTriggerExitGet();
+    PhysBody* OnTriggerEnterGet();
+    PhysBody* OnTriggerExitGet();
 
 
     void BeginContact(b2Contact* contact);
     void EndContact(b2Contact* contact);
 
-    std::set<b2Body*> GetBodiesColliding();
+    std::set<PhysBody*> GetBodiesColliding();
     
 private:
-    b2Body* GetDifferentBody(b2Body* body1, b2Body* body2, b2Body* bodyToBeDifferentFrom);
+    PhysBody* GetDifferentBody(PhysBody* body1, PhysBody* body2, PhysBody* bodyToBeDifferentFrom);
     
-    b2Fixture* bodyToTrack=nullptr;
+    PhysBody* physBodyToTrack =nullptr;
+    size_t fixtureIndex = 0;
+
     int bodiesInside = 0;
     bool onlyTriggers = true;
 
-    b2Body* lastBodyEnter=nullptr;
-    b2Body* lastBodyExit=nullptr;
+    PhysBody* lastBodyEnter=nullptr;
+    PhysBody* lastBodyExit=nullptr;
 
-    std::set<b2Body*> bodiesColliding;
+    std::set<PhysBody*> bodiesColliding;
 };

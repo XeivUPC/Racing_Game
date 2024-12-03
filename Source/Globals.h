@@ -18,11 +18,6 @@ void log(const char file[], int line, const char* format, ...);
 #define TO_BOOL( a )  ( (a != 0) ? true : false )
 
 
-#define PIXEL_X_METER 128
-#define METERS_X_PIXEL 1.f/PIXEL_X_METER
-
-#define METERS_TO_PIXELS(m) (int)(PIXEL_X_METER * (m))
-#define PIXELS_TO_METERS(p) (METERS_X_PIXEL * (p))
 
 typedef unsigned int uint;
 typedef unsigned __int32 uint32;

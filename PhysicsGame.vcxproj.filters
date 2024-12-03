@@ -74,6 +74,9 @@
     <ClCompile Include="Source\external\pugi\pugixml.cpp">
       <Filter>_Lib\Pugixml</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Box2DFactory.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ModuleAssetLoader.h">
@@ -121,6 +124,9 @@
       <Filter>_Lib\Pugixml</Filter>
     </ClInclude>
     <ClInclude Include="Source\MemLeaks.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Box2DFactory.h">
       <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>

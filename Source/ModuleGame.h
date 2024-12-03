@@ -8,6 +8,7 @@
 #include "raylib.h"
 #include <vector>
 
+class PhysBody;
 
 class ModuleGame : public Module
 {
@@ -20,6 +21,4 @@ public:
 	bool CleanUp();
 
 public:
-
-	
 };

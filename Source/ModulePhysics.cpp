@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "ModuleRender.h"
 #include "ModulePhysics.h"
+#include "CollisionsManager.h"
+#include "Box2DFactory.h"
 
 #include "p2Point.h"
 
@@ -13,6 +15,7 @@ ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app,
 {
 	debug = true;
 	collisionsManager = new CollisionsManager();
+	
 }
 
 // Destructor
@@ -26,6 +29,7 @@ bool ModulePhysics::Start()
 	
 	b2Vec2 gravity = { 0,0 };
 	world = new b2World(gravity);
+	factory = new Box2DFactory(world);
 
 	world->SetContactListener(collisionsManager);
 
@@ -56,7 +60,7 @@ update_status ModulePhysics::PostUpdate()
 
 	// Bonus code: this will iterate all objects in the world and draw the circles
 	// You need to provide your own macro to translate meters to pixels
-	/*for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
+	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
 	{
 		for(b2Fixture* f = b->GetFixtureList(); f; f = f->GetNext())
 		{
@@ -127,7 +131,7 @@ update_status ModulePhysics::PostUpdate()
 
 			
 		}
-	}//*/
+	}
 
 	
 	return UPDATE_CONTINUE;
@@ -140,9 +144,187 @@ bool ModulePhysics::CleanUp()
 	LOG("Destroying physics world");
 
 	delete collisionsManager;
+	delete factory;
 
 	// Delete the whole physics world!
 	delete world;
 
 	return true;
 }
+
+///////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////
+
+#pragma region PhysBody
+
+PhysBody::PhysBody()
+{
+}
+
+PhysBody::~PhysBody()
+{
+	DestroyBody();
+}
+
+Vector2 PhysBody::GetPhysicPosition() const
+{
+	b2Vec2 pos = body->GetPosition();
+	int x = METERS_TO_PIXELS(pos.x);
+	int y = METERS_TO_PIXELS(pos.y);
+	return { (float)x,(float)y };
+}
+
+void PhysBody::SetPosition(float x, float y) {
+	if (body) {
+		body->SetTransform({ x, y }, body->GetAngle());
+	}
+}
+
+void PhysBody::ApplyForce(const Vector2& force, const Vector2& point) {
+	if (body) {
+		body->ApplyForce({ force.x, force.y }, { point.x, point.y }, true);
+	}
+}
+
+void PhysBody::ApplyLinearImpulse(const Vector2& impulse, const Vector2& point) {
+	if (body) {
+		
+		body->ApplyLinearImpulse({ impulse.x, impulse.y }, {point.x, point.y}, true);
+	}
+}
+
+void PhysBody::SetVelocity(const Vector2& velocity) {
+	if (body) {
+		body->SetLinearVelocity({ velocity.x,velocity.y});
+	}
+}
+
+Vector2 PhysBody::GetVelocity() const {
+	if (body) {
+		b2Vec2 vel = body->GetLinearVelocity();
+		return {vel.x,vel.y};
+	}
+	return {0,0};
+}
+
+float PhysBody::GetAngle() const {
+	if (body) {
+		return body->GetAngle();
+	}
+	return 0.0f;
+}
+
+b2Fixture* PhysBody::GetFixtureByIndex(size_t fixtureIndex) const {
+	if (!body) return nullptr;
+	b2Fixture* fixture = body->GetFixtureList();
+	size_t i = 0;
+	while (fixture && i < fixtureIndex) {
+		fixture = fixture->GetNext();
+		i++;
+	}
+	return fixture;
+}
+
+void PhysBody::SetFriction(size_t fixtureIndex, float friction) {
+	if (b2Fixture* fixture = GetFixtureByIndex(fixtureIndex)) {
+		fixture->SetFriction(friction);
+	}
+}
+
+void PhysBody::SetDensity(size_t fixtureIndex, float density) {
+	if (b2Fixture* fixture = GetFixtureByIndex(fixtureIndex)) {
+		fixture->SetDensity(density);
+		body->ResetMassData(); // Recalcular masa
+	}
+}
+
+void PhysBody::SetRestitution(size_t fixtureIndex, float restitution) {
+	if (b2Fixture* fixture = GetFixtureByIndex(fixtureIndex)) {
+		fixture->SetRestitution(restitution);
+	}
+}
+
+void PhysBody::SetRestitutionThreshold(size_t fixtureIndex, float restitutionThreshold)
+{
+	if (b2Fixture* fixture = GetFixtureByIndex(fixtureIndex)) {
+		fixture->SetRestitutionThreshold(restitutionThreshold);
+	}
+}
+
+void PhysBody::SetSensor(size_t fixtureIndex, bool isSensor) {
+	if (b2Fixture* fixture = GetFixtureByIndex(fixtureIndex)) {
+		fixture->SetSensor(isSensor);
+	}
+}
+
+b2Filter PhysBody::GetFilter(size_t fixtureIndex) const {
+	if (b2Fixture* fixture = GetFixtureByIndex(fixtureIndex)) {
+		return fixture->GetFilterData();
+	}
+	return {};
+}
+
+float PhysBody::GetFriction(size_t fixtureIndex) const {
+	if (b2Fixture* fixture = GetFixtureByIndex(fixtureIndex)) {
+		return fixture->GetFriction();
+	}
+	return 0.0f;
+}
+
+float PhysBody::GetDensity(size_t fixtureIndex) const {
+	if (b2Fixture* fixture = GetFixtureByIndex(fixtureIndex)) {
+		return fixture->GetDensity();
+	}
+	return 0.0f;
+}
+
+float PhysBody::GetRestitution(size_t fixtureIndex) const {
+	if (b2Fixture* fixture = GetFixtureByIndex(fixtureIndex)) {
+		return fixture->GetRestitution();
+	}
+	return 0.0f;
+}
+
+float PhysBody::GetRestitutionThreshold(size_t fixtureIndex) const
+{
+	if (b2Fixture* fixture = GetFixtureByIndex(fixtureIndex)) {
+		return fixture->GetRestitutionThreshold();
+	}
+	return 0.0f;
+}
+
+bool PhysBody::IsSensor(size_t fixtureIndex) const {
+	if (b2Fixture* fixture = GetFixtureByIndex(fixtureIndex)) {
+		return fixture->IsSensor();
+	}
+	return false;
+}
+
+void PhysBody::SetFilter(size_t fixtureIndex, uint16 categoryBits, uint16 maskBits, int16 groupIndex) {
+	if (b2Fixture* fixture = GetFixtureByIndex(fixtureIndex)) {
+		b2Filter filter;
+		filter.categoryBits = categoryBits;
+		filter.maskBits = maskBits;
+		filter.groupIndex = groupIndex;
+		fixture->SetFilterData(filter);
+	}
+}
+
+size_t PhysBody::GetFixtureCount() const {
+	size_t count = 0;
+	for (b2Fixture* fixture = body->GetFixtureList(); fixture; fixture = fixture->GetNext()) {
+		++count;
+	}
+	return count;
+}
+
+
+void PhysBody::DestroyBody() {
+	if (body && body->GetWorld()) {
+		body->GetWorld()->DestroyBody(body);
+		body = nullptr;
+	}
+}
+
+#pragma endregion

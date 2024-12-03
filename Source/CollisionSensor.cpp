@@ -11,9 +11,10 @@ CollisionSensor::~CollisionSensor()
     bodiesColliding.clear();
 }
 
-void CollisionSensor::SetBodyToTrack(b2Fixture* bodyToTrack)
+void CollisionSensor::SetFixtureToTrack(PhysBody* physBodyToTrack, size_t fixtureIndex)
 {
-    this->bodyToTrack = bodyToTrack;
+    this->physBodyToTrack = physBodyToTrack;
+    this->fixtureIndex = fixtureIndex;
 }
 
 bool CollisionSensor::IsBeingTriggered()
@@ -44,20 +45,20 @@ bool CollisionSensor::OnTriggerExit()
     return nullptr;
 }
 
-b2Body* CollisionSensor::OnTriggerEnterGet()
+PhysBody* CollisionSensor::OnTriggerEnterGet()
 {
     if (lastBodyEnter != nullptr) {
-        b2Body* aux = lastBodyEnter;
+        PhysBody* aux = lastBodyEnter;
         lastBodyEnter = nullptr;
         return aux;
     }
     return false;
 }
 
-b2Body* CollisionSensor::OnTriggerExitGet()
+PhysBody* CollisionSensor::OnTriggerExitGet()
 {
     if (lastBodyExit != nullptr) {
-        b2Body* aux = lastBodyExit;
+        PhysBody* aux = lastBodyExit;
         lastBodyExit = nullptr;
         return aux;
     }
@@ -67,17 +68,16 @@ b2Body* CollisionSensor::OnTriggerExitGet()
 
 void CollisionSensor::BeginContact(b2Contact* contact)
 {
-    // Get the two fixtures involved in the contact
     b2Fixture* fixtureA = contact->GetFixtureA();
     b2Fixture* fixtureB = contact->GetFixtureB();
-    // Check if the tracked body is involved
-    if (fixtureA == bodyToTrack || fixtureB == bodyToTrack) {
-        // Determine which fixture is the sensor (if any)
+
+    b2Fixture* fixtureToTrack = &physBodyToTrack->body->GetFixtureList()[fixtureIndex];
+    if (fixtureA == fixtureToTrack || fixtureB == fixtureToTrack) {
         if (!onlyTriggers || fixtureA->IsSensor() || fixtureB->IsSensor()) {
             bodiesInside++;
-            b2Body* bodyA = fixtureA->GetBody();
-            b2Body* bodyB = fixtureB->GetBody();
-            lastBodyEnter = GetDifferentBody(bodyA, bodyB, bodyToTrack->GetBody());
+            PhysBody* bodyA = (PhysBody*)fixtureA->GetBody()->GetUserData().pointer;
+            PhysBody* bodyB = (PhysBody*)fixtureB->GetBody()->GetUserData().pointer;
+            lastBodyEnter = GetDifferentBody(bodyA, bodyB, physBodyToTrack);
             bodiesColliding.emplace(lastBodyEnter);
         }
     }
@@ -87,25 +87,25 @@ void CollisionSensor::EndContact(b2Contact* contact)
 {
     b2Fixture* fixtureA = contact->GetFixtureA();
     b2Fixture* fixtureB = contact->GetFixtureB();
-    // Check if the tracked body is involved
-    if (fixtureA == bodyToTrack || fixtureB == bodyToTrack) {
-        // Determine which fixture is the sensor (if any)
+
+    b2Fixture* fixtureToTrack = &physBodyToTrack->body->GetFixtureList()[fixtureIndex];
+    if (fixtureA == fixtureToTrack || fixtureB == fixtureToTrack) {
         if (!onlyTriggers || fixtureA->IsSensor() || fixtureB->IsSensor()) {
             bodiesInside--;
-            b2Body* bodyA = fixtureA->GetBody();
-            b2Body* bodyB = fixtureB->GetBody();
-            lastBodyExit = GetDifferentBody(bodyA, bodyB, bodyToTrack->GetBody());
+            PhysBody* bodyA = (PhysBody*)fixtureA->GetBody()->GetUserData().pointer;
+            PhysBody* bodyB = (PhysBody*)fixtureB->GetBody()->GetUserData().pointer;
+            lastBodyExit = GetDifferentBody(bodyA, bodyB, physBodyToTrack);
             bodiesColliding.erase(lastBodyEnter);
         }
     }
 }
 
-std::set<b2Body*> CollisionSensor::GetBodiesColliding()
+std::set<PhysBody*> CollisionSensor::GetBodiesColliding()
 {
     return bodiesColliding;
 }
 
-b2Body* CollisionSensor::GetDifferentBody(b2Body* body1, b2Body* body2, b2Body* bodyToBeDifferentFrom)
+PhysBody* CollisionSensor::GetDifferentBody(PhysBody* body1, PhysBody* body2, PhysBody* bodyToBeDifferentFrom)
 {
     if (body1 != bodyToBeDifferentFrom)
         return body1;

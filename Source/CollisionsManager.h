@@ -1,8 +1,6 @@
 #pragma once
+#include "ModulePhysics.h"
 #include <vector>
-#pragma warning(disable:)
-#include "box2d/box2d.h"
-#pragma warning(default:)
 
 class CollisionSensor;
 
