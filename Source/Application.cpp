@@ -4,6 +4,7 @@
 #include "ModuleRender.h"
 #include "ModuleAudio.h"
 #include "ModuleTexture.h"
+#include "ModuleLocalization.h"
 #include "ModuleAssetLoader.h"
 #include "ModulePhysics.h"
 #include "ModuleGame.h"
@@ -16,6 +17,7 @@ Application::Application()
 	renderer = new ModuleRender(this);
 	audio = new ModuleAudio(this, true);
 	texture = new ModuleTexture(this, true);
+	localization = new ModuleLocalization(this, true);
 	assetLoader = new ModuleAssetLoader(this);
 	physics = new ModulePhysics(this);
 	scene_intro = new ModuleGame(this);
@@ -29,6 +31,7 @@ Application::Application()
 	AddModule(physics);
 	AddModule(audio);
 	AddModule(texture);
+	AddModule(localization);
 	AddModule(assetLoader);
 	
 	// Scenes

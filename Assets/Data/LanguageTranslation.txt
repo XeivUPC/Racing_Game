@@ -1,0 +1,5 @@
+ID|EN|ES|CA
+Language|ENGLISH|SPANISH|CATALAN
+DEFAULT_TEXT|Lorem Ipsum|Lorem Ipsum|Lorem Ipsum
+EMPTY_TEXT|||
+MAINMENU_BUTTON_START|Exit|Salida|Sortida

@@ -57,7 +57,7 @@ public:
 
 
 class Box2DFactory;
-class CollisionsManager;
+class CollisionsDispatcher;
 
 // Module --------------------------------------
 class ModulePhysics : public Module
@@ -71,10 +71,12 @@ public:
 	update_status PostUpdate();
 	bool CleanUp();
 
-	CollisionsManager* collisionsManager = nullptr;
-	Box2DFactory* factory = nullptr;
+	const Box2DFactory& factory();
 
 private:
 	bool debug = false;
 	b2World* world = nullptr;
+
+	CollisionsDispatcher* collisionsManager = nullptr;
+	Box2DFactory* box2Dfactory = nullptr;
 };

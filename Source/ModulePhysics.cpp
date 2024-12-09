@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "ModuleRender.h"
 #include "ModulePhysics.h"
-#include "CollisionsManager.h"
+#include "CollisionsDispatcher.h"
 #include "Box2DFactory.h"
 
 #include "p2Point.h"
@@ -14,7 +14,7 @@
 ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	debug = true;
-	collisionsManager = new CollisionsManager();
+	collisionsManager = new CollisionsDispatcher();
 	
 }
 
@@ -29,7 +29,7 @@ bool ModulePhysics::Start()
 	
 	b2Vec2 gravity = { 0,0 };
 	world = new b2World(gravity);
-	factory = new Box2DFactory(world);
+	box2Dfactory = new Box2DFactory(world);
 
 	world->SetContactListener(collisionsManager);
 
@@ -144,12 +144,17 @@ bool ModulePhysics::CleanUp()
 	LOG("Destroying physics world");
 
 	delete collisionsManager;
-	delete factory;
+	delete box2Dfactory;
 
 	// Delete the whole physics world!
 	delete world;
 
 	return true;
+}
+
+const Box2DFactory& ModulePhysics::factory()
+{
+	return *box2Dfactory;
 }
 
 ///////////////////////////////////////////////////////////
@@ -160,6 +165,7 @@ bool ModulePhysics::CleanUp()
 
 PhysBody::PhysBody()
 {
+
 }
 
 PhysBody::~PhysBody()
@@ -235,7 +241,7 @@ void PhysBody::SetFriction(size_t fixtureIndex, float friction) {
 void PhysBody::SetDensity(size_t fixtureIndex, float density) {
 	if (b2Fixture* fixture = GetFixtureByIndex(fixtureIndex)) {
 		fixture->SetDensity(density);
-		body->ResetMassData(); // Recalcular masa
+		body->ResetMassData();
 	}
 }
 

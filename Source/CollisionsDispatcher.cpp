@@ -1,17 +1,17 @@
-#include "CollisionsManager.h"
+#include "CollisionsDispatcher.h"
 #include "CollisionSensor.h"
 
-CollisionsManager::CollisionsManager()
+CollisionsDispatcher::CollisionsDispatcher()
 {
 
 }
 
-CollisionsManager::~CollisionsManager()
+CollisionsDispatcher::~CollisionsDispatcher()
 {
    
 }
 
-void CollisionsManager::BeginContact(b2Contact* contact)
+void CollisionsDispatcher::BeginContact(b2Contact* contact)
 {
 
     b2FixtureUserData dataA = contact->GetFixtureA()->GetUserData();
@@ -26,7 +26,7 @@ void CollisionsManager::BeginContact(b2Contact* contact)
 
 }
 
-void CollisionsManager::EndContact(b2Contact* contact)
+void CollisionsDispatcher::EndContact(b2Contact* contact)
 {
 
     b2FixtureUserData dataA = contact->GetFixtureA()->GetUserData();

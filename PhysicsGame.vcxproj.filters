@@ -68,7 +68,7 @@
     <ClCompile Include="Source\CollisionSensor.cpp">
       <Filter>Systems\CollisionDetection</Filter>
     </ClCompile>
-    <ClCompile Include="Source\CollisionsManager.cpp">
+    <ClCompile Include="Source\CollisionsDispatcher.cpp">
       <Filter>Systems\CollisionDetection</Filter>
     </ClCompile>
     <ClCompile Include="Source\external\pugi\pugixml.cpp">
@@ -76,6 +76,12 @@
     </ClCompile>
     <ClCompile Include="Source\Box2DFactory.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MapObject.cpp">
+      <Filter>MapObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ModuleLocalization.cpp">
+      <Filter>Modules\Type %28Module%29</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -114,7 +120,7 @@
     <ClInclude Include="Source\CollisionSensor.h">
       <Filter>Systems\CollisionDetection</Filter>
     </ClInclude>
-    <ClInclude Include="Source\CollisionsManager.h">
+    <ClInclude Include="Source\CollisionsDispatcher.h">
       <Filter>Systems\CollisionDetection</Filter>
     </ClInclude>
     <ClInclude Include="Source\external\pugi\pugixml.hpp">
@@ -128,6 +134,12 @@
     </ClInclude>
     <ClInclude Include="Source\Box2DFactory.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MapObject.h">
+      <Filter>MapObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModuleLocalization.h">
+      <Filter>Modules\Type %28Module%29</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

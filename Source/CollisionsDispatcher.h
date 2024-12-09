@@ -4,10 +4,10 @@
 
 class CollisionSensor;
 
-class CollisionsManager : public b2ContactListener {
+class CollisionsDispatcher : public b2ContactListener {
 public:
-    CollisionsManager();
-    ~CollisionsManager(); 
+    CollisionsDispatcher();
+    ~CollisionsDispatcher(); 
 
 private:
 

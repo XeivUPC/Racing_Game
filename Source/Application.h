@@ -9,6 +9,7 @@ class ModuleWindow;
 class ModuleRender;
 class ModuleAudio;
 class ModuleTexture;
+class ModuleLocalization;
 class ModuleAssetLoader;
 class ModulePhysics;
 class ModuleGame;
@@ -21,6 +22,7 @@ public:
 	ModuleWindow* window;
 	ModuleAudio* audio;
 	ModuleTexture* texture;
+	ModuleLocalization* localization;
 	ModuleAssetLoader* assetLoader;
 	ModulePhysics* physics;
 	ModuleGame* scene_intro;
