@@ -21,6 +21,9 @@ private:
 
 	PhysJoint* jointFrontL;
 	PhysJoint* jointFrontR;
+
+	Wheel* wheelBackR;
+	Wheel* wheelBackL;
 protected:
 
 };

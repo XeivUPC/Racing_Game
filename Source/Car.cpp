@@ -10,16 +10,18 @@ Car::Car(ModuleGame* gameAt) : Vehicle(gameAt)
 
     const Box2DFactory& factory = gameAt->App->physics->factory();
     body = factory.CreateBox({5,5},2,4);
-    body->SetAngularDamping(0.1f);
+    body->SetAngularDamping(3);
     body->SetDensity(0,0.4f);
-    body->SetMass(100);
+    body->SetMass(100, {0,0},30);
 
-    Wheel*wheel = new Wheel(this);
+    Wheel* wheel = new Wheel(this);
+    wheelBackL = wheel;
     wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
     PhysJoint* jointBackL = factory.CreateRevoluteJoint(body, wheel->body, { -1.1f, -1.5f }, { 0,0 }, true, 0, 0);
     wheels.push_back(wheel);
 
     wheel = new Wheel(this);
+    wheelBackR = wheel;
     wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
     PhysJoint* jointBackR = factory.CreateRevoluteJoint(body, wheel->body, { 1.1f, -1.5f }, { 0,0 }, true, 0, 0);
     wheels.push_back(wheel);
@@ -50,10 +52,23 @@ update_status Car::Update()
     if (IsKeyDown(KEY_S))
         dir.y -= 1;
 
+   
     for (const auto& wheel : wheels)
     {
         wheel->Move(dir.y);        
     }
+
+    if (IsKeyDown(KEY_SPACE))
+    {
+        wheelBackL->StartBrake();
+        wheelBackR->StartBrake();
+        printf("dsadasdas");
+    }
+    else {
+        wheelBackL->StopBrake();
+        wheelBackR->StopBrake();
+    }
+
 
     //control steering
     float lockAngle = 35 * DEGTORAD;

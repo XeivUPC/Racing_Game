@@ -336,12 +336,12 @@ b2Fixture* PhysBody::GetFixtureByIndex(size_t fixtureIndex) const {
 	return fixture;
 }
 
-void PhysBody::SetMass(float mass)
+void PhysBody::SetMass(float mass, Vector2 center, float inertia)
 {
 	b2MassData massData;
 	massData.mass = mass;
-	massData.center = {0,0};
-	massData.I = 50.f;
+	massData.center = {center.x, center.y};
+	massData.I = inertia;
 	body->SetMassData(&massData);
 }
 

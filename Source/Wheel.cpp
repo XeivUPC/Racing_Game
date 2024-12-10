@@ -50,7 +50,7 @@ void Wheel::UpdateFriction()
 	//forward linear velocity
 	Vector2 currentForwardNormal = GetForwardVelocity();
 	float currentForwardSpeed = Vector2Length(Vector2Normalize(currentForwardNormal));
-	float dragForceMagnitude = -2 * currentForwardSpeed;
+	float dragForceMagnitude = -2 * currentForwardSpeed * isBraking ? -100 : 1;
 	body->ApplyForce(Vector2Scale(currentForwardNormal,currentTraction * dragForceMagnitude), body->GetWorldCenter());
 }
 
@@ -74,6 +74,16 @@ Vector2 Wheel::GetForwardVelocity()
 	return Vector2Scale(currentForwardNormal, Vector2DotProduct(currentForwardNormal, body->GetLinearVelocity()));
 }
 
+void Wheel::StartBrake()
+{
+	isBraking = true;
+}
+
+void Wheel::StopBrake()
+{
+	isBraking = false;
+}
+
 void Wheel::Turn(int direction)
 {
 	float desiredTorque = 0;
@@ -94,9 +104,9 @@ void Wheel::Move(int direction)
 		desiredSpeed = maxBackwardSpeed;
 	}
 	else {
-		desiredSpeed = Vector2Length(GetForwardVelocity());
+		desiredSpeed = Vector2Length(body->GetLinearVelocity());
+		
 	}
-
 	//find current speed in forward direction
 	Vector2 currentForwardNormal = body->GetWorldVector({ 0, 1 });
 	float currentSpeed = Vector2DotProduct(GetForwardVelocity(), currentForwardNormal);

@@ -103,7 +103,7 @@ public:
 	float GetAngle() const;
 	float GetMass() const;
 
-	void SetMass(float mass);
+	void SetMass(float mass, Vector2 center, float inertia);
 	void SetType(BodyType type);
 	void SetFriction(size_t fixtureIndex, float friction);
 	void SetDensity(size_t fixtureIndex, float density);

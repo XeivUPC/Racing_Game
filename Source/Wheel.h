@@ -15,6 +15,8 @@ public:
 	void Turn(int direction);
 	void Move(int direction);
 	void SetUpWheelCharacteristics(float maxForwardSpeed, float maxBackwardSpeed, float maxDriveForce, float maxLateralImpulse);
+	void StartBrake();
+	void StopBrake();
 
 
 	PhysBody* body = nullptr;
@@ -25,6 +27,7 @@ private:
 	Vector2 GetLateralVelocity();
 	Vector2 GetForwardVelocity();
 
+
 	Vehicle* owner=nullptr;
 
 	float maxForwardSpeed=0;
@@ -33,6 +36,9 @@ private:
 	float maxLateralImpulse = 0;
 
 	float currentTraction=1;
+
+	bool isBraking = false;
+
 
 protected:
 };
