@@ -15,9 +15,6 @@ public:
 	void Turn(int direction);
 	void Move(int direction);
 	void SetUpWheelCharacteristics(float maxForwardSpeed, float maxBackwardSpeed, float maxDriveForce, float maxLateralImpulse);
-	void StartBrake();
-	void StopBrake();
-
 
 	PhysBody* body = nullptr;
 private:
@@ -36,9 +33,6 @@ private:
 	float maxLateralImpulse = 0;
 
 	float currentTraction=1;
-
-	bool isBraking = false;
-
 
 protected:
 };

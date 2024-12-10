@@ -15,13 +15,11 @@ Car::Car(ModuleGame* gameAt) : Vehicle(gameAt)
     body->SetMass(100, {0,0},30);
 
     Wheel* wheel = new Wheel(this);
-    wheelBackL = wheel;
     wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
     PhysJoint* jointBackL = factory.CreateRevoluteJoint(body, wheel->body, { -1.1f, -1.5f }, { 0,0 }, true, 0, 0);
     wheels.push_back(wheel);
 
     wheel = new Wheel(this);
-    wheelBackR = wheel;
     wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
     PhysJoint* jointBackR = factory.CreateRevoluteJoint(body, wheel->body, { 1.1f, -1.5f }, { 0,0 }, true, 0, 0);
     wheels.push_back(wheel);
@@ -56,17 +54,6 @@ update_status Car::Update()
     for (const auto& wheel : wheels)
     {
         wheel->Move(dir.y);        
-    }
-
-    if (IsKeyDown(KEY_SPACE))
-    {
-        wheelBackL->StartBrake();
-        wheelBackR->StartBrake();
-        printf("dsadasdas");
-    }
-    else {
-        wheelBackL->StopBrake();
-        wheelBackR->StopBrake();
     }
 
 

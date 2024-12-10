@@ -50,8 +50,10 @@ void Wheel::UpdateFriction()
 	//forward linear velocity
 	Vector2 currentForwardNormal = GetForwardVelocity();
 	float currentForwardSpeed = Vector2Length(Vector2Normalize(currentForwardNormal));
-	float dragForceMagnitude = -2 * currentForwardSpeed * isBraking ? -100 : 1;
+	float dragForceMagnitude = -2 * currentForwardSpeed;
 	body->ApplyForce(Vector2Scale(currentForwardNormal,currentTraction * dragForceMagnitude), body->GetWorldCenter());
+
+	
 }
 
 void Wheel::SetUpWheelCharacteristics(float maxForwardSpeed, float maxBackwardSpeed, float maxDriveForce, float maxLateralImpulse)
@@ -74,15 +76,6 @@ Vector2 Wheel::GetForwardVelocity()
 	return Vector2Scale(currentForwardNormal, Vector2DotProduct(currentForwardNormal, body->GetLinearVelocity()));
 }
 
-void Wheel::StartBrake()
-{
-	isBraking = true;
-}
-
-void Wheel::StopBrake()
-{
-	isBraking = false;
-}
 
 void Wheel::Turn(int direction)
 {
@@ -95,6 +88,11 @@ void Wheel::Turn(int direction)
 
 void Wheel::Move(int direction)
 {
+	//find current speed in forward direction
+	Vector2 currentForwardNormal = body->GetWorldVector({ 0, 1 });
+	float currentSpeed = Vector2DotProduct(GetForwardVelocity(), currentForwardNormal);
+
+
 	//find desired speed
 	float desiredSpeed = 0;
 	if (direction == 1) {
@@ -103,13 +101,9 @@ void Wheel::Move(int direction)
 	else if(direction == -1){
 		desiredSpeed = maxBackwardSpeed;
 	}
-	else {
-		desiredSpeed = Vector2Length(body->GetLinearVelocity());
-		
-	}
-	//find current speed in forward direction
-	Vector2 currentForwardNormal = body->GetWorldVector({ 0, 1 });
-	float currentSpeed = Vector2DotProduct(GetForwardVelocity(), currentForwardNormal);
+	else
+		desiredSpeed = currentSpeed;
+
 
 	//apply necessary force
 	float force = 0;
@@ -122,5 +116,7 @@ void Wheel::Move(int direction)
 
 	Vector2 forceVector = Vector2Scale(currentForwardNormal, currentTraction * force);
 	body->ApplyForce(forceVector, body->GetWorldCenter());
+
+	DrawLine(METERS_TO_PIXELS(body->GetPosition().x), METERS_TO_PIXELS(body->GetPosition().y), METERS_TO_PIXELS(body->GetPosition().x + forceVector.x), METERS_TO_PIXELS(body->GetPosition().y + forceVector.y), BLUE);
 
 }
