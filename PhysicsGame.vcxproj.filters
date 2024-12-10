@@ -34,6 +34,15 @@
     <Filter Include="_Lib\Pugixml">
       <UniqueIdentifier>{f79505bd-d4a3-420f-8569-ff24cde47719}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MapObjects\Type %28MapObjects%29\Vehicle">
+      <UniqueIdentifier>{2fd10773-abe3-4aa3-8baf-4782bb91813e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MapObjects\Type %28MapObjects%29\Vehicle\Wheels">
+      <UniqueIdentifier>{ee3ee948-48e2-42dd-bddc-0ee59a48d74a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MapObjects\Type %28MapObjects%29\Vehicle\Car">
+      <UniqueIdentifier>{69314bab-24e6-4085-9934-e3b367c4560c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleAssetLoader.cpp">
@@ -77,11 +86,17 @@
     <ClCompile Include="Source\Box2DFactory.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Source\MapObject.cpp">
-      <Filter>MapObjects</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ModuleLocalization.cpp">
       <Filter>Modules\Type %28Module%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Vehicle.cpp">
+      <Filter>MapObjects\Type %28MapObjects%29\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Car.cpp">
+      <Filter>MapObjects\Type %28MapObjects%29\Vehicle\Car</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Wheel.cpp">
+      <Filter>MapObjects\Type %28MapObjects%29\Vehicle\Wheels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +155,15 @@
     </ClInclude>
     <ClInclude Include="Source\ModuleLocalization.h">
       <Filter>Modules\Type %28Module%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Vehicle.h">
+      <Filter>MapObjects\Type %28MapObjects%29\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Car.h">
+      <Filter>MapObjects\Type %28MapObjects%29\Vehicle\Car</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Wheel.h">
+      <Filter>MapObjects\Type %28MapObjects%29\Vehicle\Wheels</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -13,22 +13,98 @@
 #define PIXEL_TO_METERS(p)  ((float) METER_PER_PIXEL * p)
 
 
+class PhysJoint
+{
+public:
+	enum class JointType
+	{
+		Revolute,
+		Prismatic,
+		Distance,
+		Pulley,
+		Gear,
+		Weld,
+		Mouse
+	};
+
+	PhysJoint();
+	~PhysJoint();
+
+	// Manipulación
+	void SetMotorSpeed(float speed);
+	void SetMaxMotorForceOrTorque(float force);
+	void SetLimits(float lower, float upper);
+	void EnableMotor(bool enable);
+	void EnableLimit(bool enable);
+	void SetLength(float length);
+	void SetRatio(float ratio);
+	void SetTarget(const Vector2& target);
+	void SetMaxForce(float maxForce);
+	void SetLinearOffset(const Vector2& offset);
+	void SetAngularOffset(float offset);
+
+	// Consultas
+	Vector2 GetReactionForce(float inv_dt) const;
+	float GetReactionTorque(float inv_dt) const;
+	float GetJointAngle() const;
+	float GetJointSpeed() const;
+	float GetJointTranslation() const;
+	float GetLength() const;
+	float GetRatio() const;
+	float GetLengthA() const;
+	float GetLengthB() const;
+	Vector2 GetTarget() const;
+	float GetMaxForce() const;
+	Vector2 GetLinearOffset() const;
+	float GetAngularOffset() const;
+
+	// Destruir la articulación
+	void DestroyJoint();
+
+public:
+	b2Joint* joint = nullptr; // Puntero a la articulación subyacente de Box2D
+	JointType type;           // Tipo de la articulación
+
+private:
+};
+
+
 // Small class to return to other modules to track position and rotation of physics bodies
 class PhysBody
 {
 public:
+
+	enum class BodyType
+	{
+		Static,
+		Dynamic,
+		Kinematic
+	};
 	PhysBody();
 	~PhysBody();
 
 	Vector2 GetPhysicPosition() const;
+	Vector2 GetPosition() const;
+	Vector2 GetWorldCenter() const;
+	Vector2 GetWorldVector(Vector2 axis) const;
 
 	void SetPosition(float x, float y);
+	void SetRotation(float rotation);
 	void ApplyForce(const Vector2& force, const Vector2& point);
 	void ApplyLinearImpulse(const Vector2& impulse, const Vector2& point);
+	void ApplyAngularImpulse(float impulse);
+	void ApplyTorque(float torque);
 	void SetVelocity(const Vector2& velocity);
-	Vector2 GetVelocity() const;
+	void SetAngularDamping(float angularDamping);
+	Vector2 GetLinearVelocity() const;
+	float GetAngularVelocity() const;
+	float GetAngularDamping() const;
+	float GetInertia() const;
 	float GetAngle() const;
+	float GetMass() const;
 
+	void SetMass(float mass);
+	void SetType(BodyType type);
 	void SetFriction(size_t fixtureIndex, float friction);
 	void SetDensity(size_t fixtureIndex, float density);
 	void SetRestitution(size_t fixtureIndex, float restitution);
@@ -51,8 +127,8 @@ private:
 	b2Fixture* GetFixtureByIndex(size_t fixtureIndex) const;
 
 public:
-	int width, height = 0;
 	b2Body* body = nullptr;
+	int width, height = 0;
 };
 
 

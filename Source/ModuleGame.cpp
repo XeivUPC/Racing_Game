@@ -7,6 +7,8 @@
 #include "ModulePhysics.h"
 #include "ModuleAssetLoader.h"
 
+#include "Car.h"
+
 ModuleGame::ModuleGame(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	
@@ -21,6 +23,8 @@ bool ModuleGame::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
+	car = new Car(this);
+
 	return ret;
 }
 
@@ -28,12 +32,14 @@ bool ModuleGame::Start()
 bool ModuleGame::CleanUp()
 {
 	LOG("Unloading Intro scene");
-
+	car->CleanUp();
+	delete car;
 	return true;
 }
 
 // Update: draw background
 update_status ModuleGame::Update()
 {
+	car->Update();
 	return UPDATE_CONTINUE;
 }

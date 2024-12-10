@@ -72,7 +72,7 @@ update_status ModulePhysics::PostUpdate()
 					b2CircleShape* shape = (b2CircleShape*)f->GetShape();
 					b2Vec2 pos = f->GetBody()->GetPosition();
 					
-					DrawCircle(METERS_TO_PIXELS(pos.x), METERS_TO_PIXELS(pos.y), (float)METERS_TO_PIXELS(shape->m_radius), Color{0, 0, 0, 128});
+					DrawCircleLines(METERS_TO_PIXELS(pos.x), METERS_TO_PIXELS(pos.y), (float)METERS_TO_PIXELS(shape->m_radius), WHITE);
 				}
 				break;
 
@@ -133,6 +133,16 @@ update_status ModulePhysics::PostUpdate()
 		}
 	}
 
+	for (b2Joint* j = world->GetJointList(); j; j = j->GetNext())
+	{
+		b2Vec2 anchorA = j->GetAnchorA();
+		b2Vec2 anchorB = j->GetAnchorB();
+
+		DrawCircle(METERS_TO_PIXELS(anchorA.x), METERS_TO_PIXELS(anchorA.y), 4, YELLOW);
+		DrawCircle(METERS_TO_PIXELS(anchorB.x), METERS_TO_PIXELS(anchorB.y), 4, YELLOW);
+		DrawLine(METERS_TO_PIXELS(anchorA.x), METERS_TO_PIXELS(anchorA.y), METERS_TO_PIXELS(anchorB.x), METERS_TO_PIXELS(anchorB.y), BLUE);
+	}
+
 	
 	return UPDATE_CONTINUE;
 }
@@ -175,15 +185,52 @@ PhysBody::~PhysBody()
 
 Vector2 PhysBody::GetPhysicPosition() const
 {
-	b2Vec2 pos = body->GetPosition();
-	int x = METERS_TO_PIXELS(pos.x);
-	int y = METERS_TO_PIXELS(pos.y);
-	return { (float)x,(float)y };
+	if (body) {
+		b2Vec2 pos = body->GetPosition();
+		int x = METERS_TO_PIXELS(pos.x);
+		int y = METERS_TO_PIXELS(pos.y);
+		return { (float)x,(float)y };
+	}
+	return { 0,0 };
+}
+
+Vector2 PhysBody::GetPosition() const
+{
+	if (body) {
+		b2Vec2 pos = body->GetPosition();
+		return { pos.x,pos.y };
+	}
+	return { 0,0 };
+}
+
+Vector2 PhysBody::GetWorldCenter() const
+{
+	if (body) {
+		b2Vec2 worldCenter = body->GetWorldCenter();
+		return { worldCenter.x, worldCenter.y };
+	}
+	return { 0,0 };
+}
+
+Vector2 PhysBody::GetWorldVector(Vector2 axis) const
+{
+	if (body) {
+		b2Vec2 worldVector = body->GetWorldVector({ axis.x, axis.y });
+		return { worldVector.x, worldVector.y };
+	}
+	return { 0,0 };
 }
 
 void PhysBody::SetPosition(float x, float y) {
 	if (body) {
 		body->SetTransform({ x, y }, body->GetAngle());
+	}
+}
+
+void PhysBody::SetRotation(float rotation)
+{
+	if (body) {
+		body->SetTransform(body->GetPosition(),rotation);
 	}
 }
 
@@ -200,13 +247,35 @@ void PhysBody::ApplyLinearImpulse(const Vector2& impulse, const Vector2& point) 
 	}
 }
 
+void PhysBody::ApplyAngularImpulse(float impulse)
+{
+	if (body) {
+
+		body->ApplyAngularImpulse(impulse, true);
+	}
+}
+
+void PhysBody::ApplyTorque(float torque)
+{
+	if (body) {
+		body->ApplyTorque(torque, true);
+	}
+}
+
 void PhysBody::SetVelocity(const Vector2& velocity) {
 	if (body) {
 		body->SetLinearVelocity({ velocity.x,velocity.y});
 	}
 }
 
-Vector2 PhysBody::GetVelocity() const {
+void PhysBody::SetAngularDamping(float angularDamping)
+{
+	if (body) {
+		body->SetAngularDamping(angularDamping);
+	}
+}
+
+Vector2 PhysBody::GetLinearVelocity() const {
 	if (body) {
 		b2Vec2 vel = body->GetLinearVelocity();
 		return {vel.x,vel.y};
@@ -214,9 +283,44 @@ Vector2 PhysBody::GetVelocity() const {
 	return {0,0};
 }
 
+float PhysBody::GetAngularVelocity() const
+{
+	if (body) {
+		float vel = body->GetAngularVelocity();
+		return vel;
+	}
+	return 0;
+}
+
+float PhysBody::GetAngularDamping() const
+{
+	if (body) {
+		float val = body->GetAngularDamping();
+		return val;
+	}
+	return 0;
+}
+
+float PhysBody::GetInertia() const
+{
+	if (body) {
+		float vel = body->GetInertia();
+		return vel;
+	}
+	return 0;
+}
+
 float PhysBody::GetAngle() const {
 	if (body) {
 		return body->GetAngle();
+	}
+	return 0.0f;
+}
+
+float PhysBody::GetMass() const
+{
+	if (body) {
+		return body->GetMass();
 	}
 	return 0.0f;
 }
@@ -230,6 +334,36 @@ b2Fixture* PhysBody::GetFixtureByIndex(size_t fixtureIndex) const {
 		i++;
 	}
 	return fixture;
+}
+
+void PhysBody::SetMass(float mass)
+{
+	b2MassData massData;
+	massData.mass = mass;
+	massData.center = {0,0};
+	massData.I = 50.f;
+	body->SetMassData(&massData);
+}
+
+void PhysBody::SetType(BodyType type)
+{
+	if (body) {
+		switch (type)
+		{
+		case PhysBody::BodyType::Static:
+			body->SetType(b2_staticBody);
+			break;
+		case PhysBody::BodyType::Dynamic:
+			body->SetType(b2_dynamicBody);
+			break;
+		case PhysBody::BodyType::Kinematic:
+			body->SetType(b2_kinematicBody);
+			break;
+		default:
+			break;
+		}
+		
+	}
 }
 
 void PhysBody::SetFriction(size_t fixtureIndex, float friction) {
@@ -330,6 +464,259 @@ void PhysBody::DestroyBody() {
 	if (body && body->GetWorld()) {
 		body->GetWorld()->DestroyBody(body);
 		body = nullptr;
+	}
+}
+
+#pragma endregion
+
+#pragma region PhysJoint
+
+PhysJoint::PhysJoint()
+{
+}
+
+PhysJoint::~PhysJoint()
+{
+	DestroyJoint();
+}
+
+void PhysJoint::SetMotorSpeed(float speed)
+{
+	if (auto* revoluteJoint = dynamic_cast<b2RevoluteJoint*>(joint))
+	{
+		revoluteJoint->SetMotorSpeed(speed);
+	}
+	else if (auto* prismaticJoint = dynamic_cast<b2PrismaticJoint*>(joint))
+	{
+		prismaticJoint->SetMotorSpeed(speed);
+	}
+}
+
+void PhysJoint::SetMaxMotorForceOrTorque(float force)
+{
+	if (auto* prismaticJoint = dynamic_cast<b2PrismaticJoint*>(joint))
+	{
+		prismaticJoint->SetMaxMotorForce(force);
+	}
+	else if (auto* revoluteJoint = dynamic_cast<b2RevoluteJoint*>(joint))
+	{
+		revoluteJoint->SetMaxMotorTorque(force);
+	}
+}
+
+void PhysJoint::SetLimits(float lower, float upper)
+{
+	if (auto* revoluteJoint = dynamic_cast<b2RevoluteJoint*>(joint))
+	{
+		revoluteJoint->SetLimits(lower, upper);
+		revoluteJoint->EnableLimit(true);
+	}
+	else if (auto* prismaticJoint = dynamic_cast<b2PrismaticJoint*>(joint))
+	{
+		prismaticJoint->SetLimits(lower, upper);
+		prismaticJoint->EnableLimit(true);
+	}
+}
+
+void PhysJoint::EnableMotor(bool enable)
+{
+	if (auto* revoluteJoint = dynamic_cast<b2RevoluteJoint*>(joint))
+	{
+		revoluteJoint->EnableMotor(enable);
+	}
+	else if (auto* prismaticJoint = dynamic_cast<b2PrismaticJoint*>(joint))
+	{
+		prismaticJoint->EnableMotor(enable);
+	}
+}
+
+void PhysJoint::EnableLimit(bool enable)
+{
+	if (auto* revoluteJoint = dynamic_cast<b2RevoluteJoint*>(joint))
+	{
+		revoluteJoint->EnableLimit(enable);
+	}
+	else if (auto* prismaticJoint = dynamic_cast<b2PrismaticJoint*>(joint))
+	{
+		prismaticJoint->EnableLimit(enable);
+	}
+}
+
+Vector2 PhysJoint::GetReactionForce(float inv_dt) const
+{
+	b2Vec2 force = joint->GetReactionForce(inv_dt);
+	return { force.x, force.y };
+}
+
+float PhysJoint::GetReactionTorque(float inv_dt) const
+{
+	return joint->GetReactionTorque(inv_dt);
+}
+
+float PhysJoint::GetJointAngle() const
+{
+	if (auto* revoluteJoint = dynamic_cast<b2RevoluteJoint*>(joint))
+	{
+		return revoluteJoint->GetJointAngle();
+	}
+	return 0.0f;
+}
+
+float PhysJoint::GetJointSpeed() const
+{
+	if (auto* revoluteJoint = dynamic_cast<b2RevoluteJoint*>(joint))
+	{
+		return revoluteJoint->GetJointSpeed();
+	}else if (auto* prismaticJoint = dynamic_cast<b2PrismaticJoint*>(joint))
+	{
+		return prismaticJoint->GetJointSpeed();
+	}
+	return 0.0f;
+}
+
+float PhysJoint::GetJointTranslation() const
+{
+	if (auto* prismaticJoint = dynamic_cast<b2PrismaticJoint*>(joint))
+	{
+		return prismaticJoint->GetJointTranslation();
+	}
+	return 0.0f;
+}
+
+void PhysJoint::SetLength(float length)
+{
+	if (auto* distanceJoint = dynamic_cast<b2DistanceJoint*>(joint))
+	{
+		distanceJoint->SetLength(length);
+	}
+}
+
+float PhysJoint::GetLength() const
+{
+	if (auto* distanceJoint = dynamic_cast<b2DistanceJoint*>(joint))
+	{
+		return distanceJoint->GetLength();
+	}
+	return 0.0f;
+}
+
+float PhysJoint::GetRatio() const
+{
+	if (auto* pulleyJoint = dynamic_cast<b2PulleyJoint*>(joint))
+	{
+		return pulleyJoint->GetRatio();
+	}else if (auto* gearJoint = dynamic_cast<b2GearJoint*>(joint))
+	{
+		return gearJoint->GetRatio();
+	}
+	return 0.0f;
+}
+
+float PhysJoint::GetLengthA() const
+{
+	if (auto* pulleyJoint = dynamic_cast<b2PulleyJoint*>(joint))
+	{
+		return pulleyJoint->GetLengthA();
+	}
+	return 0.0f;
+}
+
+float PhysJoint::GetLengthB() const
+{
+	if (auto* pulleyJoint = dynamic_cast<b2PulleyJoint*>(joint))
+	{
+		return pulleyJoint->GetLengthB();
+	}
+	return 0.0f;
+}
+
+void PhysJoint::SetRatio(float ratio)
+{
+	if (auto* gearJoint = dynamic_cast<b2GearJoint*>(joint))
+	{
+		gearJoint->SetRatio(ratio);
+	}
+}
+
+void PhysJoint::SetTarget(const Vector2& target)
+{
+	if (auto* mouseJoint = dynamic_cast<b2MouseJoint*>(joint))
+	{
+		mouseJoint->SetTarget(b2Vec2(target.x, target.y));
+	}
+}
+
+Vector2 PhysJoint::GetTarget() const
+{
+	if (auto* mouseJoint = dynamic_cast<b2MouseJoint*>(joint))
+	{
+		b2Vec2 target = mouseJoint->GetTarget();
+		return { target.x, target.y };
+	}
+	return { 0,0 };
+}
+
+void PhysJoint::SetMaxForce(float maxForce)
+{
+	if (auto* mouseJoint = dynamic_cast<b2MouseJoint*>(joint))
+	{
+		mouseJoint->SetMaxForce(maxForce);
+	}else if (auto* motorJoint = dynamic_cast<b2MotorJoint*>(joint))
+	{
+		motorJoint->SetMaxForce(maxForce);
+	}
+}
+
+float PhysJoint::GetMaxForce() const
+{
+	if (auto* mouseJoint = dynamic_cast<b2MouseJoint*>(joint))
+	{
+		return mouseJoint->GetMaxForce();
+	}else if (auto* motorJoint = dynamic_cast<b2MotorJoint*>(joint))
+	{
+		motorJoint->GetMaxForce();
+	}
+	return 0.0f;
+}
+
+void PhysJoint::SetLinearOffset(const Vector2& offset) {
+	if (auto* motorJoint = dynamic_cast<b2MotorJoint*>(joint))
+	{
+		motorJoint->SetLinearOffset(b2Vec2(offset.x, offset.y));
+	}
+}
+
+Vector2  PhysJoint::GetLinearOffset() const {
+	if (auto* motorJoint = dynamic_cast<b2MotorJoint*>(joint))
+	{
+		b2Vec2 offset = motorJoint->GetLinearOffset();
+		return { offset.x, offset.y };
+	}
+	return {0,0};
+}
+
+void PhysJoint::SetAngularOffset(float offset) {
+	if (auto* motorJoint = dynamic_cast<b2MotorJoint*>(joint))
+	{
+		motorJoint->SetAngularOffset(offset);
+	}
+}
+
+float PhysJoint::GetAngularOffset() const
+{
+	if (auto* motorJoint = dynamic_cast<b2MotorJoint*>(joint))
+	{
+		return motorJoint->GetAngularOffset();
+	}
+	return 0.0f;
+}
+
+void PhysJoint::DestroyJoint()
+{
+	if (joint)
+	{
+		joint->GetBodyA()->GetWorld()->DestroyJoint(joint);
+		joint = nullptr;
 	}
 }
 
