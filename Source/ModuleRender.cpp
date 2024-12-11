@@ -64,7 +64,7 @@ void ModuleRender::SetBackgroundColor(Color color)
 }
 
 // Draw to screen
-bool ModuleRender::Draw(Texture2D texture, int x, int y, const Rectangle* section, double angle, int pivot_x, int pivot_y) const
+bool ModuleRender::Draw(Texture2D texture, int x, int y, const Rectangle* section, double angle, int pivot_x, int pivot_y, Color tint ) const
 {
     bool ret = true;
 
@@ -82,7 +82,7 @@ bool ModuleRender::Draw(Texture2D texture, int x, int y, const Rectangle* sectio
     Vector2 pivot = { (float)pivot_x, (float)pivot_y };
 
     // Rotate the texture using DrawTexturePro with the correct parameters
-    DrawTexturePro(texture, rect, destRect, pivot, (float)angle, WHITE);
+    DrawTexturePro(texture, rect, destRect, pivot, (float)angle, tint);
 
 	return ret;
 }

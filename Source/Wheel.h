@@ -2,6 +2,7 @@
 #include "Vehicle.h"
 
 class PhysBody;
+class PhysJoint;
 
 class Wheel
 {
@@ -11,12 +12,15 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	void InstallJoint(PhysJoint* joint);
+	PhysJoint* GetJoint();
 
 	void Turn(int direction);
 	void Move(int direction);
 	void SetUpWheelCharacteristics(float maxForwardSpeed, float maxBackwardSpeed, float maxDriveForce, float maxLateralImpulse);
 
 	PhysBody* body = nullptr;
+	PhysJoint* joint = nullptr;
 private:
 
 	void UpdateTraction();

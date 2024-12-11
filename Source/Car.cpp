@@ -15,7 +15,7 @@ Car::Car(ModuleGame* gameAt) : Vehicle(gameAt)
 	//// Create Wheels
 
     const Box2DFactory& factory = gameAt->App->physics->factory();
-    body = factory.CreateBox({5,5},1.5f,1.5f);
+    body = factory.CreateBox({5,5},2.f,4.5f);
     body->SetAngularDamping(3);
     body->SetDensity(0,0.4f);
     body->SetMass(100, {0,0},30);
@@ -32,13 +32,15 @@ Car::Car(ModuleGame* gameAt) : Vehicle(gameAt)
 
     wheel = new Wheel(this);
     wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
-    jointFrontL = factory.CreateRevoluteJoint(body, wheel->body, { -1, 1.5f }, {0,0}, true, 0, 0);
+    jointFrontL = factory.CreateRevoluteJoint(body, wheel->body, { -1.1, 1.5f }, {0,0}, true, 0, 0);
     wheels.push_back(wheel);
+    wheel->InstallJoint(jointFrontL);
 
     wheel = new Wheel(this);
     wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
-    jointFrontR = factory.CreateRevoluteJoint(body, wheel->body, { 1, 1.5f }, { 0,0 }, true, 0, 0);
+    jointFrontR = factory.CreateRevoluteJoint(body, wheel->body, { 1.1, 1.5f }, { 0,0 }, true, 0, 0);
     wheels.push_back(wheel);
+    wheel->InstallJoint(jointFrontR);
 }
 
 Car::~Car()
@@ -68,16 +70,37 @@ update_status Car::Update()
     jointBackL->SetLimits(-newAngle, -newAngle);*/
 
     Rectangle carRect = { 0,0,carTexture->width, carTexture->height };
+    Rectangle wheelRect = { 0,0,wheelTexture->width, wheelTexture->height };
 
     float radianAngle = body->GetAngle();
-    Vector2 rotatedOffset = {
+
+    Vector2 carRotatedOffset = {
        cos(radianAngle) * carTexture->width/2 - sin(radianAngle) * carTexture->height / 2 ,
        sin(radianAngle) * carTexture->width / 2 + cos(radianAngle) * carTexture->height / 2
     };
-    gameAt->App->renderer->Draw(*carTexture, body->GetPhysicPosition().x + rotatedOffset.x, body->GetPhysicPosition().y + rotatedOffset.y,&carRect,RAD2DEG * body->GetAngle() + 180, cos(- rotatedOffset.x), sin(- rotatedOffset.y));
+    
 
+    radianAngle =0;
+   
 
-    DrawCircle(body->GetPhysicPosition().x, body->GetPhysicPosition().y,1,RED);
+    for (const auto& wheel : wheels)
+    {
+        radianAngle = body->GetAngle();
+        double extraAngle = 0;
+        if (wheel->GetJoint() != nullptr)
+            extraAngle = wheel->GetJoint()->GetJointAngle();
+        radianAngle += extraAngle;
+
+        Vector2 wheelRotatedOffset = {
+            cos(radianAngle) * wheelTexture->width / 2 - sin(radianAngle) * wheelTexture->height / 2 ,
+            sin(radianAngle) * wheelTexture->width / 2 + cos(radianAngle) * wheelTexture->height / 2
+        };
+        gameAt->App->renderer->Draw(*wheelTexture, wheel->body->GetPhysicPosition().x + wheelRotatedOffset.x, wheel->body->GetPhysicPosition().y + wheelRotatedOffset.y, &wheelRect, RAD2DEG * (radianAngle) + 180, cos(-wheelRotatedOffset.x), sin(-wheelRotatedOffset.y));
+    }
+
+    radianAngle = body->GetAngle();
+    gameAt->App->renderer->Draw(*carTexture, body->GetPhysicPosition().x + carRotatedOffset.x, body->GetPhysicPosition().y + carRotatedOffset.y, &carRect, RAD2DEG * radianAngle + 180, cos(-carRotatedOffset.x), sin(-carRotatedOffset.y));
+   
 	return UPDATE_CONTINUE;
 }
 

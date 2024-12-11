@@ -76,6 +76,16 @@ Vector2 Wheel::GetForwardVelocity()
 }
 
 
+void Wheel::InstallJoint(PhysJoint* joint)
+{
+	this->joint = joint;
+}
+
+PhysJoint* Wheel::GetJoint()
+{
+	return joint;
+}
+
 void Wheel::Turn(int direction)
 {
 	float desiredTorque = 0;
