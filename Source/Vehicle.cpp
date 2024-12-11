@@ -12,10 +12,11 @@ Vehicle::~Vehicle()
 
 update_status Vehicle::Update()
 {
+	GetInput();
 	for (const auto& wheel : wheels)
 	{
-		/// Update Wheels
 		wheel->Update();
+		wheel->Move(moveInput.y);
 	}
 	return UPDATE_CONTINUE;
 }
@@ -30,4 +31,19 @@ bool Vehicle::CleanUp()
 		delete wheel;
 	}
 	return true;
+}
+
+void Vehicle::GetInput()
+{
+	moveInput = { 0,0 };
+
+	if (IsKeyDown(KEY_W))
+		moveInput.y += 1;
+	if (IsKeyDown(KEY_S))
+		moveInput.y -= 1;
+
+	if (IsKeyDown(KEY_A))
+		moveInput.x -= 1;
+	if (IsKeyDown(KEY_D))
+		moveInput.x += 1;
 }

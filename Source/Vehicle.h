@@ -17,10 +17,12 @@ public:
 	bool CleanUp();
 
 private:
+	void GetInput();
 
 protected:
 	vector<Wheel*> wheels;
 	PhysBody* body = nullptr;
+	Vector2 moveInput;
 
 };
 

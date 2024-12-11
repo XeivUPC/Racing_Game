@@ -1,5 +1,4 @@
 #include "Wheel.h"
-#include "Globals.h"
 #include "Application.h"
 #include "ModulePhysics.h"
 #include "Box2DFactory.h"
@@ -116,7 +115,4 @@ void Wheel::Move(int direction)
 
 	Vector2 forceVector = Vector2Scale(currentForwardNormal, currentTraction * force);
 	body->ApplyForce(forceVector, body->GetWorldCenter());
-
-	DrawLine(METERS_TO_PIXELS(body->GetPosition().x), METERS_TO_PIXELS(body->GetPosition().y), METERS_TO_PIXELS(body->GetPosition().x + forceVector.x), METERS_TO_PIXELS(body->GetPosition().y + forceVector.y), BLUE);
-
 }

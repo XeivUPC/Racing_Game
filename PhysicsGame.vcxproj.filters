@@ -40,7 +40,10 @@
     <Filter Include="MapObjects\Type %28MapObjects%29\Vehicle\Wheels">
       <UniqueIdentifier>{ee3ee948-48e2-42dd-bddc-0ee59a48d74a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MapObjects\Type %28MapObjects%29\Vehicle\Car">
+    <Filter Include="MapObjects\Type %28MapObjects%29\Vehicle\Type %28Vehicle%29">
+      <UniqueIdentifier>{bd8f0996-e1f2-44f0-9a6c-e064a777300b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MapObjects\Type %28MapObjects%29\Vehicle\Type %28Vehicle%29\Car">
       <UniqueIdentifier>{69314bab-24e6-4085-9934-e3b367c4560c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -92,11 +95,11 @@
     <ClCompile Include="Source\Vehicle.cpp">
       <Filter>MapObjects\Type %28MapObjects%29\Vehicle</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Car.cpp">
-      <Filter>MapObjects\Type %28MapObjects%29\Vehicle\Car</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Wheel.cpp">
       <Filter>MapObjects\Type %28MapObjects%29\Vehicle\Wheels</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Car.cpp">
+      <Filter>MapObjects\Type %28MapObjects%29\Vehicle\Type %28Vehicle%29\Car</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -159,11 +162,11 @@
     <ClInclude Include="Source\Vehicle.h">
       <Filter>MapObjects\Type %28MapObjects%29\Vehicle</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Car.h">
-      <Filter>MapObjects\Type %28MapObjects%29\Vehicle\Car</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Wheel.h">
       <Filter>MapObjects\Type %28MapObjects%29\Vehicle\Wheels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Car.h">
+      <Filter>MapObjects\Type %28MapObjects%29\Vehicle\Type %28Vehicle%29\Car</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
