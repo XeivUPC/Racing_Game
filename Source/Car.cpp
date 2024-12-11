@@ -69,14 +69,14 @@ update_status Car::Update()
   /*jointBackR->SetLimits(-newAngle, -newAngle);
     jointBackL->SetLimits(-newAngle, -newAngle);*/
 
-    Rectangle carRect = { 0,0,carTexture->width, carTexture->height };
+    Rectangle carRect = { 0,0,190, 297 };
     Rectangle wheelRect = { 0,0,wheelTexture->width, wheelTexture->height };
 
     float radianAngle = body->GetAngle();
 
     Vector2 carRotatedOffset = {
-       cos(radianAngle) * carTexture->width/2 - sin(radianAngle) * carTexture->height / 2 ,
-       sin(radianAngle) * carTexture->width / 2 + cos(radianAngle) * carTexture->height / 2
+       cos(radianAngle) * carRect.width/2 - sin(radianAngle) * carRect.height / 2 ,
+       sin(radianAngle) * carRect.width / 2 + cos(radianAngle) * carRect.height / 2
     };
     
 
@@ -92,14 +92,14 @@ update_status Car::Update()
         radianAngle += extraAngle;
 
         Vector2 wheelRotatedOffset = {
-            cos(radianAngle) * wheelTexture->width / 2 - sin(radianAngle) * wheelTexture->height / 2 ,
-            sin(radianAngle) * wheelTexture->width / 2 + cos(radianAngle) * wheelTexture->height / 2
+            cos(radianAngle) * wheelRect.width / 2 - sin(radianAngle) * wheelRect.height / 2 ,
+            sin(radianAngle) * wheelRect.width / 2 + cos(radianAngle) * wheelRect.height / 2
         };
-        gameAt->App->renderer->Draw(*wheelTexture, wheel->body->GetPhysicPosition().x + wheelRotatedOffset.x, wheel->body->GetPhysicPosition().y + wheelRotatedOffset.y, &wheelRect, RAD2DEG * (radianAngle) + 180, cos(-wheelRotatedOffset.x), sin(-wheelRotatedOffset.y));
+        gameAt->App->renderer->Draw(*wheelTexture, wheel->body->GetPhysicPosition().x + wheelRotatedOffset.x, wheel->body->GetPhysicPosition().y + wheelRotatedOffset.y, &wheelRect, RAD2DEG * (radianAngle) + 180,1, cos(-wheelRotatedOffset.x), sin(-wheelRotatedOffset.y));
     }
 
     radianAngle = body->GetAngle();
-    gameAt->App->renderer->Draw(*carTexture, body->GetPhysicPosition().x + carRotatedOffset.x, body->GetPhysicPosition().y + carRotatedOffset.y, &carRect, RAD2DEG * radianAngle + 180, cos(-carRotatedOffset.x), sin(-carRotatedOffset.y));
+    gameAt->App->renderer->Draw(*carTexture, body->GetPhysicPosition().x + carRotatedOffset.x, body->GetPhysicPosition().y + carRotatedOffset.y, &carRect, RAD2DEG * radianAngle + 180,8, cos(-carRotatedOffset.x), sin(-carRotatedOffset.y));
    
 	return UPDATE_CONTINUE;
 }

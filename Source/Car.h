@@ -12,12 +12,12 @@ public:
 	update_status Update();
 	bool CleanUp();
 private:
-	float maxForwardSpeed = 250;
+	float maxForwardSpeed = 150;
 	float maxBackwardSpeed = -70;
-	float backTireMaxDriveForce = 250;
-	float frontTireMaxDriveForce = 250;
-	float backTireMaxLateralImpulse = 20.5f;
-	float frontTireMaxLateralImpulse = 12.5f;
+	float backTireMaxDriveForce = 200;
+	float frontTireMaxDriveForce = 150;
+	float backTireMaxLateralImpulse = 12.5f;
+	float frontTireMaxLateralImpulse = 8.5f;
 
 	PhysJoint* jointFrontL;
 	PhysJoint* jointFrontR;

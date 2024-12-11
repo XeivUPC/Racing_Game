@@ -64,18 +64,21 @@ void ModuleRender::SetBackgroundColor(Color color)
 }
 
 // Draw to screen
+<<<<<<< Updated upstream
 bool ModuleRender::Draw(Texture2D texture, int x, int y, const Rectangle* section, double angle, int pivot_x, int pivot_y, Color tint ) const
+=======
+bool ModuleRender::Draw(Texture2D texture, int x, int y, const Rectangle* section, double angle, float scale, int pivot_x, int pivot_y, Color tint )
+>>>>>>> Stashed changes
 {
     bool ret = true;
 
-    float scale = 1.0f;
     Rectangle rect = { 0.f, 0.f, (float)texture.width, (float)texture.height };
 
     if (section != NULL) rect = *section;
 
     // Create a destination rectangle based on the provided position and scale
-    Rectangle destRect = { (float)(x - pivot_x) * scale + camera.x,
-                           (float)(y - pivot_y) * scale + camera.y,
+    Rectangle destRect = { (float)(x - pivot_x) + camera.x,
+                           (float)(y - pivot_y) + camera.y,
                            rect.width * scale, rect.height * scale };
 
     // Set the pivot point around which the texture will rotate (the center of rotation)

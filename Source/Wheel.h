@@ -36,7 +36,7 @@ private:
 	float maxDriveForce = 0;
 	float maxLateralImpulse = 0;
 
-	float currentTraction=1;
+	float currentTraction=5;
 
 protected:
 };
