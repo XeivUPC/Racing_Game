@@ -5,16 +5,36 @@
 #include "ModuleTexture.h"
 #include "ModuleRender.h"
 #include "Box2DFactory.h"
+#include "DriftParticle.h"
+#include <raymath.h>
 
-Car::Car(ModuleGame* gameAt) : Vehicle(gameAt)
+Car::Car(Module* moduleAt) : Vehicle(moduleAt)
 {
-    carTexture = gameAt->App->texture->GetTexture("Car");
-    wheelTexture = gameAt->App->texture->GetTexture("Wheel");
+    carTexture = moduleAt->App->texture->GetTexture("Car");
+    wheelTexture = moduleAt->App->texture->GetTexture("Wheel");
 
+    particleSystem = new ParticleSystem(moduleAt);
+
+    //animatorWheel = new Animator(moduleAt->App);
+
+    //AnimationData wheelAnim = AnimationData("Wheel");
+    //wheelAnim.AddSprite(Sprite{ wheelTexture,{0, 0}, {3,5} });
+    //wheelAnim.AddSprite(Sprite{ wheelTexture,{1, 0}, {3,5} });
+    //wheelAnim.AddSprite(Sprite{ wheelTexture,{2, 0}, {3,5} });
+    //wheelAnim.AddSprite(Sprite{ wheelTexture,{3, 0}, {3,5} });
+    //wheelAnim.AddSprite(Sprite{ wheelTexture,{4, 0}, {3,5} });
+    //wheelAnim.AddSprite(Sprite{ wheelTexture,{5, 0}, {3,5} });
+    //wheelAnim.AddSprite(Sprite{ wheelTexture,{6, 0}, {3,5} });
+    //wheelAnim.AddSprite(Sprite{ wheelTexture,{7, 0}, {3,5} });
+    //wheelAnim.AddSprite(Sprite{ wheelTexture,{8, 0}, {3,5} });
+    //wheelAnim.AddSprite(Sprite{ wheelTexture,{9, 0}, {3,5} });
+    //animatorWheel->AddAnimation(wheelAnim);
+    //animatorWheel->SelectAnimation("Wheel",true);
+    //animatorWheel->SetSpeed(0.1f);
 
 	//// Create Wheels
 
-    const Box2DFactory& factory = gameAt->App->physics->factory();
+    const Box2DFactory& factory = moduleAt->App->physics->factory();
     body = factory.CreateBox({5,5},2.f,4.5f);
     body->SetAngularDamping(3);
     body->SetDensity(0,0.4f);
@@ -50,6 +70,7 @@ Car::~Car()
 update_status Car::Update()
 {
 	Vehicle::Update();
+    particleSystem->UpdateParticles();
 
     //control steering
     float lockAngle = 35 * DEGTORAD;
@@ -75,31 +96,46 @@ update_status Car::Update()
     double radianAngle = body->GetAngle();
 
     Vector2 carRotatedOffset = {
-       (float)(cos(radianAngle) * carRect.width/2 - sin(radianAngle) * carRect.height / 2.f) ,
-        (float)(sin(radianAngle) * carRect.width / 2 + cos(radianAngle) * carRect.height / 2.f)
+       -carRect.width/2.f,
+       -carRect.height / 2.f
     };
-    
+    Vector2 wheelRotatedOffset = {
+             -wheelRect.width / 2,
+             -wheelRect.height / 2
+    };
 
     radianAngle =0;
-   
+
+
+    float carSpeed = Vector2Length(body->GetLinearVelocity());
+
+    if (carSpeed > 1)
+    {
+        particleSystem->AddParticle(new DriftParticle({jointBackL->GetPhysicPositionBodyB()}, body->GetAngle(), 1.5f));
+        particleSystem->AddParticle(new DriftParticle({ jointBackR->GetPhysicPositionBodyB()}, body->GetAngle(), 1.5f));
+    }
+
+    //carSpeed *= 5;
+    //carSpeed = ( maxForwardSpeed/ carSpeed) / 100;
+    //animatorWheel->SetSpeed(carSpeed);
+    //animatorWheel->Update();
+
 
     for (const auto& wheel : wheels)
     {
+
         radianAngle = body->GetAngle();
         double extraAngle = 0;
         if (wheel->GetJoint() != nullptr)
             extraAngle = wheel->GetJoint()->GetJointAngle();
         radianAngle += extraAngle;
 
-        Vector2 wheelRotatedOffset = {
-             (float)(cos(radianAngle) * wheelRect.width / 2 - sin(radianAngle) * wheelRect.height / 2 ),
-             (float)(sin(radianAngle) * wheelRect.width / 2 + cos(radianAngle) * wheelRect.height / 2)
-        };
-        gameAt->App->renderer->Draw(*wheelTexture, wheel->body->GetPhysicPosition(), wheelRotatedOffset, &wheelRect, RAD2DEG * (radianAngle) + 180,9, (int)cos(-wheelRotatedOffset.x), (int)sin(-wheelRotatedOffset.y));
+        //animatorWheel->Animate(wheel->body->GetPhysicPosition(), wheelRotatedOffset, RAD2DEG * radianAngle + 180,9);
+        moduleAt->App->renderer->Draw(*wheelTexture, wheel->body->GetPhysicPosition(), wheelRotatedOffset, &wheelRect, RAD2DEG * (radianAngle), 9, (int)cos(-wheelRotatedOffset.x), (int)sin(-wheelRotatedOffset.y));
     }
 
     radianAngle = body->GetAngle();
-    gameAt->App->renderer->Draw(*carTexture, body->GetPhysicPosition(), carRotatedOffset, &carRect, RAD2DEG * radianAngle + 180,9, (int)cos(-carRotatedOffset.x), (int)sin(- carRotatedOffset.y));
+    moduleAt->App->renderer->Draw(*carTexture, body->GetPhysicPosition(), carRotatedOffset, &carRect, RAD2DEG * radianAngle ,9, (int)cos(-carRotatedOffset.x), (int)sin(- carRotatedOffset.y));
    
 	return UPDATE_CONTINUE;
 }
@@ -112,5 +148,8 @@ bool Car::CleanUp()
     delete jointFrontR;
 
 	Vehicle::CleanUp();
+
+    //delete animatorWheel;
+    delete particleSystem;
 	return true;
 }

@@ -1,17 +1,17 @@
 #pragma once
-#include "ModuleGame.h"
+#include "Module.h"
 
 class MapObject
 {
 public:
-	MapObject(ModuleGame* gameAt):  gameAt(gameAt) 
+	MapObject(Module* moduleAt):  moduleAt(moduleAt) 
 	{}
 
 	virtual ~MapObject() 
 	{}
 
-	ModuleGame* GetGameAt() {
-		return gameAt;
+	Module* GetModuleAt() {
+		return moduleAt;
 	}
 
 	virtual update_status Update()
@@ -25,7 +25,7 @@ public:
 	}
 
 protected:
-	ModuleGame* gameAt = nullptr;
+	Module* moduleAt = nullptr;
 	Vector2 position = { 0,0 };
 };
 

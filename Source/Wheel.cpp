@@ -8,7 +8,7 @@ Wheel::Wheel(Vehicle* owner)
 {
 	this->owner = owner;
 
-	const Box2DFactory& factory = owner->GetGameAt()->App->physics->factory();
+	const Box2DFactory& factory = owner->GetModuleAt()->App->physics->factory();
 	body = factory.CreateBox({0,0}, 0.5f, 1.f);
 }
 

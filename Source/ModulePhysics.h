@@ -58,6 +58,11 @@ public:
 	Vector2 GetLinearOffset() const;
 	float GetAngularOffset() const;
 
+	Vector2 GetPositionBodyA() const;
+	Vector2 GetPositionBodyB() const;
+	Vector2 GetPhysicPositionBodyA() const;
+	Vector2 GetPhysicPositionBodyB() const;
+
 	// Destruir la articulación
 	void DestroyJoint();
 

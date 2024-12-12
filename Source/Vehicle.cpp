@@ -2,7 +2,7 @@
 #include "Wheel.h"
 #include "ModulePhysics.h"
 
-Vehicle::Vehicle(ModuleGame* gameAt) : MapObject(gameAt)
+Vehicle::Vehicle(Module* gameAt) : MapObject(gameAt)
 {
 }
 

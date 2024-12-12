@@ -90,6 +90,12 @@ bool ModuleRender::Draw(Texture2D texture, Vector2 position, Vector2 offset, con
     BeginTextureMode(layers.at(currentRenderLayer).data);
     bool ret = true;
 
+    float radians = DEG2RAD * (angle);
+    offset = {
+       (float)(cos(radians) * offset.x - sin(radians) * offset.y) ,
+        (float)(sin(radians) * offset.x + cos(radians) * offset.y)
+    };
+
     offset = { offset.x * scale, offset.y * scale };
 
     Rectangle rect = { 0.f, 0.f, (float)texture.width, (float)texture.height };

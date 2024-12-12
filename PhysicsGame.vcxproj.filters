@@ -46,6 +46,12 @@
     <Filter Include="MapObjects\Type %28MapObjects%29\Vehicle\Type %28Vehicle%29\Car">
       <UniqueIdentifier>{69314bab-24e6-4085-9934-e3b367c4560c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\Particles">
+      <UniqueIdentifier>{e25d9678-7d87-4460-99cd-cfbd8121883f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\Particles\Type %28Particle%29">
+      <UniqueIdentifier>{a184f345-9322-4ded-9275-b7f078c16acb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleAssetLoader.cpp">
@@ -100,6 +106,18 @@
     </ClCompile>
     <ClCompile Include="Source\Car.cpp">
       <Filter>MapObjects\Type %28MapObjects%29\Vehicle\Type %28Vehicle%29\Car</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AnimationSystem.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Particle.cpp">
+      <Filter>Systems\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DriftParticle.cpp">
+      <Filter>Systems\Particles\Type %28Particle%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ParticleSystem.cpp">
+      <Filter>Systems\Particles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +185,18 @@
     </ClInclude>
     <ClInclude Include="Source\Car.h">
       <Filter>MapObjects\Type %28MapObjects%29\Vehicle\Type %28Vehicle%29\Car</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AnimationSystem.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Particle.h">
+      <Filter>Systems\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DriftParticle.h">
+      <Filter>Systems\Particles\Type %28Particle%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ParticleSystem.h">
+      <Filter>Systems\Particles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

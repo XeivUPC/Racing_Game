@@ -11,7 +11,7 @@ class Vehicle : public MapObject
 {
 public:
 
-	Vehicle(ModuleGame* gameAt);
+	Vehicle(Module* gameAt);
 	~Vehicle();
 	update_status Update();
 	bool CleanUp();

@@ -18,6 +18,8 @@ public:
 	void Turn(int direction);
 	void Move(int direction);
 	void SetUpWheelCharacteristics(float maxForwardSpeed, float maxBackwardSpeed, float maxDriveForce, float maxLateralImpulse);
+	Vector2 GetForwardVelocity();
+	Vector2 GetLateralVelocity();
 
 	PhysBody* body = nullptr;
 	PhysJoint* joint = nullptr;
@@ -25,8 +27,6 @@ private:
 
 	void UpdateTraction();
 	void UpdateFriction();
-	Vector2 GetLateralVelocity();
-	Vector2 GetForwardVelocity();
 
 
 	Vehicle* owner=nullptr;

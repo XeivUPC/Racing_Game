@@ -711,6 +711,46 @@ float PhysJoint::GetAngularOffset() const
 	return 0.0f;
 }
 
+Vector2 PhysJoint::GetPositionBodyA() const
+{
+	if (joint) {
+		b2Vec2 pos = joint->GetBodyA()->GetPosition();
+		return {pos.x,pos.y};
+	}
+	return { 0,0 };
+}
+
+Vector2 PhysJoint::GetPositionBodyB() const
+{
+	if (joint) {
+		b2Vec2 pos = joint->GetBodyB()->GetPosition();
+		return { pos.x,pos.y };
+	}
+	return { 0,0 };
+}
+
+Vector2 PhysJoint::GetPhysicPositionBodyA() const
+{
+	if (joint) {
+		Vector2 pos = GetPositionBodyB();
+		int x = METERS_TO_PIXELS(pos.x);
+		int y = METERS_TO_PIXELS(pos.y);
+		return { (float)x,(float)y };
+	}
+	return { 0,0 };
+}
+
+Vector2 PhysJoint::GetPhysicPositionBodyB() const
+{
+	if (joint) {
+		Vector2 pos = GetPositionBodyB();
+		int x = METERS_TO_PIXELS(pos.x);
+		int y = METERS_TO_PIXELS(pos.y);
+		return { (float)x,(float)y };
+	}
+	return { 0,0 };
+}
+
 void PhysJoint::DestroyJoint()
 {
 	if (joint)
