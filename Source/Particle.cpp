@@ -13,8 +13,7 @@ Particle::~Particle()
 update_status Particle::Update()
 {
 	if (lifeTime < life_timer.ReadSec()) {
-		CleanUp();
-		delete this;
+		system->AddParticleToRemove(this);
 	}
 
 	return UPDATE_CONTINUE;
@@ -22,7 +21,6 @@ update_status Particle::Update()
 
 bool Particle::CleanUp()
 {
-	system->RemoveParticle(this);
 	return true;
 }
 

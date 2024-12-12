@@ -11,6 +11,7 @@ ParticleSystem::~ParticleSystem()
 	for (size_t i = 0; particles.size() > 0;) {
 		Particle* particle = particles[i];
 		particle->CleanUp();
+		RemoveParticle(particle);
 		delete particle;
 	}
 }
@@ -22,6 +23,11 @@ void ParticleSystem::AddParticle(Particle* particle)
 	particle->moduleAt = moduleAt;
 	particles.emplace_back(particle);
 	particle->Init(this);
+}
+
+void ParticleSystem::AddParticleToRemove(Particle* particle)
+{
+	particlesToRemove.emplace_back(particle);
 }
 
 void ParticleSystem::RemoveParticle(Particle* particle)
@@ -42,6 +48,17 @@ void ParticleSystem::RemoveParticle(Particle* particle)
 
 void ParticleSystem::UpdateParticles()
 {
-	for (const auto& particle : particles)
-		particle->Update();
+	particlesToRemove.clear();
+
+	for (const auto& particle : particles) {
+		if(particle != nullptr)
+			particle->Update();
+	}
+
+	for (size_t i = 0; i < particlesToRemove.size(); i++) {
+		Particle* particle = particlesToRemove[i];
+		particle->CleanUp();
+		RemoveParticle(particle);
+		delete particle;
+	}
 }

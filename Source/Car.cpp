@@ -42,23 +42,23 @@ Car::Car(Module* moduleAt) : Vehicle(moduleAt)
 
     Wheel* wheel = new Wheel(this);
     wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
-    jointBackL = factory.CreateRevoluteJoint(body, wheel->body, { -1.1f, -1.4f }, { 0,0 }, true, 0, 0);
+    jointBackL = factory.CreateRevoluteJoint(body, wheel->body, { -1.1f, -1.5f }, { 0,0 }, true, 0, 0);
     wheels.push_back(wheel);
 
     wheel = new Wheel(this);
     wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
-    jointBackR = factory.CreateRevoluteJoint(body, wheel->body, { 1.1f, -1.4f }, { 0,0 }, true, 0, 0);
+    jointBackR = factory.CreateRevoluteJoint(body, wheel->body, { 1.1f, -1.5f }, { 0,0 }, true, 0, 0);
     wheels.push_back(wheel);
 
     wheel = new Wheel(this);
     wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
-    jointFrontL = factory.CreateRevoluteJoint(body, wheel->body, { -1.1f, 1.2f }, {0,0}, true, 0, 0);
+    jointFrontL = factory.CreateRevoluteJoint(body, wheel->body, { -1.f, 1.45f }, {0,0}, true, 0, 0);
     wheels.push_back(wheel);
     wheel->InstallJoint(jointFrontL);
 
     wheel = new Wheel(this);
     wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
-    jointFrontR = factory.CreateRevoluteJoint(body, wheel->body, { 1.1f, 1.2f }, { 0,0 }, true, 0, 0);
+    jointFrontR = factory.CreateRevoluteJoint(body, wheel->body, { 1.f, 1.45f }, { 0,0 }, true, 0, 0);
     wheels.push_back(wheel);
     wheel->InstallJoint(jointFrontR);
 }
@@ -90,8 +90,8 @@ update_status Car::Update()
   /*jointBackR->SetLimits(-newAngle, -newAngle);
     jointBackL->SetLimits(-newAngle, -newAngle);*/
 
-    Rectangle carRect = { 0,0,16, 25 };
-    Rectangle wheelRect = { 0,0,3, 5 };
+    Rectangle carRect = { 32,0,16, 28 };
+    Rectangle wheelRect = { 3,0,3, 5 };
 
     double radianAngle = body->GetAngle();
 

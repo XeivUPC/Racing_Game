@@ -11,10 +11,12 @@ public:
 	~ParticleSystem();
 
 	void AddParticle(Particle* particle);
-	void RemoveParticle(Particle* particle);
+	void AddParticleToRemove(Particle* particle);
 	void UpdateParticles();
 private:
+	void RemoveParticle(Particle* particle);
 	std::vector<Particle*> particles;
+	std::vector<Particle*> particlesToRemove;
 	Module* moduleAt;
 };
 

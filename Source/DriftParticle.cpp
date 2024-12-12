@@ -29,7 +29,7 @@ update_status DriftParticle::Update()
 	// Create the color with white RGB values and calculated alpha
 	Color color = { 255, 255, 255, alpha };
 
-	moduleAt->App->renderer->Draw(*texture, position, offset,&rect,RAD2DEG * angle, 9,0,0, color);
+	moduleAt->App->renderer->Draw(*texture, position, offset,&rect,RAD2DEG * angle, 3,0,0, color);
 	Particle::Update();
 	return UPDATE_CONTINUE;
 }
