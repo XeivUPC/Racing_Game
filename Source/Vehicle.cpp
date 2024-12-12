@@ -16,7 +16,7 @@ update_status Vehicle::Update()
 	for (const auto& wheel : wheels)
 	{
 		wheel->Update();
-		wheel->Move(moveInput.y);
+		wheel->Move((int)moveInput.y);
 	}
 	return UPDATE_CONTINUE;
 }

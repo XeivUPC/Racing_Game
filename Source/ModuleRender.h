@@ -33,8 +33,8 @@ public:
 	bool CleanUp();
 
     void SetBackgroundColor(Color color);
-	bool Draw(Texture2D texture, int x, int y, const Rectangle* section = NULL, double angle = 0, int pivot_x = 0, int pivot_y = 0, Color tint = WHITE) ;
-    bool DrawText(const char* text, int x, int y, Font font, int spacing, Color tint);
+	bool Draw(Texture2D texture, Vector2 position, Vector2 offset, const Rectangle* section = NULL, double angle = 0, float scale =1, int pivot_x = 0, int pivot_y = 0, Color tint = WHITE) ;
+    bool DrawText(const char* text,Vector2 position, Vector2 offset, Font font, int spacing, Color tint);
 
 	///Layers
 
