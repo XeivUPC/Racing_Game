@@ -4,12 +4,12 @@
 #include "Box2DFactory.h"
 #include <raymath.h>
 
-Wheel::Wheel(Vehicle* owner)
+Wheel::Wheel(Vehicle* owner, float radius, float width)
 {
 	this->owner = owner;
 
 	const Box2DFactory& factory = owner->GetModuleAt()->App->physics->factory();
-	body = factory.CreateBox({0,0}, 0.5f, 1.f);
+	body = factory.CreateBox({0,0}, width, radius*2);
 }
 
 Wheel::~Wheel()

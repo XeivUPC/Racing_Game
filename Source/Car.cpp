@@ -40,23 +40,23 @@ Car::Car(Module* moduleAt) : Vehicle(moduleAt)
     body->SetDensity(0,0.4f);
     body->SetMass(100, {0,0},30);
 
-    Wheel* wheel = new Wheel(this);
+    Wheel* wheel = new Wheel(this,0.5f,0.5f);
     wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
     jointBackL = factory.CreateRevoluteJoint(body, wheel->body, { -1.1f, -1.5f }, { 0,0 }, true, 0, 0);
     wheels.push_back(wheel);
 
-    wheel = new Wheel(this);
+    wheel = new Wheel(this, 0.5f, 0.5f);
     wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
     jointBackR = factory.CreateRevoluteJoint(body, wheel->body, { 1.1f, -1.5f }, { 0,0 }, true, 0, 0);
     wheels.push_back(wheel);
 
-    wheel = new Wheel(this);
+    wheel = new Wheel(this, 0.5f, 0.5f);
     wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
     jointFrontL = factory.CreateRevoluteJoint(body, wheel->body, { -1.f, 1.45f }, {0,0}, true, 0, 0);
     wheels.push_back(wheel);
     wheel->InstallJoint(jointFrontL);
 
-    wheel = new Wheel(this);
+    wheel = new Wheel(this, 0.5f, 0.5f);
     wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
     jointFrontR = factory.CreateRevoluteJoint(body, wheel->body, { 1.f, 1.45f }, { 0,0 }, true, 0, 0);
     wheels.push_back(wheel);

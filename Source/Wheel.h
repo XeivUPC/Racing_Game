@@ -7,7 +7,7 @@ class PhysJoint;
 class Wheel
 {
 public:
-	Wheel(Vehicle* owner);
+	Wheel(Vehicle* owner, float radius = 0.5f, float width = 0.5f);
 	~Wheel();
 	update_status Update();
 	bool CleanUp();
