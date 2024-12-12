@@ -19,6 +19,6 @@ bool ModuleAssetLoader::Init()
 	//// Load All Requiered Files Here And Save The Returned Values If Requiered Inside The .hpp
 
 	textureModule->CreateTexture("Assets/Textures/Cars.png", "Car");
-	textureModule->CreateTexture("Assets/Textures/Wheel.png", "Wheel");
+	textureModule->CreateTexture("Assets/Textures/Wheels.png", "Wheel");
 	return true;
 }

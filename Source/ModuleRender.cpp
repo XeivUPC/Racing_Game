@@ -6,9 +6,7 @@
 
 ModuleRender::ModuleRender(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-    background = BLACK;
-
-   
+    background = GRAY;
 }
 
 // Destructor
@@ -87,21 +85,20 @@ void ModuleRender::SetBackgroundColor(Color color)
 }
 
 // Draw to screen
-bool ModuleRender::Draw(Texture2D texture, int x, int y, const Rectangle* section, double angle, float scale, int pivot_x, int pivot_y, Color tint )
+bool ModuleRender::Draw(Texture2D texture, Vector2 position, Vector2 offset, const Rectangle* section, double angle, float scale, int pivot_x, int pivot_y, Color tint )
 {
     BeginTextureMode(layers.at(currentRenderLayer).data);
     bool ret = true;
+
+    offset = { offset.x * scale, offset.y * scale };
 
     Rectangle rect = { 0.f, 0.f, (float)texture.width, (float)texture.height };
 
     if (section != NULL) rect = *section;
 
-    pivot_x = pivot_x / scale;
-    pivot_y = pivot_y / scale;
-
     // Create a destination rectangle based on the provided position and scale
-    Rectangle destRect = { (float)(x - pivot_x) + camera.x,
-                           (float)(y - pivot_y) + camera.y,
+    Rectangle destRect = { (float)(position.x + offset.x - pivot_x ) + camera.x,
+                           (float)(position.y + offset.y - pivot_y) + camera.y,
                            rect.width * scale, rect.height * scale };
 
     // Set the pivot point around which the texture will rotate (the center of rotation)
@@ -115,12 +112,11 @@ bool ModuleRender::Draw(Texture2D texture, int x, int y, const Rectangle* sectio
 	return ret;
 }
 
-bool ModuleRender::DrawText(const char * text, int x, int y, Font font, int spacing, Color tint)
+bool ModuleRender::DrawText(const char * text, Vector2 position, Vector2 offset, Font font, int spacing, Color tint)
 {
     BeginTextureMode(layers.at(currentRenderLayer).data);
     bool ret = true;
-
-    Vector2 position = { (float)x, (float)y };
+    position = { (float)position.x + offset.x, (float)position.y + offset.y };
 
     DrawTextEx(font, text, position, (float)font.baseSize, (float)spacing, tint);
     EndTextureMode();

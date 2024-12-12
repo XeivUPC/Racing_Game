@@ -22,23 +22,23 @@ Car::Car(ModuleGame* gameAt) : Vehicle(gameAt)
 
     Wheel* wheel = new Wheel(this);
     wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
-    jointBackL = factory.CreateRevoluteJoint(body, wheel->body, { -1.1f, -1.5f }, { 0,0 }, true, 0, 0);
+    jointBackL = factory.CreateRevoluteJoint(body, wheel->body, { -1.1f, -1.4f }, { 0,0 }, true, 0, 0);
     wheels.push_back(wheel);
 
     wheel = new Wheel(this);
     wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
-    jointBackR = factory.CreateRevoluteJoint(body, wheel->body, { 1.1f, -1.5f }, { 0,0 }, true, 0, 0);
+    jointBackR = factory.CreateRevoluteJoint(body, wheel->body, { 1.1f, -1.4f }, { 0,0 }, true, 0, 0);
     wheels.push_back(wheel);
 
     wheel = new Wheel(this);
     wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
-    jointFrontL = factory.CreateRevoluteJoint(body, wheel->body, { -1.1, 1.5f }, {0,0}, true, 0, 0);
+    jointFrontL = factory.CreateRevoluteJoint(body, wheel->body, { -1.1f, 1.2f }, {0,0}, true, 0, 0);
     wheels.push_back(wheel);
     wheel->InstallJoint(jointFrontL);
 
     wheel = new Wheel(this);
     wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
-    jointFrontR = factory.CreateRevoluteJoint(body, wheel->body, { 1.1, 1.5f }, { 0,0 }, true, 0, 0);
+    jointFrontR = factory.CreateRevoluteJoint(body, wheel->body, { 1.1f, 1.2f }, { 0,0 }, true, 0, 0);
     wheels.push_back(wheel);
     wheel->InstallJoint(jointFrontR);
 }
@@ -69,14 +69,14 @@ update_status Car::Update()
   /*jointBackR->SetLimits(-newAngle, -newAngle);
     jointBackL->SetLimits(-newAngle, -newAngle);*/
 
-    Rectangle carRect = { 0,0,190, 297 };
-    Rectangle wheelRect = { 0,0,wheelTexture->width, wheelTexture->height };
+    Rectangle carRect = { 0,0,16, 25 };
+    Rectangle wheelRect = { 0,0,3, 5 };
 
-    float radianAngle = body->GetAngle();
+    double radianAngle = body->GetAngle();
 
     Vector2 carRotatedOffset = {
-       cos(radianAngle) * carRect.width/2 - sin(radianAngle) * carRect.height / 2 ,
-       sin(radianAngle) * carRect.width / 2 + cos(radianAngle) * carRect.height / 2
+       (float)(cos(radianAngle) * carRect.width/2 - sin(radianAngle) * carRect.height / 2.f) ,
+        (float)(sin(radianAngle) * carRect.width / 2 + cos(radianAngle) * carRect.height / 2.f)
     };
     
 
@@ -92,14 +92,14 @@ update_status Car::Update()
         radianAngle += extraAngle;
 
         Vector2 wheelRotatedOffset = {
-            cos(radianAngle) * wheelRect.width / 2 - sin(radianAngle) * wheelRect.height / 2 ,
-            sin(radianAngle) * wheelRect.width / 2 + cos(radianAngle) * wheelRect.height / 2
+             (float)(cos(radianAngle) * wheelRect.width / 2 - sin(radianAngle) * wheelRect.height / 2 ),
+             (float)(sin(radianAngle) * wheelRect.width / 2 + cos(radianAngle) * wheelRect.height / 2)
         };
-        gameAt->App->renderer->Draw(*wheelTexture, wheel->body->GetPhysicPosition().x + wheelRotatedOffset.x, wheel->body->GetPhysicPosition().y + wheelRotatedOffset.y, &wheelRect, RAD2DEG * (radianAngle) + 180,1, cos(-wheelRotatedOffset.x), sin(-wheelRotatedOffset.y));
+        gameAt->App->renderer->Draw(*wheelTexture, wheel->body->GetPhysicPosition(), wheelRotatedOffset, &wheelRect, RAD2DEG * (radianAngle) + 180,9, (int)cos(-wheelRotatedOffset.x), (int)sin(-wheelRotatedOffset.y));
     }
 
     radianAngle = body->GetAngle();
-    gameAt->App->renderer->Draw(*carTexture, body->GetPhysicPosition().x + carRotatedOffset.x, body->GetPhysicPosition().y + carRotatedOffset.y, &carRect, RAD2DEG * radianAngle + 180,8, cos(-carRotatedOffset.x), sin(-carRotatedOffset.y));
+    gameAt->App->renderer->Draw(*carTexture, body->GetPhysicPosition(), carRotatedOffset, &carRect, RAD2DEG * radianAngle + 180,9, (int)cos(-carRotatedOffset.x), (int)sin(- carRotatedOffset.y));
    
 	return UPDATE_CONTINUE;
 }

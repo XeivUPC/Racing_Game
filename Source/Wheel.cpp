@@ -9,7 +9,7 @@ Wheel::Wheel(Vehicle* owner)
 	this->owner = owner;
 
 	const Box2DFactory& factory = owner->GetGameAt()->App->physics->factory();
-	body = factory.CreateBox({0,0}, 0.5f, 1.25f);
+	body = factory.CreateBox({0,0}, 0.5f, 1.f);
 }
 
 Wheel::~Wheel()
@@ -18,7 +18,7 @@ Wheel::~Wheel()
 
 update_status Wheel::Update()
 {
-	//UpdateTraction();
+	UpdateTraction();
 	UpdateFriction();
 	return UPDATE_CONTINUE;
 }
