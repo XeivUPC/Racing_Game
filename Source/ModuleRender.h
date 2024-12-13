@@ -1,6 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
+#include "CursorChanger.h"
 
 #include <limits.h>
 #include <vector>
@@ -53,6 +54,7 @@ public:
 
 	Color background;
     Rectangle camera;
+	CursorChanger cursor;
 
 private:
 

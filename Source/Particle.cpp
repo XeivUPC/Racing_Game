@@ -10,13 +10,15 @@ Particle::~Particle()
 {
 }
 
-update_status Particle::Update()
+bool Particle::Update()
 {
+	if (system == nullptr)
+		return true;
 	if (lifeTime < life_timer.ReadSec()) {
 		system->AddParticleToRemove(this);
 	}
 
-	return UPDATE_CONTINUE;
+	return true;
 }
 
 bool Particle::CleanUp()

@@ -13,11 +13,11 @@ DriftParticle::~DriftParticle()
 
 }
 
-update_status DriftParticle::Update()
+bool DriftParticle::Update()
 {
-	if (texture == nullptr) {
+	if (texture == nullptr || system == nullptr) {
 		CleanUp();
-		return UPDATE_CONTINUE;
+		return true;
 	}
 	/// RenderParticle
 	Rectangle rect = { 0,0,texture->width ,texture->height };
@@ -31,7 +31,7 @@ update_status DriftParticle::Update()
 
 	moduleAt->App->renderer->Draw(*texture, position, offset,&rect,RAD2DEG * angle, 3,0,0, color);
 	Particle::Update();
-	return UPDATE_CONTINUE;
+	return true;
 }
 
 bool DriftParticle::CleanUp()

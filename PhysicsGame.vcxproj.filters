@@ -119,6 +119,9 @@
     <ClCompile Include="Source\ParticleSystem.cpp">
       <Filter>Systems\Particles</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CursorChanger.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ModuleAssetLoader.h">
@@ -197,6 +200,9 @@
     </ClInclude>
     <ClInclude Include="Source\ParticleSystem.h">
       <Filter>Systems\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CursorChanger.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

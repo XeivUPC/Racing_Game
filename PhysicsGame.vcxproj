@@ -197,6 +197,7 @@
     <ClCompile Include="Source\Car.cpp" />
     <ClCompile Include="Source\CollisionSensor.cpp" />
     <ClCompile Include="Source\CollisionsDispatcher.cpp" />
+    <ClCompile Include="Source\CursorChanger.cpp" />
     <ClCompile Include="Source\DriftParticle.cpp" />
     <ClCompile Include="Source\external\pugi\pugixml.cpp" />
     <ClCompile Include="Source\Log.cpp" />
@@ -222,6 +223,7 @@
     <ClInclude Include="Source\Car.h" />
     <ClInclude Include="Source\CollisionSensor.h" />
     <ClInclude Include="Source\CollisionsDispatcher.h" />
+    <ClInclude Include="Source\CursorChanger.h" />
     <ClInclude Include="Source\DriftParticle.h" />
     <ClInclude Include="Source\external\pugi\pugiconfig.hpp" />
     <ClInclude Include="Source\external\pugi\pugixml.hpp" />

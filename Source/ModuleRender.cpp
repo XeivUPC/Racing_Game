@@ -24,6 +24,8 @@ bool ModuleRender::Init()
         CreateLayer((RenderLayer)i);
     }
 
+    cursor.SetCursor("Assets/Textures/Cursor.png");
+
 	return ret;
 }
 
@@ -61,6 +63,7 @@ update_status ModuleRender::PostUpdate()
 
     // Draw everything in our batch!
     
+    cursor.RenderCursor();
     DrawFPS(10, 10);
 
     EndDrawing();

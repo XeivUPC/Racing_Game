@@ -10,17 +10,18 @@ public:
 
 	Particle(Vector2 position, float lifeTime);
 	virtual ~Particle();
-	virtual update_status Update();
-	virtual bool CleanUp();
+	virtual bool Update();
 
 	float GetLifePercentage();
 private:
 	float lifeTime = 1;
 	Timer life_timer;
 protected:
+
+	virtual bool CleanUp();
 	virtual void Init(ParticleSystem* system);
 
-	ParticleSystem* system;
+	ParticleSystem* system=nullptr;
 	Module* moduleAt=nullptr;
 
 	Vector2 position = {0,0};
