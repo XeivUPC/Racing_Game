@@ -237,13 +237,13 @@
 
 		<properties>
 			<max-forward-speed value = "5"/>
-			<max-backward-speed value = "-1"/>
+			<max-backward-speed value = "-2"/>
 		</properties>
 
 		<wheels>
 			<wheel radius ="0.5" width ="0.5" offset-x="0" offset-y="-1.5" can-steer ="false" can-throttle ="true">
 				<properties>
-					<max-drive-force value = "100"/>
+					<max-drive-force value = "50"/>
 					<max-lateral-impulse value = "12.5"/>
 					<rendereable value = "false"/>
 					<renders-over-vehicle value = "false"/>
@@ -253,7 +253,7 @@
 			</wheel>
 			<wheel radius ="0.5" width ="0.5" offset-x="0" offset-y="5" can-steer ="true" can-throttle ="true" >
 				<properties>
-					<max-drive-force value = "150"/>
+					<max-drive-force value = "70"/>
 					<max-lateral-impulse value = "8.5"/>
 					<rendereable value = "true"/>
 					<renders-over-vehicle value = "true"/>
