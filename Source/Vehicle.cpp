@@ -1,9 +1,18 @@
 #include "Vehicle.h"
 #include "Wheel.h"
+#include "Box2DFactory.h"
+#include "Application.h"
 #include "ModulePhysics.h"
+#include "ModuleTexture.h"
+#include "ModuleRender.h"
+#include "DriftParticle.h"
+#include "ParticleSystem.h"
+#include <raymath.h>
 
-Vehicle::Vehicle(Module* gameAt) : MapObject(gameAt)
+Vehicle::Vehicle(Module* gameAt, string id) : MapObject(gameAt)
 {
+	CreateVehicle(id);
+	//particleSystem = new ParticleSystem(moduleAt);
 }
 
 Vehicle::~Vehicle()
@@ -12,6 +21,8 @@ Vehicle::~Vehicle()
 
 update_status Vehicle::Update()
 {
+	//particleSystem->UpdateParticles();
+
 	GetInput();
 	for (const auto& wheel : wheels)
 	{
@@ -38,23 +49,61 @@ update_status Vehicle::Update()
 		wheel->GetJoint()->SetLimits(newAngle, newAngle);
 	}
 
+	double radianAngle = body->GetAngle();
+
+	Vector2 vehicleRotatedOffset = {
+	   -vehicleTextureRec.width / 2.f,
+	   -vehicleTextureRec.height / 2.f
+	};
+
+	float vehicleSpeed = Vector2Length(body->GetLinearVelocity());
+
+	//if (carSpeed > 1)
+	//{
+	//	for (const auto& wheel : throttlingWheels)
+	//	{
+	//		particleSystem->AddParticle(new DriftParticle({ wheel->GetJoint()->GetPhysicPositionBodyB() }, body->GetAngle(), 1.5f));
+	//		particleSystem->AddParticle(new DriftParticle({ wheel->GetJoint()->GetPhysicPositionBodyB() }, body->GetAngle(), 1.5f));
+	//	}
+	//}
+	
+	for (const auto& wheel : wheels)
+	{
+		if (!wheel->rendersOverVehicle)
+			wheel->Render();
+	}
+
+	radianAngle = body->GetAngle();
+	moduleAt->App->renderer->Draw(*vehicleTexture, body->GetPhysicPosition(), vehicleRotatedOffset, &vehicleTextureRec, RAD2DEG * radianAngle, 9, (int)cos(-vehicleRotatedOffset.x), (int)sin(-vehicleRotatedOffset.y));
+
+	for (const auto& wheel : wheels)
+	{
+		if(wheel->rendersOverVehicle)
+			wheel->Render();
+	}
 
 	return UPDATE_CONTINUE;
 }
 
 bool Vehicle::CleanUp()
 {
-	delete body;
+	//delete particleSystem;
 	for (const auto& wheel : wheels)
 	{
 		/// Do Clean Up
 		wheel->CleanUp();
 		delete wheel;
 	}
+	delete body;
 	wheels.clear();
 	throttlingWheels.clear();
 	steeringWheels.clear();
 	return true;
+}
+
+double Vehicle::GetRotation()
+{
+	return body->GetAngle();
 }
 
 void Vehicle::GetInput()
@@ -70,4 +119,96 @@ void Vehicle::GetInput()
 		moveInput.x -= 1;
 	if (IsKeyDown(KEY_D))
 		moveInput.x += 1;
+}
+
+void Vehicle::CreateVehicle(string id)
+{
+	xml_document vehiclesData;
+	pugi::xml_parse_result result = vehiclesData.load_file("Assets/Data/vehicle_data.xml");
+	if (result)
+	{
+		LOG("config.xml parsed without errors");
+	}
+	else
+	{
+		LOG("Error loading config.xml: %s", result.description());
+		return;
+	}
+
+	xml_node vehicleNode = vehiclesData.child("vehicle").child(id.c_str());
+	xml_node texture_node = vehicleNode.child("texture");
+	xml_node properties_node = vehicleNode.child("properties");
+	xml_node information_node = vehicleNode.child("information");
+
+	////Load Information
+	vehicleName = information_node.child("name").attribute("value").as_string();
+	vehicleTitle = information_node.child("title").attribute("value").as_string();
+	vehicleCreator = information_node.child("created-by").attribute("value").as_string();
+	vehicleDescription = information_node.child("description").attribute("value").as_string();
+
+	//// Create Textures
+	std::string textureName = texture_node.attribute("name").as_string();
+	Vector2 textureOffset = { texture_node.attribute("pos-x").as_float(),texture_node.attribute("pos-y").as_float() };
+	Vector2 textureSize = { texture_node.attribute("size-x").as_float(),texture_node.attribute("size-y").as_float() };
+	vehicleTexture = moduleAt->App->texture->GetTexture(textureName.c_str());
+	vehicleTextureRec = { textureOffset.x,textureOffset.y,textureSize.x,textureSize.y };
+
+	//// Create Car
+	Vector2 size = { vehicleNode.attribute("size-x").as_float(), vehicleNode.attribute("size-y").as_float() };
+	float inertia = vehicleNode.attribute("inertia").as_float();
+	float mass = vehicleNode.attribute("mass").as_float();
+
+	const Box2DFactory& factory = moduleAt->App->physics->factory();
+	body = factory.CreateBox({ 5,5 }, size.x, size.y);
+	body->SetAngularDamping(3);
+	body->SetDensity(0, 0.4f);
+	body->SetMass(mass, { 0,0 }, inertia);
+
+	maxForwardSpeed = properties_node.child("max-forward-speed").attribute("value").as_float();
+	maxBackwardSpeed = properties_node.child("max-backward-speed").attribute("value").as_float();
+
+	//// Create Wheels
+	for (xml_node wheelNode = vehicleNode.child("wheels").child("wheel"); wheelNode != NULL; wheelNode = wheelNode.next_sibling("wheel"))
+	{
+		CreateWheel(wheelNode);
+	}
+}
+
+Wheel* Vehicle::CreateWheel(xml_node wheel_node)
+{
+	const Box2DFactory& factory = moduleAt->App->physics->factory();
+
+	Vector2 wheelSize = { wheel_node.attribute("radius").as_float(), wheel_node.attribute("width").as_float() };
+	Vector2 wheelOffset = { wheel_node.attribute("offset-x").as_float(), wheel_node.attribute("offset-y").as_float() };
+	bool canSteer = wheel_node.attribute("can-steer").as_bool();
+	bool canThrottle = wheel_node.attribute("can-throttle").as_bool();
+
+	xml_node wheel_properties_node = wheel_node.child("properties");
+	float maxDriveForce = wheel_properties_node.child("max-drive-force").attribute("value").as_float();
+	float maxLateralImpulse = wheel_properties_node.child("max-lateral-impulse").attribute("value").as_float();
+
+	Wheel* wheel = new Wheel(this, wheelSize.x, wheelSize.y);
+	wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, maxDriveForce, maxLateralImpulse);
+
+	xml_node texture_node = wheel_node.child("texture");
+	std::string textureName = texture_node.attribute("name").as_string();
+	Vector2 textureOffset = { texture_node.attribute("pos-x").as_float(),texture_node.attribute("pos-y").as_float() };
+	Vector2 textureSize = { texture_node.attribute("size-x").as_float(),texture_node.attribute("size-y").as_float() };
+	Texture2D* wheelTexture = moduleAt->App->texture->GetTexture(textureName.c_str());
+	Rectangle wheelTextureRec = { textureOffset.x,textureOffset.y,textureSize.x,textureSize.y };
+
+	bool rendereable = wheel_properties_node.child("rendereable").attribute("value").as_bool();
+	bool renderOverVehicle = wheel_properties_node.child("renders-over-vehicle").attribute("value").as_bool();
+	wheel->SetUpWheelRenderCharacteristics(wheelTexture, wheelTextureRec, rendereable, renderOverVehicle);
+
+	PhysJoint* joint = factory.CreateRevoluteJoint(body, wheel->body, wheelOffset, { 0,0 }, true, 0, 0);
+	wheel->InstallJoint(joint);
+
+	wheels.emplace_back(wheel);
+	if (canThrottle)
+		throttlingWheels.emplace_back(wheel);
+	if (canSteer)
+		steeringWheels.emplace_back(wheel);
+
+	return wheel;
 }

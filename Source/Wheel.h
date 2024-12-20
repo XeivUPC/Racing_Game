@@ -17,12 +17,18 @@ public:
 
 	void Turn(int direction);
 	void Move(int direction);
+	void Render();
+
 	void SetUpWheelCharacteristics(float maxForwardSpeed, float maxBackwardSpeed, float maxDriveForce, float maxLateralImpulse);
+	void SetUpWheelRenderCharacteristics(Texture2D* wheelTexture, Rectangle wheelTextureRec, bool rendereable, bool rendersOverVehicle);
 	Vector2 GetForwardVelocity();
 	Vector2 GetLateralVelocity();
 
 	PhysBody* body = nullptr;
 	PhysJoint* joint = nullptr;
+
+	bool rendersOverVehicle;
+
 private:
 
 	void UpdateTraction();
@@ -37,6 +43,11 @@ private:
 	float maxLateralImpulse = 0;
 
 	float currentTraction=5;
+
+	bool rendereable;
+
+	Texture2D* wheelTexture;
+	Rectangle  wheelTextureRec;
 
 protected:
 };

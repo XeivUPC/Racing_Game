@@ -9,7 +9,7 @@
 #include <vector>
 
 class PhysBody;
-class Car;
+class Vehicle;
 
 class ModuleGame : public Module
 {
@@ -22,5 +22,5 @@ public:
 	bool CleanUp();
 
 public:
-	Car* car;
+	Vehicle* car;
 };
