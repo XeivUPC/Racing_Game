@@ -23,7 +23,7 @@ bool ModuleGame::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	car = new Vehicle(this, "car-type3");
+	car = new Vehicle(this, "moto-type2");
 
 	return ret;
 }
