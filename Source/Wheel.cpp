@@ -1,6 +1,7 @@
 #include "Wheel.h"
 #include "Application.h"
 #include "ModulePhysics.h"
+#include "ModuleRender.h"
 #include "Box2DFactory.h"
 #include <raymath.h>
 
@@ -25,6 +26,8 @@ update_status Wheel::Update()
 
 bool Wheel::CleanUp()
 {
+	if (joint != nullptr)
+		delete joint;
 	delete body;
 	return false;
 }
@@ -61,6 +64,14 @@ void Wheel::SetUpWheelCharacteristics(float maxForwardSpeed, float maxBackwardSp
 	this->maxBackwardSpeed = maxBackwardSpeed;
 	this->maxDriveForce = maxDriveForce;
 	this->maxLateralImpulse = maxLateralImpulse;
+}
+
+void Wheel::SetUpWheelRenderCharacteristics(Texture2D* wheelTexture, Rectangle wheelTextureRec, bool rendereable, bool rendersOverVehicle)
+{
+	this->wheelTexture = wheelTexture;
+	this->wheelTextureRec = wheelTextureRec;
+	this->rendereable = rendereable;
+	this->rendersOverVehicle = rendersOverVehicle;
 }
 
 Vector2 Wheel::GetLateralVelocity()
@@ -125,4 +136,21 @@ void Wheel::Move(int direction)
 
 	Vector2 forceVector = Vector2Scale(currentForwardNormal, currentTraction * force);
 	body->ApplyForce(forceVector, body->GetWorldCenter());
+}
+
+void Wheel::Render()
+{
+	if (!rendereable)
+		return;
+	Vector2 wheelRotatedOffset = {
+		-wheelTextureRec.width / 2,
+		-wheelTextureRec.height / 2
+	};
+
+	double radianAngle = owner->GetRotation();
+	double extraAngle = 0;
+	if (GetJoint() != nullptr)
+		extraAngle = GetJoint()->GetJointAngle();
+	radianAngle += extraAngle;
+	owner->GetModuleAt()->App->renderer->Draw(*wheelTexture, body->GetPhysicPosition(), wheelRotatedOffset, &wheelTextureRec, RAD2DEG * (radianAngle), 9, (int)cos(-wheelRotatedOffset.x), (int)sin(-wheelRotatedOffset.y));
 }

@@ -7,7 +7,7 @@
 #include "ModulePhysics.h"
 #include "ModuleAssetLoader.h"
 
-#include "Car.h"
+#include "Vehicle.h"
 
 ModuleGame::ModuleGame(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -23,7 +23,7 @@ bool ModuleGame::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	car = new Car(this);
+	car = new Vehicle(this, "car-type3");
 
 	return ret;
 }

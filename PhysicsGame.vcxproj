@@ -194,7 +194,6 @@
     <ClCompile Include="Source\AnimationSystem.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Box2DFactory.cpp" />
-    <ClCompile Include="Source\Car.cpp" />
     <ClCompile Include="Source\CollisionSensor.cpp" />
     <ClCompile Include="Source\CollisionsDispatcher.cpp" />
     <ClCompile Include="Source\CursorChanger.cpp" />
@@ -220,7 +219,6 @@
     <ClInclude Include="Source\AnimationSystem.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Box2DFactory.h" />
-    <ClInclude Include="Source\Car.h" />
     <ClInclude Include="Source\CollisionSensor.h" />
     <ClInclude Include="Source\CollisionsDispatcher.h" />
     <ClInclude Include="Source\CursorChanger.h" />
