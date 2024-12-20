@@ -15,9 +15,30 @@ update_status Vehicle::Update()
 	GetInput();
 	for (const auto& wheel : wheels)
 	{
-		wheel->Update();
+		wheel->Update();	
+	}
+	for (const auto& wheel : throttlingWheels)
+	{
 		wheel->Move((int)moveInput.y);
 	}
+
+	float lockAngle = 35 * DEGTORAD;
+	float turnSpeedPerSec = 160 * DEGTORAD;
+	float turnPerTimeStep = turnSpeedPerSec / 60.0f;
+	float desiredAngle = 0;
+
+	desiredAngle = moveInput.x * lockAngle;
+
+	for (const auto& wheel : steeringWheels)
+	{
+		float angleNow = wheel->GetJoint()->GetJointAngle();
+		float angleToTurn = desiredAngle - angleNow;
+		angleToTurn = b2Clamp(angleToTurn, -turnPerTimeStep, turnPerTimeStep);
+		float newAngle = angleNow + angleToTurn;
+		wheel->GetJoint()->SetLimits(newAngle, newAngle);
+	}
+
+
 	return UPDATE_CONTINUE;
 }
 
@@ -30,6 +51,9 @@ bool Vehicle::CleanUp()
 		wheel->CleanUp();
 		delete wheel;
 	}
+	wheels.clear();
+	throttlingWheels.clear();
+	steeringWheels.clear();
 	return true;
 }
 

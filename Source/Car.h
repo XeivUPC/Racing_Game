@@ -21,14 +21,10 @@ private:
 	float backTireMaxLateralImpulse = 12.5f;
 	float frontTireMaxLateralImpulse = 8.5f;
 
-	PhysJoint* jointFrontL;
-	PhysJoint* jointFrontR;
-
-	PhysJoint* jointBackL;
-	PhysJoint* jointBackR;
-
 	Texture2D* carTexture;
+	Rectangle carTextureRec;
 	Texture2D* wheelTexture;
+	Rectangle wheelTextureRec;
 
 	Animator* animatorWheel;
 	ParticleSystem* particleSystem;

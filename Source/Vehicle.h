@@ -20,7 +20,10 @@ private:
 	void GetInput();
 
 protected:
+	vector<Wheel*> steeringWheels;
+	vector<Wheel*> throttlingWheels;
 	vector<Wheel*> wheels;
+
 	PhysBody* body = nullptr;
 	Vector2 moveInput;
 

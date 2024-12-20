@@ -1,5 +1,6 @@
 #include "Car.h"
 #include "Wheel.h"
+#include <pugixml.hpp>
 #include "Application.h"
 #include "ModulePhysics.h"
 #include "ModuleTexture.h"
@@ -8,59 +9,82 @@
 #include "DriftParticle.h"
 #include <raymath.h>
 
+using namespace pugi;
+
 Car::Car(Module* moduleAt) : Vehicle(moduleAt)
 {
-    carTexture = moduleAt->App->texture->GetTexture("Car");
-    wheelTexture = moduleAt->App->texture->GetTexture("Wheel");
-
     particleSystem = new ParticleSystem(moduleAt);
-    
-    //animatorWheel = new Animator(moduleAt->App);
 
-    //AnimationData wheelAnim = AnimationData("Wheel");
-    //wheelAnim.AddSprite(Sprite{ wheelTexture,{0, 0}, {3,5} });
-    //wheelAnim.AddSprite(Sprite{ wheelTexture,{1, 0}, {3,5} });
-    //wheelAnim.AddSprite(Sprite{ wheelTexture,{2, 0}, {3,5} });
-    //wheelAnim.AddSprite(Sprite{ wheelTexture,{3, 0}, {3,5} });
-    //wheelAnim.AddSprite(Sprite{ wheelTexture,{4, 0}, {3,5} });
-    //wheelAnim.AddSprite(Sprite{ wheelTexture,{5, 0}, {3,5} });
-    //wheelAnim.AddSprite(Sprite{ wheelTexture,{6, 0}, {3,5} });
-    //wheelAnim.AddSprite(Sprite{ wheelTexture,{7, 0}, {3,5} });
-    //wheelAnim.AddSprite(Sprite{ wheelTexture,{8, 0}, {3,5} });
-    //wheelAnim.AddSprite(Sprite{ wheelTexture,{9, 0}, {3,5} });
-    //animatorWheel->AddAnimation(wheelAnim);
-    //animatorWheel->SelectAnimation("Wheel",true);
-    //animatorWheel->SetSpeed(0.1f);
+    xml_document vehiclesData;
+    pugi::xml_parse_result result = vehiclesData.load_file("Assets/Data/vehicle_data.xml");
+    if (result)
+    {
+        LOG("config.xml parsed without errors");
+    }
+    else
+    {
+        LOG("Error loading config.xml: %s", result.description());
+        return;
+    }
+   
+    xml_node vehicleNode = vehiclesData.child("vehicle").child("car-type1");
+    xml_node texture_node = vehicleNode.child("textures");
+    xml_node properties_node = vehicleNode.child("properties");
 
-	//// Create Wheels
+    //// Create Textures
+    std::string textureName = texture_node.child("vehicle-texture").attribute("name").as_string();
+    Vector2 textureOffset = { texture_node.child("vehicle-texture").attribute("offset-x").as_float(),texture_node.child("vehicle-texture").attribute("offset-y").as_float() };
+    Vector2 textureSize = { texture_node.child("vehicle-texture").attribute("size-x").as_float(),texture_node.child("vehicle-texture").attribute("size-y").as_float() };
+    carTexture = moduleAt->App->texture->GetTexture(textureName.c_str());
+    carTextureRec = { textureOffset.x,textureOffset.y,textureSize.x,textureSize.y };
+
+    textureName = texture_node.child("wheel-texture").attribute("name").as_string();
+    textureOffset = { texture_node.child("wheel-texture").attribute("offset-x").as_float(),texture_node.child("wheel-texture").attribute("offset-y").as_float() };
+    textureSize = { texture_node.child("wheel-texture").attribute("size-x").as_float(),texture_node.child("wheel-texture").attribute("size-y").as_float() };
+    wheelTexture = moduleAt->App->texture->GetTexture(textureName.c_str());
+    wheelTextureRec = { textureOffset.x,textureOffset.y,textureSize.x,textureSize.y };
+
+	//// Create Car
+    Vector2 size = { vehicleNode.attribute("size-x").as_float(), vehicleNode.attribute("size-y").as_float() };
+    float inertia = vehicleNode.attribute("inertia").as_float();
+    float mass = vehicleNode.attribute("mass").as_float();
 
     const Box2DFactory& factory = moduleAt->App->physics->factory();
-    body = factory.CreateBox({5,5},2.f,4.5f);
+    body = factory.CreateBox({5,5},size.x,size.y);
     body->SetAngularDamping(3);
     body->SetDensity(0,0.4f);
-    body->SetMass(100, {0,0},30);
+    body->SetMass(mass, {0,0},inertia);
 
-    Wheel* wheel = new Wheel(this,0.5f,0.5f);
-    wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
-    jointBackL = factory.CreateRevoluteJoint(body, wheel->body, { -1.1f, -1.5f }, { 0,0 }, true, 0, 0);
-    wheels.push_back(wheel);
+    maxForwardSpeed = properties_node.child("max-forward-speed").attribute("value").as_float();
+    maxBackwardSpeed = properties_node.child("max-backward-speed").attribute("value").as_float();
+    backTireMaxDriveForce = properties_node.child("back-tire-max-drive-force").attribute("value").as_float();
+    frontTireMaxDriveForce = properties_node.child("front-tire-max-drive-force").attribute("value").as_float();
+    backTireMaxLateralImpulse = properties_node.child("back-tire-max-lateral-impulse").attribute("value").as_float();
+    frontTireMaxLateralImpulse = properties_node.child("front-tire-max-lateral-impulse").attribute("value").as_float();
 
-    wheel = new Wheel(this, 0.5f, 0.5f);
-    wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
-    jointBackR = factory.CreateRevoluteJoint(body, wheel->body, { 1.1f, -1.5f }, { 0,0 }, true, 0, 0);
-    wheels.push_back(wheel);
+    //// Create Wheels
+    for (xml_node wheelNode = vehicleNode.child("wheels").child("wheel"); wheelNode != NULL; wheelNode = wheelNode.next_sibling("wheel"))
+    {
+        Vector2 wheelSize = { wheelNode.attribute("radius").as_float(), wheelNode.attribute("width").as_float() };
+        Vector2 wheelOffset = { wheelNode.attribute("offset-x").as_float(), wheelNode.attribute("offset-y").as_float() };
+        bool canSteer = wheelNode.attribute("can-steer").as_bool();
+        bool canThrottle = wheelNode.attribute("can-throttle").as_bool();
+        bool isFrontWheel = wheelNode.attribute("is-front-wheel").as_bool();
 
-    wheel = new Wheel(this, 0.5f, 0.5f);
-    wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
-    jointFrontL = factory.CreateRevoluteJoint(body, wheel->body, { -1.f, 1.45f }, {0,0}, true, 0, 0);
-    wheels.push_back(wheel);
-    wheel->InstallJoint(jointFrontL);
-
-    wheel = new Wheel(this, 0.5f, 0.5f);
-    wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
-    jointFrontR = factory.CreateRevoluteJoint(body, wheel->body, { 1.f, 1.45f }, { 0,0 }, true, 0, 0);
-    wheels.push_back(wheel);
-    wheel->InstallJoint(jointFrontR);
+        Wheel* wheel = new Wheel(this, wheelSize.x, wheelSize.y);
+        if (isFrontWheel)
+            wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
+        else 
+            wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
+      
+        PhysJoint* joint = factory.CreateRevoluteJoint(body, wheel->body, wheelOffset, { 0,0 }, true, 0, 0);
+        wheel->InstallJoint(joint);
+        wheels.emplace_back(wheel);
+        if (canThrottle)
+            throttlingWheels.emplace_back(wheel);
+        if (canSteer)
+            steeringWheels.emplace_back(wheel);
+    }
 }
 
 Car::~Car()
@@ -72,54 +96,30 @@ update_status Car::Update()
 	Vehicle::Update();
     particleSystem->UpdateParticles();
 
-    //control steering
-    float lockAngle = 35 * DEGTORAD;
-    float turnSpeedPerSec = 160 * DEGTORAD;//from lock to lock in 0.5 sec
-    float turnPerTimeStep = turnSpeedPerSec / 60.0f;
-    float desiredAngle = 0;
-
-    desiredAngle = moveInput.x * lockAngle;
-
-    float angleNow = jointFrontL->GetJointAngle();
-    float angleToTurn = desiredAngle - angleNow;
-    angleToTurn = b2Clamp(angleToTurn, -turnPerTimeStep, turnPerTimeStep);
-    float newAngle = angleNow + angleToTurn;
-    jointFrontL->SetLimits(newAngle, newAngle);
-    jointFrontR->SetLimits(newAngle, newAngle);
-
-  /*jointBackR->SetLimits(-newAngle, -newAngle);
-    jointBackL->SetLimits(-newAngle, -newAngle);*/
-
-    Rectangle carRect = { 32,0,16, 28 };
-    Rectangle wheelRect = { 3,0,3, 5 };
 
     double radianAngle = body->GetAngle();
 
     Vector2 carRotatedOffset = {
-       -carRect.width/2.f,
-       -carRect.height / 2.f
+       -carTextureRec.width/2.f,
+       -carTextureRec.height / 2.f
     };
     Vector2 wheelRotatedOffset = {
-             -wheelRect.width / 2,
-             -wheelRect.height / 2
+             -wheelTextureRec.width / 2,
+             -wheelTextureRec.height / 2
     };
 
     radianAngle =0;
-
 
     float carSpeed = Vector2Length(body->GetLinearVelocity());
 
     if (carSpeed > 1)
     {
-        particleSystem->AddParticle(new DriftParticle({jointBackL->GetPhysicPositionBodyB()}, body->GetAngle(), 1.5f));
-        particleSystem->AddParticle(new DriftParticle({ jointBackR->GetPhysicPositionBodyB()}, body->GetAngle(), 1.5f));
+        for (const auto& wheel : throttlingWheels)
+        {
+            particleSystem->AddParticle(new DriftParticle({ wheel->GetJoint()->GetPhysicPositionBodyB() }, body->GetAngle(), 1.5f));
+            particleSystem->AddParticle(new DriftParticle({ wheel->GetJoint()->GetPhysicPositionBodyB() }, body->GetAngle(), 1.5f));
+        }
     }
-
-    //carSpeed *= 5;
-    //carSpeed = ( maxForwardSpeed/ carSpeed) / 100;
-    //animatorWheel->SetSpeed(carSpeed);
-    //animatorWheel->Update();
-
 
     for (const auto& wheel : wheels)
     {
@@ -129,27 +129,18 @@ update_status Car::Update()
         if (wheel->GetJoint() != nullptr)
             extraAngle = wheel->GetJoint()->GetJointAngle();
         radianAngle += extraAngle;
-
-        //animatorWheel->Animate(wheel->body->GetPhysicPosition(), wheelRotatedOffset, RAD2DEG * radianAngle + 180,9);
-        moduleAt->App->renderer->Draw(*wheelTexture, wheel->body->GetPhysicPosition(), wheelRotatedOffset, &wheelRect, RAD2DEG * (radianAngle), 9, (int)cos(-wheelRotatedOffset.x), (int)sin(-wheelRotatedOffset.y));
+        moduleAt->App->renderer->Draw(*wheelTexture, wheel->body->GetPhysicPosition(), wheelRotatedOffset, &wheelTextureRec, RAD2DEG * (radianAngle), 9, (int)cos(-wheelRotatedOffset.x), (int)sin(-wheelRotatedOffset.y));
     }
 
     radianAngle = body->GetAngle();
-    moduleAt->App->renderer->Draw(*carTexture, body->GetPhysicPosition(), carRotatedOffset, &carRect, RAD2DEG * radianAngle ,9, (int)cos(-carRotatedOffset.x), (int)sin(- carRotatedOffset.y));
+    moduleAt->App->renderer->Draw(*carTexture, body->GetPhysicPosition(), carRotatedOffset, &carTextureRec, RAD2DEG * radianAngle ,9, (int)cos(-carRotatedOffset.x), (int)sin(- carRotatedOffset.y));
    
 	return UPDATE_CONTINUE;
 }
 
 bool Car::CleanUp()
 {
-    delete jointBackL;
-    delete jointBackR;
-    delete jointFrontL;
-    delete jointFrontR;
-
 	Vehicle::CleanUp();
-
-    //delete animatorWheel;
     delete particleSystem;
 	return true;
 }

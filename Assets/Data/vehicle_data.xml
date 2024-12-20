@@ -1,0 +1,24 @@
+<vehicle>
+	<car-type1 size-x ="2" size-y ="4.5" mass ="100" inertia ="30" texture-name ="Car">
+		<properties>
+			<max-forward-speed value = "150"/>
+			<max-backward-speed value = "-70"/>
+			
+			<back-tire-max-drive-force value = "100"/>
+			<back-tire-max-lateral-impulse value = "12.5"/>
+			
+			<front-tire-max-drive-force value = "150"/>
+			<front-tire-max-lateral-impulse value = "8.5"/>
+		</properties>
+		<wheels>
+			<wheel radius ="0.5" width ="0.5" offset-x="-1.1" offset-y="-1.5" can-steer ="false" can-throttle ="true" is-front-wheel ="false"/>
+			<wheel radius ="0.5" width ="0.5" offset-x="1.1" offset-y="-1.5" can-steer ="false" can-throttle ="true" is-front-wheel ="false"/>
+			<wheel radius ="0.5" width ="0.5" offset-x="-1" offset-y="1.45" can-steer ="true" can-throttle ="true" is-front-wheel ="true"/>
+			<wheel radius ="0.5" width ="0.5" offset-x="1" offset-y="1.45" can-steer ="true" can-throttle ="true" is-front-wheel ="true"/>
+		</wheels>
+		<textures>
+			<vehicle-texture name ="Car" size-x="16" size-y="28" offset-x="48" offset-y="0"/>
+			<wheel-texture name ="Wheel" size-x="3" size-y="5" offset-x="0" offset-y="0"/>
+		</textures>
+	</car-type1>
+</vehicle>
