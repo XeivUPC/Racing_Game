@@ -244,6 +244,9 @@
     <ClInclude Include="Source\Vehicle.h" />
     <ClInclude Include="Source\Wheel.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Assets\Data\vehicle_data.xml" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

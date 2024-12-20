@@ -193,4 +193,9 @@
       <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Assets\Data\vehicle_data.xml">
+      <Filter>Config</Filter>
+    </Xml>
+  </ItemGroup>
 </Project>

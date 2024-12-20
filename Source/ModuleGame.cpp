@@ -41,5 +41,6 @@ bool ModuleGame::CleanUp()
 update_status ModuleGame::Update()
 {
 	car->Update();
+	car->Render();
 	return UPDATE_CONTINUE;
 }

@@ -18,6 +18,7 @@ public:
 	Vehicle(Module* gameAt, string id);
 	~Vehicle();
 	update_status Update();
+	bool Render();
 	bool CleanUp();
 	double GetRotation();
 
