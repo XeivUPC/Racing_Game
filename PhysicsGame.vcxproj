@@ -203,7 +203,6 @@
     <ClCompile Include="Source\CursorChanger.cpp" />
     <ClCompile Include="Source\DriftParticle.cpp" />
     <ClCompile Include="Source\external\pugi\pugixml.cpp" />
-    <ClCompile Include="Source\MapLapSensor.cpp" />
     <ClCompile Include="Source\Log.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\MapLapSensor.cpp" />
