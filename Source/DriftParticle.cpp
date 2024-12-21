@@ -20,14 +20,14 @@ bool DriftParticle::Update()
 		return true;
 	}
 	/// RenderParticle
-	Rectangle rect = { 0,0,texture->width ,texture->height };
-	Vector2 offset = {-texture->width/2 ,-texture->height/2 };
+	Rectangle rect = { 0,0,(float)texture->width ,(float)texture->height };
+	Vector2 offset = {-texture->width/2.f ,-texture->height/2.f };
 
-	int alpha = (int)(255 * GetLifePercentage()/100) +1;
+	unsigned int alpha = (unsigned int)(255 * GetLifePercentage()/100) +1;
 	if (alpha < 0)
 		alpha = 0;
 	// Create the color with white RGB values and calculated alpha
-	Color color = { 255, 255, 255, alpha };
+	Color color = { 255, 255, 255, (unsigned char)alpha };
 
 	moduleAt->App->renderer->Draw(*texture, position, offset,&rect,RAD2DEG * angle, 3,0,0, color);
 	Particle::Update();

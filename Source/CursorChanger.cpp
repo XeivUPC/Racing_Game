@@ -18,15 +18,15 @@ void CursorChanger::SetCursor(std::string path)
 	texture = LoadTexture(path.c_str());
 
 	if (IsTextureReady(texture))
-		DisableCursor();
+		HideCursor();
 	else
-		EnableCursor();
+		ShowCursor();
 }
 
 void CursorChanger::RenderCursor()
 {
 	if (IsTextureReady(texture)){
 		Vector2 mousePos = GetMousePosition();
-		DrawTexture(texture, mousePos.x, mousePos.y, WHITE);
+		DrawTexture(texture, (int)mousePos.x, (int)mousePos.y, WHITE);
 		}
 }
