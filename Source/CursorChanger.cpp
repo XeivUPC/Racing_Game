@@ -27,6 +27,6 @@ void CursorChanger::RenderCursor()
 {
 	if (IsTextureReady(texture)){
 		Vector2 mousePos = GetMousePosition();
-		DrawTexture(texture, mousePos.x, mousePos.y, WHITE);
+		DrawTexture(texture, (int)mousePos.x, (int)mousePos.y, WHITE);
 		}
 }

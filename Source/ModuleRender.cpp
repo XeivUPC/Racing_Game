@@ -93,7 +93,7 @@ bool ModuleRender::Draw(Texture2D texture, Vector2 position, Vector2 offset, con
     BeginTextureMode(layers.at(currentRenderLayer).data);
     bool ret = true;
 
-    float radians = DEG2RAD * (angle);
+    double radians = DEG2RAD * (angle);
     offset = {
        (float)(cos(radians) * offset.x - sin(radians) * offset.y) ,
         (float)(sin(radians) * offset.x + cos(radians) * offset.y)
@@ -106,8 +106,8 @@ bool ModuleRender::Draw(Texture2D texture, Vector2 position, Vector2 offset, con
     if (section != NULL) rect = *section;
 
     // Create a destination rectangle based on the provided position and scale
-    Rectangle destRect = { (float)(position.x + offset.x - pivot_x ) + camera.x,
-                           (float)(position.y + offset.y - pivot_y) + camera.y,
+    Rectangle destRect = { (float)(position.x + offset.x - pivot_x ),
+                           (float)(position.y + offset.y - pivot_y),
                            rect.width * scale, rect.height * scale };
 
     // Set the pivot point around which the texture will rotate (the center of rotation)
