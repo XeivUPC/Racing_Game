@@ -46,6 +46,9 @@
     <Filter Include="Systems\Particles\Type %28Particle%29">
       <UniqueIdentifier>{a184f345-9322-4ded-9275-b7f078c16acb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MapObjects\Type %28MapObjects%29\MapLapSensor">
+      <UniqueIdentifier>{d3965345-45e8-4b89-9d11-c0a2b796fc5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleAssetLoader.cpp">
@@ -112,6 +115,9 @@
     </ClCompile>
     <ClCompile Include="Source\CursorChanger.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MapLapSensor.cpp">
+      <Filter>MapObjects\Type %28MapObjects%29\MapLapSensor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -191,6 +197,9 @@
     </ClInclude>
     <ClInclude Include="Source\CursorChanger.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MapLapSensor.h">
+      <Filter>MapObjects\Type %28MapObjects%29\MapLapSensor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

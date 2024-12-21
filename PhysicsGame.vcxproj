@@ -199,6 +199,7 @@
     <ClCompile Include="Source\CursorChanger.cpp" />
     <ClCompile Include="Source\DriftParticle.cpp" />
     <ClCompile Include="Source\external\pugi\pugixml.cpp" />
+    <ClCompile Include="Source\MapLapSensor.cpp" />
     <ClCompile Include="Source\Log.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\ModuleAssetLoader.cpp" />
@@ -226,6 +227,7 @@
     <ClInclude Include="Source\external\pugi\pugiconfig.hpp" />
     <ClInclude Include="Source\external\pugi\pugixml.hpp" />
     <ClInclude Include="Source\Globals.h" />
+    <ClInclude Include="Source\MapLapSensor.h" />
     <ClInclude Include="Source\MapObject.h" />
     <ClInclude Include="Source\MemLeaks.h" />
     <ClInclude Include="Source\Module.h" />
