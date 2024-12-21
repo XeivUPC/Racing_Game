@@ -67,7 +67,7 @@ bool ModuleAudio::PlayMusic(std::string path)
     music = LoadMusicStream(path.c_str());
     
     PlayMusicStream(music);
-
+	SetMusicVolume(music, general_volume * music_volume);
 	LOG("Successfully playing %s", path);
 
 	return ret;
@@ -102,6 +102,7 @@ unsigned int ModuleAudio::LoadFx(std::string path, bool loadEvenIfItExist)
 		}
 		else
 		{
+			SetSoundVolume(sound, general_volume * sfx_volume);
 			if (ret == 0) {
 				ret = soundsMap.size();
 				soundsMap[ret] = SoundData{path};
@@ -162,11 +163,11 @@ void ModuleAudio::ChangeGeneralVolume(float volume)
 
 void ModuleAudio::ChangeSfxVolume(float volume)
 {
-	sfx_volume = std::clamp(general_volume * volume, 0.0f, 1.0f);
+	sfx_volume = std::clamp(volume, 0.0f, 1.0f);
 
 	for (const auto& soundMapEntry : soundsMap) {
 		for (const auto& sound : soundMapEntry.second.sounds) {
-			SetSoundVolume(sound, sfx_volume);
+			SetSoundVolume(sound, general_volume * sfx_volume);
 		}
 	}
 
@@ -174,8 +175,8 @@ void ModuleAudio::ChangeSfxVolume(float volume)
 
 void ModuleAudio::ChangeMusicVolume(float volume)
 {
-	music_volume = std::clamp(general_volume * volume, 0.0f, 1.0f);
-	SetMusicVolume(music, music_volume);
+	music_volume = std::clamp(volume, 0.0f, 1.0f);
+	SetMusicVolume(music, general_volume * music_volume);
 }
 
 bool ModuleAudio::IsSoundLoaded(int soundId)
