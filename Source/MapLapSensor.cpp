@@ -3,7 +3,7 @@
 #include "Application.h"
 #include "ModulePhysics.h"
 
-MapLapSensor::MapLapSensor(Module* gameAt, Vector2 position, vector<Vector2> vertices, int order) : MapObject(gameAt)
+MapLapSensor::MapLapSensor(Module* moduleAt, Vector2 position, vector<Vector2> vertices, int order) : MapObject(gameAt)
 {
 	this->order = order;
 

@@ -7,7 +7,7 @@ using namespace std;
 
 class MapLapSensor : public MapObject {
 public:
-	MapLapSensor(Module* gameAt, Vector2 position, vector<Vector2> vertices, int order);
+	MapLapSensor(Module* moduleAt, Vector2 position, vector<Vector2> vertices, int order);
 	~MapLapSensor();
 
 	update_status Update();
