@@ -3,7 +3,7 @@
 #include "ModuleAudio.h"
 
 #include "raylib.h"
-
+#include <algorithm>
 
 ModuleAudio::ModuleAudio(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -149,6 +149,33 @@ bool ModuleAudio::PlayFx(unsigned int soundId, bool overrideIfSoundPlaying)
 	}
 
 	return ret;
+}
+
+void ModuleAudio::ChangeGeneralVolume(float volume)
+{
+	general_volume = std::clamp(volume, 0.0f, 1.0f); // Clamp to valid range
+	SetMasterVolume(general_volume);
+
+	ChangeSfxVolume(sfx_volume);
+	ChangeMusicVolume(music_volume);
+}
+
+void ModuleAudio::ChangeSfxVolume(float volume)
+{
+	sfx_volume = std::clamp(general_volume * volume, 0.0f, 1.0f);
+
+	for (const auto& soundMapEntry : soundsMap) {
+		for (const auto& sound : soundMapEntry.second.sounds) {
+			SetSoundVolume(sound, sfx_volume);
+		}
+	}
+
+}
+
+void ModuleAudio::ChangeMusicVolume(float volume)
+{
+	music_volume = std::clamp(general_volume * volume, 0.0f, 1.0f);
+	SetMusicVolume(music, music_volume);
 }
 
 bool ModuleAudio::IsSoundLoaded(int soundId)
