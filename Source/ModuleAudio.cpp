@@ -3,7 +3,7 @@
 #include "ModuleAudio.h"
 
 #include "raylib.h"
-
+#include <algorithm>
 
 ModuleAudio::ModuleAudio(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -67,7 +67,7 @@ bool ModuleAudio::PlayMusic(std::string path)
     music = LoadMusicStream(path.c_str());
     
     PlayMusicStream(music);
-
+	SetMusicVolume(music, general_volume * music_volume);
 	LOG("Successfully playing %s", path);
 
 	return ret;
@@ -102,6 +102,7 @@ unsigned int ModuleAudio::LoadFx(std::string path, bool loadEvenIfItExist)
 		}
 		else
 		{
+			SetSoundVolume(sound, general_volume * sfx_volume);
 			if (ret == 0) {
 				ret = soundsMap.size();
 				soundsMap[ret] = SoundData{path};
@@ -149,6 +150,33 @@ bool ModuleAudio::PlayFx(unsigned int soundId, bool overrideIfSoundPlaying)
 	}
 
 	return ret;
+}
+
+void ModuleAudio::ChangeGeneralVolume(float volume)
+{
+	general_volume = std::clamp(volume, 0.0f, 1.0f); // Clamp to valid range
+	SetMasterVolume(general_volume);
+
+	ChangeSfxVolume(sfx_volume);
+	ChangeMusicVolume(music_volume);
+}
+
+void ModuleAudio::ChangeSfxVolume(float volume)
+{
+	sfx_volume = std::clamp(volume, 0.0f, 1.0f);
+
+	for (const auto& soundMapEntry : soundsMap) {
+		for (const auto& sound : soundMapEntry.second.sounds) {
+			SetSoundVolume(sound, general_volume * sfx_volume);
+		}
+	}
+
+}
+
+void ModuleAudio::ChangeMusicVolume(float volume)
+{
+	music_volume = std::clamp(volume, 0.0f, 1.0f);
+	SetMusicVolume(music, general_volume * music_volume);
 }
 
 bool ModuleAudio::IsSoundLoaded(int soundId)

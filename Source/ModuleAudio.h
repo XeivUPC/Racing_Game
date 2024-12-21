@@ -34,6 +34,10 @@ public:
 	// Play a previously loaded sound
 	bool PlayFx(unsigned int soundId, bool overrideIfSoundPlaying = true);
 
+	void ChangeGeneralVolume(float volume);
+	void ChangeSfxVolume(float volume);
+	void ChangeMusicVolume(float volume);
+
 private:
 
 	bool IsSoundLoaded(int soundId);
@@ -42,4 +46,8 @@ private:
 
 	/// Filters an array of Sounds by an ID
 	std::unordered_map<unsigned int, SoundData> soundsMap;
+
+	float general_volume = 1.0f;
+	float sfx_volume = 1.0f;
+	float music_volume = 1.0f;
 };
