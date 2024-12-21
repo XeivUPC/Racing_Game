@@ -1,9 +1,9 @@
-#include "LapSensor.h"
+#include "MapLapSensor.h"
 #include "Box2DFactory.h"
 #include "Application.h"
 #include "ModulePhysics.h"
 
-LapSensor::LapSensor(Module* gameAt, Vector2 position, vector<Vector2> vertices, int order) : MapObject(gameAt)
+MapLapSensor::MapLapSensor(Module* gameAt, Vector2 position, vector<Vector2> vertices, int order) : MapObject(gameAt)
 {
 	this->order = order;
 
@@ -23,11 +23,11 @@ LapSensor::LapSensor(Module* gameAt, Vector2 position, vector<Vector2> vertices,
 	Enable();
 }
 
-LapSensor::~LapSensor()
+MapLapSensor::~MapLapSensor()
 {
 }
 
-update_status LapSensor::Update()
+update_status MapLapSensor::Update()
 {
 	if (sensor.OnTriggerEnter() && enabled) {
 		OnTrigger();
@@ -35,38 +35,38 @@ update_status LapSensor::Update()
 	return UPDATE_CONTINUE;
 }
 
-bool LapSensor::CleanUp()
+bool MapLapSensor::CleanUp()
 {
 	delete body;
 	return true;
 }
 
-void LapSensor::Enable()
+void MapLapSensor::Enable()
 {
 	enabled = true;
 }
 
-void LapSensor::Disable()
+void MapLapSensor::Disable()
 {
 	enabled = false;
 }
 
-void LapSensor::Activate()
+void MapLapSensor::Activate()
 {
 	activated = true;
 }
 
-void LapSensor::Deactivate()
+void MapLapSensor::Deactivate()
 {
 	activated = false;
 }
 
-int LapSensor::GetOrder() const
+int MapLapSensor::GetOrder() const
 {
 	return order;
 }
 
-void LapSensor::OnTrigger()
+void MapLapSensor::OnTrigger()
 {
 	Activate();
 }

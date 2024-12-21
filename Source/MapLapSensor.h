@@ -5,10 +5,10 @@
 
 using namespace std;
 
-class LapSensor : public MapObject {
+class MapLapSensor : public MapObject {
 public:
-	LapSensor(Module* gameAt, Vector2 position, vector<Vector2> vertices, int order);
-	~LapSensor();
+	MapLapSensor(Module* gameAt, Vector2 position, vector<Vector2> vertices, int order);
+	~MapLapSensor();
 
 	update_status Update();
 	bool CleanUp();
