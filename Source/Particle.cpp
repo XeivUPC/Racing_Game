@@ -28,7 +28,7 @@ bool Particle::CleanUp()
 
 float Particle::GetLifePercentage()
 {
-	return  (1 - life_timer.ReadSec() / lifeTime) * 100;
+	return  (float)((1 - life_timer.ReadSec() / lifeTime) * 100);
 }
 
 void Particle::Init(ParticleSystem* system)

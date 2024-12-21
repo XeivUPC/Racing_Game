@@ -49,13 +49,6 @@ update_status Vehicle::Update()
 		wheel->GetJoint()->SetLimits(newAngle, newAngle);
 	}
 
-	double radianAngle = body->GetAngle();
-
-	Vector2 vehicleRotatedOffset = {
-	   -vehicleTextureRec.width / 2.f,
-	   -vehicleTextureRec.height / 2.f
-	};
-
 	float vehicleSpeed = Vector2Length(body->GetLinearVelocity());
 
 	//if (carSpeed > 1)
@@ -67,6 +60,18 @@ update_status Vehicle::Update()
 	//	}
 	//}
 	
+	return UPDATE_CONTINUE;
+}
+
+bool Vehicle::Render()
+{
+	double radianAngle = body->GetAngle();
+
+	Vector2 vehicleRotatedOffset = {
+	   -vehicleTextureRec.width / 2.f,
+	   -vehicleTextureRec.height / 2.f
+	};
+
 	for (const auto& wheel : wheels)
 	{
 		if (!wheel->rendersOverVehicle)
@@ -78,11 +83,10 @@ update_status Vehicle::Update()
 
 	for (const auto& wheel : wheels)
 	{
-		if(wheel->rendersOverVehicle)
+		if (wheel->rendersOverVehicle)
 			wheel->Render();
 	}
-
-	return UPDATE_CONTINUE;
+	return true;
 }
 
 bool Vehicle::CleanUp()
@@ -192,10 +196,10 @@ Wheel* Vehicle::CreateWheel(xml_node wheel_node)
 
 	xml_node texture_node = wheel_node.child("texture");
 	std::string textureName = texture_node.attribute("name").as_string();
-	Vector2 textureOffset = { texture_node.attribute("pos-x").as_float(),texture_node.attribute("pos-y").as_float() };
+	Vector2 texturePos = { texture_node.attribute("pos-x").as_float(),texture_node.attribute("pos-y").as_float() };
 	Vector2 textureSize = { texture_node.attribute("size-x").as_float(),texture_node.attribute("size-y").as_float() };
 	Texture2D* wheelTexture = moduleAt->App->texture->GetTexture(textureName.c_str());
-	Rectangle wheelTextureRec = { textureOffset.x,textureOffset.y,textureSize.x,textureSize.y };
+	Rectangle wheelTextureRec = { texturePos.x,texturePos.y,textureSize.x,textureSize.y };
 
 	bool rendereable = wheel_properties_node.child("rendereable").attribute("value").as_bool();
 	bool renderOverVehicle = wheel_properties_node.child("renders-over-vehicle").attribute("value").as_bool();

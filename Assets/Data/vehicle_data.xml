@@ -4,7 +4,7 @@
 			<name value="SuperCar"/>
 			<title value="TurboWheels x Xeiv"/>
 			<created-by value="XeivUPC"/>
-			<description value="Super car super fast ultra cool for just you!"/>
+			<description value="Super car super fast ultra cool just for you!"/>
 		</information>
 
 		<properties>
@@ -61,7 +61,7 @@
 			<name value="SuperCar"/>
 			<title value="TurboWheels x Xeiv"/>
 			<created-by value="XeivUPC"/>
-			<description value="Super car super fast ultra cool for just you!"/>
+			<description value="Super car super fast ultra cool just for you!"/>
 		</information>
 
 		<properties>
@@ -118,7 +118,7 @@
 			<name value="SuperCar"/>
 			<title value="TurboWheels x Xeiv"/>
 			<created-by value="XeivUPC"/>
-			<description value="Super car super fast ultra cool for just you!"/>
+			<description value="Super car super fast ultra cool just for you!"/>
 		</information>
 
 		<properties>
@@ -175,7 +175,7 @@
 			<name value="SuperCar"/>
 			<title value="TurboWheels x Xeiv"/>
 			<created-by value="XeivUPC"/>
-			<description value="Super car super fast ultra cool for just you!"/>
+			<description value="Super car super fast ultra cool just for you!"/>
 		</information>
 
 		<properties>
@@ -226,6 +226,45 @@
 		<texture name ="Car" size-x="16" size-y="28" pos-x="48"  pos-y="0"/>
 
 	</car-type4>
+
+	<truck-type1 size-x ="3" size-y ="8.5" mass ="100" inertia ="30">
+		<information>
+			<name value="SuperTruck"/>
+			<title value="TurboWheels x Xeiv"/>
+			<created-by value="XeivUPC"/>
+			<description value="Super car super fast ultra cool for just you!"/>
+		</information>
+
+		<properties>
+			<max-forward-speed value = "5"/>
+			<max-backward-speed value = "-2"/>
+		</properties>
+
+		<wheels>
+			<wheel radius ="0.5" width ="0.5" offset-x="0" offset-y="-1.5" can-steer ="false" can-throttle ="true">
+				<properties>
+					<max-drive-force value = "50"/>
+					<max-lateral-impulse value = "12.5"/>
+					<rendereable value = "false"/>
+					<renders-over-vehicle value = "false"/>
+				</properties>
+				<texture name ="Wheel" size-x="3" size-y="5" pos-x="0"  pos-y="0"/>
+
+			</wheel>
+			<wheel radius ="0.5" width ="0.5" offset-x="0" offset-y="5" can-steer ="true" can-throttle ="true" >
+				<properties>
+					<max-drive-force value = "70"/>
+					<max-lateral-impulse value = "8.5"/>
+					<rendereable value = "true"/>
+					<renders-over-vehicle value = "true"/>
+				</properties>
+				<texture name ="Wheel" size-x="14" size-y="14" pos-x="64"  pos-y="0"/>
+			</wheel>
+		</wheels>
+
+		<texture name ="Car" size-x="16" size-y="52" pos-x="64"  pos-y="0"/>
+
+	</truck-type1>
 
 	<moto-type1 size-x ="1" size-y ="3.5" mass ="100" inertia ="30">
 		<information>
@@ -289,7 +328,7 @@
 				<texture name ="Wheel" size-x="3" size-y="5" pos-x="0"  pos-y="0"/>
 
 			</wheel>
-			<wheel radius ="0.5" width ="0.5" offset-x="0" offset-y="2.3" can-steer ="true" can-throttle ="true" >
+			<wheel radius ="0.5" width ="0.5" offset-x="0" offset-y="1.8" can-steer ="true" can-throttle ="true" >
 				<properties>
 					<max-drive-force value = "150"/>
 					<max-lateral-impulse value = "8.5"/>

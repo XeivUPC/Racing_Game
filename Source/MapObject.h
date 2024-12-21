@@ -19,6 +19,11 @@ public:
 		return UPDATE_CONTINUE;
 	}
 
+	virtual bool Render()
+	{
+		return true;
+	}
+
 	virtual bool CleanUp()
 	{
 		return true;

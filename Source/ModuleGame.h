@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Globals.h"
-#include "Module.h"
+#include "ModuleScene.h"
 
 #include "p2Point.h"
 
@@ -11,7 +11,7 @@
 class PhysBody;
 class Vehicle;
 
-class ModuleGame : public Module
+class ModuleGame : public ModuleScene
 {
 public:
 	ModuleGame(Application* app, bool start_enabled = true);

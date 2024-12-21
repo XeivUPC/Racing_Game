@@ -46,15 +46,18 @@
     <Filter Include="Systems\Particles\Type %28Particle%29">
       <UniqueIdentifier>{a184f345-9322-4ded-9275-b7f078c16acb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Modules\Type %28Module%29\Scene %28ModueScene%29">
+      <UniqueIdentifier>{f35bc0d6-23c6-49c0-9edf-e45af945fa7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MapObjects\Type %28MapObjects%29\MapLapSensor">
+      <UniqueIdentifier>{70fb2e1e-7805-4dbb-b5a3-42de2f297c87}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleAssetLoader.cpp">
       <Filter>Modules\Type %28Module%29</Filter>
     </ClCompile>
     <ClCompile Include="Source\ModuleAudio.cpp">
-      <Filter>Modules\Type %28Module%29</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ModuleGame.cpp">
       <Filter>Modules\Type %28Module%29</Filter>
     </ClCompile>
     <ClCompile Include="Source\ModulePhysics.cpp">
@@ -113,15 +116,21 @@
     <ClCompile Include="Source\CursorChanger.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ModuleScene.cpp">
+      <Filter>Modules\Type %28Module%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ModuleGame.cpp">
+      <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MapLapSensor.cpp">
+      <Filter>MapObjects\Type %28MapObjects%29\MapLapSensor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ModuleAssetLoader.h">
       <Filter>Modules\Type %28Module%29</Filter>
     </ClInclude>
     <ClInclude Include="Source\ModuleAudio.h">
-      <Filter>Modules\Type %28Module%29</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ModuleGame.h">
       <Filter>Modules\Type %28Module%29</Filter>
     </ClInclude>
     <ClInclude Include="Source\ModulePhysics.h">
@@ -192,5 +201,19 @@
     <ClInclude Include="Source\CursorChanger.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ModuleScene.h">
+      <Filter>Modules\Type %28Module%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModuleGame.h">
+      <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MapLapSensor.h">
+      <Filter>MapObjects\Type %28MapObjects%29\MapLapSensor</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Assets\Data\vehicle_data.xml">
+      <Filter>Config</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

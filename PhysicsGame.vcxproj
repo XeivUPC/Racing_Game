@@ -201,12 +201,14 @@
     <ClCompile Include="Source\external\pugi\pugixml.cpp" />
     <ClCompile Include="Source\Log.cpp" />
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\MapLapSensor.cpp" />
     <ClCompile Include="Source\ModuleAssetLoader.cpp" />
     <ClCompile Include="Source\ModuleAudio.cpp" />
     <ClCompile Include="Source\ModuleGame.cpp" />
     <ClCompile Include="Source\ModuleLocalization.cpp" />
     <ClCompile Include="Source\ModulePhysics.cpp" />
     <ClCompile Include="Source\ModuleRender.cpp" />
+    <ClCompile Include="Source\ModuleScene.cpp" />
     <ClCompile Include="Source\ModuleTexture.cpp" />
     <ClCompile Include="Source\ModuleWindow.cpp" />
     <ClCompile Include="Source\Particle.cpp" />
@@ -226,6 +228,7 @@
     <ClInclude Include="Source\external\pugi\pugiconfig.hpp" />
     <ClInclude Include="Source\external\pugi\pugixml.hpp" />
     <ClInclude Include="Source\Globals.h" />
+    <ClInclude Include="Source\MapLapSensor.h" />
     <ClInclude Include="Source\MapObject.h" />
     <ClInclude Include="Source\MemLeaks.h" />
     <ClInclude Include="Source\Module.h" />
@@ -235,6 +238,7 @@
     <ClInclude Include="Source\ModuleLocalization.h" />
     <ClInclude Include="Source\ModulePhysics.h" />
     <ClInclude Include="Source\ModuleRender.h" />
+    <ClInclude Include="Source\ModuleScene.h" />
     <ClInclude Include="Source\ModuleTexture.h" />
     <ClInclude Include="Source\ModuleWindow.h" />
     <ClInclude Include="Source\p2Point.h" />
@@ -243,6 +247,9 @@
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\Vehicle.h" />
     <ClInclude Include="Source\Wheel.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Assets\Data\vehicle_data.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
