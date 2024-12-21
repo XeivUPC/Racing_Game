@@ -10,6 +10,7 @@
 
 class PhysBody;
 class Vehicle;
+class UISlider;
 
 class ModuleGame : public ModuleScene
 {

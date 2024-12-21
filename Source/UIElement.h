@@ -9,7 +9,7 @@ public:
 		this->moduleAt = moduleAt;
 	}
 	~UIElement() {};
-	
+
 	virtual void Update() {};
 	virtual void Render() {};
 

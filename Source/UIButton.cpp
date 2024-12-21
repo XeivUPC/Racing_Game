@@ -3,11 +3,7 @@
 #include "Application.h"
 #include <functional>
 
-UIButton::UIButton(Module* moduleAt) : UIElement(moduleAt)
-{
-}
-
-UIButton::UIButton(Module* moduleAt, Vector2 position, Vector2 size) : UIButton(moduleAt)
+UIButton::UIButton(Module* moduleAt, Vector2 position, Vector2 size) : UIElement(moduleAt)
 {
 	bounds = { position.x, position.y, size.x, size.y };
 }

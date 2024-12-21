@@ -6,7 +6,6 @@
 #include "ModuleTexture.h"
 #include "ModulePhysics.h"
 #include "ModuleAssetLoader.h"
-#include "UIButton.h"
 
 #include "Vehicle.h"
  
@@ -41,9 +40,8 @@ bool ModuleGame::CleanUp()
 // Update: draw background
 update_status ModuleGame::Update()
 {
-
-
 	car->Update();
 	car->Render();
+
 	return UPDATE_CONTINUE;
 }
