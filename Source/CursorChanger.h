@@ -12,5 +12,6 @@ public:
 	void RenderCursor();
 private:
 	Texture2D texture;
+
 };
 

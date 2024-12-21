@@ -18,9 +18,9 @@ void CursorChanger::SetCursor(std::string path)
 	texture = LoadTexture(path.c_str());
 
 	if (IsTextureReady(texture))
-		DisableCursor();
+		HideCursor();
 	else
-		EnableCursor();
+		ShowCursor();
 }
 
 void CursorChanger::RenderCursor()

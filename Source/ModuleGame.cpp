@@ -6,6 +6,7 @@
 #include "ModuleTexture.h"
 #include "ModulePhysics.h"
 #include "ModuleAssetLoader.h"
+#include "UIButton.h"
 
 #include "Vehicle.h"
 
@@ -24,7 +25,6 @@ bool ModuleGame::Start()
 	bool ret = true;
 
 	car = new Vehicle(this, "moto-type2");
-
 	return ret;
 }
 
@@ -37,9 +37,16 @@ bool ModuleGame::CleanUp()
 	return true;
 }
 
+void ModuleGame::Test()
+{
+	printf("dsadasdas\n");
+}
+
 // Update: draw background
 update_status ModuleGame::Update()
 {
+
+
 	car->Update();
 	car->Render();
 	return UPDATE_CONTINUE;

@@ -52,6 +52,12 @@
     <Filter Include="MapObjects\Type %28MapObjects%29\MapLapSensor">
       <UniqueIdentifier>{70fb2e1e-7805-4dbb-b5a3-42de2f297c87}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Systems\UI Elements">
+      <UniqueIdentifier>{558447c7-0799-4fef-9c90-68e3c541fe0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems\UI Elements\Type %28UI Elements%29">
+      <UniqueIdentifier>{b8dca133-cd66-4c85-befb-085954201f28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleAssetLoader.cpp">
@@ -124,6 +130,9 @@
     </ClCompile>
     <ClCompile Include="Source\MapLapSensor.cpp">
       <Filter>MapObjects\Type %28MapObjects%29\MapLapSensor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UIButton.cpp">
+      <Filter>Systems\UI Elements\Type %28UI Elements%29</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -209,6 +218,12 @@
     </ClInclude>
     <ClInclude Include="Source\MapLapSensor.h">
       <Filter>MapObjects\Type %28MapObjects%29\MapLapSensor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UIElement.h">
+      <Filter>Systems\UI Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UIButton.h">
+      <Filter>Systems\UI Elements\Type %28UI Elements%29</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
