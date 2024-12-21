@@ -9,6 +9,7 @@
 #include "UIButton.h"
 
 #include "Vehicle.h"
+ 
 
 ModuleGame::ModuleGame(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
 {
@@ -35,11 +36,6 @@ bool ModuleGame::CleanUp()
 	car->CleanUp();
 	delete car;
 	return true;
-}
-
-void ModuleGame::Test()
-{
-	printf("dsadasdas\n");
 }
 
 // Update: draw background
