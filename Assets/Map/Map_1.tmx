@@ -1,17 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="146" height="79" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="10">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="146" height="79" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="25">
  <imagelayer id="10" name="Bg">
-  <image source="../../../../../../Downloads/Frame 1.png" width="2440" height="1272"/>
+  <image source="Map 1.png" width="2440" height="1272"/>
  </imagelayer>
  <objectgroup id="11" name="Collisions">
   <object id="7" x="616" y="425">
    <polygon points="5,-7.33333 -130.25,-0.833333 -185.667,18.5833 -230.834,52.0417 -262.75,92.5 -281.542,141.208 -287.583,185.417 -283.792,229.917 -267.667,275.667 -221.083,337.167 -152.854,372.833 -80.875,388 1281.5,388.25 1299,371.5 1293,348.5 1223.24,286.378 1174.25,160.5 1150.25,150.75 1128.25,167.25 1115.5,291.75 1087.25,339.5 1033.25,374 783.5,373.625 614.5,223.334 561.5,196.167 496.985,185.818 432.166,197.167 377,230 194.75,374.25 -77.8333,373.584 -144.5,360 -211,326 -252.583,272.417 -269,225.75 -271.417,169.583 -255.985,113.788 -224.227,66.5226 -182.833,35.4394 -121.167,12.3333 4.66667,6.83333 12.2083,-0.8125"/>
   </object>
   <object id="8" x="622.5" y="605">
-   <polygon points="0,0 98,-7.5 177.5,-44 227.5,-115.5 272.5,-250.5 229,-327 145,-389 46.5,-408 35.5,-416 47,-425 147,-403.5 233,-347 286,-264 408,-349 486,-373.5 565,-374 644,-347 703,-304.5 769,-210 826,-124 826,-111.5 814,-115 689,-294.5 600.5,-349 511.5,-360 434.5,-344.5 289.5,-248 242.5,-116.5 213,-58 160.5,-14.5 96.5,9.5 -0.5,14 -9,8"/>
+   <polygon points="0,0 98,-7.5 177.5,-44 227.5,-115.5 272.5,-250.5 228.5,-326.5 159,-381 88.5,-405 34.375,-407.625 6.25,-422.333 -5.375,-447.167 -27.5833,-613.667 925,-617 862.864,-137.727 840.727,-126.591 822.5,-136 689.5,-302 612.75,-347.25 523.75,-361.5 431,-343.5 289.5,-248 242.5,-116.5 213,-58 160.5,-14.5 96.5,9.5 -0.5,14 -9,8"/>
   </object>
   <object id="9" x="0" y="0">
    <polygon points="0,0 2336,0 2336,1264 0,1264 0,0 -16,0 -16,1280 2352,1280 2352,-16 0,-16"/>
+  </object>
+ </objectgroup>
+ <objectgroup id="12" name="LapSensors">
+  <object id="11" x="1520" y="816">
+   <properties>
+    <property name="Order" type="int" value="0"/>
+   </properties>
+   <polygon points="0.25,-8.5 0,464 48,464 48.25,-8.5"/>
+  </object>
+  <object id="12" x="576" y="816">
+   <properties>
+    <property name="Order" type="int" value="1"/>
+   </properties>
+   <polygon points="0,-8.875 0,464 64,464 64,-8.875"/>
+  </object>
+  <object id="13" x="362" y="717.333">
+   <properties>
+    <property name="Order" type="int" value="2"/>
+   </properties>
+   <polygon points="0,0 -367.333,165.333 -390,100 -19.3333,-43.6667"/>
+  </object>
+  <object id="14" x="375" y="499">
+   <properties>
+    <property name="Order" type="int" value="3"/>
+   </properties>
+   <polygon points="0,0 -394,-338 -386,-433 52,-50"/>
+  </object>
+  <object id="15" x="573" y="427">
+   <properties>
+    <property name="Order" type="int" value="4"/>
+   </properties>
+   <polygon points="0,0 100,-340 199,-312 41.5,-3.5"/>
+  </object>
+  <object id="16" x="824.667" y="540.667">
+   <properties>
+    <property name="Order" type="int" value="5"/>
+   </properties>
+   <polygon points="0,0 -42.6667,40 -274.667,-110.667 -218.667,-118"/>
+  </object>
+  <object id="17" x="644.667" y="604.667">
+   <properties>
+    <property name="Order" type="int" value="6"/>
+   </properties>
+   <polygon points="0,0 -301.333,-33.3333 -309.333,29.3333 -4,10.6667"/>
+  </object>
+  <object id="18" x="732" y="602.667">
+   <properties>
+    <property name="Order" type="int" value="7"/>
+   </properties>
+   <polygon points="0,0 110,182.667 154,152 43.3333,-17.3333"/>
+  </object>
+  <object id="19" x="1014" y="655">
+   <properties>
+    <property name="Order" type="int" value="8"/>
+   </properties>
+   <polygon points="0,0 -83,-318 -18,-367 53,-14"/>
+  </object>
+  <object id="20" x="1161" y="637">
+   <properties>
+    <property name="Order" type="int" value="9"/>
+   </properties>
+   <polygon points="0,0 169,-331.333 218,-270.333 55,41"/>
+  </object>
+  <object id="21" x="1455" y="466">
+   <properties>
+    <property name="Order" type="int" value="10"/>
+   </properties>
+   <polygon points="0,0 4,340 65,339 25,-19"/>
+  </object>
+  <object id="22" x="1754" y="596">
+   <properties>
+    <property name="Order" type="int" value="11"/>
+   </properties>
+   <polygon points="-7,34 -325.333,-572 -206,-633.667 26,-10"/>
+  </object>
+  <object id="23" x="1784" y="597">
+   <properties>
+    <property name="Order" type="int" value="12"/>
+   </properties>
+   <polygon points="0,0 350,-647 460,-623 22,82"/>
+  </object>
+  <object id="24" x="1865.33" y="782.667">
+   <properties>
+    <property name="Order" type="int" value="13"/>
+   </properties>
+   <polygon points="-13.5,-19.5 581.333,-20 560,120 -60,24"/>
   </object>
  </objectgroup>
 </map>
