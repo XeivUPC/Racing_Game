@@ -125,6 +125,9 @@
     <ClCompile Include="Source\MapLapSensor.cpp">
       <Filter>MapObjects\Type %28MapObjects%29\MapLapSensor</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ModuleOptions.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ModuleAssetLoader.h">
@@ -209,6 +212,9 @@
     </ClInclude>
     <ClInclude Include="Source\MapLapSensor.h">
       <Filter>MapObjects\Type %28MapObjects%29\MapLapSensor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModuleOptions.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
