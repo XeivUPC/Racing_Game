@@ -4,16 +4,19 @@
 
 class FontCreator {
 private:
-    static FontCreator* instance;
+    // Constructor privado para prevenir instanciación directa
     FontCreator() {}
 
+    // Eliminar el constructor por copia y la asignación
+    FontCreator(const FontCreator&) = delete;
+    FontCreator& operator=(const FontCreator&) = delete;
+
 public:
-    static FontCreator* GetInstance() {
-        if (instance == nullptr) {
-            instance = new FontCreator();
-        }
+    static FontCreator& GetInstance() {
+        static FontCreator instance; // Instancia única, creada la primera vez
         return instance;
     }
+
 
     Font CreateFontFromTexture(Texture2D texture, int charWidth, int charHeight,
         const std::vector<int>& codepoints, int padding = 0) {
@@ -67,6 +70,3 @@ public:
     // Destructor
     ~FontCreator() {}
 };
-
-// Initialize the static instance variable
-FontCreator* FontCreator::instance = nullptr;

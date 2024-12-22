@@ -24,5 +24,4 @@ public:
 
 public:
 	Vehicle* car;
-	Font font;
 };

@@ -120,7 +120,6 @@ bool Application::CleanUp()
 		Module* item = *it;
 		ret = item->CleanUp();
 	}
-	
 	return ret;
 }
 
