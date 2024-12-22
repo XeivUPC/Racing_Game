@@ -210,7 +210,7 @@
     <ClCompile Include="Source\ModuleAudio.cpp" />
     <ClCompile Include="Source\SceneGame.cpp" />
     <ClCompile Include="Source\ModuleLocalization.cpp" />
-    <ClCompile Include="Source\ModuleOptions.cpp" />
+    <ClCompile Include="Source\SceneOptions.cpp" />
     <ClCompile Include="Source\SceneMainMenu.cpp" />
     <ClCompile Include="Source\ModulePhysics.cpp" />
     <ClCompile Include="Source\ModuleRender.cpp" />
@@ -245,7 +245,7 @@
     <ClInclude Include="Source\ModuleAudio.h" />
     <ClInclude Include="Source\SceneGame.h" />
     <ClInclude Include="Source\ModuleLocalization.h" />
-    <ClInclude Include="Source\ModuleOptions.h" />
+    <ClInclude Include="Source\SceneOptions.h" />
     <ClInclude Include="Source\SceneMainMenu.h" />
     <ClInclude Include="Source\ModulePhysics.h" />
     <ClInclude Include="Source\ModuleRender.h" />
