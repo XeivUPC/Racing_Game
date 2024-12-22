@@ -37,7 +37,7 @@ Application::Application()
 	AddModule(assetLoader);
 	
 	// Scenes
-	//AddModule(scene_intro);
+	AddModule(scene_intro);
 	AddModule(scene_main_menu);
 
 	// Rendering happens at the end

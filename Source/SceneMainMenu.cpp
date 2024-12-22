@@ -52,6 +52,7 @@ bool SceneMainMenu::Start()
 	//Functionality
 	settings_button = new UIButton(this, { settings_buttonTextureRec.x, settings_buttonTextureRec.y }, { settings_buttonTextureRec.width, settings_buttonTextureRec.height }, settings_buttonTexture);
 
+	settings_button->onMouseClick = [&]() {ClickSettings(); };
 	settings_button->onMouseOver = [&]() {OnMouseOverSettings(); };
 
 
@@ -76,13 +77,13 @@ bool SceneMainMenu::CleanUp()
 void SceneMainMenu::ClickPlay()
 {
 	//this->StartFadeOut(BLACK, 1);
-	this->StartFadeIn(App->scene_intro,BLACK, 1);
+	this->StartFadeIn(App->scene_intro, BLACK, 1);
 	// Go to Play Scene
 }
 
 void SceneMainMenu::ClickSettings()
 {
-	//this->StartFadeOut(BLACK, 1);
+	this->StartFadeOut(BLACK, 1);
 	// Go to Settings Scene
 }
 
@@ -115,10 +116,7 @@ update_status SceneMainMenu::Update()
 	play_button->Render();
 	settings_button->Render();
 
-	ModuleRender::RenderLayer last_layer = App->renderer->GetCurrentRenderLayer();
-	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_5);
 	this->FadeUpdate();
-	App->renderer->SelectRenderLayer(last_layer);
 
 	return UPDATE_CONTINUE;
 }
