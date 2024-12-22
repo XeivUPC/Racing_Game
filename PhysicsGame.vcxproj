@@ -208,9 +208,10 @@
     <ClCompile Include="Source\MapLapSensor.cpp" />
     <ClCompile Include="Source\ModuleAssetLoader.cpp" />
     <ClCompile Include="Source\ModuleAudio.cpp" />
-    <ClCompile Include="Source\ModuleGame.cpp" />
+    <ClCompile Include="Source\SceneGame.cpp" />
     <ClCompile Include="Source\ModuleLocalization.cpp" />
     <ClCompile Include="Source\ModuleOptions.cpp" />
+    <ClCompile Include="Source\SceneMainMenu.cpp" />
     <ClCompile Include="Source\ModulePhysics.cpp" />
     <ClCompile Include="Source\ModuleRender.cpp" />
     <ClCompile Include="Source\ModuleScene.cpp" />
@@ -219,6 +220,8 @@
     <ClCompile Include="Source\Particle.cpp" />
     <ClCompile Include="Source\ParticleSystem.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
+    <ClCompile Include="Source\UIButton.cpp" />
+    <ClCompile Include="Source\UISlider.cpp" />
     <ClCompile Include="Source\Vehicle.cpp" />
     <ClCompile Include="Source\Wheel.cpp" />
   </ItemGroup>
@@ -232,6 +235,7 @@
     <ClInclude Include="Source\DriftParticle.h" />
     <ClInclude Include="Source\external\pugi\pugiconfig.hpp" />
     <ClInclude Include="Source\external\pugi\pugixml.hpp" />
+    <ClInclude Include="Source\FontCreator.h" />
     <ClInclude Include="Source\Globals.h" />
     <ClInclude Include="Source\MapLapSensor.h" />
     <ClInclude Include="Source\MapObject.h" />
@@ -239,9 +243,10 @@
     <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\ModuleAssetLoader.h" />
     <ClInclude Include="Source\ModuleAudio.h" />
-    <ClInclude Include="Source\ModuleGame.h" />
+    <ClInclude Include="Source\SceneGame.h" />
     <ClInclude Include="Source\ModuleLocalization.h" />
     <ClInclude Include="Source\ModuleOptions.h" />
+    <ClInclude Include="Source\SceneMainMenu.h" />
     <ClInclude Include="Source\ModulePhysics.h" />
     <ClInclude Include="Source\ModuleRender.h" />
     <ClInclude Include="Source\ModuleScene.h" />
@@ -251,6 +256,9 @@
     <ClInclude Include="Source\Particle.h" />
     <ClInclude Include="Source\ParticleSystem.h" />
     <ClInclude Include="Source\Timer.h" />
+    <ClInclude Include="Source\UIButton.h" />
+    <ClInclude Include="Source\UIElement.h" />
+    <ClInclude Include="Source\UISlider.h" />
     <ClInclude Include="Source\Vehicle.h" />
     <ClInclude Include="Source\Wheel.h" />
   </ItemGroup>

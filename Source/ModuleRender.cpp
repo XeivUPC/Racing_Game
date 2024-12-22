@@ -43,7 +43,6 @@ update_status ModuleRender::PreUpdate()
 // Update: debug camera
 update_status ModuleRender::Update()
 {
-   
 
     // NOTE: This function setups render batching system for
     // maximum performance, all consecutive Draw() calls are
