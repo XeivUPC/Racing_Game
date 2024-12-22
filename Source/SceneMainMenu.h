@@ -8,21 +8,16 @@
 #include "raylib.h"
 #include <vector>
 
-class PhysBody;
-class Vehicle;
-class UISlider;
-
-class ModuleGame : public ModuleScene
+class SceneMainMenu : public ModuleScene
 {
 public:
-	ModuleGame(Application* app, bool start_enabled = true);
-	~ModuleGame();
+	SceneMainMenu(Application* app, bool start_enabled = true);
+	~SceneMainMenu();
 
 	bool Start();
 	update_status Update();
 	bool CleanUp();
-	void Test();
 
 public:
-	Vehicle* car;
+
 };

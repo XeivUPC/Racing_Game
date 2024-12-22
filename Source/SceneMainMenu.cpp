@@ -1,22 +1,22 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRender.h"
-#include "ModuleMainMenu.h"
+#include "SceneMainMenu.h"
 #include "ModuleAudio.h"
 #include "ModuleTexture.h"
 #include "ModulePhysics.h"
 #include "ModuleAssetLoader.h"
 
-ModuleMainMenu::ModuleMainMenu(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
+SceneMainMenu::SceneMainMenu(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
 {
 
 }
 
-ModuleMainMenu::~ModuleMainMenu()
+SceneMainMenu::~SceneMainMenu()
 {
 }
 
-bool ModuleMainMenu::Start()
+bool SceneMainMenu::Start()
 {
 	LOG("Loading Main Menu assets");
 	bool ret = true;
@@ -25,14 +25,14 @@ bool ModuleMainMenu::Start()
 	return ret;
 }
 
-bool ModuleMainMenu::CleanUp()
+bool SceneMainMenu::CleanUp()
 {
 	LOG("Unloading Main Menu");
 
 	return true;
 }
 
-update_status ModuleMainMenu::Update()
+update_status SceneMainMenu::Update()
 {
 	return UPDATE_CONTINUE;
 }

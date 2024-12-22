@@ -7,7 +7,7 @@
 #include "ModuleLocalization.h"
 #include "ModuleAssetLoader.h"
 #include "ModulePhysics.h"
-#include "ModuleGame.h"
+#include "SceneGame.h"
 
 #include "Application.h"
 
@@ -20,7 +20,7 @@ Application::Application()
 	localization = new ModuleLocalization(this, true);
 	assetLoader = new ModuleAssetLoader(this);
 	physics = new ModulePhysics(this);
-	scene_intro = new ModuleGame(this);
+	scene_intro = new SceneGame(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
