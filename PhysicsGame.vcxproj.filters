@@ -137,6 +137,9 @@
     <ClCompile Include="Source\UISlider.cpp">
       <Filter>Systems\UI Elements\Type %28UI Elements%29</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ModuleMainMenu.cpp">
+      <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ModuleAssetLoader.h">
@@ -230,6 +233,9 @@
     </ClInclude>
     <ClInclude Include="Source\UISlider.h">
       <Filter>Systems\UI Elements\Type %28UI Elements%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModuleMainMenu.h">
+      <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
