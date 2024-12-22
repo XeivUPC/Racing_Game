@@ -22,5 +22,6 @@ bool ModuleAssetLoader::Init()
 	textureModule->CreateTexture("Assets/Textures/Motos.png", "Motos");
 	textureModule->CreateTexture("Assets/Textures/Wheels.png", "Wheel");
 	textureModule->CreateTexture("Assets/Textures/drift_mark.png", "DriftMark");
+	textureModule->CreateTexture("Assets/Fonts/pixel_normal_6x11.png", "Font1");
 	return true;
 }

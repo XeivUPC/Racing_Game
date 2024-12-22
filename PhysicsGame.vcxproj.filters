@@ -237,6 +237,9 @@
     <ClInclude Include="Source\SceneMainMenu.h">
       <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClInclude>
+    <ClInclude Include="Source\FontCreator.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Assets\Data\vehicle_data.xml">
