@@ -95,6 +95,7 @@ bool SceneOptions::CleanUp()
 {
 	LOG("Close Options");
 
+	//Fix memory leaks
 	return true;
 }
 
