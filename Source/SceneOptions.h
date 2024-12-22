@@ -8,18 +8,13 @@
 
 class Application;
 
-enum Language {
-	ENGLISH,
-	SPANISH,
-	CATALAN
-};
 
 class SceneOptions : public ModuleScene {
 private: 
 
 	bool enabled;
 
-	Vector2 sliderVolumePosition = {0,0};
+	int currentLanguage = 0;
 	
 	UIButton* exitSettingsButton = nullptr;
 	UIButton* nextLanguageButton = nullptr;
@@ -28,6 +23,8 @@ private:
 	UISlider* generalVolumeSlider = nullptr;
 	UISlider* musicVolumeSlider = nullptr;
 	UISlider* sfxVolumeSlider = nullptr;
+
+	
 
 public:
 
@@ -41,4 +38,8 @@ public:
 	update_status Update();
 	update_status PostUpdate();
 	bool CleanUp();
+
+	void Exit();
+	void NextLanguage();
+	void PreviousLanguage();
 };

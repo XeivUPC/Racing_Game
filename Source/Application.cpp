@@ -8,6 +8,7 @@
 #include "ModuleAssetLoader.h"
 #include "ModulePhysics.h"
 #include "SceneGame.h"
+#include "SceneOptions.h"
 
 #include "Application.h"
 
@@ -21,6 +22,7 @@ Application::Application()
 	assetLoader = new ModuleAssetLoader(this);
 	physics = new ModulePhysics(this);
 	scene_intro = new SceneGame(this);
+	scene_options = new SceneOptions(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -35,7 +37,8 @@ Application::Application()
 	AddModule(assetLoader);
 	
 	// Scenes
-	AddModule(scene_intro);
+	//AddModule(scene_intro);
+	AddModule(scene_options);
 
 	// Rendering happens at the end
 	AddModule(renderer);
