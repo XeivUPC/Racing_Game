@@ -8,5 +8,7 @@ public:
 	~ModuleAssetLoader();
 
 	bool Init();
+
+	Font basicFont;
 };
 

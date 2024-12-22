@@ -1,35 +1,39 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRender.h"
-#include "ModuleGame.h"
+#include "ModuleAssetLoader.h"
+#include "SceneGame.h"
 #include "ModuleAudio.h"
 #include "ModuleTexture.h"
 #include "ModulePhysics.h"
-#include "ModuleAssetLoader.h"
 
 #include "Vehicle.h"
+
  
 
-ModuleGame::ModuleGame(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
+SceneGame::SceneGame(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
 {
 	
 }
 
-ModuleGame::~ModuleGame()
+SceneGame::~SceneGame()
 {}
 
 // Load assets
-bool ModuleGame::Start()
+bool SceneGame::Start()
 {
 	LOG("Loading Intro assets");
 	bool ret = true;
 
 	car = new Vehicle(this, "moto-type2");
+	
+	//// Aqui ponemos todos los chars de la funete en orden
+	
 	return ret;
 }
 
 // Load assets
-bool ModuleGame::CleanUp()
+bool SceneGame::CleanUp()
 {
 	LOG("Unloading Intro scene");
 	car->CleanUp();
@@ -38,10 +42,12 @@ bool ModuleGame::CleanUp()
 }
 
 // Update: draw background
-update_status ModuleGame::Update()
+update_status SceneGame::Update()
 {
 	car->Update();
 	car->Render();
+
+	DrawTextEx(App->assetLoader->basicFont, "Hola que tal estas rey\nquedaste 3_-2", { 100, 100 }, 90, 1, BLACK);
 
 	return UPDATE_CONTINUE;
 }

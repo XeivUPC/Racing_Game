@@ -208,8 +208,9 @@
     <ClCompile Include="Source\MapLapSensor.cpp" />
     <ClCompile Include="Source\ModuleAssetLoader.cpp" />
     <ClCompile Include="Source\ModuleAudio.cpp" />
-    <ClCompile Include="Source\ModuleGame.cpp" />
+    <ClCompile Include="Source\SceneGame.cpp" />
     <ClCompile Include="Source\ModuleLocalization.cpp" />
+    <ClCompile Include="Source\SceneMainMenu.cpp" />
     <ClCompile Include="Source\ModulePhysics.cpp" />
     <ClCompile Include="Source\ModuleRender.cpp" />
     <ClCompile Include="Source\ModuleScene.cpp" />
@@ -233,6 +234,7 @@
     <ClInclude Include="Source\DriftParticle.h" />
     <ClInclude Include="Source\external\pugi\pugiconfig.hpp" />
     <ClInclude Include="Source\external\pugi\pugixml.hpp" />
+    <ClInclude Include="Source\FontCreator.h" />
     <ClInclude Include="Source\Globals.h" />
     <ClInclude Include="Source\MapLapSensor.h" />
     <ClInclude Include="Source\MapObject.h" />
@@ -240,8 +242,9 @@
     <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\ModuleAssetLoader.h" />
     <ClInclude Include="Source\ModuleAudio.h" />
-    <ClInclude Include="Source\ModuleGame.h" />
+    <ClInclude Include="Source\SceneGame.h" />
     <ClInclude Include="Source\ModuleLocalization.h" />
+    <ClInclude Include="Source\SceneMainMenu.h" />
     <ClInclude Include="Source\ModulePhysics.h" />
     <ClInclude Include="Source\ModuleRender.h" />
     <ClInclude Include="Source\ModuleScene.h" />

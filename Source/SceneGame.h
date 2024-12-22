@@ -12,16 +12,15 @@ class PhysBody;
 class Vehicle;
 class UISlider;
 
-class ModuleGame : public ModuleScene
+class SceneGame : public ModuleScene
 {
 public:
-	ModuleGame(Application* app, bool start_enabled = true);
-	~ModuleGame();
+	SceneGame(Application* app, bool start_enabled = true);
+	~SceneGame();
 
 	bool Start();
 	update_status Update();
 	bool CleanUp();
-	void Test();
 
 public:
 	Vehicle* car;
