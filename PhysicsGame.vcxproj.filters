@@ -125,7 +125,7 @@
     <ClCompile Include="Source\ModuleScene.cpp">
       <Filter>Modules\Type %28Module%29</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ModuleGame.cpp">
+    <ClCompile Include="Source\SceneGame.cpp">
       <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClCompile>
     <ClCompile Include="Source\MapLapSensor.cpp">
@@ -137,7 +137,7 @@
     <ClCompile Include="Source\UISlider.cpp">
       <Filter>Systems\UI Elements\Type %28UI Elements%29</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ModuleMainMenu.cpp">
+    <ClCompile Include="Source\SceneMainMenu.cpp">
       <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClCompile>
   </ItemGroup>
@@ -219,7 +219,7 @@
     <ClInclude Include="Source\ModuleScene.h">
       <Filter>Modules\Type %28Module%29</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ModuleGame.h">
+    <ClInclude Include="Source\SceneGame.h">
       <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClInclude>
     <ClInclude Include="Source\MapLapSensor.h">
@@ -234,7 +234,7 @@
     <ClInclude Include="Source\UISlider.h">
       <Filter>Systems\UI Elements\Type %28UI Elements%29</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ModuleMainMenu.h">
+    <ClInclude Include="Source\SceneMainMenu.h">
       <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClInclude>
   </ItemGroup>
