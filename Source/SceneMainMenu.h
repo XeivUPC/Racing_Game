@@ -8,6 +8,8 @@
 #include "raylib.h"
 #include <vector>
 
+class UIButton;
+
 class SceneMainMenu : public ModuleScene
 {
 public:
@@ -19,5 +21,13 @@ public:
 	bool CleanUp();
 
 public:
+
+	Rectangle  backgroundTextureRec = { 0, 0, 640, 360 };
+
+	UIButton* play_button = nullptr;
+	Rectangle  play_buttonTextureRec = { 32, 192, 192, 64 };
+
+	UIButton* settings_button = nullptr;
+	Rectangle  settings_buttonTextureRec = { 32, 72, 288, 64};
 
 };
