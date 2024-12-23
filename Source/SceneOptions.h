@@ -24,7 +24,11 @@ private:
 	UISlider* musicVolumeSlider = nullptr;
 	UISlider* sfxVolumeSlider = nullptr;
 
-	
+	Vector2 generalVolumeSliderSize = { 0,0 };
+	Vector2 musicVolumeSliderSize = { 0,0 };
+	Vector2 sfxVolumeSliderSize = { 0,0 };
+
+	int audioId = -1;
 
 public:
 

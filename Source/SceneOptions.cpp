@@ -9,7 +9,7 @@
 
 SceneOptions::SceneOptions(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
 {
-	
+	audioId = App->audio->LoadFx("Assets/Sounds/Music/PianoMusic.wav");
 }
 
 // Destructor
@@ -29,14 +29,12 @@ bool SceneOptions::Init()
 	/* Create UI */
 
 	//Create Buttons
-	//App->renderer->DrawText("Language", Vector2{ SCREEN_WIDTH / 2 - soundTextSize / 2, (SCREEN_HEIGHT / 6) }, Vector2{-50,0}, App->assetLoader->basicFont, 1, BLACK);
-
 	float exitSettingsButtonOffset = 30;
 	Vector2 exitSettingsButtonSize = { 30,30 };
 	exitSettingsButton = new UIButton(this, Vector2{ SCREEN_WIDTH - (exitSettingsButtonSize.x) - exitSettingsButtonOffset, exitSettingsButtonOffset}, exitSettingsButtonSize, WHITE);
 	exitSettingsButton->onMouseClick = [&]() {Exit(); };
 
-	float languageButtonOffsetY = -50;
+	float languageButtonOffsetY = -70;
 	float offsetBetweenTextAndButtonLanguage = 30;
 	float LanguageTextSize = 300;
 	Vector2 languageButtonSize = { 30,30 };
@@ -47,25 +45,23 @@ bool SceneOptions::Init()
 	nextLanguageButton->onMouseClick = [&]() {NextLanguage(); };
 
 	//Create Sliders
-	float soundTextSize = 100;
-	//App->renderer->DrawText("Sound", Vector2{ SCREEN_WIDTH / 2 - soundTextSize / 2, (SCREEN_HEIGHT / 6) * 3 }, Vector2{-50,0}, App->assetLoader->basicFont, 1, BLACK);
-
+	
 	float generalVolumeSliderOffsetY = -100;
-	Vector2 generalVolumeSliderSize = { 300,10 };
+	generalVolumeSliderSize = { 300,10 };
 	generalVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (generalVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 4 + generalVolumeSliderOffsetY }, generalVolumeSliderSize);
-	//App->renderer->DrawText("General", Vector2{ SCREEN_WIDTH / 2 - (generalVolumeSliderSize.x) , (SCREEN_HEIGHT / 6) * 4 }, Vector2{-50,0}, App->assetLoader->basicFont, 1, BLACK);
+	generalVolumeSlider->onMouseClick = [&]() {App->audio->ChangeGeneralVolume(generalVolumeSlider->GetValue()); };
 
 	float musicVolumeSliderOffsetY = -100;
-	Vector2 musicVolumeSliderSize = { 300,10 };
+	musicVolumeSliderSize = { 300,10 };
 	musicVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (musicVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 5 + musicVolumeSliderOffsetY }, musicVolumeSliderSize);
-	//App->renderer->DrawText("Music", Vector2{ SCREEN_WIDTH / 2 - (musicVolumeSliderSize.x) , (SCREEN_HEIGHT / 6) * 5 + musicVolumeSliderOffsetY }, Vector2{ -50,0 }, App->assetLoader->basicFont, 1, BLACK);
+	musicVolumeSlider->onMouseClick = [&]() {App->audio->ChangeMusicVolume(musicVolumeSlider->GetValue()); };
 
 	float sfxVolumeSliderOffsetY = -100;
-	Vector2 sfxVolumeSliderSize = { 300,10 };
+	sfxVolumeSliderSize = { 300,10 };
 	sfxVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (sfxVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 6 + sfxVolumeSliderOffsetY }, sfxVolumeSliderSize);
-	//App->renderer->DrawText("SFX", Vector2{ SCREEN_WIDTH / 2 - (sfxVolumeSliderSize.x) , (SCREEN_HEIGHT / 6) * 6 + sfxVolumeSliderOffsetY }, Vector2{ -50,0 }, App->assetLoader->basicFont, 1, BLACK);
-
+	sfxVolumeSlider->onMouseClick = [&]() {App->audio->ChangeSfxVolume(sfxVolumeSlider->GetValue()); };
 	
+	App->audio->PlayFx(audioId);
 	return ret;
 }
 
@@ -76,6 +72,13 @@ update_status SceneOptions::PreUpdate()
 
 update_status SceneOptions::Update()
 {
+	exitSettingsButton->Update();
+	nextLanguageButton->Update();
+	previousLanguageButton->Update();
+	generalVolumeSlider->Update();
+	musicVolumeSlider->Update();
+	sfxVolumeSlider->Update();
+
 	exitSettingsButton->Render();
 	nextLanguageButton->Render();
 	previousLanguageButton->Render();
@@ -83,11 +86,36 @@ update_status SceneOptions::Update()
 	musicVolumeSlider->Render();
 	sfxVolumeSlider->Render();
 
+	//Draw Text
+	float languageTextSize = 200;
+	DrawTextEx(App->assetLoader->basicFont, "Language", Vector2{ SCREEN_WIDTH / 2 - languageTextSize / 2 - 50, (SCREEN_HEIGHT / 6) - (SCREEN_HEIGHT / 10) }, 100, 1, BLACK);
+
+	float soundTextSize = 100;
+	DrawTextEx(App->assetLoader->basicFont, "Sound", Vector2{ SCREEN_WIDTH / 2 - soundTextSize / 2 - 50, (SCREEN_HEIGHT / 6) * 2 }, 100, 1, BLACK);
+
+	DrawTextEx(App->assetLoader->basicFont, "General", Vector2{ SCREEN_WIDTH / 2 - (generalVolumeSliderSize.x) - 50 , (SCREEN_HEIGHT / 6) * 3 }, 50, 1, BLACK);
+
+	DrawTextEx(App->assetLoader->basicFont, "Music", Vector2{ SCREEN_WIDTH / 2 - (musicVolumeSliderSize.x) - 50 , (SCREEN_HEIGHT / 6) * 4 }, 50, 1, BLACK);
+
+	DrawTextEx(App->assetLoader->basicFont, "SFX", Vector2{ SCREEN_WIDTH / 2 - (musicVolumeSliderSize.x) - 50 , (SCREEN_HEIGHT / 6) * 5 }, 50, 1, BLACK);
+
+	switch (currentLanguage)
+	{
+	case 0:
+		DrawTextEx(App->assetLoader->basicFont, "English", Vector2{ SCREEN_WIDTH / 2 - 70, (SCREEN_HEIGHT / 6) * 2 - 80 }, 50, 1, BLACK);
+	case 1:
+		DrawTextEx(App->assetLoader->basicFont, "Castellano", Vector2{ SCREEN_WIDTH / 2 - 70, (SCREEN_HEIGHT / 6) * 2 - 80 }, 50, 1, BLACK);
+	case 2:
+		DrawTextEx(App->assetLoader->basicFont, "Catala", Vector2{ SCREEN_WIDTH / 2 - 70, (SCREEN_HEIGHT / 6) * 2 - 80 }, 50, 1, BLACK);
+	default:
+		break;
+	}
 	return UPDATE_CONTINUE;
 }
 
 update_status SceneOptions::PostUpdate()
 {
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -96,6 +124,7 @@ bool SceneOptions::CleanUp()
 	LOG("Close Options");
 
 	//Fix memory leaks
+
 	return true;
 }
 
@@ -106,7 +135,7 @@ void SceneOptions::Exit()
 
 void SceneOptions::NextLanguage()
 {
-	if (currentLanguage == 3)
+	if (currentLanguage == 2)
 	{
 		currentLanguage = 0;
 	}
@@ -120,7 +149,7 @@ void SceneOptions::PreviousLanguage()
 {
 	if (currentLanguage == 0)
 	{
-		currentLanguage = 3;
+		currentLanguage = 2;
 	}
 	else
 	{
