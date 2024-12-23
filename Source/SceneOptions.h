@@ -1,20 +1,19 @@
 #pragma once
 
+#include "Globals.h"
 #include "ModuleScene.h"
 
-#include "UIElement.h"
-#include "UIButton.h"
-#include "UISlider.h"
+#include "p2Point.h"
 
-class Application;
+#include "raylib.h"
+#include <vector>
 
+class UIElement;
+class UIButton;
+class UISlider;
 
 class SceneOptions : public ModuleScene {
 private: 
-
-	bool enabled;
-
-	int currentLanguage = 0;
 	
 	UIButton* exitSettingsButton = nullptr;
 	UIButton* nextLanguageButton = nullptr;
@@ -30,21 +29,23 @@ private:
 
 	int audioId = -1;
 
+	Texture2D* backgroundTextureSettings = nullptr;
+	Rectangle  backgroundTextureRec = { 0, 0, 640, 360 };
+
+	int languageIndex = 0;
+
 public:
 
 	SceneOptions(Application* app, bool start_enabled = false);
 
 	// Destructor
-	virtual ~SceneOptions();
+	~SceneOptions();
 
-	bool Init();
-	update_status PreUpdate();
+	bool Start();
 	update_status Update();
-	update_status PostUpdate();
 	bool CleanUp();
 
 	void Exit();
 	void NextLanguage();
 	void PreviousLanguage();
-	void OnMouseOverExit();
 };
