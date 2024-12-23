@@ -39,7 +39,6 @@ bool SceneOptions::Init()
 	Vector2 languageButtonSize = { 30,30 };
 	nextLanguageButton = new UIButton(this, Vector2{ SCREEN_WIDTH / 2 - (languageButtonSize.x) - (LanguageTextSize/2) - offsetBetweenTextAndButtonLanguage, (SCREEN_HEIGHT / 6) * 2 + languageButtonOffsetY }, languageButtonSize, WHITE);
 	previousLanguageButton = new UIButton(this, Vector2{ SCREEN_WIDTH / 2  + (LanguageTextSize/2) + offsetBetweenTextAndButtonLanguage, (SCREEN_HEIGHT / 6) * 2 + languageButtonOffsetY }, languageButtonSize,WHITE);
-	nextLanguageButton->onMouseClick = [&]() {Exit(); };
 	previousLanguageButton->onMouseClick = [&]() {PreviousLanguage(); };
 	nextLanguageButton->onMouseClick = [&]() {NextLanguage(); };
 
@@ -133,7 +132,7 @@ bool SceneOptions::CleanUp()
 void SceneOptions::Exit()
 {
 	//Go to MainMenu or the Game Scene
-	this->StartFadeIn(App->scene_main_menu, BLACK, 1);
+	this->StartFadeIn(App->scene_main_menu, BLACK, 0.3f);
 }
 
 void SceneOptions::NextLanguage()

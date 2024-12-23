@@ -45,7 +45,7 @@ bool SceneMainMenu::Start()
 	// Settings Button
 	//Texture
 	App->texture->CreateTexture("Assets/Textures/main_menu_settings_size.png", "main_menu_settings");
-	settings_buttonTexture_hover = App->texture->GetTexture("main_menu_settings");
+	settings_buttonTexture = App->texture->GetTexture("main_menu_settings");
 
 	App->texture->CreateTexture("Assets/Textures/main_menu_settings_hover_size.png", "main_menu_settings_hover");
 	settings_buttonTexture_hover = App->texture->GetTexture("main_menu_settings_hover");
@@ -91,7 +91,7 @@ void SceneMainMenu::ClickSettings()
 void SceneMainMenu::OnMouseOverPlay()
 {
 	ModuleRender::RenderLayer last_layer = App->renderer->GetCurrentRenderLayer();
-	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_5);
+	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_1);
 
 	App->renderer->Draw(*play_buttonTexture_hover, { play_buttonTextureRec.x + play_buttonTextureRec.width/2 , play_buttonTextureRec.y + play_buttonTextureRec.height/2 }, { 0,0 });
 
@@ -101,7 +101,7 @@ void SceneMainMenu::OnMouseOverPlay()
 void SceneMainMenu::OnMouseOverSettings()
 {
 	ModuleRender::RenderLayer last_layer = App->renderer->GetCurrentRenderLayer();
-	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_5);
+	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_1);
 
 	App->renderer->Draw(*settings_buttonTexture_hover, { settings_buttonTextureRec.x + settings_buttonTextureRec.width / 2 , settings_buttonTextureRec.y + settings_buttonTextureRec.height / 2 }, { 0,0 });
 
@@ -113,7 +113,8 @@ update_status SceneMainMenu::Update()
 	play_button->Update();
 	settings_button->Update();
 
-	App->renderer->Draw(*backgroundTexture, { backgroundTextureRec.x, backgroundTextureRec.y }, {0,0}, &backgroundTextureRec, 0, 2);
+	//App->renderer->Draw(*backgroundTexture, { backgroundTextureRec.x, backgroundTextureRec.y }, {0,0}, &backgroundTextureRec, 0, 2);
+
 	play_button->Render();
 	settings_button->Render();
 
