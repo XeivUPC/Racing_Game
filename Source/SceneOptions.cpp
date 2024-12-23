@@ -24,10 +24,6 @@ bool SceneOptions::Init()
 	LOG("Init options");
 	bool ret = true;
 
-	ModuleRender::RenderLayer last_layer = App->renderer->GetCurrentRenderLayer();
-	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_5);
-	App->renderer->SelectRenderLayer(last_layer);
-
 	/* Create UI */
 
 	//Create Buttons
@@ -35,6 +31,7 @@ bool SceneOptions::Init()
 	Vector2 exitSettingsButtonSize = { 30,30 };
 	exitSettingsButton = new UIButton(this, Vector2{ SCREEN_WIDTH - (exitSettingsButtonSize.x) - exitSettingsButtonOffset, exitSettingsButtonOffset}, exitSettingsButtonSize, WHITE);
 	exitSettingsButton->onMouseClick = [&]() {Exit(); };
+	exitSettingsButton->onMouseOver = [&]() {OnMouseOverExit(); };
 
 	float languageButtonOffsetY = -70;
 	float offsetBetweenTextAndButtonLanguage = 30;
@@ -103,14 +100,17 @@ update_status SceneOptions::Update()
 
 	switch (currentLanguage)
 	{
-	case 0:
-		DrawTextEx(App->assetLoader->basicFont, "English", Vector2{ SCREEN_WIDTH / 2 - 70, (SCREEN_HEIGHT / 6) * 2 - 80 }, 50, 1, BLACK);
-	case 1:
-		DrawTextEx(App->assetLoader->basicFont, "Castellano", Vector2{ SCREEN_WIDTH / 2 - 70, (SCREEN_HEIGHT / 6) * 2 - 80 }, 50, 1, BLACK);
-	case 2:
-		DrawTextEx(App->assetLoader->basicFont, "Catala", Vector2{ SCREEN_WIDTH / 2 - 70, (SCREEN_HEIGHT / 6) * 2 - 80 }, 50, 1, BLACK);
-	default:
-		break;
+		case 0:
+			DrawTextEx(App->assetLoader->basicFont, "English", Vector2{ SCREEN_WIDTH / 2 - 70, (SCREEN_HEIGHT / 6) * 2 - 80 }, 50, 1, BLACK);
+			break;
+		case 1:
+			DrawTextEx(App->assetLoader->basicFont, "Castellano", Vector2{ SCREEN_WIDTH / 2 - 100, (SCREEN_HEIGHT / 6) * 2 - 80 }, 50, 1, BLACK);
+			break;
+		case 2:
+			DrawTextEx(App->assetLoader->basicFont, "Catala", Vector2{ SCREEN_WIDTH / 2 - 60, (SCREEN_HEIGHT / 6) * 2 - 80 }, 50, 1, BLACK);
+			break;
+		default:
+			break;
 	}
 	return UPDATE_CONTINUE;
 }
@@ -133,7 +133,7 @@ bool SceneOptions::CleanUp()
 void SceneOptions::Exit()
 {
 	//Go to MainMenu or the Game Scene
-	this->StartFadeIn(App->scene_intro, BLACK, 1);
+	this->StartFadeIn(App->scene_main_menu, BLACK, 1);
 }
 
 void SceneOptions::NextLanguage()
@@ -144,7 +144,7 @@ void SceneOptions::NextLanguage()
 	}
 	else
 	{
-		currentLanguage = currentLanguage + 1;
+		currentLanguage++;
 	}
 }
 
@@ -156,6 +156,14 @@ void SceneOptions::PreviousLanguage()
 	}
 	else
 	{
-		currentLanguage = currentLanguage - 1;
+		currentLanguage--;
 	}
+}
+void SceneOptions::OnMouseOverExit() {
+	ModuleRender::RenderLayer last_layer = App->renderer->GetCurrentRenderLayer();
+	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_5);
+
+	DrawRectangle(SCREEN_WIDTH - 30 - 30, 60, 30, 30, BLACK);
+
+	App->renderer->SelectRenderLayer(last_layer);
 }

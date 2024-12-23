@@ -32,7 +32,7 @@ private:
 
 public:
 
-	SceneOptions(Application* app, bool start_enabled = true);
+	SceneOptions(Application* app, bool start_enabled = false);
 
 	// Destructor
 	virtual ~SceneOptions();
@@ -46,4 +46,5 @@ public:
 	void Exit();
 	void NextLanguage();
 	void PreviousLanguage();
+	void OnMouseOverExit();
 };
