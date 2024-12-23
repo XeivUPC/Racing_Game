@@ -11,13 +11,14 @@
 #include "UIElement.h"
 #include "UIButton.h"
 #include "UISlider.h"
+#include "ModuleLocalization.h"
 
 SceneOptions::SceneOptions(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
 {
 	audioId = App->audio->LoadFx("Assets/Sounds/Music/PianoMusic.wav");
 
-	App->texture->CreateTexture("Assets/Map/Map 2.png", "backgroundSettings");
-	backgroundTextureSettings = App->texture->GetTexture("backgroundSettings");
+	//App->texture->CreateTexture("Assets/Map/Map 2.png", "backgroundSettings");
+	//backgroundTextureSettings = App->texture->GetTexture("backgroundSettings");
 }
 
 // Destructor
@@ -86,33 +87,20 @@ update_status SceneOptions::Update()
 
 	//Draw Text
 	float languageTextSize = 200;
-	DrawTextEx(App->assetLoader->basicFont, "Language", Vector2{ SCREEN_WIDTH / 2 - languageTextSize / 2 - 50, (SCREEN_HEIGHT / 6) - (SCREEN_HEIGHT / 10) }, 100, 1, BLACK);
+	DrawTextEx(App->assetLoader->basicFont, App->localization->GetString("SETTINGS_LANGUAGE").c_str(), Vector2{SCREEN_WIDTH / 2 - languageTextSize / 2 - 50, (SCREEN_HEIGHT / 6) - (SCREEN_HEIGHT / 10)}, 100, 1, BLACK);
 
 	float soundTextSize = 100;
-	DrawTextEx(App->assetLoader->basicFont, "Sound", Vector2{ SCREEN_WIDTH / 2 - soundTextSize / 2 - 50, (SCREEN_HEIGHT / 6) * 2 }, 100, 1, BLACK);
+	DrawTextEx(App->assetLoader->basicFont, App->localization->GetString("SETTINGS_SOUND").c_str(), Vector2{ SCREEN_WIDTH / 2 - soundTextSize / 2 - 50, (SCREEN_HEIGHT / 6) * 2 }, 100, 1, BLACK);
 
-	DrawTextEx(App->assetLoader->basicFont, "General", Vector2{ SCREEN_WIDTH / 2 - (generalVolumeSliderSize.x) - 50 , (SCREEN_HEIGHT / 6) * 3 }, 50, 1, BLACK);
+	DrawTextEx(App->assetLoader->basicFont, App->localization->GetString("SETTINGS_GENERAL").c_str(), Vector2{ SCREEN_WIDTH / 2 - (generalVolumeSliderSize.x) - 50 , (SCREEN_HEIGHT / 6) * 3 }, 50, 1, BLACK);
 
-	DrawTextEx(App->assetLoader->basicFont, "Music", Vector2{ SCREEN_WIDTH / 2 - (musicVolumeSliderSize.x) - 50 , (SCREEN_HEIGHT / 6) * 4 }, 50, 1, BLACK);
+	DrawTextEx(App->assetLoader->basicFont, App->localization->GetString("SETTINGS_MUSIC").c_str(), Vector2{ SCREEN_WIDTH / 2 - (musicVolumeSliderSize.x) - 50 , (SCREEN_HEIGHT / 6) * 4 }, 50, 1, BLACK);
 
-	DrawTextEx(App->assetLoader->basicFont, "SFX", Vector2{ SCREEN_WIDTH / 2 - (musicVolumeSliderSize.x) - 50 , (SCREEN_HEIGHT / 6) * 5 }, 50, 1, BLACK);
+	DrawTextEx(App->assetLoader->basicFont, App->localization->GetString("SETTINGS_SFX").c_str(), Vector2{SCREEN_WIDTH / 2 - (musicVolumeSliderSize.x) - 50 , (SCREEN_HEIGHT / 6) * 5}, 50, 1, BLACK);
 
-	switch (currentLanguage)
-	{
-		case 0:
-			DrawTextEx(App->assetLoader->basicFont, "English", Vector2{ SCREEN_WIDTH / 2 - 70, (SCREEN_HEIGHT / 6) * 2 - 80 }, 50, 1, BLACK);
-			break;
-		case 1:
-			DrawTextEx(App->assetLoader->basicFont, "Castellano", Vector2{ SCREEN_WIDTH / 2 - 100, (SCREEN_HEIGHT / 6) * 2 - 80 }, 50, 1, BLACK);
-			break;
-		case 2:
-			DrawTextEx(App->assetLoader->basicFont, "Catala", Vector2{ SCREEN_WIDTH / 2 - 60, (SCREEN_HEIGHT / 6) * 2 - 80 }, 50, 1, BLACK);
-			break;
-		default:
-			break;
-	}
+	DrawTextEx(App->assetLoader->basicFont, App->localization->GetString("Language").c_str(), Vector2{ SCREEN_WIDTH / 2 - 70, (SCREEN_HEIGHT / 6) * 2 - 80 }, 50, 1, BLACK);
 
-	App->renderer->Draw(*backgroundTextureSettings, { backgroundTextureRec.x, backgroundTextureRec.y }, { 0,0 }, &backgroundTextureRec, 0, 2);
+	//App->renderer->Draw(*backgroundTextureSettings, { backgroundTextureRec.x, backgroundTextureRec.y }, { 0,0 }, &backgroundTextureRec, 0, 2);
 
 	this->FadeUpdate();
 
@@ -136,24 +124,24 @@ void SceneOptions::Exit()
 
 void SceneOptions::NextLanguage()
 {
-	if (currentLanguage == 2)
+	languageIndex++;
+	if (languageIndex > 2)
 	{
-		currentLanguage = 0;
+		languageIndex = 0;
 	}
-	else
-	{
-		currentLanguage++;
-	}
+
+	App->localization->ChangeLanguage((Language)languageIndex);
+
 }
 
 void SceneOptions::PreviousLanguage()
 {
-	if (currentLanguage == 0)
+	languageIndex--;
+	if (languageIndex < 0)
 	{
-		currentLanguage = 2;
+		languageIndex = 2;
 	}
-	else
-	{
-		currentLanguage--;
-	}
+
+	App->localization->ChangeLanguage((Language)languageIndex);
+
 }

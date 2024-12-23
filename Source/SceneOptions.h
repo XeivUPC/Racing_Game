@@ -14,8 +14,6 @@ class UISlider;
 
 class SceneOptions : public ModuleScene {
 private: 
-
-	int currentLanguage = 0;
 	
 	UIButton* exitSettingsButton = nullptr;
 	UIButton* nextLanguageButton = nullptr;
@@ -33,6 +31,8 @@ private:
 
 	Texture2D* backgroundTextureSettings = nullptr;
 	Rectangle  backgroundTextureRec = { 0, 0, 640, 360 };
+
+	int languageIndex = 0;
 
 public:
 
