@@ -8,10 +8,16 @@
 #include "ModuleAssetLoader.h"
 #include "SceneMainMenu.h"
 #include "SceneGame.h"
+#include "UIElement.h"
+#include "UIButton.h"
+#include "UISlider.h"
 
 SceneOptions::SceneOptions(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
 {
 	audioId = App->audio->LoadFx("Assets/Sounds/Music/PianoMusic.wav");
+
+	App->texture->CreateTexture("Assets/Map/Map 2.png", "backgroundSettings");
+	backgroundTextureSettings = App->texture->GetTexture("backgroundSettings");
 }
 
 // Destructor
@@ -19,7 +25,7 @@ SceneOptions::~SceneOptions()
 {
 }
 
-bool SceneOptions::Init()
+bool SceneOptions::Start()
 {
 	LOG("Init options");
 	bool ret = true;
@@ -31,7 +37,6 @@ bool SceneOptions::Init()
 	Vector2 exitSettingsButtonSize = { 30,30 };
 	exitSettingsButton = new UIButton(this, Vector2{ SCREEN_WIDTH - (exitSettingsButtonSize.x) - exitSettingsButtonOffset, exitSettingsButtonOffset}, exitSettingsButtonSize, WHITE);
 	exitSettingsButton->onMouseClick = [&]() {Exit(); };
-	exitSettingsButton->onMouseOver = [&]() {OnMouseOverExit(); };
 
 	float languageButtonOffsetY = -70;
 	float offsetBetweenTextAndButtonLanguage = 30;
@@ -39,7 +44,6 @@ bool SceneOptions::Init()
 	Vector2 languageButtonSize = { 30,30 };
 	nextLanguageButton = new UIButton(this, Vector2{ SCREEN_WIDTH / 2 - (languageButtonSize.x) - (LanguageTextSize/2) - offsetBetweenTextAndButtonLanguage, (SCREEN_HEIGHT / 6) * 2 + languageButtonOffsetY }, languageButtonSize, WHITE);
 	previousLanguageButton = new UIButton(this, Vector2{ SCREEN_WIDTH / 2  + (LanguageTextSize/2) + offsetBetweenTextAndButtonLanguage, (SCREEN_HEIGHT / 6) * 2 + languageButtonOffsetY }, languageButtonSize,WHITE);
-	nextLanguageButton->onMouseClick = [&]() {Exit(); };
 	previousLanguageButton->onMouseClick = [&]() {PreviousLanguage(); };
 	nextLanguageButton->onMouseClick = [&]() {NextLanguage(); };
 
@@ -62,11 +66,6 @@ bool SceneOptions::Init()
 	
 	App->audio->PlayFx(audioId);
 	return ret;
-}
-
-update_status SceneOptions::PreUpdate()
-{
-	return UPDATE_CONTINUE;
 }
 
 update_status SceneOptions::Update()
@@ -112,12 +111,11 @@ update_status SceneOptions::Update()
 		default:
 			break;
 	}
-	return UPDATE_CONTINUE;
-}
 
-update_status SceneOptions::PostUpdate()
-{
-	
+	App->renderer->Draw(*backgroundTextureSettings, { backgroundTextureRec.x, backgroundTextureRec.y }, { 0,0 }, &backgroundTextureRec, 0, 2);
+
+	this->FadeUpdate();
+
 	return UPDATE_CONTINUE;
 }
 
@@ -158,12 +156,4 @@ void SceneOptions::PreviousLanguage()
 	{
 		currentLanguage--;
 	}
-}
-void SceneOptions::OnMouseOverExit() {
-	ModuleRender::RenderLayer last_layer = App->renderer->GetCurrentRenderLayer();
-	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_5);
-
-	DrawRectangle(SCREEN_WIDTH - 30 - 30, 60, 30, 30, BLACK);
-
-	App->renderer->SelectRenderLayer(last_layer);
 }
