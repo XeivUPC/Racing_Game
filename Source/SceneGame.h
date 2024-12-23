@@ -15,7 +15,7 @@ class UISlider;
 class SceneGame : public ModuleScene
 {
 public:
-	SceneGame(Application* app, bool start_enabled = true);
+	SceneGame(Application* app, bool start_enabled = false);
 	~SceneGame();
 
 	bool Start();

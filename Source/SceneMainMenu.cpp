@@ -77,7 +77,7 @@ bool SceneMainMenu::CleanUp()
 void SceneMainMenu::ClickPlay()
 {
 	//this->StartFadeOut(BLACK, 1);
-	this->StartFadeIn(App->scene_intro, BLACK, 1);
+	this->StartFadeIn(App->scene_intro, BLACK, 0.3f);
 	// Go to Play Scene
 }
 
