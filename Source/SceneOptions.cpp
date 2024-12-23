@@ -6,6 +6,8 @@
 #include "ModuleTexture.h"
 #include "ModulePhysics.h"
 #include "ModuleAssetLoader.h"
+#include "SceneMainMenu.h"
+#include "SceneGame.h"
 
 SceneOptions::SceneOptions(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
 {
@@ -131,6 +133,7 @@ bool SceneOptions::CleanUp()
 void SceneOptions::Exit()
 {
 	//Go to MainMenu or the Game Scene
+	this->StartFadeIn(App->scene_intro, BLACK, 1);
 }
 
 void SceneOptions::NextLanguage()
