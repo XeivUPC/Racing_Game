@@ -8,6 +8,8 @@
 #include "raylib.h"
 #include <vector>
 
+class UIButton;
+
 class SceneMainMenu : public ModuleScene
 {
 public:
@@ -18,6 +20,25 @@ public:
 	update_status Update();
 	bool CleanUp();
 
-public:
+private:
+
+	void ClickPlay();
+	void ClickSettings();
+
+	void OnMouseOverPlay();
+	void OnMouseOverSettings();
+
+	Texture2D* backgroundTexture = nullptr;
+	Rectangle  backgroundTextureRec = { 0, 0, 640, 360 };
+
+	UIButton* play_button = nullptr;
+	Texture2D* play_buttonTexture = nullptr;
+	Texture2D* play_buttonTexture_hover = nullptr;
+	Rectangle  play_buttonTextureRec = { (32 * 2 - 192), (192 * 2 - 64), 192 * 2, 64 * 2 };
+
+	UIButton* settings_button = nullptr;
+	Texture2D* settings_buttonTexture = nullptr;
+	Texture2D* settings_buttonTexture_hover = nullptr;
+	Rectangle  settings_buttonTextureRec = { (32 * 2 - 288), (272 * 2 - 64), 288 * 2, 64 * 2 };
 
 };

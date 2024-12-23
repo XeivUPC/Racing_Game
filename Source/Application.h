@@ -14,6 +14,7 @@ class ModuleAssetLoader;
 class ModulePhysics;
 class SceneGame;
 class SceneOptions;
+class SceneMainMenu;
 
 class Application
 {
@@ -28,6 +29,7 @@ public:
 	ModulePhysics* physics;
 	SceneGame* scene_intro;
 	SceneOptions* scene_options;
+	SceneMainMenu* scene_main_menu;
 
 private:
 
