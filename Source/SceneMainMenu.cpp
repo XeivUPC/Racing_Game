@@ -7,6 +7,7 @@
 #include "ModuleTexture.h"
 #include "ModuleAssetLoader.h"
 #include "UIButton.h"
+#include "SceneOptions.h"
 
 SceneMainMenu::SceneMainMenu(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
 {
@@ -83,7 +84,7 @@ void SceneMainMenu::ClickPlay()
 
 void SceneMainMenu::ClickSettings()
 {
-	this->StartFadeOut(BLACK, 1);
+	this->StartFadeIn(App->scene_options, BLACK, 1);
 	// Go to Settings Scene
 }
 
