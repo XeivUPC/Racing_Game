@@ -8,6 +8,7 @@
 #include "ModuleAssetLoader.h"
 #include "UIButton.h"
 #include "SceneOptions.h"
+#include "ModuleLocalization.h"
 
 SceneMainMenu::SceneMainMenu(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
 {
@@ -90,22 +91,14 @@ void SceneMainMenu::ClickSettings()
 
 void SceneMainMenu::OnMouseOverPlay()
 {
-	ModuleRender::RenderLayer last_layer = App->renderer->GetCurrentRenderLayer();
-	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_1);
-
-	App->renderer->Draw(*play_buttonTexture_hover, { play_buttonTextureRec.x + play_buttonTextureRec.width/2 , play_buttonTextureRec.y + play_buttonTextureRec.height/2 }, { 0,0 });
-
-	App->renderer->SelectRenderLayer(last_layer);
+	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_1);
+	App->renderer->Draw(*play_buttonTexture_hover, { play_buttonTextureRec.x , play_buttonTextureRec.y }, { 0,0 });
 }
 
 void SceneMainMenu::OnMouseOverSettings()
 {
-	ModuleRender::RenderLayer last_layer = App->renderer->GetCurrentRenderLayer();
-	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_1);
-
-	App->renderer->Draw(*settings_buttonTexture_hover, { settings_buttonTextureRec.x + settings_buttonTextureRec.width / 2 , settings_buttonTextureRec.y + settings_buttonTextureRec.height / 2 }, { 0,0 });
-
-	App->renderer->SelectRenderLayer(last_layer);
+	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_1);
+	App->renderer->Draw(*settings_buttonTexture_hover, { settings_buttonTextureRec.x , settings_buttonTextureRec.y }, { 0,0 });
 }
 
 update_status SceneMainMenu::Update()
@@ -113,10 +106,16 @@ update_status SceneMainMenu::Update()
 	play_button->Update();
 	settings_button->Update();
 
-	//App->renderer->Draw(*backgroundTexture, { backgroundTextureRec.x, backgroundTextureRec.y }, {0,0}, &backgroundTextureRec, 0, 2);
+	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_5);
+	App->renderer->Draw(*backgroundTexture, { backgroundTextureRec.x, backgroundTextureRec.y }, {0,0}, &backgroundTextureRec, 0, 2);
 
+	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_4);
 	play_button->Render();
 	settings_button->Render();
+
+	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_5);
+
+	DrawTextEx(App->assetLoader->titleFont, App->localization->GetString("MAINMENU_PLAY").c_str(), { play_buttonTextureRec.x + 32 , play_buttonTextureRec.y }, 100, 0, WHITE);
 
 	this->FadeUpdate();
 

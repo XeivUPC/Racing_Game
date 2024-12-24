@@ -10,5 +10,7 @@ public:
 	bool Init();
 
 	Font basicFont;
+	Font agencyB;
+	Font titleFont;
 };
 

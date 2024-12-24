@@ -34,11 +34,11 @@ private:
 	UIButton* play_button = nullptr;
 	Texture2D* play_buttonTexture = nullptr;
 	Texture2D* play_buttonTexture_hover = nullptr;
-	Rectangle  play_buttonTextureRec = { (32 * 2 - 192), (192 * 2 - 64), 192 * 2, 64 * 2 };
+	Rectangle  play_buttonTextureRec = { (32 * 2), (192 * 2 ), 192 * 2, 64 * 2 };
 
 	UIButton* settings_button = nullptr;
 	Texture2D* settings_buttonTexture = nullptr;
 	Texture2D* settings_buttonTexture_hover = nullptr;
-	Rectangle  settings_buttonTextureRec = { (32 * 2 - 288), (272 * 2 - 64), 288 * 2, 64 * 2 };
+	Rectangle  settings_buttonTextureRec = { (32 * 2 ), (272 * 2 ), 288 * 2, 64 * 2 };
 
 };
