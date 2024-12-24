@@ -106,17 +106,22 @@ update_status SceneMainMenu::Update()
 	play_button->Update();
 	settings_button->Update();
 
-	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_5);
+	//App->renderer->UnlockRenderLayer();
+
+	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_3);
 	App->renderer->Draw(*backgroundTexture, { backgroundTextureRec.x, backgroundTextureRec.y }, {0,0}, &backgroundTextureRec, 0, 2);
 
-	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_4);
+	play_button->SelectElemRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_2);
 	play_button->Render();
+	settings_button->SelectElemRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_2);
 	settings_button->Render();
 
+	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_4);
+
+	DrawTextEx(App->assetLoader->titleFont, App->localization->GetString("MAINMENU_PLAY").c_str(), { play_buttonTextureRec.x + 48 , play_buttonTextureRec.y }, 100, 0, WHITE);
+	DrawTextEx(App->assetLoader->titleFont, App->localization->GetString("MAINMENU_SETTINGS").c_str(), { settings_buttonTextureRec.x + 48 , settings_buttonTextureRec.y }, 100, 0, WHITE);
+
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_5);
-
-	DrawTextEx(App->assetLoader->titleFont, App->localization->GetString("MAINMENU_PLAY").c_str(), { play_buttonTextureRec.x + 32 , play_buttonTextureRec.y }, 100, 0, WHITE);
-
 	this->FadeUpdate();
 
 	return UPDATE_CONTINUE;

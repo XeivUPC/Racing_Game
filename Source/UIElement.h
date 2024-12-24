@@ -1,8 +1,10 @@
 #pragma once
 #include "Module.h"
 #include <functional>
+#include "ModuleRender.h"
 
 class UIElement
+
 {
 public:
 	UIElement(Module* moduleAt) {
@@ -12,6 +14,10 @@ public:
 
 	virtual void Update() {};
 	virtual void Render() {};
+
+	void SelectElemRenderLayer(ModuleRender::RenderLayer selectedLayer) {
+		currentLayer = selectedLayer;
+	};
 
 
 	/// <summary>
@@ -29,6 +35,10 @@ public:
 	std::function<void(void)> onMouseClick;
 
 	Rectangle bounds{0,0,0,0}; //// x - y - width - height
+
+	//Layer where button will render
+	ModuleRender::RenderLayer currentLayer = ModuleRender::RenderLayer::OVER_LAYER_1;
+
 protected:
 
 	Module* moduleAt = nullptr;

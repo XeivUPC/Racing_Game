@@ -64,11 +64,13 @@ void UIButton::Update()
 
 void UIButton::Render()
 {
+	moduleAt->App->renderer->SelectRenderLayer(currentLayer);
+
 	if (texture == nullptr) {
 		DrawRectangle((int)bounds.x, (int)bounds.y, (int)bounds.width, (int)bounds.height, color);
 	}
 	else {
-		moduleAt->App->renderer->Draw(*texture, { bounds.x, bounds.y }, { bounds.width/2,bounds.height/2 });
+		moduleAt->App->renderer->Draw(*texture, { bounds.x - bounds.width / 2, bounds.y - bounds.height / 2 }, { bounds.width/2,bounds.height/2 });
 	}
 }
 
