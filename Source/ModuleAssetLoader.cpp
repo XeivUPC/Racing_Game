@@ -11,6 +11,8 @@ ModuleAssetLoader::ModuleAssetLoader(Application* app, bool start_enabled) : Mod
 ModuleAssetLoader::~ModuleAssetLoader()
 {
 	FontCreator::GetInstance().DestroyFont(basicFont);
+	FontCreator::GetInstance().DestroyFont(agencyB);
+	FontCreator::GetInstance().DestroyFont(titleFont);
 }
 
 bool ModuleAssetLoader::Init()
