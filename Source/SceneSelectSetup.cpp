@@ -1,7 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRender.h"
-#include "SceneMainMenu.h"
+#include "SceneSelectSetup.h"
 #include "SceneGame.h"
 #include "ModuleAudio.h"
 #include "ModuleTexture.h"
@@ -10,15 +10,15 @@
 #include "SceneOptions.h"
 #include "ModuleLocalization.h"
 
-SceneMainMenu::SceneMainMenu(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
+SceneSelectSetup::SceneSelectSetup(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
 {
 }
 
-SceneMainMenu::~SceneMainMenu()
+SceneSelectSetup::~SceneSelectSetup()
 {
 }
 
-bool SceneMainMenu::Start()
+bool SceneSelectSetup::Start()
 {
 	LOG("Loading Main Menu assets");
 	bool ret = true;
@@ -35,7 +35,7 @@ bool SceneMainMenu::Start()
 
 	App->texture->CreateTexture("Assets/Textures/main_menu_play_hover_size.png", "main_menu_play_hover");
 	play_buttonTexture_hover = App->texture->GetTexture("main_menu_play_hover");
-	
+
 	//Functionality
 	play_button = new UIButton(this, { play_buttonTextureRec.x, play_buttonTextureRec.y }, { play_buttonTextureRec.width, play_buttonTextureRec.height }, play_buttonTexture);
 
@@ -61,55 +61,53 @@ bool SceneMainMenu::Start()
 	return ret;
 }
 
-bool SceneMainMenu::CleanUp()
+bool SceneSelectSetup::CleanUp()
 {
 	LOG("Unloading Main Menu");
 
 	//App->texture->DeleteTexture("main_menu");
 
 	//App->texture->DeleteTexture("main_menu_play");
-	delete play_button;
+	//delete play_button;
 
 	//App->texture->DeleteTexture("main_menu_settings");
-	delete settings_button;
+	//delete settings_button;
 
 	return true;
 }
 
-void SceneMainMenu::ClickPlay()
+void SceneSelectSetup::ClickPlay()
 {
 	//this->StartFadeOut(BLACK, 1);
 	this->StartFadeIn(App->scene_intro, BLACK, 0.3f);
 	// Go to Play Scene
 }
 
-void SceneMainMenu::ClickSettings()
+void SceneSelectSetup::ClickSettings()
 {
 	this->StartFadeIn(App->scene_options, BLACK, 1);
 	// Go to Settings Scene
 }
 
-void SceneMainMenu::OnMouseOverPlay()
+void SceneSelectSetup::OnMouseOverPlay()
 {
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_1);
 	App->renderer->Draw(*play_buttonTexture_hover, { play_buttonTextureRec.x , play_buttonTextureRec.y }, { 0,0 });
 }
 
-void SceneMainMenu::OnMouseOverSettings()
+void SceneSelectSetup::OnMouseOverSettings()
 {
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_1);
 	App->renderer->Draw(*settings_buttonTexture_hover, { settings_buttonTextureRec.x , settings_buttonTextureRec.y }, { 0,0 });
 }
 
-update_status SceneMainMenu::Update()
+update_status SceneSelectSetup::Update()
 {
 	play_button->Update();
 	settings_button->Update();
 
-	//App->renderer->UnlockRenderLayer();
-
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_3);
-	App->renderer->Draw(*backgroundTexture, { backgroundTextureRec.x, backgroundTextureRec.y }, {0,0}, &backgroundTextureRec, 0, 2);
+	App->renderer->Draw(*backgroundTexture, { backgroundTextureRec.x, backgroundTextureRec.y }, { 0,0 }, &backgroundTextureRec, 0, 2);
 
 	play_button->SelectElemRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_2);
 	play_button->Render();
