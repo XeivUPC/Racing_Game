@@ -120,13 +120,13 @@ bool ModuleRender::Draw(Texture2D texture, Vector2 position, Vector2 offset, con
 	return ret;
 }
 
-bool ModuleRender::DrawText(const char * text, Vector2 position, Vector2 offset, Font font, int spacing, Color tint)
+bool ModuleRender::DrawText(const char * text, Vector2 position, Vector2 offset, Font font, int fontSize, int spacing, Color tint)
 {
     BeginTextureMode(layers.at(currentRenderLayer).data);
     bool ret = true;
     position = { (float)position.x + offset.x, (float)position.y + offset.y };
 
-    DrawTextEx(font, text, position, (float)font.baseSize, (float)spacing, tint);
+    DrawTextEx(font, text, position, (float)fontSize, (float)spacing, tint);
     EndTextureMode();
     if (!IsRenderLayerBlocked())
         ResetRenderLayer();
