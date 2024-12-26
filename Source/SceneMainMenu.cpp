@@ -36,9 +36,8 @@ bool SceneMainMenu::Start()
 	//Functionality
 	play_button = new UIButton(this, { play_buttonTextureRec.x, play_buttonTextureRec.y }, { play_buttonTextureRec.width, play_buttonTextureRec.height });
 	
-	//play_button->onMouseClick = [&]() {ClickPlay(); };
-	//play_button->onMouseOver = [&]() {OnMouseOverPlay(); };
-
+	play_button->onMouseClick.emplace_back([&]() {ClickPlay(); });
+	play_button->onMouseOver.emplace_back([&]() {OnMouseOverPlay(); });
 
 	// Settings Button
 	//Texture
@@ -48,8 +47,8 @@ bool SceneMainMenu::Start()
 	//Functionality
 	settings_button = new UIButton(this, { settings_buttonTextureRec.x, settings_buttonTextureRec.y }, { settings_buttonTextureRec.width, settings_buttonTextureRec.height });
 
-	//settings_button->onMouseClick = [&]() {ClickSettings(); };
-	//settings_button->onMouseOver = [&]() {OnMouseOverSettings(); };
+	settings_button->onMouseClick.emplace_back([&]() {ClickSettings(); });
+	settings_button->onMouseOver.emplace_back([&]() {OnMouseOverSettings(); });
 
 	return ret;
 }
@@ -58,8 +57,8 @@ bool SceneMainMenu::CleanUp()
 {
 	LOG("Unloading Main Menu");
 
-	delete play_button;
-	delete settings_button;
+	//delete play_button;
+	//delete settings_button;
 
 	return true;
 }
