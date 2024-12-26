@@ -11,16 +11,19 @@ public:
 
 	virtual bool Start();
 	virtual update_status Update();
+	virtual bool Render();
 	virtual bool CleanUp();
 
 	void StartFadeIn(ModuleScene* target, Color color, float time);
 	void StartFadeOut(Color color, float time);
 
 	void FadeUpdate();
+	void FadeRender();
 
 private:
 	void FadeIn();
 	void FadeOut();
+
 
 	Timer fadeTimer;
 	float fadeTime = -1;
