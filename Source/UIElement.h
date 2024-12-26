@@ -63,9 +63,6 @@ public:
 
 	Rectangle bounds{0,0,0,0}; //// x - y - width - height
 
-	//Layer where button will render
-	ModuleRender::RenderLayer currentLayer = ModuleRender::RenderLayer::OVER_LAYER_1;
-
 protected:
 
 	Module* moduleAt = nullptr;

@@ -42,7 +42,7 @@ bool SceneGame::CleanUp()
 // Update: draw background
 update_status SceneGame::Update()
 {
-	slider->Update();
+	//slider->Update();
 	car->Update();
 	
 	/// Last Things To Do

@@ -13,7 +13,7 @@ class ModuleLocalization;
 class ModuleAssetLoader;
 class ModulePhysics;
 class SceneGame;
-class SceneOptions;
+//class SceneOptions;
 class SceneMainMenu;
 
 class Application
@@ -28,7 +28,7 @@ public:
 	ModuleAssetLoader* assetLoader;
 	ModulePhysics* physics;
 	SceneGame* scene_intro;
-	SceneOptions* scene_options;
+	//SceneOptions* scene_options;
 	SceneMainMenu* scene_main_menu;
 
 private:

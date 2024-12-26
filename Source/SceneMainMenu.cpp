@@ -34,10 +34,10 @@ bool SceneMainMenu::Start()
 	play_buttonTexture_hover = App->texture->GetTexture("main_menu_play_hover");
 	
 	//Functionality
-	play_button = new UIButton(this, { play_buttonTextureRec.x, play_buttonTextureRec.y }, { play_buttonTextureRec.width, play_buttonTextureRec.height }, WHITE);
-
-	play_button->onMouseClick = [&]() {ClickPlay(); };
-	play_button->onMouseOver = [&]() {OnMouseOverPlay(); };
+	play_button = new UIButton(this, { play_buttonTextureRec.x, play_buttonTextureRec.y }, { play_buttonTextureRec.width, play_buttonTextureRec.height });
+	
+	//play_button->onMouseClick = [&]() {ClickPlay(); };
+	//play_button->onMouseOver = [&]() {OnMouseOverPlay(); };
 
 
 	// Settings Button
@@ -46,11 +46,10 @@ bool SceneMainMenu::Start()
 	settings_buttonTexture_hover = App->texture->GetTexture("main_menu_settings_hover");
 
 	//Functionality
-	settings_button = new UIButton(this, { settings_buttonTextureRec.x, settings_buttonTextureRec.y }, { settings_buttonTextureRec.width, settings_buttonTextureRec.height }, WHITE);
+	settings_button = new UIButton(this, { settings_buttonTextureRec.x, settings_buttonTextureRec.y }, { settings_buttonTextureRec.width, settings_buttonTextureRec.height });
 
-	settings_button->onMouseClick = [&]() {ClickSettings(); };
-	settings_button->onMouseOver = [&]() {OnMouseOverSettings(); };
-
+	//settings_button->onMouseClick = [&]() {ClickSettings(); };
+	//settings_button->onMouseOver = [&]() {OnMouseOverSettings(); };
 
 	return ret;
 }
@@ -59,8 +58,8 @@ bool SceneMainMenu::CleanUp()
 {
 	LOG("Unloading Main Menu");
 
-	//delete play_button;
-	//delete settings_button;
+	delete play_button;
+	delete settings_button;
 
 	return true;
 }
@@ -73,7 +72,7 @@ void SceneMainMenu::ClickPlay()
 
 void SceneMainMenu::ClickSettings()
 {
-	StartFadeIn(App->scene_options, BLACK, 1);
+	//StartFadeIn(App->scene_options, BLACK, 1);
 	// Go to Settings Scene
 }
 
@@ -94,21 +93,27 @@ update_status SceneMainMenu::Update()
 	play_button->Update();
 	settings_button->Update();
 
+	Render();
+	return UPDATE_CONTINUE;
+}
+
+bool SceneMainMenu::Render() {
+
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_3);
-	App->renderer->Draw(*backgroundTexture, { backgroundTextureRec.x, backgroundTextureRec.y }, {0,0}, &backgroundTextureRec, 0, 2);
+	App->renderer->Draw(*backgroundTexture, { backgroundTextureRec.x, backgroundTextureRec.y }, { 0,0 }, &backgroundTextureRec, 0, 2);
 
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_4);
 	if (App->localization->GetString("MAINMENU_PLAY").length() < 5) {
 		App->renderer->DrawText(App->localization->GetString("MAINMENU_PLAY").c_str(), { play_buttonTextureRec.x , play_buttonTextureRec.y }, { buttonsText_Offset.x + App->assetLoader->titleFont.recs->width, buttonsText_Offset.y }, App->assetLoader->titleFont, 100, 0, WHITE);
 	}
 	else {
-		App->renderer->DrawText(App->localization->GetString("MAINMENU_PLAY").c_str(), {play_buttonTextureRec.x , play_buttonTextureRec.y}, buttonsText_Offset, App->assetLoader->titleFont, 100, 0, WHITE);
+		App->renderer->DrawText(App->localization->GetString("MAINMENU_PLAY").c_str(), { play_buttonTextureRec.x , play_buttonTextureRec.y }, buttonsText_Offset, App->assetLoader->titleFont, 100, 0, WHITE);
 	}
-	
-	App->renderer->DrawText(App->localization->GetString("MAINMENU_SETTINGS").c_str(), {settings_buttonTextureRec.x , settings_buttonTextureRec.y}, buttonsText_Offset, App->assetLoader->titleFont, 100, 0, WHITE);
+
+	App->renderer->DrawText(App->localization->GetString("MAINMENU_SETTINGS").c_str(), { settings_buttonTextureRec.x , settings_buttonTextureRec.y }, buttonsText_Offset, App->assetLoader->titleFont, 100, 0, WHITE);
 
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_5);
 	FadeUpdate();
 
-	return UPDATE_CONTINUE;
+	return true;
 }
