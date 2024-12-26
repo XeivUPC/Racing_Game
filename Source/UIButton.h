@@ -18,7 +18,6 @@ public:
 	~UIButton();
 
 	void Update();
-	void Render();
 
 	BUTTON_STATE GetState();
 

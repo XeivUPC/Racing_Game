@@ -11,7 +11,6 @@ public:
 	~UISlider();
 
 	void Update();
-	void Render();
 	float GetValue();
 	float SetValue();
 

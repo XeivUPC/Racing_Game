@@ -62,16 +62,6 @@ void UIButton::Update()
 	}
 }
 
-void UIButton::Render()
-{
-	if (texture == nullptr) {
-		DrawRectangle((int)bounds.x, (int)bounds.y, (int)bounds.width, (int)bounds.height, color);
-	}
-	else {
-		moduleAt->App->renderer->Draw(*texture, { bounds.x, bounds.y }, { bounds.width/2,bounds.height/2 });
-	}
-}
-
 UIButton::BUTTON_STATE UIButton::GetState()
 {
 	return state;

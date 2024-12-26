@@ -36,12 +36,7 @@ void UISlider::Update()
 			DeselectThumb();
 	}
 }
-
-void UISlider::Render()
-{
-	DrawRectangle((int)bounds.x, (int)bounds.y, (int)bounds.width, (int)bounds.height, color);
-	thumb->Render();
-}
+\
 
 float UISlider::GetValue()
 {

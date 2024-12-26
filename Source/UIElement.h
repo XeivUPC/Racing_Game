@@ -11,8 +11,6 @@ public:
 	~UIElement() {};
 
 	virtual void Update() {};
-	virtual void Render() {};
-
 
 	/// <summary>
 	/// In Order to add function to one of this actions, add the following line
