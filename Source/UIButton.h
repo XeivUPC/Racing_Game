@@ -12,12 +12,8 @@ enum BUTTON_STATE {
 
 public:
 	UIButton(Module* moduleAt, Vector2 position, Vector2 size);
-	UIButton(Module* moduleAt, Vector2 position, Vector2 size, Texture2D* texture);
-	UIButton(Module* moduleAt, Vector2 position, Vector2 size, Color color);
 
 	~UIButton();
-
-	void Update();
 
 	BUTTON_STATE GetState();
 

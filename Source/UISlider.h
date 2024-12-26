@@ -19,15 +19,12 @@ public:
 	float minVal=0.f;
 	float maxVal=1.f;
 
-
-protected:
-	Texture2D* texture = nullptr;
-	Color color = WHITE;
+	std::vector<std::function<void(float)>> onValueChange;
 
 private:
 	void SelectThumb();
 	void DeselectThumb();
-	bool thumbSelected;
+	bool thumbSelected=false;
 	
 	float value = 0.f;
 	UIButton* thumb;
