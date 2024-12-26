@@ -22,6 +22,12 @@ update_status ModuleScene::Update()
     return UPDATE_CONTINUE;
 }
 
+bool ModuleScene::Render()
+{
+
+	return true;
+}
+
 bool ModuleScene::CleanUp()
 {
     return true;
@@ -56,11 +62,34 @@ void ModuleScene::StartFadeOut(Color color, float time)
 
 void ModuleScene::FadeUpdate()
 {
-	EndMode2D();
 	if (doingFadeIn)
 		FadeIn();
 	if (doingFadeOut)
 		FadeOut();
+}
+
+void ModuleScene::FadeRender()
+{
+	EndMode2D();
+	if (doingFadeIn || doingFadeOut) {
+		int opacity;
+
+		if (doingFadeIn) {
+			opacity = (int)(255 * (fadeTimer.ReadSec() / fadeTime));
+			if (opacity > 255)
+				opacity = 255;
+		}
+		else {
+			opacity = 255 - (int)(255 * (fadeTimer.ReadSec() / fadeTime));
+			if (opacity < 0)
+				opacity = 0;
+		}
+
+		Color color = { fadeColor.r,fadeColor.g,fadeColor.b,(unsigned char)opacity };
+
+		App->renderer->SelectRenderLayer(ModuleRender::OVER_LAYER_5);
+		App->renderer->DrawSimpleRectangle({ 0, 0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE }, color);
+	}
 	BeginMode2D(App->renderer->camera);
 }
 
@@ -79,26 +108,16 @@ void ModuleScene::FadeIn()
 			Disable();
 		}
 	}
-	else {
-		int opacity = (int)(255 * (fadeTimer.ReadSec() / fadeTime));
-		if (opacity > 255)
-			opacity = 255;
-		Color color = { fadeColor.r,fadeColor.g,fadeColor.b,(unsigned char)opacity };
-		DrawRectangle(0, 0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE, color);
-	}
 }
 
 void ModuleScene::FadeOut()
 {
 	if (fadeTimer.ReadSec() < fadeTime) {
 
-		int opacity = 255 - (int)(255 * (fadeTimer.ReadSec() / fadeTime));
-		if (opacity < 0)
-			opacity = 0;
-		Color color = { fadeColor.r,fadeColor.g,fadeColor.b,(unsigned char)opacity };
-		DrawRectangle(0, 0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE, color);
 	}
 	else {
 		doingFadeOut = false;
 	}
 }
+
+

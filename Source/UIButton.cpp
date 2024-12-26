@@ -6,72 +6,14 @@
 UIButton::UIButton(Module* moduleAt, Vector2 position, Vector2 size) : UIElement(moduleAt)
 {
 	bounds = { position.x, position.y, size.x, size.y };
-}
 
-UIButton::UIButton(Module* moduleAt, Vector2 position, Vector2 size, Texture2D* texture) : UIButton(moduleAt, position, size)
-{
-	this->texture = texture;
-}
-
-UIButton::UIButton(Module* moduleAt, Vector2 position, Vector2 size, Color color) : UIButton(moduleAt, position, size)
-{
-	this->color = color;
+	onMouseExit.emplace_back([this]() {state = NORMAL; });
+	onMouseDown.emplace_back([this]() {state = PRESSED; });
+	onMouseClick.emplace_back([this]() {state = CLICKED; });
 }
 
 UIButton::~UIButton()
 {
-}
-
-void UIButton::Update()
-{
-	if (CheckCollisionPointRec(GetMousePosition(), bounds)) {	
-		if (!isMouseOver) {
-			if (onMouseEnter)
-				onMouseEnter();
-		}
-
-		if (onMouseOver)
-			onMouseOver();
-
-		isMouseOver = true;
-
-		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-		{
-			if(onMouseDown)
-				onMouseDown();
-			state = PRESSED;
-		}
-		else {
-
-		}
-
-		if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
-			if(onMouseClick)
-				onMouseClick();
-			state = CLICKED;
-		}
-		
-	}
-	else {
-		if (isMouseOver) {
-			if(onMouseExit)
-				onMouseExit();
-		}
-		isMouseOver = false;
-		state = NORMAL;
-	}
-}
-
-void UIButton::Render()
-{
-	moduleAt->App->renderer->SelectRenderLayer(currentLayer);
-
-	if (texture == nullptr) {
-		DrawRectangle((int)bounds.x, (int)bounds.y, (int)bounds.width, (int)bounds.height, color);
-	}
-	else {
-		moduleAt->App->renderer->Draw(*texture, { bounds.x - bounds.width / 2, bounds.y - bounds.height / 2 }, { bounds.width/2,bounds.height/2 });
-	}
 }
 
 UIButton::BUTTON_STATE UIButton::GetState()

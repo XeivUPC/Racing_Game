@@ -9,7 +9,7 @@ UISlider::UISlider(Module* moduleAt, Vector2 position, Vector2 size) : UIElement
 	Vector2 thumbPos = {position.x - thumbSize.x/2.f ,position.y - thumbSize.y /2.f + size.y / 2 };
 	thumb = new UIButton(moduleAt, thumbPos, thumbSize);
 
-	thumb->onMouseDown = [&]() {SelectThumb();};
+	thumb->onMouseDown.emplace_back([this]() {SelectThumb(); });
 }
 
 UISlider::~UISlider()
@@ -20,28 +20,31 @@ UISlider::~UISlider()
 void UISlider::Update()
 {
 	thumb->Update();
+	UIElement::Update();
+
 	if (thumbSelected)
 	{
 		Vector2 mousePos = GetMousePosition();
+		mousePos.x -= thumb->bounds.width / 2.f;
 		Vector2 moveBounds = { bounds.x - thumb->bounds.width / 2.f , bounds.x + bounds.width - thumb->bounds.width / 2.f };
+
 
 		if (mousePos.x < moveBounds.x)
 			mousePos.x = moveBounds.x;
 		if (mousePos.x > moveBounds.y)
 			mousePos.x = moveBounds.y;
 
-		thumb->bounds.x = mousePos.x;
+
+		if (thumb->bounds.x != mousePos.x) {
+			thumb->bounds.x = mousePos.x;
+			TriggerCallbacks(onValueChange,GetValue());
+		}
 
 		if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
 			DeselectThumb();
 	}
 }
-
-void UISlider::Render()
-{
-	DrawRectangle((int)bounds.x, (int)bounds.y, (int)bounds.width, (int)bounds.height, color);
-	thumb->Render();
-}
+\
 
 float UISlider::GetValue()
 {
@@ -54,6 +57,16 @@ float UISlider::SetValue()
 {
 	Vector2 moveBounds = { bounds.x - thumb->bounds.width / 2 , bounds.x + bounds.width - thumb->bounds.width / 2 };
 	return moveBounds.x + (value - minVal) * (moveBounds.y - moveBounds.x) / (maxVal - minVal);
+}
+
+Rectangle UISlider::GetThumbBounds()
+{
+	return thumb->bounds;
+}
+
+bool UISlider::IsThumbSelected()
+{
+	return thumbSelected;
 }
 
 void UISlider::SelectThumb()

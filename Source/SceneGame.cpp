@@ -9,7 +9,6 @@
 
 #include "Vehicle.h"
 
- 
 
 SceneGame::SceneGame(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
 {
@@ -26,7 +25,6 @@ bool SceneGame::Start()
 	bool ret = true;
 
 	car = new Vehicle(this, "moto-type2");
-	
 	//// Aqui ponemos todos los chars de la funete en orden
 	
 	return ret;
@@ -44,10 +42,20 @@ bool SceneGame::CleanUp()
 // Update: draw background
 update_status SceneGame::Update()
 {
+	slider->Update();
 	car->Update();
-	car->Render();
+	
+	/// Last Things To Do
+	ModuleScene::FadeUpdate();
+	Render();
+	return UPDATE_CONTINUE;
+}
 
+bool SceneGame::Render()
+{
+	car->Render();
 	DrawTextEx(App->assetLoader->basicFont, "Hola que tal estas rey\nquedaste 3_-2", { 100, 100 }, 90, 1, BLACK);
 
-	return UPDATE_CONTINUE;
+	ModuleScene::FadeRender();
+	return true;
 }

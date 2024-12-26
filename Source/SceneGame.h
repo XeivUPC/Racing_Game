@@ -10,7 +10,6 @@
 
 class PhysBody;
 class Vehicle;
-class UISlider;
 
 class SceneGame : public ModuleScene
 {
@@ -20,6 +19,7 @@ public:
 
 	bool Start();
 	update_status Update();
+	bool Render();
 	bool CleanUp();
 
 public:

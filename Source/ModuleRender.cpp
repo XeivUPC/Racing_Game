@@ -120,7 +120,29 @@ bool ModuleRender::Draw(Texture2D texture, Vector2 position, Vector2 offset, con
 	return ret;
 }
 
-bool ModuleRender::DrawText(const char * text, Vector2 position, Vector2 offset, Font font, int fontSize, int spacing, Color tint)
+bool ModuleRender::DrawSimpleRectangle(Rectangle bounds, Color tint)
+{
+    BeginTextureMode(layers.at(currentRenderLayer).data);
+    bool ret = true;
+    DrawRectangle((int)bounds.x, (int)bounds.y, (int)bounds.width, (int)bounds.height, tint);
+    EndTextureMode();
+    if (!IsRenderLayerBlocked())
+        ResetRenderLayer();
+    return ret;
+}
+
+bool ModuleRender::DrawSimpleCircle(Vector2 position, float radius, Color tint)
+{
+    BeginTextureMode(layers.at(currentRenderLayer).data);
+    bool ret = true;
+    DrawCircle((int)position.x, (int)position.y, radius, tint);
+    EndTextureMode();
+    if (!IsRenderLayerBlocked())
+        ResetRenderLayer();
+    return ret;
+}
+
+bool ModuleRender::DrawText(const char* text, Vector2 position, Vector2 offset, Font font, int fontSize, int spacing, Color tint)
 {
     BeginTextureMode(layers.at(currentRenderLayer).data);
     bool ret = true;
@@ -132,6 +154,7 @@ bool ModuleRender::DrawText(const char * text, Vector2 position, Vector2 offset,
         ResetRenderLayer();
     return ret;
 }
+
 
 void ModuleRender::SelectRenderLayer(RenderLayer layer)
 {
