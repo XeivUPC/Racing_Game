@@ -51,6 +51,16 @@ float UISlider::SetValue()
 	return moveBounds.x + (value - minVal) * (moveBounds.y - moveBounds.x) / (maxVal - minVal);
 }
 
+Rectangle UISlider::GetThumbBounds()
+{
+	return thumb->bounds;
+}
+
+bool UISlider::IsThumbSelected()
+{
+	return thumbSelected;
+}
+
 void UISlider::SelectThumb()
 {
 	thumbSelected = true;

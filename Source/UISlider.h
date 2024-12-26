@@ -13,11 +13,12 @@ public:
 	void Update();
 	float GetValue();
 	float SetValue();
+	Rectangle GetThumbBounds();
+	bool IsThumbSelected();
 
 	float minVal=0.f;
 	float maxVal=1.f;
 
-	UIButton* thumb;
 
 protected:
 	Texture2D* texture = nullptr;
@@ -29,5 +30,6 @@ private:
 	bool thumbSelected;
 	
 	float value = 0.f;
+	UIButton* thumb;
 };
 
