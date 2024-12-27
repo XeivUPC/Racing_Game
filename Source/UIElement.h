@@ -1,6 +1,9 @@
 #pragma once
 #include "Module.h"
 #include <functional>
+#include "Application.h"
+#include "ModuleRender.h"
+#include "ModuleWindow.h"
 
 class UIElement
 {
@@ -11,7 +14,7 @@ public:
 	~UIElement() {};
 
 	virtual void Update() {
-		Vector2 mousePos = GetMousePosition();
+		Vector2 mousePos = moduleAt->App->window->GetVirtualMousePos();
 		bool mouseInside = CheckCollisionPointRec(mousePos, bounds);
 
 		if (mouseInside && !isMouseOver) {

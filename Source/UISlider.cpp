@@ -24,7 +24,7 @@ void UISlider::Update()
 
 	if (thumbSelected)
 	{
-		Vector2 mousePos = GetMousePosition();
+		Vector2 mousePos = moduleAt->App->window->GetVirtualMousePos();
 		mousePos.x -= thumb->bounds.width / 2.f;
 		Vector2 moveBounds = { bounds.x - thumb->bounds.width / 2.f , bounds.x + bounds.width - thumb->bounds.width / 2.f };
 
