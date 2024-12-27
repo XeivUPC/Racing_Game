@@ -45,7 +45,7 @@ Application::Application()
 	
 	// Scenes
 	AddModule(scene_game);
-	//AddModule(scene_options);
+	AddModule(scene_options);
 	AddModule(scene_select_setup);
 	AddModule(scene_main_menu);
 	AddModule(scene_intro);

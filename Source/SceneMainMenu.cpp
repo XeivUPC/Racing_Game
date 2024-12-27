@@ -105,8 +105,8 @@ void SceneMainMenu::ClickPlay()
 
 void SceneMainMenu::ClickSettings()
 {
-	//StartFadeIn(App->scene_options, BLACK, 1);
-	// Go to Settings Scene
+	StartFadeIn(App->scene_options, BLACK, 1);
+	// Go to Options Scene
 }
 
 void SceneMainMenu::OnMouseOverPlay()

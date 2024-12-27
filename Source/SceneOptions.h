@@ -36,7 +36,7 @@ private:
 
 public:
 
-	SceneOptions(Application* app, bool start_enabled = true);
+	SceneOptions(Application* app, bool start_enabled = false);
 
 	// Destructor
 	~SceneOptions();
