@@ -23,7 +23,7 @@ Application::Application()
 	assetLoader = new ModuleAssetLoader(this);
 	physics = new ModulePhysics(this);
 	scene_intro = new SceneGame(this);
-	//scene_options = new SceneOptions(this);
+	scene_options = new SceneOptions(this);
 	scene_main_menu = new SceneMainMenu(this);
 
 	// The order of calls is very important!
@@ -39,9 +39,9 @@ Application::Application()
 	AddModule(assetLoader);
 	
 	// Scenes
-	AddModule(scene_main_menu);
-	//AddModule(scene_options);
-	AddModule(scene_intro);
+	//AddModule(scene_main_menu);
+	AddModule(scene_options);
+	//AddModule(scene_intro);
 	
 	// Rendering happens at the end
 	AddModule(renderer);
