@@ -7,9 +7,12 @@
 #include "ModuleLocalization.h"
 #include "ModuleAssetLoader.h"
 #include "ModulePhysics.h"
+
 #include "SceneGame.h"
 #include "SceneOptions.h"
 #include "SceneMainMenu.h"
+#include "SceneSelectSetup.h"
+#include "SceneIntro.h"
 
 #include "Application.h"
 
@@ -22,9 +25,11 @@ Application::Application()
 	localization = new ModuleLocalization(this, true);
 	assetLoader = new ModuleAssetLoader(this);
 	physics = new ModulePhysics(this);
-	scene_intro = new SceneGame(this);
-	scene_options = new SceneOptions(this);
-	scene_main_menu = new SceneMainMenu(this);
+	//scene_options = new SceneOptions(this);
+	scene_game = new SceneGame(this, false);
+	scene_select_setup = new SceneSelectSetup(this, false);
+	scene_main_menu = new SceneMainMenu(this, false);
+	scene_intro = new SceneIntro(this,true);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -39,10 +44,13 @@ Application::Application()
 	AddModule(assetLoader);
 	
 	// Scenes
-	//AddModule(scene_main_menu);
-	AddModule(scene_options);
-	//AddModule(scene_intro);
+	AddModule(scene_main_menu);
+	//AddModule(scene_options);
+	AddModule(scene_select_setup);
 	
+	AddModule(scene_game);
+	AddModule(scene_intro);
+
 	// Rendering happens at the end
 	AddModule(renderer);
 }
@@ -75,7 +83,8 @@ bool Application::Init()
 	for (auto it = list_modules.begin(); it != list_modules.end() && ret; ++it)
 	{
 		Module* module = *it;
-		ret = module->Start();
+		if (module->IsEnabled())
+			ret = module->Start();
 	}
 	
 	return ret;
@@ -124,7 +133,8 @@ bool Application::CleanUp()
 	for (auto it = list_modules.rbegin(); it != list_modules.rend() && ret; ++it)
 	{
 		Module* item = *it;
-		ret = item->CleanUp();
+		if(item->IsEnabled())
+			ret = item->CleanUp();
 	}
 	return ret;
 }

@@ -31,15 +31,24 @@ public:
 	void SetTitle(const char* title);
 
 	// Retrieve window size
-    uint GetWidth() const;
-    uint GetHeight() const;
+    uint GetLogicWidth() const;
+    uint GetLogicHeight() const;
+
+	float GetRealWidth() const;
+	float GetRealHeight() const;
+
+	float GetScale() const;
+
+	Vector2 GetVirtualMousePos();
 
     // Gather relevant win events
     bool GetWindowEvent(WindowEvent ev);
 
 private:
-	uint width;
-	uint height;
+	float scale;
+
+	uint game_width;
+	uint game_height;
 
     bool windowEvents[WINDOW_EVENT_COUNT];
 };
