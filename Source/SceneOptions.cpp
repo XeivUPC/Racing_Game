@@ -33,21 +33,21 @@ bool SceneOptions::Start()
 
 	/* Create Textures */
 
-	App->texture->CreateTexture("Assets/Textures/main_menu.png", "backgroundSettings");
+	App->texture->CreateTexture("Assets/Textures/settings_menu.png", "backgroundSettings");
 	backgroundTextureSettings = App->texture->GetTexture("backgroundSettings");
 
 	/* Create UI */
 
 	//Create Buttons
 	float exitSettingsButtonOffset = 30;
-	Vector2 exitSettingsButtonSize = { 30,30 };
+	Vector2 exitSettingsButtonSize = { 50,50 };
 	exitSettingsButton = new UIButton(this, Vector2{ SCREEN_WIDTH - (exitSettingsButtonSize.x) - exitSettingsButtonOffset, exitSettingsButtonOffset}, exitSettingsButtonSize);
 	exitSettingsButton->onMouseClick.emplace_back([&]() {Exit(); });
 
 	float languageButtonOffsetY = -70;
 	float offsetBetweenTextAndButtonLanguage = 30;
 	float LanguageTextSize = 300;
-	Vector2 languageButtonSize = { 30,30 };
+	Vector2 languageButtonSize = { 50,50 };
 	nextLanguageButton = new UIButton(this, Vector2{ SCREEN_WIDTH / 2 - (languageButtonSize.x) - (LanguageTextSize/2) - offsetBetweenTextAndButtonLanguage, (SCREEN_HEIGHT / 6) * 2 + languageButtonOffsetY }, languageButtonSize);
 	previousLanguageButton = new UIButton(this, Vector2{ SCREEN_WIDTH / 2  + (LanguageTextSize/2) + offsetBetweenTextAndButtonLanguage, (SCREEN_HEIGHT / 6) * 2 + languageButtonOffsetY }, languageButtonSize);
 	previousLanguageButton->onMouseClick.emplace_back([&]() {PreviousLanguage(); });
@@ -148,20 +148,20 @@ bool SceneOptions::Render() {
 	Vector2 textSize_language = MeasureTextEx(App->assetLoader->titleFont, App->localization->GetString("SETTINGS_LANGUAGE").c_str(), 100, 0);
 	App->renderer->DrawText(App->localization->GetString("SETTINGS_LANGUAGE").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_language.x / 2), (SCREEN_HEIGHT / 6) - (SCREEN_HEIGHT / 10) }, Vector2{ 0,0 }, App->assetLoader->titleFont, 100, 1, WHITE);
 
+	Vector2 textSize_language_select = MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("Language").c_str(), 60, 0);
+	App->renderer->DrawText(App->localization->GetString("Language").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_language_select.x / 2) , (SCREEN_HEIGHT / 6) * 2 - 70 }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, BLACK);
+
 	Vector2 textSize_sound = MeasureTextEx(App->assetLoader->titleFont, App->localization->GetString("SETTINGS_SOUND").c_str(), 100, 0);
 	App->renderer->DrawText(App->localization->GetString("SETTINGS_SOUND").c_str(),Vector2{ (SCREEN_WIDTH / 2) - (textSize_sound.x / 2), (SCREEN_HEIGHT / 6) * 2 }, Vector2{0,0}, App->assetLoader->titleFont, 100, 1, WHITE);
 
 	Vector2 textSize_general = MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SETTINGS_GENERAL").c_str(), 60, 0);
-	App->renderer->DrawText(App->localization->GetString("SETTINGS_GENERAL").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_general.x) - (generalVolumeSliderSize.x /2), (SCREEN_HEIGHT / 6) * 3 }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, RED);
+	App->renderer->DrawText(App->localization->GetString("SETTINGS_GENERAL").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_general.x) - (generalVolumeSliderSize.x /2), (SCREEN_HEIGHT / 6) * 3.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, RED);
 
 	Vector2 textSize_music = MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SETTINGS_MUSIC").c_str(), 60, 0);
-	App->renderer->DrawText(App->localization->GetString("SETTINGS_MUSIC").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_music.x) - (musicVolumeSliderSize.x / 2), (SCREEN_HEIGHT / 6) * 4 }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, RED);
+	App->renderer->DrawText(App->localization->GetString("SETTINGS_MUSIC").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_music.x) - (musicVolumeSliderSize.x / 2), (SCREEN_HEIGHT / 6) * 4.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, RED);
 
 	Vector2 textSize_sfx = MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SETTINGS_SFX").c_str(), 60, 0);
-	App->renderer->DrawText(App->localization->GetString("SETTINGS_SFX").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_sfx.x) - (sfxVolumeSliderSize.x / 2), (SCREEN_HEIGHT / 6) * 5 }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, RED);
-
-	Vector2 textSize_language_select = MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("Language").c_str(), 60, 0);
-	App->renderer->DrawText(App->localization->GetString("Language").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_language_select.x / 2) , (SCREEN_HEIGHT / 6) * 2 - 70 }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, WHITE);
+	App->renderer->DrawText(App->localization->GetString("SETTINGS_SFX").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_sfx.x) - (sfxVolumeSliderSize.x / 2), (SCREEN_HEIGHT / 6) * 5.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, RED);
 
 	App->renderer->UnlockRenderLayer();
 
