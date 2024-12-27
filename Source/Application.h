@@ -28,10 +28,11 @@ public:
 	ModuleLocalization* localization;
 	ModuleAssetLoader* assetLoader;
 	ModulePhysics* physics;
-	SceneGame* scene_intro;
+
 	//SceneOptions* scene_options;
 	SceneMainMenu* scene_main_menu;
 	SceneSelectSetup* scene_select_setup;
+	SceneGame* scene_game;
 
 private:
 

@@ -23,10 +23,10 @@ Application::Application()
 	localization = new ModuleLocalization(this, true);
 	assetLoader = new ModuleAssetLoader(this);
 	physics = new ModulePhysics(this);
-	scene_intro = new SceneGame(this);
 	//scene_options = new SceneOptions(this);
 	scene_main_menu = new SceneMainMenu(this);
 	scene_select_setup = new SceneSelectSetup(this);
+	scene_game = new SceneGame(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -43,9 +43,10 @@ Application::Application()
 	// Scenes
 	AddModule(scene_main_menu);
 	//AddModule(scene_options);
-	AddModule(scene_intro);
 	AddModule(scene_select_setup);
 	
+	AddModule(scene_game);
+
 	// Rendering happens at the end
 	AddModule(renderer);
 }
@@ -78,7 +79,8 @@ bool Application::Init()
 	for (auto it = list_modules.begin(); it != list_modules.end() && ret; ++it)
 	{
 		Module* module = *it;
-		ret = module->Start();
+		if (module->IsEnabled())
+			ret = module->Start();
 	}
 	
 	return ret;
@@ -127,7 +129,8 @@ bool Application::CleanUp()
 	for (auto it = list_modules.rbegin(); it != list_modules.rend() && ret; ++it)
 	{
 		Module* item = *it;
-		ret = item->CleanUp();
+		if(item->IsEnabled())
+			ret = item->CleanUp();
 	}
 	return ret;
 }
