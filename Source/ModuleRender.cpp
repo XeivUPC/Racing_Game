@@ -6,7 +6,7 @@
 
 ModuleRender::ModuleRender(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-    background = GRAY;
+    background = BLACK;
 }
 
 // Destructor
@@ -48,10 +48,6 @@ update_status ModuleRender::Update()
     // maximum performance, all consecutive Draw() calls are
     // not processed until EndDrawing() is called
     BeginDrawing();
-    for (size_t i = 0; i < layers.size(); i++)
-    {
-        RenderLayerToScreen(layers[i]);
-    }
 
 	return UPDATE_CONTINUE;
 }
@@ -59,8 +55,13 @@ update_status ModuleRender::Update()
 // PostUpdate present buffer to screen
 update_status ModuleRender::PostUpdate()
 {
-
+   
     // Draw everything in our batch!
+    
+    for (size_t i = 0; i < layers.size(); i++)
+    {
+        RenderLayerToScreen(layers[i]);
+    }
     
     cursor.RenderCursor();
     DrawFPS(10, 10);
@@ -142,6 +143,28 @@ bool ModuleRender::DrawSimpleCircle(Vector2 position, float radius, Color tint)
     return ret;
 }
 
+bool ModuleRender::DrawSimpleLine(Rectangle bounds,Color tint)
+{
+    BeginTextureMode(layers.at(currentRenderLayer).data);
+    bool ret = true;
+    DrawLine((int)bounds.x, (int)bounds.y, (int)bounds.width, (int)bounds.height, tint);
+    EndTextureMode();
+    if (!IsRenderLayerBlocked())
+        ResetRenderLayer();
+    return ret;
+}
+
+bool ModuleRender::DrawSimpleCircleLine(Vector2 position, float radius, Color tint)
+{
+    BeginTextureMode(layers.at(currentRenderLayer).data);
+    bool ret = true;
+    DrawCircleLines((int)position.x, (int)position.y, radius, tint);
+    EndTextureMode();
+    if (!IsRenderLayerBlocked())
+        ResetRenderLayer();
+    return ret;
+}
+
 bool ModuleRender::DrawText(const char* text, Vector2 position, Vector2 offset, Font font, int fontSize, int spacing, Color tint)
 {
     BeginTextureMode(layers.at(currentRenderLayer).data);
@@ -196,7 +219,32 @@ void ModuleRender::ResetRenderLayer()
 void ModuleRender::RenderLayerToScreen(Layer layer)
 {
     Rectangle sourceRect = { 0, 0, (float)layer.data.texture.width, (float)-layer.data.texture.height };
-    Rectangle destRect = { 0, 0, (float)SCREEN_WIDTH, (float)SCREEN_HEIGHT };
+
+
+    float screenWidth = GetScreenWidth();
+    float screenHeight = GetScreenHeight();
+
+    float textureAspectRatio = abs(sourceRect.width / sourceRect.height);
+    float screenAspectRatio = abs(screenWidth / screenHeight);
+
+    float targetWidth, targetHeight;
+
+    if (textureAspectRatio > screenAspectRatio) {
+        // Texture is wider than screen: fit by width
+        targetWidth = screenWidth;
+        targetHeight = screenWidth / textureAspectRatio;
+    }
+    else {
+        // Texture is taller than screen: fit by height
+        targetHeight = screenHeight;
+        targetWidth = screenHeight * textureAspectRatio;
+    }
+
+    // Center the texture
+    float offsetX = (screenWidth - targetWidth) / 2.0f;
+    float offsetY = (screenHeight - targetHeight) / 2.0f;
+
+    Rectangle destRect = { offsetX, offsetY, App->window->GetRealWidth(), App->window->GetRealHeight() };
 
     // Draw the layer's texture to the screen, flipping vertically
     DrawTexturePro(layer.data.texture, sourceRect, destRect, { 0, 0 }, 0, WHITE);
@@ -205,6 +253,7 @@ void ModuleRender::RenderLayerToScreen(Layer layer)
 void ModuleRender::CreateLayer(RenderLayer layer)
 {
     RenderTexture2D texture = LoadRenderTexture(SCREEN_WIDTH, SCREEN_HEIGHT);
+    SetTextureFilter(texture.texture, TEXTURE_FILTER_BILINEAR);
     layers.push_back({layer, texture});
 }
 

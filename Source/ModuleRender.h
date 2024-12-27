@@ -35,8 +35,13 @@ public:
 
     void SetBackgroundColor(Color color);
 	bool Draw(Texture2D texture, Vector2 position, Vector2 offset, const Rectangle* section = NULL, double angle = 0, float scale =1, int pivot_x = 0, int pivot_y = 0, Color tint = WHITE);
+
 	bool DrawSimpleRectangle(Rectangle bounds, Color tint = WHITE);
 	bool DrawSimpleCircle(Vector2 position, float radius, Color tint = WHITE);
+	bool DrawSimpleLine(Rectangle bounds, Color tint = WHITE);
+	bool DrawSimpleCircleLine(Vector2 position, float radius, Color tint = WHITE);
+
+
 	bool DrawText(const char* text, Vector2 position, Vector2 offset, Font font, int fontSize, int spacing, Color tint);
 
 	///Layers

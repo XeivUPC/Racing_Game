@@ -18,7 +18,7 @@ public:
 	void StartFadeOut(Color color, float time);
 
 	void FadeUpdate();
-	void FadeRender();
+	virtual void FadeRender();
 
 private:
 	void FadeIn();

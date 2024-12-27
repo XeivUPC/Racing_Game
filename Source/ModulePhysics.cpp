@@ -60,6 +60,9 @@ update_status ModulePhysics::PostUpdate()
 
 	// Bonus code: this will iterate all objects in the world and draw the circles
 	// You need to provide your own macro to translate meters to pixels
+
+	App->renderer->BlockRenderLayer(ModuleRender::OVER_LAYER_5);
+
 	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
 	{
 		for(b2Fixture* f = b->GetFixtureList(); f; f = f->GetNext())
@@ -72,7 +75,7 @@ update_status ModulePhysics::PostUpdate()
 					b2CircleShape* shape = (b2CircleShape*)f->GetShape();
 					b2Vec2 pos = f->GetBody()->GetPosition();
 					
-					DrawCircleLines(METERS_TO_PIXELS(pos.x), METERS_TO_PIXELS(pos.y), (float)METERS_TO_PIXELS(shape->m_radius), WHITE);
+					App->renderer->DrawSimpleCircleLine({ (float)METERS_TO_PIXELS(pos.x), (float)METERS_TO_PIXELS(pos.y) }, (float)METERS_TO_PIXELS(shape->m_radius), WHITE);
 				}
 				break;
 
@@ -87,13 +90,13 @@ update_status ModulePhysics::PostUpdate()
 					{
 						v = b->GetWorldPoint(polygonShape->m_vertices[i]);
 						if(i > 0)
-							DrawLine(METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y), METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y), RED);
+							App->renderer->DrawSimpleLine({ (float)METERS_TO_PIXELS(prev.x), (float)METERS_TO_PIXELS(prev.y), (float)METERS_TO_PIXELS(v.x), (float)METERS_TO_PIXELS(v.y) }, RED);
 
 						prev = v;
 					}
 
 					v = b->GetWorldPoint(polygonShape->m_vertices[0]);
-					DrawLine(METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y), METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y), RED);
+					App->renderer->DrawSimpleLine({ (float)METERS_TO_PIXELS(prev.x), (float)METERS_TO_PIXELS(prev.y), (float)METERS_TO_PIXELS(v.x), (float)METERS_TO_PIXELS(v.y) }, RED);
 				}
 				break;
 
@@ -107,12 +110,12 @@ update_status ModulePhysics::PostUpdate()
 					{
 						v = b->GetWorldPoint(shape->m_vertices[i]);
 						if(i > 0)
-							DrawLine(METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y), METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y), GREEN);
+							App->renderer->DrawSimpleLine({ (float)METERS_TO_PIXELS(prev.x), (float)METERS_TO_PIXELS(prev.y), (float)METERS_TO_PIXELS(v.x), (float)METERS_TO_PIXELS(v.y) }, GREEN);
 						prev = v;
 					}
 
 					v = b->GetWorldPoint(shape->m_vertices[0]);
-					DrawLine(METERS_TO_PIXELS(prev.x), METERS_TO_PIXELS(prev.y), METERS_TO_PIXELS(v.x), METERS_TO_PIXELS(v.y), GREEN);
+					App->renderer->DrawSimpleLine({ (float)METERS_TO_PIXELS(prev.x), (float)METERS_TO_PIXELS(prev.y), (float)METERS_TO_PIXELS(v.x), (float)METERS_TO_PIXELS(v.y) }, GREEN);
 				}
 				break;
 
@@ -124,7 +127,7 @@ update_status ModulePhysics::PostUpdate()
 
 					v1 = b->GetWorldPoint(shape->m_vertex0);
 					v1 = b->GetWorldPoint(shape->m_vertex1);
-					DrawLine(METERS_TO_PIXELS(v1.x), METERS_TO_PIXELS(v1.y), METERS_TO_PIXELS(v2.x), METERS_TO_PIXELS(v2.y), BLUE);
+					App->renderer->DrawSimpleLine({ (float)METERS_TO_PIXELS(v1.x), (float)METERS_TO_PIXELS(v1.y), (float)METERS_TO_PIXELS(v2.x), (float)METERS_TO_PIXELS(v2.y) }, BLUE);
 				}
 				break;
 			}
@@ -138,10 +141,12 @@ update_status ModulePhysics::PostUpdate()
 		b2Vec2 anchorA = j->GetAnchorA();
 		b2Vec2 anchorB = j->GetAnchorB();
 
-		DrawCircle(METERS_TO_PIXELS(anchorA.x), METERS_TO_PIXELS(anchorA.y), 4, YELLOW);
-		DrawCircle(METERS_TO_PIXELS(anchorB.x), METERS_TO_PIXELS(anchorB.y), 4, YELLOW);
-		DrawLine(METERS_TO_PIXELS(anchorA.x), METERS_TO_PIXELS(anchorA.y), METERS_TO_PIXELS(anchorB.x), METERS_TO_PIXELS(anchorB.y), BLUE);
+		App->renderer->DrawSimpleCircleLine({ (float)METERS_TO_PIXELS(anchorA.x), (float)METERS_TO_PIXELS(anchorA.y) }, 4, YELLOW);
+		App->renderer->DrawSimpleCircleLine({ (float)METERS_TO_PIXELS(anchorB.x), (float)METERS_TO_PIXELS(anchorB.y)}, 4, YELLOW);
+		App->renderer->DrawSimpleLine({ (float)METERS_TO_PIXELS(anchorA.x), (float)METERS_TO_PIXELS(anchorA.y), (float)METERS_TO_PIXELS(anchorB.x), (float)METERS_TO_PIXELS(anchorB.y)}, BLUE);
 	}
+
+	App->renderer->UnlockRenderLayer();
 
 	
 	return UPDATE_CONTINUE;
