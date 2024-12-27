@@ -44,11 +44,10 @@ Application::Application()
 	AddModule(assetLoader);
 	
 	// Scenes
-	//AddModule(scene_main_menu);
-	AddModule(scene_options);
-	//AddModule(scene_select_setup);
-	
 	AddModule(scene_game);
+	//AddModule(scene_options);
+	AddModule(scene_select_setup);
+	AddModule(scene_main_menu);
 	AddModule(scene_intro);
 
 	// Rendering happens at the end
