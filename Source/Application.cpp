@@ -10,6 +10,7 @@
 #include "SceneGame.h"
 #include "SceneOptions.h"
 #include "SceneMainMenu.h"
+#include "SceneSelectSetup.h"
 
 #include "Application.h"
 
@@ -25,6 +26,7 @@ Application::Application()
 	scene_intro = new SceneGame(this);
 	//scene_options = new SceneOptions(this);
 	scene_main_menu = new SceneMainMenu(this);
+	scene_select_setup = new SceneSelectSetup(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -42,6 +44,7 @@ Application::Application()
 	AddModule(scene_main_menu);
 	//AddModule(scene_options);
 	AddModule(scene_intro);
+	AddModule(scene_select_setup);
 	
 	// Rendering happens at the end
 	AddModule(renderer);
