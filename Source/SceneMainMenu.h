@@ -1,12 +1,6 @@
 #pragma once
 
-#include "Globals.h"
 #include "ModuleScene.h"
-
-#include "p2Point.h"
-
-#include "raylib.h"
-#include <vector>
 
 class SceneMainMenu : public ModuleScene
 {

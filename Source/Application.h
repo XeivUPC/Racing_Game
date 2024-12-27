@@ -12,7 +12,9 @@ class ModuleTexture;
 class ModuleLocalization;
 class ModuleAssetLoader;
 class ModulePhysics;
+
 class SceneGame;
+class SceneIntro;
 
 class Application
 {
@@ -28,6 +30,7 @@ public:
 
 
 	SceneGame* scene_game;
+	SceneIntro* scene_intro;
 
 private:
 

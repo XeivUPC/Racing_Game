@@ -140,6 +140,9 @@
     <ClCompile Include="Source\SceneMainMenu.cpp">
       <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SceneIntro.cpp">
+      <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ModuleAssetLoader.h">
@@ -239,6 +242,9 @@
     </ClInclude>
     <ClInclude Include="Source\FontCreator.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneIntro.h">
+      <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
