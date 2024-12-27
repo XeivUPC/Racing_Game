@@ -20,7 +20,7 @@ Application::Application()
 	localization = new ModuleLocalization(this, true);
 	assetLoader = new ModuleAssetLoader(this);
 	physics = new ModulePhysics(this);
-	scene_intro = new SceneGame(this);
+	scene_game = new SceneGame(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -35,7 +35,7 @@ Application::Application()
 	AddModule(assetLoader);
 	
 	// Scenes
-	AddModule(scene_intro);
+	AddModule(scene_game);
 
 	// Rendering happens at the end
 	AddModule(renderer);

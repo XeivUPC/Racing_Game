@@ -25,7 +25,9 @@ public:
 	ModuleLocalization* localization;
 	ModuleAssetLoader* assetLoader;
 	ModulePhysics* physics;
-	SceneGame* scene_intro;
+
+
+	SceneGame* scene_game;
 
 private:
 
