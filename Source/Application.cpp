@@ -7,10 +7,12 @@
 #include "ModuleLocalization.h"
 #include "ModuleAssetLoader.h"
 #include "ModulePhysics.h"
+
 #include "SceneGame.h"
 #include "SceneOptions.h"
 #include "SceneMainMenu.h"
 #include "SceneSelectSetup.h"
+#include "SceneIntro.h"
 
 #include "Application.h"
 
@@ -24,9 +26,10 @@ Application::Application()
 	assetLoader = new ModuleAssetLoader(this);
 	physics = new ModulePhysics(this);
 	//scene_options = new SceneOptions(this);
-	scene_main_menu = new SceneMainMenu(this);
-	scene_select_setup = new SceneSelectSetup(this);
-	scene_game = new SceneGame(this);
+	scene_game = new SceneGame(this, false);
+	scene_select_setup = new SceneSelectSetup(this, false);
+	scene_main_menu = new SceneMainMenu(this, false);
+	scene_intro = new SceneIntro(this,true);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -46,6 +49,7 @@ Application::Application()
 	AddModule(scene_select_setup);
 	
 	AddModule(scene_game);
+	AddModule(scene_intro);
 
 	// Rendering happens at the end
 	AddModule(renderer);

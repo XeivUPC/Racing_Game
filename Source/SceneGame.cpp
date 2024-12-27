@@ -27,6 +27,8 @@ bool SceneGame::Start()
 	car = new Vehicle(this, "moto-type2");
 	//// Aqui ponemos todos los chars de la funete en orden
 	
+
+	StartFadeOut(WHITE, 0.5f);
 	return ret;
 }
 
@@ -53,7 +55,6 @@ update_status SceneGame::Update()
 bool SceneGame::Render()
 {
 	car->Render();
-	DrawTextEx(App->assetLoader->basicFont, "Hola que tal estas rey\nquedaste 3_-2", { 100, 100 }, 90, 1, BLACK);
 
 	ModuleScene::FadeRender();
 	return true;

@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleWindow.h"
+#include <raymath.h>
 
 ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -23,8 +24,8 @@ bool ModuleWindow::Init()
 	bool resizable = WIN_RESIZABLE;
 	bool vsync = VSYNC;
 
-	width = SCREEN_WIDTH;
-	height = SCREEN_HEIGHT;
+	game_width = SCREEN_WIDTH;
+	game_height = SCREEN_HEIGHT;
 
 	if (fullscreen == true) flags |= FLAG_FULLSCREEN_MODE;
 
@@ -37,8 +38,8 @@ bool ModuleWindow::Init()
     LOG("Init raylib window");
 
     SetConfigFlags(flags);
-	InitWindow(width, height, TITLE);
-
+	InitWindow(game_width, game_height, TITLE);
+	SetWindowMinSize(MIN_SCREEN_WIDTH, MIN_SCREEN_HEIGHT);
 	SetTargetFPS(60);
 
 	return ret;
@@ -57,6 +58,9 @@ update_status ModuleWindow::PreUpdate()
 
 update_status ModuleWindow::Update()
 {
+
+	scale = (float)MIN((float)GetScreenWidth() / (float)game_width, (float)GetScreenHeight() / (float)game_height);
+
 	return UPDATE_CONTINUE;
 }
 
@@ -80,14 +84,40 @@ void ModuleWindow::SetTitle(const char* title)
 	SetWindowTitle(title);
 }
 
-uint ModuleWindow::GetWidth() const
+uint ModuleWindow::GetLogicWidth() const
 {
-	return width;
+	return game_width;
 }
 
-uint ModuleWindow::GetHeight() const
+uint ModuleWindow::GetLogicHeight() const
 {
-    return height;
+	return game_height;
+}
+
+float ModuleWindow::GetRealWidth() const
+{
+	return (float)game_width * scale;
+}
+
+float ModuleWindow::GetRealHeight() const
+{
+	return (float)game_height * scale;
+}
+
+float ModuleWindow::GetScale() const
+{
+	return scale;
+}
+
+Vector2 ModuleWindow::GetVirtualMousePos()
+{
+	Vector2 mouse = GetMousePosition();
+	Vector2 virtualMouse = { 0 };
+	virtualMouse.x = (mouse.x - (GetScreenWidth() - GetRealWidth()) * 0.5f) / scale;
+	virtualMouse.y = (mouse.y - (GetScreenHeight() - GetRealHeight()) * 0.5f) / scale;
+	virtualMouse = Vector2Clamp(virtualMouse, { 0, 0 }, { (float)game_width, (float)game_height });
+
+	return virtualMouse;
 }
 
 bool ModuleWindow::GetWindowEvent(WindowEvent ev)
