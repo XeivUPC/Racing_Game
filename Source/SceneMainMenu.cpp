@@ -50,6 +50,8 @@ bool SceneMainMenu::Start()
 	settings_button->onMouseClick.emplace_back([&]() {ClickSettings(); });
 	settings_button->onMouseOver.emplace_back([&]() {OnMouseOverSettings(); });
 
+	StartFadeOut(BLACK, 0.3f);
+
 	return ret;
 }
 
@@ -89,8 +91,8 @@ bool SceneMainMenu::CleanUp()
 {
 	LOG("Unloading Main Menu");
 
-	//delete play_button;
-	//delete settings_button;
+	delete play_button;
+	delete settings_button;
 
 	return true;
 }

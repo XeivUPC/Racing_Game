@@ -51,13 +51,18 @@ bool SceneSelectSetup::Start()
 	boom_button->onMouseClick.emplace_back([&]() {ClickBOOM(); });
 	boom_button->onMouseOver.emplace_back([&]() {OnMouseOverBOOM(); });
 
+	StartFadeOut(BLACK, 0.3f);
+
 	return ret;
 }
 
 update_status SceneSelectSetup::Update()
 {
-	race_button->Update();
-	boom_button->Update();
+	if (!isModeChosen) {
+		race_button->Update();
+		boom_button->Update();
+	}
+	FadeUpdate();
 
 	Render();
 	return UPDATE_CONTINUE;
@@ -68,13 +73,20 @@ bool SceneSelectSetup::Render()
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_3);
 	App->renderer->Draw(*backgroundTexture, { backgroundTextureRec.x, backgroundTextureRec.y }, { 0,0 }, &backgroundTextureRec, 0, 2);
 
-	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_2);
-	App->renderer->Draw(*buttons_texture, { buttons_textureRec.x, buttons_textureRec.y }, { 0,0 }, &buttons_textureRec, 0, 2);
+	if (!isModeChosen) {
+		App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_2);
+		App->renderer->Draw(*buttons_texture, { buttons_textureRec.x, buttons_textureRec.y }, { 0,0 }, &buttons_textureRec, 0, 2);
 
-	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_4);
+		App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_4);
 	
-	App->renderer->DrawText(App->localization->GetString("SELECTMENU_MODE_RACE").c_str(), { race_buttonTextureRec.x , race_buttonTextureRec.y }, buttonsText_Offset, App->assetLoader->titleFont, 100, 0, WHITE);
-	App->renderer->DrawText(App->localization->GetString("SELECTMENU_MODE_BOOM").c_str(), { boom_buttonTextureRec.x , boom_buttonTextureRec.y }, buttonsText_Offset, App->assetLoader->titleFont, 100, 0, WHITE);
+		float race_x = SCREEN_WIDTH / 2 - (App->localization->GetString("SELECTMENU_MODE_RACE").length() * App->assetLoader->titleFont.recs->width);
+		App->renderer->DrawText(App->localization->GetString("SELECTMENU_MODE_RACE").c_str(), { race_x , race_buttonTextureRec.y }, buttonsText_Offset, App->assetLoader->titleFont, 100, 0, WHITE);
+	
+		float boom_x = SCREEN_WIDTH / 2 - (App->localization->GetString("SELECTMENU_MODE_BOOM").length() * App->assetLoader->titleFont.recs->width);
+		App->renderer->DrawText(App->localization->GetString("SELECTMENU_MODE_BOOM").c_str(), { boom_x , boom_buttonTextureRec.y }, buttonsText_Offset, App->assetLoader->titleFont, 100, 0, WHITE);
+	}
+
+	FadeRender();
 
 	return true;
 }
@@ -83,28 +95,34 @@ bool SceneSelectSetup::CleanUp()
 {
 	LOG("Unloading Select Setup");
 
-	//delete race_button;
-	//delete boom_button;
+	delete race_button;
+	delete boom_button;
 
 	return true;
 }
 
 void SceneSelectSetup::ClickRACE()
 {
+	isModeChosen = true;
+	currentMode = MODES::RACE;
 }
 
 void SceneSelectSetup::ClickBOOM()
 {
+	isModeChosen = true;
+	currentMode = MODES::BOOM;
 }
 
 void SceneSelectSetup::OnMouseOverRACE()
 {
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_1);
 	App->renderer->Draw(*buttons_texture_hover, { race_buttonTextureRec.x , race_buttonTextureRec.y }, { 0,0 }, &buttons_texture_hover_section, 0, 2);
+	App->renderer->DrawText(App->localization->GetString("SELECTMENU_MODE_CLASSIC_DESC").c_str(), {description_middle_pos.x - (App->localization->GetString("SELECTMENU_MODE_CLASSIC_DESC").length() * App->assetLoader->agencyB.recs->width) , description_middle_pos.y}, {0,0}, App->assetLoader->agencyB, 40, 0, WHITE);
 }
 
 void SceneSelectSetup::OnMouseOverBOOM()
 {
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_1);
 	App->renderer->Draw(*buttons_texture_hover, { boom_buttonTextureRec.x , boom_buttonTextureRec.y }, { 0,0 }, &buttons_texture_hover_section, 0, 2);
+	App->renderer->DrawText(App->localization->GetString("SELECTMENU_MODE_BOOM_DESC").c_str(), {description_middle_pos.x - (App->localization->GetString("SELECTMENU_MODE_BOOM_DESC").length() * App->assetLoader->agencyB.recs->width) , description_middle_pos.y}, {0,0}, App->assetLoader->agencyB, 40, 0, WHITE);
 }

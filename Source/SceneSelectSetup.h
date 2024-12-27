@@ -21,8 +21,21 @@ public:
 	bool Render();
 	bool CleanUp();
 
+	// Choosing Modes
+	enum class MODES {
+		NONE,
+		RACE,
+		BOOM
+	};
+
+	// Choosing Map
+
+	// Choosing Car Type
+
+
 private:
 
+	// Choosing Modes
 	void ClickRACE();
 	void ClickBOOM();
 
@@ -36,13 +49,23 @@ private:
 	Rectangle  buttons_textureRec = { 0, 0, 640, 360 };
 
 	Texture2D* buttons_texture_hover = nullptr;
-	Rectangle  buttons_texture_hover_section = { 0, 0, 400, 64 };
+	Rectangle  buttons_texture_hover_section = { 0, 0, 304, 64 };
 
 	UIButton* race_button = nullptr;
-	Rectangle race_buttonTextureRec = { (120 * 2), (107 * 2), 400 * 2, 64 * 2 };
+	Rectangle race_buttonTextureRec = { (176 * 2), (107 * 2), 304 * 2, 64 * 2 };
 
 	UIButton* boom_button = nullptr;
-	Rectangle boom_buttonTextureRec = { (120 * 2), (206 * 2), 400 * 2, 64 * 2 };
+	Rectangle boom_buttonTextureRec = { (176 * 2), (206 * 2), 304 * 2, 64 * 2 };
 
-	Vector2 buttonsText_Offset = { 48, 7 };
+	Vector2 buttonsText_Offset = { 0, 7 };
+
+	Vector2 description_middle_pos = { 486 * 2, 34 * 2 };
+
+	bool isModeChosen = false;
+	MODES currentMode = MODES::NONE;
+
+	// Choosing Map
+	
+	// Choosing Car Type
+
 };
