@@ -31,7 +31,7 @@ public:
 	ModuleAssetLoader* assetLoader;
 	ModulePhysics* physics;
 
-	//SceneOptions* scene_options;
+	SceneOptions* scene_options;
 	SceneMainMenu* scene_main_menu;
 	SceneSelectSetup* scene_select_setup;
 	SceneGame* scene_game;

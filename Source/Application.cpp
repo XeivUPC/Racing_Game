@@ -25,7 +25,7 @@ Application::Application()
 	localization = new ModuleLocalization(this, true);
 	assetLoader = new ModuleAssetLoader(this);
 	physics = new ModulePhysics(this);
-	//scene_options = new SceneOptions(this);
+	scene_options = new SceneOptions(this);
 	scene_game = new SceneGame(this, false);
 	scene_select_setup = new SceneSelectSetup(this, false);
 	scene_main_menu = new SceneMainMenu(this, false);
@@ -44,9 +44,9 @@ Application::Application()
 	AddModule(assetLoader);
 	
 	// Scenes
-	AddModule(scene_main_menu);
-	//AddModule(scene_options);
-	AddModule(scene_select_setup);
+	//AddModule(scene_main_menu);
+	AddModule(scene_options);
+	//AddModule(scene_select_setup);
 	
 	AddModule(scene_game);
 	AddModule(scene_intro);

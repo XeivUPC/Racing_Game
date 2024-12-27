@@ -147,33 +147,20 @@ bool SceneOptions::Render() {
 	float languageTextSize = 200;
 	App->renderer->DrawText(App->localization->GetString("SETTINGS_LANGUAGE").c_str(), Vector2{ SCREEN_WIDTH / 2 - languageTextSize / 2 - 50, (SCREEN_HEIGHT / 6) - (SCREEN_HEIGHT / 10) }, { 0,0 }, App->assetLoader->agencyB, 100, 1, BLACK);
 
-	float soundTextSize = 100;
-	DrawTextEx(App->assetLoader->basicFont, App->localization->GetString("SETTINGS_SOUND").c_str(), Vector2{ SCREEN_WIDTH / 2 - soundTextSize / 2 - 50, (SCREEN_HEIGHT / 6) * 2 }, 100, 1, BLACK);
+	/*float soundTextSize = 100;
+	DrawText(App->localization->GetString("SETTINGS_SOUND").c_str(),App->assetLoader->basicFont, , Vector2{ SCREEN_WIDTH / 2 - soundTextSize / 2 - 50, (SCREEN_HEIGHT / 6) * 2 }, 100, 1, BLACK);
 
-	DrawTextEx(App->assetLoader->basicFont, App->localization->GetString("SETTINGS_GENERAL").c_str(), Vector2{ SCREEN_WIDTH / 2 - (generalVolumeSliderSize.x) - 50 , (SCREEN_HEIGHT / 6) * 3 }, 50, 1, BLACK);
+	DrawText(App->assetLoader->basicFont, App->localization->GetString("SETTINGS_GENERAL").c_str(), Vector2{ SCREEN_WIDTH / 2 - (generalVolumeSliderSize.x) - 50 , (SCREEN_HEIGHT / 6) * 3 }, 50, 1, BLACK);
 
-	DrawTextEx(App->assetLoader->basicFont, App->localization->GetString("SETTINGS_MUSIC").c_str(), Vector2{ SCREEN_WIDTH / 2 - (musicVolumeSliderSize.x) - 50 , (SCREEN_HEIGHT / 6) * 4 }, 50, 1, BLACK);
+	DrawText(App->assetLoader->basicFont, App->localization->GetString("SETTINGS_MUSIC").c_str(), Vector2{ SCREEN_WIDTH / 2 - (musicVolumeSliderSize.x) - 50 , (SCREEN_HEIGHT / 6) * 4 }, 50, 1, BLACK);
 
-	DrawTextEx(App->assetLoader->basicFont, App->localization->GetString("SETTINGS_SFX").c_str(), Vector2{ SCREEN_WIDTH / 2 - (musicVolumeSliderSize.x) - 50 , (SCREEN_HEIGHT / 6) * 5 }, 50, 1, BLACK);
+	float sfx_x = SCREEN_WIDTH / 2 - (App->localization->GetString("SETTINGS_SFX").length() * App->assetLoader->titleFont.recs->width);
+	DrawText(App->assetLoader->basicFont, App->localization->GetString("SETTINGS_SFX").c_str(), Vector2{ SCREEN_WIDTH / 2 - (musicVolumeSliderSize.x) - sfx_x , (SCREEN_HEIGHT / 6) * 5 }, 50, 1, BLACK);
 
-	DrawTextEx(App->assetLoader->basicFont, App->localization->GetString("Language").c_str(), Vector2{ SCREEN_WIDTH / 2 - 70, (SCREEN_HEIGHT / 6) * 2 - 80 }, 50, 1, BLACK);
+	float language_x = SCREEN_WIDTH / 2 - (App->localization->GetString("Language").length() * App->assetLoader->titleFont.recs->width);
+	DrawText(App->assetLoader->basicFont, App->localization->GetString("Language").c_str(), Vector2{ language_x, (SCREEN_HEIGHT / 6) * 2 - 80 }, 50, 1, BLACK);*/
+
 	App->renderer->UnlockRenderLayer();
-
-	/*App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_3);
-	App->renderer->Draw(*backgroundTexture, { backgroundTextureRec.x, backgroundTextureRec.y }, { 0,0 }, &backgroundTextureRec, 0, 2);
-
-	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_4);
-	if (App->localization->GetString("MAINMENU_PLAY").length() < 5) {
-		App->renderer->DrawText(App->localization->GetString("MAINMENU_PLAY").c_str(), { play_buttonTextureRec.x , play_buttonTextureRec.y }, { buttonsText_Offset.x + App->assetLoader->titleFont.recs->width, buttonsText_Offset.y }, App->assetLoader->titleFont, 100, 0, WHITE);
-	}
-	else {
-		App->renderer->DrawText(App->localization->GetString("MAINMENU_PLAY").c_str(), { play_buttonTextureRec.x , play_buttonTextureRec.y }, buttonsText_Offset, App->assetLoader->titleFont, 100, 0, WHITE);
-	}
-
-	App->renderer->DrawText(App->localization->GetString("MAINMENU_SETTINGS").c_str(), { settings_buttonTextureRec.x , settings_buttonTextureRec.y }, buttonsText_Offset, App->assetLoader->titleFont, 100, 0, WHITE);
-
-	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_5);
-	FadeUpdate();*/
 
 	FadeRender();
 
