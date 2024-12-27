@@ -119,7 +119,8 @@ bool Application::CleanUp()
 	for (auto it = list_modules.rbegin(); it != list_modules.rend() && ret; ++it)
 	{
 		Module* item = *it;
-		ret = item->CleanUp();
+		if(item->IsEnabled())
+			ret = item->CleanUp();
 	}
 	return ret;
 }
