@@ -221,22 +221,22 @@ void ModuleRender::RenderLayerToScreen(Layer layer)
     Rectangle sourceRect = { 0, 0, (float)layer.data.texture.width, (float)-layer.data.texture.height };
 
 
-    float screenWidth = GetScreenWidth();
-    float screenHeight = GetScreenHeight();
+    int screenWidth = GetScreenWidth();
+    int screenHeight = GetScreenHeight();
 
     float textureAspectRatio = abs(sourceRect.width / sourceRect.height);
-    float screenAspectRatio = abs(screenWidth / screenHeight);
+    float screenAspectRatio = abs((float)screenWidth / (float)screenHeight);
 
     float targetWidth, targetHeight;
 
     if (textureAspectRatio > screenAspectRatio) {
         // Texture is wider than screen: fit by width
-        targetWidth = screenWidth;
+        targetWidth = (float)screenWidth;
         targetHeight = screenWidth / textureAspectRatio;
     }
     else {
         // Texture is taller than screen: fit by height
-        targetHeight = screenHeight;
+        targetHeight = (float)screenHeight;
         targetWidth = screenHeight * textureAspectRatio;
     }
 

@@ -83,12 +83,10 @@ unsigned int ModuleAudio::LoadFx(std::string path, bool loadEvenIfItExist)
 
 	for (const auto& soundMapEntry : soundsMap) {
 		if (soundMapEntry.second.soundPath == path) {
+			ret = soundMapEntry.first;
 			if (!loadEvenIfItExist) {
-				ret = -1;
 				LOG("Sound already loaded: %s", path);
-			}
-			else {
-				ret = soundMapEntry.first;
+				return ret;
 			}
 			break;
 		}
