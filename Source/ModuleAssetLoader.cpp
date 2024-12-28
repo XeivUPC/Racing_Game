@@ -29,6 +29,18 @@ bool ModuleAssetLoader::Init()
 	textureModule->CreateTexture("Assets/Fonts/pixel_normal_6x11.png", "Font1");
 	textureModule->CreateTexture("Assets/Fonts/agency_b_10x20.png", "agencyB");
 	textureModule->CreateTexture("Assets/Fonts/title_font_30x50.png", "titleFont");
+	// Main Menu
+	App->texture->CreateTexture("Assets/Textures/main_menu.png", "main_menu");
+	App->texture->CreateTexture("Assets/Textures/main_menu_play_hover.png", "main_menu_play_hover");
+	App->texture->CreateTexture("Assets/Textures/main_menu_settings_hover.png", "main_menu_settings_hover");
+	// Select-Setup
+	App->texture->CreateTexture("Assets/Textures/select_setup_background.png", "select_setup");
+	App->texture->CreateTexture("Assets/Textures/select_setup_mode_buttons.png", "select_setup_mode_buttons");
+	App->texture->CreateTexture("Assets/Textures/select_setup_mode_buttons_hover.png", "select_setup_mode_buttons_hover");
+	App->texture->CreateTexture("Assets/Textures/select_setup_car_bg.png", "select_setup_car_bg");
+	App->texture->CreateTexture("Assets/Textures/select_setup_mode_buttons_hover.png", "select_setup_mode_buttons_hover");
+	App->texture->CreateTexture("Assets/Textures/select_setup_map_bg.png", "select_setup_map_bg");
+	App->texture->CreateTexture("Assets/Textures/select_setup_map_button_hover.png", "select_setup_map_button_hover");
 
 	//// Audios
 
