@@ -17,5 +17,9 @@ SELECTMENU_MODE_BOOM_DESC|Last explodes|El último explota|L'últim esclata
 SELECTMENU_VEHICLE_CAR|CAR|COCHE|COTXE
 SELECTMENU_VEHICLE_MOTO|MOTO|MOTO|MOTO
 SELECTMENU_VEHICLE_TRUCK|TRUCK|CAMIÓN|CAMIÓ
-SELECTMENU_VEHICLE_FINISH|FINISH|ACABAR|ACABAR
+SELECTMENU_FINISH|FINISH|ACABAR|ACABAR
 SELECTMENU_VEHICLE_FINISH_DESC|End vehicle selection|Finalizar selección del vehículo|Finalitzar selecció del vehicle
+SELECTMENU_MAP_FINISH_DESC|Start race!|¡Empieza la carrera!|Comença la carrera!
+SELECTMENU_MAP1|Mega super map|Mega súper mapa|Mega super mapa
+SELECTMENU_MAP2|Very cool map|mapa muy bueno|Mapa molt xulo
+SELECTMENU_MAP3|Best of maps|El mejor de los mapas|El millor dels mapes
