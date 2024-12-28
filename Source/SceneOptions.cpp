@@ -118,7 +118,7 @@ bool SceneOptions::CleanUp()
 void SceneOptions::Exit()
 {
 	//Go to MainMenu or the Game Scene
-	StartFadeIn(App->scene_main_menu, BLACK, 1);
+	StartFadeIn(App->scene_main_menu, BLACK, 0.3f);
 }
 
 void SceneOptions::NextLanguage()

@@ -105,7 +105,7 @@ void SceneMainMenu::ClickPlay()
 
 void SceneMainMenu::ClickSettings()
 {
-	StartFadeIn(App->scene_options, BLACK, 1);
+	StartFadeIn(App->scene_options, BLACK, 0.3f);
 	// Go to Options Scene
 }
 
