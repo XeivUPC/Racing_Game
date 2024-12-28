@@ -6,7 +6,7 @@ class UIButton;
 class UISlider : public UIElement
 {
 public:
-	UISlider(Module* moduleAt, Vector2 position, Vector2 size);
+	UISlider(Module* moduleAt, Vector2 position, Vector2 size, Vector2 thumbSize = { 20,20 });
 
 	~UISlider();
 

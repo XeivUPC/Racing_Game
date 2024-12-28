@@ -50,6 +50,9 @@ bool SceneMainMenu::Start()
 	settings_button->onMouseClick.emplace_back([&]() {ClickSettings(); });
 	settings_button->onMouseOver.emplace_back([&]() {OnMouseOverSettings(); });
 
+	/* Create Audio */
+	audioMotorId = App->audio->LoadFx("Assets/Sounds/Sfx/MotorSFX.wav");
+
 	StartFadeOut(BLACK, 0.3f);
 
 	return ret;
@@ -99,12 +102,14 @@ bool SceneMainMenu::CleanUp()
 
 void SceneMainMenu::ClickPlay()
 {
+	App->audio->PlayFx(audioMotorId);
 	StartFadeIn(App->scene_select_setup, BLACK, 0.3f);
 	// Go to Play Scene
 }
 
 void SceneMainMenu::ClickSettings()
 {
+	App->audio->PlayFx(audioMotorId);
 	StartFadeIn(App->scene_options, BLACK, 1);
 	// Go to Options Scene
 }

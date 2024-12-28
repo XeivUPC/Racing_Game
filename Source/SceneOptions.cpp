@@ -29,14 +29,14 @@ bool SceneOptions::Start()
 	bool ret = true;
 
 	/* Create Audio */
-	audioId = App->audio->LoadFx("Assets/Sounds/Music/PianoMusic.wav");
+	audioMotorId = App->audio->LoadFx("Assets/Sounds/Sfx/MotorSFX.wav");
 
 	/* Create Textures */
 
 	App->texture->CreateTexture("Assets/Textures/settings_menu.png", "backgroundSettings");
 	backgroundTextureSettings = App->texture->GetTexture("backgroundSettings");
 
-	App->texture->CreateTexture("Assets/Textures/Cursor.png", "sliderThumbSettings");
+	App->texture->CreateTexture("Assets/Textures/slider_thumb_settings.png", "sliderThumbSettings");
 	thumbTextureSettings = App->texture->GetTexture("sliderThumbSettings");
 
 	/* Create UI */
@@ -61,24 +61,22 @@ bool SceneOptions::Start()
 	Vector2 textSize_agencyB = MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SETTINGS_SFX").c_str(), 60, 0);
 
 	generalVolumeSliderSize = { 300,10 };
-	generalVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (generalVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 3.15f + (textSize_agencyB.y / 2) - (generalVolumeSliderSize.y / 2) }, generalVolumeSliderSize);
-	
+	generalVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (generalVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 3.15f + (textSize_agencyB.y / 2) - (generalVolumeSliderSize.y / 2) }, generalVolumeSliderSize, {30,30});
+
 	float general_value = generalVolumeSlider->GetValue();
 	generalVolumeSlider->onValueChange.emplace_back([&](float general_value) {App->audio->ChangeGeneralVolume(general_value); });
 
 	musicVolumeSliderSize = { 300,10 };
-	musicVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (musicVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 4.15f + (textSize_agencyB.y / 2) - (musicVolumeSliderSize.y / 2) }, musicVolumeSliderSize);
+	musicVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (musicVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 4.15f + (textSize_agencyB.y / 2) - (musicVolumeSliderSize.y / 2) }, musicVolumeSliderSize, { 30,30 });
 
 	float music_value = musicVolumeSlider->GetValue();
 	musicVolumeSlider->onValueChange.emplace_back([&](float music_value) {App->audio->ChangeMusicVolume(music_value); });
 
 	sfxVolumeSliderSize = { 300,10 };
-	sfxVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (sfxVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 5.15f + (textSize_agencyB.y / 2) - (sfxVolumeSliderSize.y / 2) }, sfxVolumeSliderSize);
+	sfxVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (sfxVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 5.15f + (textSize_agencyB.y / 2) - (sfxVolumeSliderSize.y / 2) }, sfxVolumeSliderSize, { 30,30 });
 	
 	float sfx_value = sfxVolumeSlider->GetValue();
 	sfxVolumeSlider->onValueChange.emplace_back([&](float sfx_value) {App->audio->ChangeSfxVolume(sfx_value); });
-	
-	App->audio->PlayFx(audioId);
 
 	return ret;
 }
@@ -118,6 +116,7 @@ bool SceneOptions::CleanUp()
 void SceneOptions::Exit()
 {
 	//Go to MainMenu or the Game Scene
+	App->audio->PlayFx(audioMotorId);
 	StartFadeIn(App->scene_main_menu, BLACK, 1);
 }
 

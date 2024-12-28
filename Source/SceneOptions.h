@@ -27,13 +27,13 @@ private:
 	Vector2 musicVolumeSliderSize = { 0,0 };
 	Vector2 sfxVolumeSliderSize = { 0,0 };
 
-	int audioId = -1;
+	int audioMotorId = -1;
 
 	Texture2D* backgroundTextureSettings = nullptr;
 	Rectangle  backgroundTextureSettingsRec = { 0, 0, 640, 360 };
 
 	Texture2D* thumbTextureSettings = nullptr;
-	Rectangle  thumbTextureSettingsRec = { 0, 0, 32, 32 };
+	Rectangle  thumbTextureSettingsRec = { 0, 0, 30, 30 };
 
 	int languageIndex = 0;
 
