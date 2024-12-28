@@ -36,6 +36,9 @@ bool SceneOptions::Start()
 	App->texture->CreateTexture("Assets/Textures/settings_menu.png", "backgroundSettings");
 	backgroundTextureSettings = App->texture->GetTexture("backgroundSettings");
 
+	App->texture->CreateTexture("Assets/Textures/Cursor.png", "sliderThumbSettings");
+	thumbTextureSettings = App->texture->GetTexture("sliderThumbSettings");
+
 	/* Create UI */
 
 	//Create Buttons
@@ -55,19 +58,18 @@ bool SceneOptions::Start()
 
 	//Create Sliders
 	
-	float generalVolumeSliderOffsetY = -100;
+	Vector2 textSize_agencyB = MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SETTINGS_SFX").c_str(), 60, 0);
+
 	generalVolumeSliderSize = { 300,10 };
-	generalVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (generalVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 4 + generalVolumeSliderOffsetY }, generalVolumeSliderSize);
+	generalVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (generalVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 3.15f + (textSize_agencyB.y / 2) - (generalVolumeSliderSize.y / 2) }, generalVolumeSliderSize);
 	generalVolumeSlider->onMouseClick.emplace_back([&]() {App->audio->ChangeGeneralVolume(generalVolumeSlider->GetValue()); });
 
-	float musicVolumeSliderOffsetY = -100;
 	musicVolumeSliderSize = { 300,10 };
-	musicVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (musicVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 5 + musicVolumeSliderOffsetY }, musicVolumeSliderSize);
+	musicVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (musicVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 4.15f + (textSize_agencyB.y / 2) - (musicVolumeSliderSize.y / 2) }, musicVolumeSliderSize);
 	musicVolumeSlider->onMouseClick.emplace_back([&]() {App->audio->ChangeMusicVolume(musicVolumeSlider->GetValue()); });
 
-	float sfxVolumeSliderOffsetY = -100;
 	sfxVolumeSliderSize = { 300,10 };
-	sfxVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (sfxVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 6 + sfxVolumeSliderOffsetY }, sfxVolumeSliderSize);
+	sfxVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (sfxVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 5.15f + (textSize_agencyB.y / 2) - (sfxVolumeSliderSize.y / 2) }, sfxVolumeSliderSize);
 	sfxVolumeSlider->onMouseClick.emplace_back([&]() {App->audio->ChangeSfxVolume(sfxVolumeSlider->GetValue()); });
 	
 	App->audio->PlayFx(audioId);
@@ -76,6 +78,8 @@ bool SceneOptions::Start()
 
 update_status SceneOptions::Update()
 {
+	Render();
+
 	exitSettingsButton->Update();
 	nextLanguageButton->Update();
 	previousLanguageButton->Update();
@@ -83,10 +87,7 @@ update_status SceneOptions::Update()
 	musicVolumeSlider->Update();
 	sfxVolumeSlider->Update();
 
-	
 	FadeUpdate();
-
-	Render();
 
 	return UPDATE_CONTINUE;
 }
@@ -138,6 +139,7 @@ void SceneOptions::PreviousLanguage()
 }
 bool SceneOptions::Render() {
 
+	//Draw Background
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_3);
 	App->renderer->Draw(*backgroundTextureSettings, { backgroundTextureSettingsRec.x, backgroundTextureSettingsRec.y }, { 0,0 }, &backgroundTextureSettingsRec, 0, 2);
 	
@@ -154,14 +156,31 @@ bool SceneOptions::Render() {
 	Vector2 textSize_sound = MeasureTextEx(App->assetLoader->titleFont, App->localization->GetString("SETTINGS_SOUND").c_str(), 100, 0);
 	App->renderer->DrawText(App->localization->GetString("SETTINGS_SOUND").c_str(),Vector2{ (SCREEN_WIDTH / 2) - (textSize_sound.x / 2), (SCREEN_HEIGHT / 6) * 2 }, Vector2{0,0}, App->assetLoader->titleFont, 100, 1, WHITE);
 
+	float OffsetTextToSliderX = 20;
+
 	Vector2 textSize_general = MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SETTINGS_GENERAL").c_str(), 60, 0);
-	App->renderer->DrawText(App->localization->GetString("SETTINGS_GENERAL").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_general.x) - (generalVolumeSliderSize.x /2), (SCREEN_HEIGHT / 6) * 3.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, RED);
+	App->renderer->DrawText(App->localization->GetString("SETTINGS_GENERAL").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_general.x) - (generalVolumeSliderSize.x /2) - OffsetTextToSliderX, (SCREEN_HEIGHT / 6) * 3.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, BLACK);
 
 	Vector2 textSize_music = MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SETTINGS_MUSIC").c_str(), 60, 0);
-	App->renderer->DrawText(App->localization->GetString("SETTINGS_MUSIC").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_music.x) - (musicVolumeSliderSize.x / 2), (SCREEN_HEIGHT / 6) * 4.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, RED);
+	App->renderer->DrawText(App->localization->GetString("SETTINGS_MUSIC").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_music.x) - (musicVolumeSliderSize.x / 2) - OffsetTextToSliderX, (SCREEN_HEIGHT / 6) * 4.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, BLACK);
 
 	Vector2 textSize_sfx = MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SETTINGS_SFX").c_str(), 60, 0);
-	App->renderer->DrawText(App->localization->GetString("SETTINGS_SFX").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_sfx.x) - (sfxVolumeSliderSize.x / 2), (SCREEN_HEIGHT / 6) * 5.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, RED);
+	App->renderer->DrawText(App->localization->GetString("SETTINGS_SFX").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_sfx.x) - (sfxVolumeSliderSize.x / 2) - OffsetTextToSliderX, (SCREEN_HEIGHT / 6) * 5.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, BLACK);
+
+	App->renderer->UnlockRenderLayer();
+
+	//Draw UI
+	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_2);
+	App->renderer->BlockRenderLayer();
+
+	App->renderer->DrawSimpleRectangle(generalVolumeSlider->bounds, Color{ 101, 116, 129, 255 });
+	App->renderer->Draw(*thumbTextureSettings, { generalVolumeSlider->GetThumbBounds().x, generalVolumeSlider->GetThumbBounds().y }, {0,0}, &thumbTextureSettingsRec, 0, 1);
+
+	App->renderer->DrawSimpleRectangle(musicVolumeSlider->bounds, Color{ 101, 116, 129, 255 });
+	App->renderer->Draw(*thumbTextureSettings, { musicVolumeSlider->GetThumbBounds().x, musicVolumeSlider->GetThumbBounds().y }, { 0,0 }, &thumbTextureSettingsRec, 0, 1);
+
+	App->renderer->DrawSimpleRectangle(sfxVolumeSlider->bounds, Color{ 101, 116, 129, 255 });
+	App->renderer->Draw(*thumbTextureSettings, { sfxVolumeSlider->GetThumbBounds().x, sfxVolumeSlider->GetThumbBounds().y }, { 0,0 }, &thumbTextureSettingsRec, 0, 1);
 
 	App->renderer->UnlockRenderLayer();
 

@@ -32,6 +32,9 @@ private:
 	Texture2D* backgroundTextureSettings = nullptr;
 	Rectangle  backgroundTextureSettingsRec = { 0, 0, 640, 360 };
 
+	Texture2D* thumbTextureSettings = nullptr;
+	Rectangle  thumbTextureSettingsRec = { 0, 0, 32, 32 };
+
 	int languageIndex = 0;
 
 public:
