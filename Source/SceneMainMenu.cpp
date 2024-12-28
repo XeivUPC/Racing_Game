@@ -51,7 +51,7 @@ bool SceneMainMenu::Start()
 	settings_button->onMouseOver.emplace_back([&]() {OnMouseOverSettings(); });
 
 	/* Play Audio */
-	App->audio->PlayFx(App->assetLoader->audioMainMenuMusicId);
+	App->audio->PlayMusic("Assets/Sounds/Music/Main_Menu.wav");
 
 	StartFadeOut(BLACK, 0.3f);
 
