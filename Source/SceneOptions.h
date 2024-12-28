@@ -52,4 +52,6 @@ public:
 	void Exit();
 	void NextLanguage();
 	void PreviousLanguage();
+
+	void ChangeGeneralVolumeWithFloat(float volume);
 };

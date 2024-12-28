@@ -62,17 +62,18 @@ bool SceneOptions::Start()
 
 	generalVolumeSliderSize = { 300,10 };
 	generalVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (generalVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 3.15f + (textSize_agencyB.y / 2) - (generalVolumeSliderSize.y / 2) }, generalVolumeSliderSize);
-	generalVolumeSlider->onMouseClick.emplace_back([&]() {App->audio->ChangeGeneralVolume(generalVolumeSlider->GetValue()); });
+	generalVolumeSlider->onValueChange.emplace_back([&]() {ChangeGeneralVolumeWithFloat(generalVolumeSlider->GetValue()); });
 
 	musicVolumeSliderSize = { 300,10 };
 	musicVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (musicVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 4.15f + (textSize_agencyB.y / 2) - (musicVolumeSliderSize.y / 2) }, musicVolumeSliderSize);
-	musicVolumeSlider->onMouseClick.emplace_back([&]() {App->audio->ChangeMusicVolume(musicVolumeSlider->GetValue()); });
+	musicVolumeSlider->onValueChange.emplace_back([&]() {App->audio->ChangeMusicVolume((float)musicVolumeSlider->GetValue()); });
 
 	sfxVolumeSliderSize = { 300,10 };
 	sfxVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (sfxVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 5.15f + (textSize_agencyB.y / 2) - (sfxVolumeSliderSize.y / 2) }, sfxVolumeSliderSize);
-	sfxVolumeSlider->onMouseClick.emplace_back([&]() {App->audio->ChangeSfxVolume(sfxVolumeSlider->GetValue()); });
+	//sfxVolumeSlider->onValueChange.emplace_back([&]() {App->audio->ChangeSfxVolume(sfxVolumeSlider->GetValue()); });
 	
 	App->audio->PlayFx(audioId);
+
 	return ret;
 }
 
@@ -137,6 +138,10 @@ void SceneOptions::PreviousLanguage()
 	App->localization->ChangeLanguage((Language)languageIndex);
 
 }
+void SceneOptions::ChangeGeneralVolumeWithFloat(float volume)
+{
+	App->audio->ChangeGeneralVolume(volume);
+}
 bool SceneOptions::Render() {
 
 	//Draw Background
@@ -188,3 +193,4 @@ bool SceneOptions::Render() {
 
 	return true;
 }
+
