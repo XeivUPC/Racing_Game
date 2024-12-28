@@ -24,6 +24,10 @@ bool ModuleAudio::Init()
 
     InitAudioDevice();
 
+	ChangeGeneralVolume(0.5);
+	ChangeSfxVolume(0.5);
+	ChangeMusicVolume(0.5);
+
 	return ret;
 }
 

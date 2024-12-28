@@ -1,11 +1,11 @@
 #include "UISlider.h"
 #include "UIButton.h"
 
-UISlider::UISlider(Module* moduleAt, Vector2 position, Vector2 size) : UIElement(moduleAt)
+UISlider::UISlider(Module* moduleAt, Vector2 position, Vector2 size, Vector2 thumbSize) : UIElement(moduleAt)
 {
 	bounds = { position.x, position.y, size.x, size.y };
 
-	Vector2 thumbSize = {20,20};
+	//Vector2 thumbSize = {20,20};
 	Vector2 thumbPos = {position.x - thumbSize.x/2.f ,position.y - thumbSize.y /2.f + size.y / 2 };
 	thumb = new UIButton(moduleAt, thumbPos, thumbSize);
 
@@ -63,7 +63,7 @@ void UISlider::SetValue(float valueToSet)
 		value = maxVal;
 
 	Vector2 moveBounds = { bounds.x - thumb->bounds.width / 2 , bounds.x + bounds.width - thumb->bounds.width / 2 };
-	bounds.x = moveBounds.x + (value - minVal) * (moveBounds.y - moveBounds.x) / (maxVal - minVal);
+	thumb->bounds.x = moveBounds.x + (value - minVal) * (moveBounds.y - moveBounds.x) / (maxVal - minVal);
 }
 
 Rectangle UISlider::GetThumbBounds()

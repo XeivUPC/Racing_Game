@@ -37,4 +37,5 @@ private:
 	Rectangle  settings_button_section = { 0, 0, 304, 64};
 
 	Vector2 buttonsText_Offset = { 48, 7 };
+	
 };

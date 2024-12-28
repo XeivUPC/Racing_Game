@@ -47,6 +47,9 @@ bool SceneMainMenu::Start()
 	settings_button->onMouseClick.emplace_back([&]() {ClickSettings(); });
 	settings_button->onMouseOver.emplace_back([&]() {OnMouseOverSettings(); });
 
+	/* Play Audio */
+	App->audio->PlayFx(App->assetLoader->audioMainMenuMusicId);
+
 	StartFadeOut(BLACK, 0.3f);
 
 	return ret;
@@ -59,6 +62,7 @@ update_status SceneMainMenu::Update()
 	FadeUpdate();
 
 	Render();
+
 	return UPDATE_CONTINUE;
 }
 
@@ -96,12 +100,14 @@ bool SceneMainMenu::CleanUp()
 
 void SceneMainMenu::ClickPlay()
 {
+	App->audio->PlayFx(App->assetLoader->audioMotorId);
 	StartFadeIn(App->scene_select_setup, BLACK, 0.3f);
 	// Go to Play Scene
 }
 
 void SceneMainMenu::ClickSettings()
 {
+	App->audio->PlayFx(App->assetLoader->audioMotorId);
 	StartFadeIn(App->scene_options, BLACK, 0.3f);
 	// Go to Options Scene
 }
