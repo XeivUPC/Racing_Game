@@ -52,6 +52,10 @@ bool SceneMainMenu::Start()
 
 	/* Create Audio */
 	audioMotorId = App->audio->LoadFx("Assets/Sounds/Sfx/MotorSFX.wav");
+	audioMainMenuMusicId = App->audio->LoadFx("Assets/Sounds/Music/Main_Menu.wav");
+	//audioMainMenuMarioWiiMusicId = App->audio->LoadFx("Assets/Sounds/Music/Main_Menu_Mario_Kart_Wii.wav");
+	
+	App->audio->PlayFx(audioMainMenuMusicId);
 
 	StartFadeOut(BLACK, 0.3f);
 
@@ -65,6 +69,9 @@ update_status SceneMainMenu::Update()
 	FadeUpdate();
 
 	Render();
+
+	
+
 	return UPDATE_CONTINUE;
 }
 

@@ -39,4 +39,6 @@ private:
 	Vector2 buttonsText_Offset = { 48, 7 };
 
 	int audioMotorId = -1;
+	int audioMainMenuMusicId = -1;
+	int audioMainMenuMarioWiiMusicId = -1;
 };
