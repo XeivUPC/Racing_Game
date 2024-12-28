@@ -53,10 +53,17 @@ float UISlider::GetValue()
 	return minVal + (thumb->bounds.x - moveBounds.x) * (maxVal - minVal) / (moveBounds.y - moveBounds.x);
 }
 
-float UISlider::SetValue()
+void UISlider::SetValue(float valueToSet)
 {
+	value = valueToSet;
+
+	if (value < minVal)
+		value = minVal;
+	if (value > maxVal)
+		value = maxVal;
+
 	Vector2 moveBounds = { bounds.x - thumb->bounds.width / 2 , bounds.x + bounds.width - thumb->bounds.width / 2 };
-	return moveBounds.x + (value - minVal) * (moveBounds.y - moveBounds.x) / (maxVal - minVal);
+	bounds.x = moveBounds.x + (value - minVal) * (moveBounds.y - moveBounds.x) / (maxVal - minVal);
 }
 
 Rectangle UISlider::GetThumbBounds()

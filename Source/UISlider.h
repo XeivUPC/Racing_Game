@@ -12,7 +12,7 @@ public:
 
 	void Update();
 	float GetValue();
-	float SetValue();
+	void SetValue(float valueToSet);
 	Rectangle GetThumbBounds();
 	bool IsThumbSelected();
 
