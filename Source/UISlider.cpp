@@ -63,7 +63,7 @@ void UISlider::SetValue(float valueToSet)
 		value = maxVal;
 
 	Vector2 moveBounds = { bounds.x - thumb->bounds.width / 2 , bounds.x + bounds.width - thumb->bounds.width / 2 };
-	bounds.x = moveBounds.x + (value - minVal) * (moveBounds.y - moveBounds.x) / (maxVal - minVal);
+	thumb->bounds.x = moveBounds.x + (value - minVal) * (moveBounds.y - moveBounds.x) / (maxVal - minVal);
 }
 
 Rectangle UISlider::GetThumbBounds()
