@@ -24,13 +24,11 @@ bool SceneMainMenu::Start()
 	bool ret = true;
 
 	// Background
-	App->texture->CreateTexture("Assets/Textures/main_menu.png", "main_menu");
 	backgroundTexture = App->texture->GetTexture("main_menu");
 
 
 	// Play Button
 	// Texture
-	App->texture->CreateTexture("Assets/Textures/main_menu_play_hover.png", "main_menu_play_hover");
 	play_buttonTexture_hover = App->texture->GetTexture("main_menu_play_hover");
 	
 	//Functionality
@@ -41,7 +39,6 @@ bool SceneMainMenu::Start()
 
 	// Settings Button
 	//Texture
-	App->texture->CreateTexture("Assets/Textures/main_menu_settings_hover.png", "main_menu_settings_hover");
 	settings_buttonTexture_hover = App->texture->GetTexture("main_menu_settings_hover");
 
 	//Functionality

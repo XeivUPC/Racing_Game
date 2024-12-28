@@ -23,15 +23,11 @@ bool SceneSelectSetup::Start()
 	bool ret = true;
 
 	// Background
-	App->texture->CreateTexture("Assets/Textures/select_setup_background.png", "select_setup");
 	backgroundTexture = App->texture->GetTexture("select_setup");
 
 	// Select Buttons
 	// Texture
-	App->texture->CreateTexture("Assets/Textures/select_setup_mode_buttons.png", "select_setup_mode_buttons");
 	buttons_texture = App->texture->GetTexture("select_setup_mode_buttons");
-
-	App->texture->CreateTexture("Assets/Textures/select_setup_mode_buttons_hover.png", "select_setup_mode_buttons_hover");
 	buttons_texture_hover = App->texture->GetTexture("select_setup_mode_buttons_hover");
 
 	// Race button
@@ -46,10 +42,7 @@ bool SceneSelectSetup::Start()
 
 	// Car Selection
 	//Texture
-	App->texture->CreateTexture("Assets/Textures/select_setup_car_bg.png", "select_setup_car_bg");
 	car_bg_texture = App->texture->GetTexture("select_setup_car_bg");
-
-	App->texture->CreateTexture("Assets/Textures/select_setup_mode_buttons_hover.png", "select_setup_mode_buttons_hover");
 	finish_car_button_texture_hover = App->texture->GetTexture("select_setup_mode_buttons_hover");
 
 	// Finish car button
@@ -67,10 +60,7 @@ bool SceneSelectSetup::Start()
 
 	// Map Selection
 	// Texture
-	App->texture->CreateTexture("Assets/Textures/select_setup_map_bg.png", "select_setup_map_bg");
 	map_bg_texture = App->texture->GetTexture("select_setup_map_bg");
-
-	App->texture->CreateTexture("Assets/Textures/select_setup_map_button_hover.png", "select_setup_map_button_hover");
 	finish_map_button_texture_hover = App->texture->GetTexture("select_setup_map_button_hover");
 
 	// Finish map button
