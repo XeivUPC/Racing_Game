@@ -23,27 +23,28 @@ public:
 
 	// Choosing Modes
 	enum class MODES {
-		NONE,
+		NO_MODE,
 		RACE,
 		BOOM
 	};
 
-	// Choosing Map
-	enum MAPS {
-		MAP1,
-		MAP2,
-		MAP3
-	};
-
 	// Choosing Car Type
 	enum VEHICLES {
-		NONE,
+		NO_VEHICLE,
 		CAR,
 		MOTO,
 		TRUCK,
-		END
+		END_VEHICLE
 	};
 
+	// Choosing Map
+	enum MAPS {
+		NO_MAP,
+		MAP1,
+		MAP2,
+		MAP3,
+		END_MAP
+	};
 
 private:
 
@@ -74,12 +75,9 @@ private:
 	Vector2 description_middle_pos = { 486 * 2, 34 * 2 };
 
 	bool isModeChosen = false;
-	MODES currentMode = MODES::NONE;
-
-	// Choosing Map
+	MODES currentMode = MODES::NO_MODE;
 	
 	// Choosing Car Type
-
 	void ClickFINISH();
 	void OnMouseOverFINISH();
 
@@ -105,6 +103,34 @@ private:
 
 	bool isCarChosen = false;
 	VEHICLES currentVEHICLE = VEHICLES::CAR;
-	VEHICLES finalVEHICLE = VEHICLES::NONE;
+	VEHICLES finalVEHICLE = VEHICLES::NO_VEHICLE;
 
+	// Choosing Map
+	void ClickMapFINISH();
+	void OnMouseOverMapFINISH();
+
+	void ClickMapRightArrow();
+
+	void ClickMapLeftArrow();
+
+	Texture2D* map_bg_texture = nullptr;
+	Rectangle  map_bg_textureRec = { 0, 0, 640, 360 };
+
+	UIButton* finish_map_button = nullptr;
+	Rectangle finish_map_button_textureRec = { (222 * 2), (283 * 2), 200 * 2, 32 * 2 };
+	Texture2D* finish_map_button_texture_hover = nullptr;
+	Rectangle  finish_map_button_texture_hover_section = { 0, 0, 200, 32 };
+	Vector2 finish_map_button_textOffset = { 80, 7 };
+
+	Vector2 map_name_text_pos = { SCREEN_WIDTH/2 , 84 * 2 };
+	Vector2 map_finish_text_pos = { SCREEN_WIDTH/2 , 284 * 2 };
+
+	UIButton* map_arrow_right = nullptr;
+	Rectangle map_arrow_right_rec = { (462 * 2), (190 * 2), 15 * 2, 13 * 2 };
+	UIButton* map_arrow_left = nullptr;
+	Rectangle map_arrow_left_rec = { (167 * 2), (190 * 2), 15 * 2, 13 * 2 };
+
+	bool isMapChosen = false;
+	MAPS currentMAP = MAPS::MAP1;
+	MAPS finalMAP = MAPS::NO_MAP;
 };
