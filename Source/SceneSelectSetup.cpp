@@ -135,13 +135,13 @@ bool SceneSelectSetup::Render()
 		App->renderer->DrawText(App->localization->GetString("SELECTMENU_FINISH").c_str(), { finish_car_button_textureRec.x , finish_car_button_textureRec.y }, finish_car_button_textOffset, App->assetLoader->titleFont, 100, 0, WHITE);
 
 		if (currentVEHICLE == VEHICLES::CAR) {
-			App->renderer->DrawText(App->localization->GetString("SELECTMENU_VEHICLE_CAR").c_str(), car_name_text_pos, {-MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_VEHICLE_CAR").c_str(), 40, 0).x / 2,0}, App->assetLoader->agencyB, 40, 0, WHITE);
+			App->renderer->DrawText(App->localization->GetString("SELECTMENU_VEHICLE_CAR").c_str(), car_name_text_pos, {-MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_VEHICLE_CAR").c_str(), 40, 0).x / 2,0}, App->assetLoader->agencyB, 40, 0, BLACK);
 		}
 		else if (currentVEHICLE == VEHICLES::MOTO) {
-			App->renderer->DrawText(App->localization->GetString("SELECTMENU_VEHICLE_MOTO").c_str(), car_name_text_pos, {-MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_VEHICLE_MOTO").c_str(), 40, 0).x / 2,0}, App->assetLoader->agencyB, 40, 0, WHITE);
+			App->renderer->DrawText(App->localization->GetString("SELECTMENU_VEHICLE_MOTO").c_str(), car_name_text_pos, {-MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_VEHICLE_MOTO").c_str(), 40, 0).x / 2,0}, App->assetLoader->agencyB, 40, 0, BLACK);
 		}
 		else if (currentVEHICLE == VEHICLES::TRUCK) {
-			App->renderer->DrawText(App->localization->GetString("SELECTMENU_VEHICLE_TRUCK").c_str(), car_name_text_pos, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_VEHICLE_TRUCK").c_str(), 40, 0).x / 2,0 }, App->assetLoader->agencyB, 40, 0, WHITE);
+			App->renderer->DrawText(App->localization->GetString("SELECTMENU_VEHICLE_TRUCK").c_str(), car_name_text_pos, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_VEHICLE_TRUCK").c_str(), 40, 0).x / 2,0 }, App->assetLoader->agencyB, 40, 0, BLACK);
 		}
 	}
 	if (isModeChosen && isCarChosen && !isMapChosen) {
@@ -151,13 +151,13 @@ bool SceneSelectSetup::Render()
 		App->renderer->DrawText(App->localization->GetString("SELECTMENU_FINISH").c_str(), map_finish_text_pos, { -MeasureTextEx(App->assetLoader->titleFont, App->localization->GetString("SELECTMENU_FINISH").c_str(), 50, 0).x / 2, 0 }, App->assetLoader->titleFont, 50, 0, WHITE);
 
 		if (currentMAP == MAPS::MAP1) {
-			App->renderer->DrawText(App->localization->GetString("SELECTMENU_MAP1").c_str(), map_name_text_pos, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_MAP1").c_str(), 40, 0).x / 2,0 }, App->assetLoader->agencyB, 40, 0, WHITE);
+			App->renderer->DrawText(App->localization->GetString("SELECTMENU_MAP1").c_str(), map_name_text_pos, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_MAP1").c_str(), 40, 0).x / 2,0 }, App->assetLoader->agencyB, 40, 0, BLACK);
 		}
 		else if (currentMAP == MAPS::MAP2) {
-			App->renderer->DrawText(App->localization->GetString("SELECTMENU_MAP2").c_str(), map_name_text_pos, {-MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_MAP2").c_str(), 40, 0).x / 2,0}, App->assetLoader->agencyB, 40, 0, WHITE);
+			App->renderer->DrawText(App->localization->GetString("SELECTMENU_MAP2").c_str(), map_name_text_pos, {-MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_MAP2").c_str(), 40, 0).x / 2,0}, App->assetLoader->agencyB, 40, 0, BLACK);
 		}
 		else if (currentMAP == MAPS::MAP3) {
-			App->renderer->DrawText(App->localization->GetString("SELECTMENU_MAP3").c_str(), map_name_text_pos, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_MAP3").c_str(), 40, 0).x / 2,0 }, App->assetLoader->agencyB, 40, 0, WHITE);
+			App->renderer->DrawText(App->localization->GetString("SELECTMENU_MAP3").c_str(), map_name_text_pos, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_MAP3").c_str(), 40, 0).x / 2,0 }, App->assetLoader->agencyB, 40, 0, BLACK);
 		}
 	}
 
@@ -202,14 +202,14 @@ void SceneSelectSetup::OnMouseOverRACE()
 {
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_1);
 	App->renderer->Draw(*buttons_texture_hover, { race_buttonTextureRec.x , race_buttonTextureRec.y }, { 0,0 }, &buttons_texture_hover_section, 0, 2);
-	App->renderer->DrawText(App->localization->GetString("SELECTMENU_MODE_CLASSIC_DESC").c_str(), {description_middle_pos.x - MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_MODE_CLASSIC_DESC").c_str(), 40, 0).x/2 , description_middle_pos.y}, {0,0}, App->assetLoader->agencyB, 40, 0, WHITE);
+	App->renderer->DrawText(App->localization->GetString("SELECTMENU_MODE_CLASSIC_DESC").c_str(), {description_middle_pos.x - MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_MODE_CLASSIC_DESC").c_str(), 40, 0).x/2 , description_middle_pos.y}, {0,0}, App->assetLoader->agencyB, 40, 0, BLACK);
 }
 
 void SceneSelectSetup::OnMouseOverBOOM()
 {
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_1);
 	App->renderer->Draw(*buttons_texture_hover, { boom_buttonTextureRec.x , boom_buttonTextureRec.y }, { 0,0 }, &buttons_texture_hover_section, 0, 2);
-	App->renderer->DrawText(App->localization->GetString("SELECTMENU_MODE_BOOM_DESC").c_str(), {description_middle_pos.x - MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_MODE_BOOM_DESC").c_str(), 40, 0).x/2 , description_middle_pos.y}, {0,0}, App->assetLoader->agencyB, 40, 0, WHITE);
+	App->renderer->DrawText(App->localization->GetString("SELECTMENU_MODE_BOOM_DESC").c_str(), {description_middle_pos.x - MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_MODE_BOOM_DESC").c_str(), 40, 0).x/2 , description_middle_pos.y}, {0,0}, App->assetLoader->agencyB, 40, 0, BLACK);
 }
 
 void SceneSelectSetup::ClickFINISH()
@@ -224,7 +224,7 @@ void SceneSelectSetup::OnMouseOverFINISH()
 {
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_1);
 	App->renderer->Draw(*finish_car_button_texture_hover, { finish_car_button_textureRec.x , finish_car_button_textureRec.y }, { 0,0 }, &finish_car_button_texture_hover_section, 0, 2);
-	App->renderer->DrawText(App->localization->GetString("SELECTMENU_VEHICLE_FINISH_DESC").c_str(), { description_middle_pos.x - MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_VEHICLE_FINISH_DESC").c_str(), 40, 0).x / 2 , description_middle_pos.y }, { 0,0 }, App->assetLoader->agencyB, 40, 0, WHITE);
+	App->renderer->DrawText(App->localization->GetString("SELECTMENU_VEHICLE_FINISH_DESC").c_str(), { description_middle_pos.x - MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_VEHICLE_FINISH_DESC").c_str(), 40, 0).x / 2 , description_middle_pos.y }, { 0,0 }, App->assetLoader->agencyB, 40, 0, BLACK);
 }
 
 void SceneSelectSetup::ClickCarRightArrow()
@@ -255,7 +255,7 @@ void SceneSelectSetup::OnMouseOverMapFINISH()
 {
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_1);
 	App->renderer->Draw(*finish_map_button_texture_hover, { finish_map_button_textureRec.x , finish_map_button_textureRec.y }, { 0,0 }, &finish_map_button_texture_hover_section, 0, 2);
-	App->renderer->DrawText(App->localization->GetString("SELECTMENU_MAP_FINISH_DESC").c_str(), { description_middle_pos.x - MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_MAP_FINISH_DESC").c_str(), 40, 0).x / 2 , description_middle_pos.y }, { 0,0 }, App->assetLoader->agencyB, 40, 0, WHITE);
+	App->renderer->DrawText(App->localization->GetString("SELECTMENU_MAP_FINISH_DESC").c_str(), { description_middle_pos.x - MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_MAP_FINISH_DESC").c_str(), 40, 0).x / 2 , description_middle_pos.y }, { 0,0 }, App->assetLoader->agencyB, 40, 0, BLACK);
 }
 
 void SceneSelectSetup::ClickMapRightArrow()
