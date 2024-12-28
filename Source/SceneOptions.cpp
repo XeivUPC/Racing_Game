@@ -28,15 +28,9 @@ bool SceneOptions::Start()
 	LOG("Init options");
 	bool ret = true;
 
-	/* Create Audio */
-	audioMotorId = App->audio->LoadFx("Assets/Sounds/Sfx/MotorSFX.wav");
+	/* Get Textures */
 
-	/* Create Textures */
-
-	App->texture->CreateTexture("Assets/Textures/settings_menu.png", "backgroundSettings");
 	backgroundTextureSettings = App->texture->GetTexture("backgroundSettings");
-
-	App->texture->CreateTexture("Assets/Textures/slider_thumb_settings.png", "sliderThumbSettings");
 	thumbTextureSettings = App->texture->GetTexture("sliderThumbSettings");
 
 	/* Create UI */
@@ -67,7 +61,7 @@ bool SceneOptions::Start()
 	float general_value = generalVolumeSlider->GetValue();
 	generalVolumeSlider->onValueChange.emplace_back([&](float general_value) {App->audio->ChangeGeneralVolume(general_value); });
 
-	generalVolumeSlider->SetValue(1);
+	generalVolumeSlider->SetValue(0.5f);
 
 	//Slider Music Volume
 	musicVolumeSliderSize = { 300,10 };
@@ -125,7 +119,7 @@ bool SceneOptions::CleanUp()
 void SceneOptions::Exit()
 {
 	//Go to MainMenu or the Game Scene
-	App->audio->PlayFx(audioMotorId);
+	App->audio->PlayFx(App->assetLoader->audioMotorId);
 	StartFadeIn(App->scene_main_menu, BLACK, 0.3f);
 }
 

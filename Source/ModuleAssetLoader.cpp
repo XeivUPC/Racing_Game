@@ -3,6 +3,7 @@
 #include "ModuleTexture.h"
 #include "ModuleAudio.h"
 #include "FontCreator.h"
+#include "ModuleAudio.h"
 
 ModuleAssetLoader::ModuleAssetLoader(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -29,9 +30,13 @@ bool ModuleAssetLoader::Init()
 	textureModule->CreateTexture("Assets/Fonts/pixel_normal_6x11.png", "Font1");
 	textureModule->CreateTexture("Assets/Fonts/agency_b_10x20.png", "agencyB");
 	textureModule->CreateTexture("Assets/Fonts/title_font_30x50.png", "titleFont");
+	textureModule->CreateTexture("Assets/Textures/settings_menu.png", "backgroundSettings");
+	textureModule->CreateTexture("Assets/Textures/slider_thumb_settings.png", "sliderThumbSettings");
 
 	//// Audios
-
+	audioMotorId = App->audio->LoadFx("Assets/Sounds/Sfx/MotorSFX.wav");
+	audioMainMenuMusicId = App->audio->LoadFx("Assets/Sounds/Music/Main_Menu.wav");
+	audioMainMenuMarioWiiMusicId = App->audio->LoadFx("Assets/Sounds/Music/Main_Menu_Mario_Kart_Wii.wav");
 
 	//// Fonts
 	std::vector<int> codepoints = {

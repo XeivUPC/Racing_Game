@@ -27,8 +27,6 @@ private:
 	Vector2 musicVolumeSliderSize = { 0,0 };
 	Vector2 sfxVolumeSliderSize = { 0,0 };
 
-	int audioMotorId = -1;
-
 	Texture2D* backgroundTextureSettings = nullptr;
 	Rectangle  backgroundTextureSettingsRec = { 0, 0, 640, 360 };
 
@@ -53,5 +51,4 @@ public:
 	void NextLanguage();
 	void PreviousLanguage();
 
-	void ChangeGeneralVolumeWithFloat(float volume);
 };

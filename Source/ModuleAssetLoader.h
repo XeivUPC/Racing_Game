@@ -12,5 +12,9 @@ public:
 	Font basicFont;
 	Font agencyB;
 	Font titleFont;
+
+	int audioMotorId = -1;
+	int audioMainMenuMusicId = -1;
+	int audioMainMenuMarioWiiMusicId = -1;
 };
 
