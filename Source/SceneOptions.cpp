@@ -241,10 +241,10 @@ bool SceneOptions::Render() {
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_2);
 	App->renderer->BlockRenderLayer();
 
-	arrowRightSettingsLanguageAnimator->Animate(Vector2{ SCREEN_WIDTH / 2 + 130, (SCREEN_HEIGHT / 6) * 2 - 70 }, {0,0},0, 1, false);
+	arrowRightSettingsLanguageAnimator->Animate(Vector2{ SCREEN_WIDTH / 2 + 130, (SCREEN_HEIGHT / 6) * 2 - 70 + (textSize_language_select.y / 6) }, { 0,0 }, 0, 1, false);
 	arrowRightSettingsLanguageAnimator->Update();
 
-	arrowLeftSettingsLanguageAnimator->Animate(Vector2{ SCREEN_WIDTH / 2 - languageButtonSize.x - 130, (SCREEN_HEIGHT / 6) * 2 - 70 }, {0,0}, 0, 1, true);
+	arrowLeftSettingsLanguageAnimator->Animate(Vector2{ SCREEN_WIDTH / 2 - languageButtonSize.x - 130, (SCREEN_HEIGHT / 6) * 2 - 70 + (textSize_language_select.y / 6) }, {0,0}, 0, 1, true);
 	arrowLeftSettingsLanguageAnimator->Update();
 
 	exitSettingsAnimator->Animate(Vector2{ SCREEN_WIDTH - (exitSettingsButtonSize.x) - 30, 30 }, {0,0}, 0, 1, false);
