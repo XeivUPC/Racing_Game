@@ -144,7 +144,7 @@
       <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneSelectSetup.cpp">
-      <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
+    <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneIntro.cpp">
       <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>

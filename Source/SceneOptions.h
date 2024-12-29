@@ -38,7 +38,7 @@ private:
 	Rectangle  backgroundTextureSettingsRec = { 0, 0, 640, 360 };
 
 	Texture2D* thumbTextureSettings = nullptr;
-	Rectangle  thumbTextureSettingsRec = { 0, 0, 30, 30 };
+	Rectangle  thumbTextureSettingsRec = { 0, 0, 32, 32 };
 
 	Texture2D* arrowLanguageSettings = nullptr;
 	Animator* arrowRightSettingsLanguageAnimator = nullptr;
@@ -57,8 +57,6 @@ private:
 	bool hasClickedRight = false;
 	bool hasClickedLeft = false;
 
-private:
-	std::string configPath = "Assets/Data/game_settings.xml";
 public:
 
 	SceneOptions(Application* app, bool start_enabled = false);
