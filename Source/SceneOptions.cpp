@@ -163,15 +163,15 @@ update_status SceneOptions::Update()
 	musicVolumeSlider->Update();
 	sfxVolumeSlider->Update();
 
-	if (rightButtonAnimTimer.ReadSec() > ButtonAnimTime && hasClicked && hasClickedRight)
-	{
-		arrowRightSettingsLanguageAnimator->SelectAnimation("arrowRightLanguageOver", false);
-		hasClickedRight = false;
-	}
 	if (leftButtonAnimTimer.ReadSec() > ButtonAnimTime && hasClicked && hasClickedLeft)
 	{
 		arrowLeftSettingsLanguageAnimator->SelectAnimation("arrowLeftLanguageOver", false);
 		hasClickedLeft = false;
+	}
+	if (rightButtonAnimTimer.ReadSec() > ButtonAnimTime && hasClicked && hasClickedRight)
+	{
+		arrowRightSettingsLanguageAnimator->SelectAnimation("arrowRightLanguageOver", false);
+		hasClickedRight = false;
 	}
 	
 
@@ -291,6 +291,7 @@ void SceneOptions::NextLanguage()
 {
 	App->audio->PlayFx(App->assetLoader->audioClickId);
 	arrowRightSettingsLanguageAnimator->SelectAnimation("arrowRightLanguageClick", false);
+	rightButtonAnimTimer.Start();
 	hasClicked = true;
 	hasClickedRight = true;
 
@@ -338,6 +339,8 @@ void SceneOptions::ExitLanguage()
 	arrowRightSettingsLanguageAnimator->SelectAnimation("arrowRightLanguageIdle", false);
 
 	hasClicked = false;
+	hasClickedLeft = false;
+	hasClickedRight = false;
 }
 
 void SceneOptions::Exit()
