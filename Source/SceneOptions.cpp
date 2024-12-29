@@ -133,7 +133,7 @@ bool SceneOptions::Start()
 	float general_value = generalVolumeSlider->GetValue();
 	generalVolumeSlider->onValueChange.emplace_back([&](float general_value) {App->audio->ChangeGeneralVolume(general_value); App->userPrefs->SaveUserPreferences(); });
 
-	generalVolumeSlider->SetValue(0.5f);
+	generalVolumeSlider->SetValue(App->audio->GetGeneralVolume());
 
 	//Slider Music Volume
 	musicVolumeSliderSize = { 300,10 };
@@ -142,7 +142,7 @@ bool SceneOptions::Start()
 	float music_value = musicVolumeSlider->GetValue();
 	musicVolumeSlider->onValueChange.emplace_back([&](float music_value) {App->audio->ChangeMusicVolume(music_value); App->userPrefs->SaveUserPreferences(); });
 
-	musicVolumeSlider->SetValue(0.5f);
+	musicVolumeSlider->SetValue(App->audio->GetMusicVolume());
 
 	//Slider SFX Volume
 	sfxVolumeSliderSize = { 300,10 };
@@ -151,7 +151,7 @@ bool SceneOptions::Start()
 	float sfx_value = sfxVolumeSlider->GetValue();
 	sfxVolumeSlider->onValueChange.emplace_back([&](float sfx_value) {App->audio->ChangeSfxVolume(sfx_value); App->userPrefs->SaveUserPreferences(); });
 
-	sfxVolumeSlider->SetValue(0.5f);
+	sfxVolumeSlider->SetValue(App->audio->GetSfxVolume());
 
 	return ret;
 }
