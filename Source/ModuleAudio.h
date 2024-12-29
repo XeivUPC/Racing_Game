@@ -35,8 +35,11 @@ public:
 	bool PlayFx(unsigned int soundId, bool overrideIfSoundPlaying = true);
 
 	void ChangeGeneralVolume(float volume);
+	float GetGeneralVolume();
 	void ChangeSfxVolume(float volume);
+	float GetSfxVolume();
 	void ChangeMusicVolume(float volume);
+	float GetMusicVolume();
 
 private:
 

@@ -7,6 +7,8 @@
 
 #include "raylib.h"
 #include <vector>
+#include <string>
+
 
 class UIElement;
 class UIButton;

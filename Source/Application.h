@@ -10,6 +10,7 @@ class ModuleRender;
 class ModuleAudio;
 class ModuleTexture;
 class ModuleLocalization;
+class ModuleUserPreferences;
 class ModuleAssetLoader;
 class ModulePhysics;
 
@@ -28,6 +29,7 @@ public:
 	ModuleAudio* audio;
 	ModuleTexture* texture;
 	ModuleLocalization* localization;
+	ModuleUserPreferences* userPrefs;
 	ModuleAssetLoader* assetLoader;
 	ModulePhysics* physics;
 
