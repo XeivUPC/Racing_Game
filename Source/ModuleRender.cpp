@@ -108,7 +108,7 @@ bool ModuleRender::Draw(Texture2D texture, Vector2 position, Vector2 offset, con
     // Create a destination rectangle based on the provided position and scale
     Rectangle destRect = { (float)(position.x + offset.x - pivot_x ),
                            (float)(position.y + offset.y - pivot_y),
-                           rect.width * scale, rect.height * scale };
+                           abs(rect.width) * scale, abs(rect.height) * scale };
 
     // Set the pivot point around which the texture will rotate (the center of rotation)
     Vector2 pivot = { (float)pivot_x, (float)pivot_y };
