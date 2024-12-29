@@ -46,11 +46,13 @@ bool ModuleAssetLoader::Init()
 	textureModule->CreateTexture("Assets/Textures/settings_menu.png", "backgroundSettings");
 	textureModule->CreateTexture("Assets/Textures/settings_slider_thumb.png", "sliderThumbSettings");
 	textureModule->CreateTexture("Assets/Textures/settings_arrow_right.png", "arrowSettings");
+	textureModule->CreateTexture("Assets/Textures/settings_exit.png", "exitSettings");
 
 	//// Audios
 	audioMotorId = App->audio->LoadFx("Assets/Sounds/Sfx/MotorSFX.wav");
 	audioMainMenuMusicId = App->audio->LoadFx("Assets/Sounds/Music/Main_Menu.wav");
 	audioMainMenuMarioWiiMusicId = App->audio->LoadFx("Assets/Sounds/Music/Main_Menu_Mario_Kart_Wii.wav");
+	audioClickId = App->audio->LoadFx("Assets/Sounds/Sfx/Ui_Click.wav");
 
 	//// Fonts
 	std::vector<int> codepoints = {

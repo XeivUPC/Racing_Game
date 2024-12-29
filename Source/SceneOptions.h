@@ -42,12 +42,18 @@ private:
 	Animator* arrowRightSettingsLanguageAnimator = nullptr;
 	Animator* arrowLeftSettingsLanguageAnimator = nullptr;
 
+	Texture2D* exitSettings = nullptr;
+	Animator* exitSettingsAnimator = nullptr;
+
 	int languageIndex = 0;
 
-	Timer ButtonAnimTimer;
+	Timer rightButtonAnimTimer;
+	Timer leftButtonAnimTimer;
 	float ButtonAnimTime = 0.1;
 
 	bool hasClicked = false;
+	bool hasClickedRight = false;
+	bool hasClickedLeft = false;
 
 public:
 
@@ -61,8 +67,6 @@ public:
 	bool CleanUp();
 	bool Render();
 
-	void Exit();
-
 	void NextLanguage();
 	void EnterNextLanguage();
 
@@ -70,4 +74,8 @@ public:
 	void EnterPreviousLanguage();
 
 	void ExitLanguage();
+
+	void Exit();
+	void EnterExit();
+	void ExitExit();
 };

@@ -35,8 +35,27 @@ bool SceneOptions::Start()
 	backgroundTextureSettings = App->texture->GetTexture("backgroundSettings");
 	thumbTextureSettings = App->texture->GetTexture("sliderThumbSettings");
 	arrowLanguageSettings = App->texture->GetTexture("arrowSettings");
+	exitSettings = App->texture->GetTexture("exitSettings");
 
 	/* Create Animations */
+
+	//Button Exit
+	exitSettingsAnimator = new Animator(App);
+
+	AnimationData exitIdleAnim = AnimationData("exitIdle");
+	exitIdleAnim.AddSprite(Sprite{ exitSettings,{0, 0}, {48,48} });
+
+	AnimationData exitOverAnim = AnimationData("exitOver");
+	exitOverAnim.AddSprite(Sprite{ exitSettings,{1, 0}, {48,48} });
+
+	AnimationData exitClickAnim = AnimationData("exitClick");
+	exitClickAnim.AddSprite(Sprite{ exitSettings,{2, 0}, {48,48} });
+
+	exitSettingsAnimator->AddAnimation(exitIdleAnim);
+	exitSettingsAnimator->AddAnimation(exitOverAnim);
+	exitSettingsAnimator->AddAnimation(exitClickAnim);
+	exitSettingsAnimator->SetSpeed(1.f);
+	exitSettingsAnimator->SelectAnimation("exitIdle", true);
 
 	//Button Next Language
 	arrowRightSettingsLanguageAnimator = new Animator(App);
@@ -83,6 +102,8 @@ bool SceneOptions::Start()
 	exitSettingsButtonSize = { 48,48 };
 	exitSettingsButton = new UIButton(this, Vector2{ SCREEN_WIDTH - (exitSettingsButtonSize.x) - exitSettingsButtonOffset, exitSettingsButtonOffset}, exitSettingsButtonSize);
 	exitSettingsButton->onMouseClick.emplace_back([&]() {Exit(); });
+	exitSettingsButton->onMouseEnter.emplace_back([&]() {EnterExit(); });
+	exitSettingsButton->onMouseExit.emplace_back([&]() {ExitExit(); });
 
 	//Buttons Language
 	languageButtonSize = { 48,48 };
@@ -142,11 +163,17 @@ update_status SceneOptions::Update()
 	musicVolumeSlider->Update();
 	sfxVolumeSlider->Update();
 
-	if (ButtonAnimTimer.ReadSec() > ButtonAnimTime && hasClicked)
+	if (rightButtonAnimTimer.ReadSec() > ButtonAnimTime && hasClicked && hasClickedRight)
+	{
+		arrowRightSettingsLanguageAnimator->SelectAnimation("arrowRightLanguageOver", false);
+		hasClickedRight = false;
+	}
+	if (leftButtonAnimTimer.ReadSec() > ButtonAnimTime && hasClicked && hasClickedLeft)
 	{
 		arrowLeftSettingsLanguageAnimator->SelectAnimation("arrowLeftLanguageOver", false);
-		arrowRightSettingsLanguageAnimator->SelectAnimation("arrowRightLanguageOver", false);
+		hasClickedLeft = false;
 	}
+	
 
 	FadeUpdate();
 
@@ -214,11 +241,14 @@ bool SceneOptions::Render() {
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_2);
 	App->renderer->BlockRenderLayer();
 
-	arrowRightSettingsLanguageAnimator->Animate(Vector2{ SCREEN_WIDTH / 2 , (SCREEN_HEIGHT / 6) * 2 }, Vector2{ 130,-70 },0,1, false);
+	arrowRightSettingsLanguageAnimator->Animate(Vector2{ SCREEN_WIDTH / 2 + 130, (SCREEN_HEIGHT / 6) * 2 - 70 }, {0,0},0, 1, false);
 	arrowRightSettingsLanguageAnimator->Update();
 
-	arrowLeftSettingsLanguageAnimator->Animate(Vector2{ SCREEN_WIDTH / 2 - languageButtonSize.x, (SCREEN_HEIGHT / 6) * 2 }, Vector2{ -130,-70 },0,1, true);
+	arrowLeftSettingsLanguageAnimator->Animate(Vector2{ SCREEN_WIDTH / 2 - languageButtonSize.x - 130, (SCREEN_HEIGHT / 6) * 2 - 70 }, {0,0}, 0, 1, true);
 	arrowLeftSettingsLanguageAnimator->Update();
+
+	exitSettingsAnimator->Animate(Vector2{ SCREEN_WIDTH - (exitSettingsButtonSize.x) - 30, 30 }, {0,0}, 0, 1, false);
+	exitSettingsAnimator->Update();
 
 	App->renderer->DrawSimpleRectangle(generalVolumeSlider->bounds, Color{ 101, 116, 129, 255 });
 	App->renderer->Draw(*thumbTextureSettings, { generalVolumeSlider->GetThumbBounds().x, generalVolumeSlider->GetThumbBounds().y }, { 0,0 }, &thumbTextureSettingsRec, 0, 1);
@@ -235,14 +265,20 @@ bool SceneOptions::Render() {
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_2);
 	App->renderer->BlockRenderLayer();
 
-	/*const char* generalVolumeValue = generalVolumeSlider->GetValue() * 100
-	App->renderer->DrawText(generalVolumeValue, Vector2{(SCREEN_WIDTH / 2) + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX, (SCREEN_HEIGHT / 6) * 3.15f }, Vector2{0,0}, App->assetLoader->agencyB, 60, 1, BLACK);
+	int generalVolumeValue = generalVolumeSlider->GetValue() * 100;
+	std::string generalVolumeValueString = std::to_string(generalVolumeValue);
+	const char* generalVolumeValueCharPtr = generalVolumeValueString.c_str();
+	App->renderer->DrawText(generalVolumeValueCharPtr, Vector2{(SCREEN_WIDTH / 2) + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX * 5, (SCREEN_HEIGHT / 6) * 3.15f }, Vector2{0,0}, App->assetLoader->agencyB, 60, 1, BLACK);
 
-	const char* musicVolumeValue = musicVolumeSlider->GetValue() * 100
-	App->renderer->DrawText(musicVolumeValue, Vector2{ (SCREEN_WIDTH / 2)  + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX, (SCREEN_HEIGHT / 6) * 4.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, BLACK);
+	int musicVolumeValue = musicVolumeSlider->GetValue() * 100;
+	std::string musicVolumeValueString = std::to_string(musicVolumeValue);
+	const char* musicVolumeValueCharPtr = musicVolumeValueString.c_str();
+	App->renderer->DrawText(musicVolumeValueCharPtr, Vector2{ (SCREEN_WIDTH / 2)  + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX * 5, (SCREEN_HEIGHT / 6) * 4.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, BLACK);
 
-	const char* sfxVolumeValue = sfxVolumeSlider->GetValue() * 100
-	App->renderer->DrawText(sfxVolumeValue, Vector2{ (SCREEN_WIDTH / 2) + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX, (SCREEN_HEIGHT / 6) * 5.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, BLACK);*/
+	int sfxVolumeValue = sfxVolumeSlider->GetValue() * 100;
+	std::string sfxVolumeValueString = std::to_string(sfxVolumeValue);
+	const char* sfxVolumeValueCharPtr = sfxVolumeValueString.c_str();
+	App->renderer->DrawText(sfxVolumeValueCharPtr, Vector2{ (SCREEN_WIDTH / 2) + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX * 5, (SCREEN_HEIGHT / 6) * 5.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, BLACK);
 
 	App->renderer->UnlockRenderLayer();
 
@@ -251,18 +287,12 @@ bool SceneOptions::Render() {
 	return true;
 }
 
-void SceneOptions::Exit()
-{
-	//Go to MainMenu or the Game Scene
-	App->audio->PlayFx(App->assetLoader->audioMotorId);
-	StartFadeIn(App->scene_main_menu, BLACK, 0.3f);
-}
-
 void SceneOptions::NextLanguage()
 {
+	App->audio->PlayFx(App->assetLoader->audioClickId);
 	arrowRightSettingsLanguageAnimator->SelectAnimation("arrowRightLanguageClick", false);
-	ButtonAnimTimer.Start();
 	hasClicked = true;
+	hasClickedRight = true;
 
 	languageIndex++;
 	if (languageIndex > 2)
@@ -277,15 +307,15 @@ void SceneOptions::NextLanguage()
 void SceneOptions::EnterNextLanguage()
 {
 	arrowRightSettingsLanguageAnimator->SelectAnimation("arrowRightLanguageOver", false);
-
-	
 }
 
 void SceneOptions::PreviousLanguage()
 {
+	App->audio->PlayFx(App->assetLoader->audioClickId);
 	arrowLeftSettingsLanguageAnimator->SelectAnimation("arrowLeftLanguageClick", false);
-	ButtonAnimTimer.Start();
+	leftButtonAnimTimer.Start();
 	hasClicked = true;
+	hasClickedLeft = true;
 
 	languageIndex--;
 	if (languageIndex < 0)
@@ -300,8 +330,6 @@ void SceneOptions::PreviousLanguage()
 void SceneOptions::EnterPreviousLanguage()
 {
 	arrowLeftSettingsLanguageAnimator->SelectAnimation("arrowLeftLanguageOver", false);
-
-	
 }
 
 void SceneOptions::ExitLanguage()
@@ -310,6 +338,24 @@ void SceneOptions::ExitLanguage()
 	arrowRightSettingsLanguageAnimator->SelectAnimation("arrowRightLanguageIdle", false);
 
 	hasClicked = false;
+}
+
+void SceneOptions::Exit()
+{
+	//Go to MainMenu or the Game Scene
+	exitSettingsAnimator->SelectAnimation("exitClick", false);
+	App->audio->PlayFx(App->assetLoader->audioMotorId);
+	StartFadeIn(App->scene_main_menu, BLACK, 0.3f);
+}
+
+void SceneOptions::EnterExit()
+{
+	exitSettingsAnimator->SelectAnimation("exitOver", false);
+}
+
+void SceneOptions::ExitExit()
+{
+	exitSettingsAnimator->SelectAnimation("exitIdle", false);
 }
 
 

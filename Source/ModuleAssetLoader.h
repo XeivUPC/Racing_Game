@@ -16,5 +16,6 @@ public:
 	int audioMotorId = -1;
 	int audioMainMenuMusicId = -1;
 	int audioMainMenuMarioWiiMusicId = -1;
+	int audioClickId = -1;
 };
 
