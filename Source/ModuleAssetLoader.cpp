@@ -50,8 +50,6 @@ bool ModuleAssetLoader::Init()
 
 	//// Audios
 	audioMotorId = App->audio->LoadFx("Assets/Sounds/Sfx/MotorSFX.wav");
-	audioMainMenuMusicId = App->audio->LoadFx("Assets/Sounds/Music/Main_Menu.wav");
-	audioMainMenuMarioWiiMusicId = App->audio->LoadFx("Assets/Sounds/Music/Main_Menu_Mario_Kart_Wii.wav");
 	audioClickId = App->audio->LoadFx("Assets/Sounds/Sfx/Ui_Click.wav");
 
 	//// Fonts

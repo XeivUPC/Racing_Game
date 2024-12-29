@@ -7,6 +7,8 @@
 
 #include "raylib.h"
 #include <vector>
+#include <string>
+
 
 class UIElement;
 class UIButton;
@@ -55,6 +57,8 @@ private:
 	bool hasClickedRight = false;
 	bool hasClickedLeft = false;
 
+private:
+	std::string configPath = "Assets/Data/game_settings.xml";
 public:
 
 	SceneOptions(Application* app, bool start_enabled = false);

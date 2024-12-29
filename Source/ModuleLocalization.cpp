@@ -29,6 +29,11 @@ void ModuleLocalization::ChangeLanguage(Language language)
 	currentLanguage = language;
 }
 
+Language ModuleLocalization::GetLanguage()
+{
+	return currentLanguage;
+}
+
 std::string ModuleLocalization::GetString(const std::string& key)
 {
 	if (localizedStrings.count(key) == 0)

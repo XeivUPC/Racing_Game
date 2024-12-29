@@ -20,6 +20,7 @@ public:
 	bool CleanUp();
 
 	void ChangeLanguage(Language language);
+	Language GetLanguage();
 
 	std::string GetString(const std::string& key);
 	std::string FormatNumber(float number, int precision);

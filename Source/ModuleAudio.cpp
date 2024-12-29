@@ -163,6 +163,11 @@ void ModuleAudio::ChangeGeneralVolume(float volume)
 	ChangeMusicVolume(music_volume);
 }
 
+float ModuleAudio::GetGeneralVolume()
+{
+	return general_volume;
+}
+
 void ModuleAudio::ChangeSfxVolume(float volume)
 {
 	sfx_volume = std::clamp(volume, 0.0f, 1.0f);
@@ -175,10 +180,20 @@ void ModuleAudio::ChangeSfxVolume(float volume)
 
 }
 
+float ModuleAudio::GetSfxVolume()
+{
+	return sfx_volume;
+}
+
 void ModuleAudio::ChangeMusicVolume(float volume)
 {
 	music_volume = std::clamp(volume, 0.0f, 1.0f);
 	SetMusicVolume(music, general_volume * music_volume);
+}
+
+float ModuleAudio::GetMusicVolume()
+{
+	return music_volume;
 }
 
 bool ModuleAudio::IsSoundLoaded(int soundId)

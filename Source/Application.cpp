@@ -5,6 +5,7 @@
 #include "ModuleAudio.h"
 #include "ModuleTexture.h"
 #include "ModuleLocalization.h"
+#include "ModuleUserPreferences.h"
 #include "ModuleAssetLoader.h"
 #include "ModulePhysics.h"
 
@@ -23,6 +24,7 @@ Application::Application()
 	audio = new ModuleAudio(this, true);
 	texture = new ModuleTexture(this, true);
 	localization = new ModuleLocalization(this, true);
+	userPrefs = new ModuleUserPreferences(this, true);
 	assetLoader = new ModuleAssetLoader(this);
 	physics = new ModulePhysics(this);
 	scene_options = new SceneOptions(this);
@@ -41,6 +43,7 @@ Application::Application()
 	AddModule(audio);
 	AddModule(texture);
 	AddModule(localization);
+	AddModule(userPrefs);
 	AddModule(assetLoader);
 	
 	// Scenes
