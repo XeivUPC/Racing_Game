@@ -46,6 +46,7 @@ bool ModuleAssetLoader::Init()
 	textureModule->CreateTexture("Assets/Textures/settings_menu.png", "backgroundSettings");
 	textureModule->CreateTexture("Assets/Textures/settings_slider_thumb.png", "sliderThumbSettings");
 	textureModule->CreateTexture("Assets/Textures/settings_arrow_right.png", "arrowSettings");
+	textureModule->CreateTexture("Assets/Textures/settings_exit.png", "exitSettings");
 
 	//// Audios
 	audioMotorId = App->audio->LoadFx("Assets/Sounds/Sfx/MotorSFX.wav");
