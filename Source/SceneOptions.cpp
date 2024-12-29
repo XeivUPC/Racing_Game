@@ -193,6 +193,10 @@ bool SceneOptions::CleanUp()
 		delete arrowLeftSettingsLanguageAnimator;
 		arrowLeftSettingsLanguageAnimator = nullptr;
 	}
+	if (exitSettingsAnimator != nullptr) {
+		delete exitSettingsAnimator;
+		exitSettingsAnimator = nullptr;
+	}
 
 	delete exitSettingsButton;
 	delete nextLanguageButton;

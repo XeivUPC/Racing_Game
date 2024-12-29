@@ -9,6 +9,8 @@
 #include <vector>
 
 class UIButton;
+class Animator;
+class Timer;
 
 class SceneSelectSetup : public ModuleScene
 {
@@ -82,8 +84,12 @@ private:
 	void OnMouseOverFINISH();
 
 	void ClickCarRightArrow();
+	void OverCarRightArrow();
+	void ExitCarRightArrow();
 
 	void ClickCarLeftArrow();
+	void OverCarLeftArrow();
+	void ExitCarLeftArrow();
 
 	Texture2D* car_bg_texture = nullptr;
 	Rectangle  car_bg_textureRec = { 0, 0, 640, 360 };
@@ -101,6 +107,13 @@ private:
 	UIButton* car_arrow_left = nullptr;
 	Rectangle car_arrow_left_rec = { (36 * 2), (164 * 2), 15 * 2, 13 * 2 };
 
+	Texture2D* arrows_texture = nullptr;
+	Animator* arrowRightSetupCarAnimator = nullptr;
+	Animator* arrowLeftSetupCarAnimator = nullptr;
+
+	bool justClickedarrowRightSetupCar = false;
+	bool justClickedarrowLeftSetupCar = false;
+
 	bool isCarChosen = false;
 	VEHICLES currentVEHICLE = VEHICLES::CAR;
 	VEHICLES finalVEHICLE = VEHICLES::NO_VEHICLE;
@@ -110,8 +123,12 @@ private:
 	void OnMouseOverMapFINISH();
 
 	void ClickMapRightArrow();
+	void OverMapRightArrow();
+	void ExitMapRightArrow();
 
 	void ClickMapLeftArrow();
+	void OverMapLeftArrow();
+	void ExitMapLeftArrow();
 
 	Texture2D* map_bg_texture = nullptr;
 	Rectangle  map_bg_textureRec = { 0, 0, 640, 360 };
@@ -129,6 +146,12 @@ private:
 	Rectangle map_arrow_right_rec = { (462 * 2), (190 * 2), 15 * 2, 13 * 2 };
 	UIButton* map_arrow_left = nullptr;
 	Rectangle map_arrow_left_rec = { (167 * 2), (190 * 2), 15 * 2, 13 * 2 };
+
+	Animator* arrowRightSetupMapAnimator = nullptr;
+	Animator* arrowLeftSetupMapAnimator = nullptr;
+
+	bool justClickedarrowRightSetupMap = false;
+	bool justClickedarrowLeftSetupMap = false;
 
 	bool isMapChosen = false;
 	MAPS currentMAP = MAPS::MAP1;
