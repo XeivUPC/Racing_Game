@@ -12,12 +12,17 @@ class UIElement;
 class UIButton;
 class UISlider;
 
+class Animator;
+
 class SceneOptions : public ModuleScene {
 private: 
 	
 	UIButton* exitSettingsButton = nullptr;
 	UIButton* nextLanguageButton = nullptr;
 	UIButton* previousLanguageButton = nullptr;
+
+	Vector2 exitSettingsButtonSize = { 0,0 };
+	Vector2 languageButtonSize = { 0,0 };
 
 	UISlider* generalVolumeSlider = nullptr;
 	UISlider* musicVolumeSlider = nullptr;
@@ -33,7 +38,16 @@ private:
 	Texture2D* thumbTextureSettings = nullptr;
 	Rectangle  thumbTextureSettingsRec = { 0, 0, 30, 30 };
 
+	Texture2D* arrowLanguageSettings = nullptr;
+	Animator* arrowRightSettingsLanguageAnimator = nullptr;
+	Animator* arrowLeftSettingsLanguageAnimator = nullptr;
+
 	int languageIndex = 0;
+
+	Timer ButtonAnimTimer;
+	float ButtonAnimTime = 0.1;
+
+	bool hasClicked = false;
 
 public:
 
@@ -48,7 +62,12 @@ public:
 	bool Render();
 
 	void Exit();
-	void NextLanguage();
-	void PreviousLanguage();
 
+	void NextLanguage();
+	void EnterNextLanguage();
+
+	void PreviousLanguage();
+	void EnterPreviousLanguage();
+
+	void ExitLanguage();
 };

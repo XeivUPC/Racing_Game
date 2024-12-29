@@ -44,7 +44,8 @@ bool ModuleAssetLoader::Init()
 	textureModule->CreateTexture("Assets/Textures/select_setup_map_button_hover.png", "select_setup_map_button_hover");
 	// Options
 	textureModule->CreateTexture("Assets/Textures/settings_menu.png", "backgroundSettings");
-	textureModule->CreateTexture("Assets/Textures/slider_thumb_settings.png", "sliderThumbSettings");
+	textureModule->CreateTexture("Assets/Textures/settings_slider_thumb.png", "sliderThumbSettings");
+	textureModule->CreateTexture("Assets/Textures/settings_arrow_right.png", "arrowSettings");
 
 	//// Audios
 	audioMotorId = App->audio->LoadFx("Assets/Sounds/Sfx/MotorSFX.wav");
