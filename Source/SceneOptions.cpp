@@ -158,6 +158,15 @@ bool SceneOptions::CleanUp()
 	LOG("Close Options");
 
 	//Fix memory leaks
+	if (arrowRightSettingsLanguageAnimator != nullptr) {
+		delete arrowRightSettingsLanguageAnimator;
+		arrowRightSettingsLanguageAnimator = nullptr;
+	}
+	if (arrowLeftSettingsLanguageAnimator != nullptr) {
+		delete arrowLeftSettingsLanguageAnimator;
+		arrowLeftSettingsLanguageAnimator = nullptr;
+	}
+
 	delete exitSettingsButton;
 	delete nextLanguageButton;
 	delete previousLanguageButton;
