@@ -289,6 +289,7 @@ bool SceneOptions::Render() {
 
 void SceneOptions::NextLanguage()
 {
+	App->audio->PlayFx(App->assetLoader->audioClickId);
 	arrowRightSettingsLanguageAnimator->SelectAnimation("arrowRightLanguageClick", false);
 	hasClicked = true;
 	hasClickedRight = true;
@@ -310,6 +311,7 @@ void SceneOptions::EnterNextLanguage()
 
 void SceneOptions::PreviousLanguage()
 {
+	App->audio->PlayFx(App->assetLoader->audioClickId);
 	arrowLeftSettingsLanguageAnimator->SelectAnimation("arrowLeftLanguageClick", false);
 	leftButtonAnimTimer.Start();
 	hasClicked = true;
