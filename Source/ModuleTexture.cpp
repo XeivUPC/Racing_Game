@@ -13,7 +13,7 @@ Texture2D* ModuleTexture::GetTexture(std::string textureID)
 {
 	if (!IsTextureLoaded(textureID))
 	{
-		printf("Sound File Not Loaded");
+		printf("Texture File Not Loaded");
 		return nullptr;
 	}
     return &textureData[textureID];

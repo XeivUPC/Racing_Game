@@ -6,6 +6,7 @@
 #include "ModuleWindow.h"
 
 class UIElement
+
 {
 public:
 	UIElement(Module* moduleAt) {
@@ -63,6 +64,7 @@ public:
 	std::vector<std::function<void()>> onMouseClick;
 
 	Rectangle bounds{0,0,0,0}; //// x - y - width - height
+
 protected:
 
 	Module* moduleAt = nullptr;

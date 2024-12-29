@@ -26,7 +26,7 @@ update_status SceneIntro::Update()
 {
 	if (!intro_ended && intro_timer.ReadSec() > intro_duration) {
 		intro_ended = true;
-		StartFadeIn(App->scene_game,WHITE, 0.5f);
+		StartFadeIn(App->scene_main_menu,WHITE, 0.5f);
 	}
 
 	ModuleScene::FadeUpdate();

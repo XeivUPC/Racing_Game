@@ -23,7 +23,7 @@ public:
 
 	std::string GetString(const std::string& key);
 	std::string FormatNumber(float number, int precision);
-
+	
 public:
 
 private:
