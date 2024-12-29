@@ -214,10 +214,10 @@ bool SceneOptions::Render() {
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_2);
 	App->renderer->BlockRenderLayer();
 
-	arrowRightSettingsLanguageAnimator->Animate(Vector2{ SCREEN_WIDTH / 2 , (SCREEN_HEIGHT / 6) * 2 }, Vector2{ 130,-70 },0,1, false);
+	arrowRightSettingsLanguageAnimator->Animate(Vector2{ SCREEN_WIDTH / 2 + 130, (SCREEN_HEIGHT / 6) * 2 - 70 }, {0,0},0, 1, false);
 	arrowRightSettingsLanguageAnimator->Update();
 
-	arrowLeftSettingsLanguageAnimator->Animate(Vector2{ SCREEN_WIDTH / 2 - languageButtonSize.x, (SCREEN_HEIGHT / 6) * 2 }, Vector2{ -130,-70 },0,1, true);
+	arrowLeftSettingsLanguageAnimator->Animate(Vector2{ SCREEN_WIDTH / 2 - languageButtonSize.x - 130, (SCREEN_HEIGHT / 6) * 2 - 70 }, {0,0}, 0, 1, false);
 	arrowLeftSettingsLanguageAnimator->Update();
 
 	App->renderer->DrawSimpleRectangle(generalVolumeSlider->bounds, Color{ 101, 116, 129, 255 });
@@ -235,14 +235,16 @@ bool SceneOptions::Render() {
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_2);
 	App->renderer->BlockRenderLayer();
 
-	/*const char* generalVolumeValue = generalVolumeSlider->GetValue() * 100
-	App->renderer->DrawText(generalVolumeValue, Vector2{(SCREEN_WIDTH / 2) + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX, (SCREEN_HEIGHT / 6) * 3.15f }, Vector2{0,0}, App->assetLoader->agencyB, 60, 1, BLACK);
+	//float volumeValue = generalVolumeSlider->GetValue() * 100;
+	//std::string volumeValueString = std::to_string(volumeValue);
+	//
+	//App->renderer->DrawText(volumeValueString, Vector2{(SCREEN_WIDTH / 2) + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX, (SCREEN_HEIGHT / 6) * 3.15f }, Vector2{0,0}, App->assetLoader->agencyB, 60, 1, BLACK);
 
-	const char* musicVolumeValue = musicVolumeSlider->GetValue() * 100
-	App->renderer->DrawText(musicVolumeValue, Vector2{ (SCREEN_WIDTH / 2)  + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX, (SCREEN_HEIGHT / 6) * 4.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, BLACK);
+	//const char* musicVolumeValue = musicVolumeSlider->GetValue() * 100;
+	//App->renderer->DrawText(musicVolumeValue, Vector2{ (SCREEN_WIDTH / 2)  + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX, (SCREEN_HEIGHT / 6) * 4.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, BLACK);
 
-	const char* sfxVolumeValue = sfxVolumeSlider->GetValue() * 100
-	App->renderer->DrawText(sfxVolumeValue, Vector2{ (SCREEN_WIDTH / 2) + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX, (SCREEN_HEIGHT / 6) * 5.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, BLACK);*/
+	//const char* sfxVolumeValue = sfxVolumeSlider->GetValue() * 100;
+	//App->renderer->DrawText(sfxVolumeValue, Vector2{ (SCREEN_WIDTH / 2) + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX, (SCREEN_HEIGHT / 6) * 5.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, BLACK);
 
 	App->renderer->UnlockRenderLayer();
 
