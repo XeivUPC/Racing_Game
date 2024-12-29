@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <settings>
 	<volume>
-		<general value="1" />
-		<music value="0.106666669" />
-		<sfx value="0.143333331" />
+		<general value="0.419999987" />
+		<music value="0.686666667" />
+		<sfx value="0.463333338" />
 	</volume>
-	<language value="1" />
+	<language value="2" />
 </settings>
