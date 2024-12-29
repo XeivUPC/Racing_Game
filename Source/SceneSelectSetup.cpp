@@ -113,6 +113,9 @@ bool SceneSelectSetup::Render()
 		App->renderer->Draw(*buttons_texture, { buttons_textureRec.x, buttons_textureRec.y }, { 0,0 }, &buttons_textureRec, 0, 2);
 
 		float race_x = SCREEN_WIDTH / 2 - MeasureTextEx(App->assetLoader->titleFont, App->localization->GetString("SELECTMENU_MODE_RACE").c_str(), 100, 0).x/2;
+		if (App->localization->GetString("SELECTMENU_MODE_RACE").length() > 6) {
+			race_x -= App->assetLoader->titleFont.recs->width;
+		}
 		App->renderer->DrawText(App->localization->GetString("SELECTMENU_MODE_RACE").c_str(), { race_x , race_buttonTextureRec.y }, buttonsText_Offset, App->assetLoader->titleFont, 100, 0, WHITE);
 	
 		float boom_x = SCREEN_WIDTH / 2 - MeasureTextEx(App->assetLoader->titleFont, App->localization->GetString("SELECTMENU_MODE_BOOM").c_str(), 100, 0).x/2;

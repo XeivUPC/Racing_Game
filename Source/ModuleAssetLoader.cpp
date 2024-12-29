@@ -69,16 +69,17 @@ bool ModuleAssetLoader::Init()
 	'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 	'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
 	' ', '.', ',', ':', ';', '\'', '\"', '_', '-',
-	'�', '�', '�', '�', '�', '�', '�', '�', '�', '�',
-	'�', '�', '�', '�', '�', '�', '�', '�', '�', '�',
-	'!', '�'
+	// hard-coding bc it does not recognise the characters
+	192, 193, 200, 201, 204, 205, 210, 211, 217, 218,
+	224, 225, 232, 233, 236, 237, 242, 243, 249, 250,
+	'!', 161, 231, 209
 	};
 	
 	agencyB = FontCreator::GetInstance().CreateFontFromTexture(*textureModule->GetTexture("agencyB"), 10, 20, codepoints2, 0);
 
 	std::vector<int> codepoints3 = {
 	'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
-	'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '�', '�', '�', '�', '�'
+	'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 210, 192, 193, 211, 218, 209
 	};
 	titleFont = FontCreator::GetInstance().CreateFontFromTexture(*textureModule->GetTexture("titleFont"), 30, 50, codepoints3, 0);
 

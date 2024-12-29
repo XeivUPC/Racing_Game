@@ -72,7 +72,7 @@ private:
 
 	Vector2 buttonsText_Offset = { 0, 7 };
 
-	Vector2 description_middle_pos = { 486 * 2, 34 * 2 };
+	Vector2 description_middle_pos = { 483 * 2, 34 * 2 };
 
 	bool isModeChosen = false;
 	MODES currentMode = MODES::NO_MODE;
