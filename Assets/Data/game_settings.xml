@@ -1,0 +1,7 @@
+<settings>
+    <volume>
+        <general value = "1"/>
+        <music value = "0.5"/>
+        <sfx value = "0.5"/>
+    </volume>
+</settings>
