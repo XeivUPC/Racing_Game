@@ -43,13 +43,13 @@ bool SceneOptions::Start()
 	exitSettingsAnimator = new Animator(App);
 
 	AnimationData exitIdleAnim = AnimationData("exitIdle");
-	exitIdleAnim.AddSprite(Sprite{ exitSettings,{0, 0}, {48,48} });
+	exitIdleAnim.AddSprite(Sprite{ exitSettings,{0, 0}, {64,64} });
 
 	AnimationData exitOverAnim = AnimationData("exitOver");
-	exitOverAnim.AddSprite(Sprite{ exitSettings,{1, 0}, {48,48} });
+	exitOverAnim.AddSprite(Sprite{ exitSettings,{1, 0}, {64,64} });
 
 	AnimationData exitClickAnim = AnimationData("exitClick");
-	exitClickAnim.AddSprite(Sprite{ exitSettings,{2, 0}, {48,48} });
+	exitClickAnim.AddSprite(Sprite{ exitSettings,{2, 0}, {64,64} });
 
 	exitSettingsAnimator->AddAnimation(exitIdleAnim);
 	exitSettingsAnimator->AddAnimation(exitOverAnim);
@@ -61,13 +61,13 @@ bool SceneOptions::Start()
 	arrowRightSettingsLanguageAnimator = new Animator(App);
 
 	AnimationData arrowRightLanguageIdleAnim = AnimationData("arrowRightLanguageIdle");
-	arrowRightLanguageIdleAnim.AddSprite(Sprite{ arrowLanguageSettings,{0, 0}, {48,48} });
+	arrowRightLanguageIdleAnim.AddSprite(Sprite{ arrowLanguageSettings,{0, 0}, {34,32} });
 
 	AnimationData arrowRightLanguageOverAnim = AnimationData("arrowRightLanguageOver");
-	arrowRightLanguageOverAnim.AddSprite(Sprite{ arrowLanguageSettings,{1, 0}, {48,48} });
+	arrowRightLanguageOverAnim.AddSprite(Sprite{ arrowLanguageSettings,{1, 0}, {34,32} });
 
 	AnimationData arrowRightLanguageClickAnim = AnimationData("arrowRightLanguageClick");
-	arrowRightLanguageClickAnim.AddSprite(Sprite{ arrowLanguageSettings,{2, 0}, {48,48} });
+	arrowRightLanguageClickAnim.AddSprite(Sprite{ arrowLanguageSettings,{2, 0}, {34,32} });
 
 	arrowRightSettingsLanguageAnimator->AddAnimation(arrowRightLanguageIdleAnim);
 	arrowRightSettingsLanguageAnimator->AddAnimation(arrowRightLanguageOverAnim);
@@ -79,13 +79,13 @@ bool SceneOptions::Start()
 	arrowLeftSettingsLanguageAnimator = new Animator(App);
 
 	AnimationData arrowLeftLanguageIdleAnim = AnimationData("arrowLeftLanguageIdle");
-	arrowLeftLanguageIdleAnim.AddSprite(Sprite{ arrowLanguageSettings,{0, 0}, {48,48} });
+	arrowLeftLanguageIdleAnim.AddSprite(Sprite{ arrowLanguageSettings,{0, 0}, {34,32} });
 
 	AnimationData arrowLeftLanguageOverAnim = AnimationData("arrowLeftLanguageOver");
-	arrowLeftLanguageOverAnim.AddSprite(Sprite{ arrowLanguageSettings,{1, 0}, {48,48} });
+	arrowLeftLanguageOverAnim.AddSprite(Sprite{ arrowLanguageSettings,{1, 0}, {34,32} });
 
 	AnimationData arrowLeftLanguageClickAnim = AnimationData("arrowLeftLanguageClick");
-	arrowLeftLanguageClickAnim.AddSprite(Sprite{ arrowLanguageSettings,{2, 0}, {48,48} });
+	arrowLeftLanguageClickAnim.AddSprite(Sprite{ arrowLanguageSettings,{2, 0}, {34,32} });
 
 	arrowLeftSettingsLanguageAnimator->AddAnimation(arrowLeftLanguageIdleAnim);
 	arrowLeftSettingsLanguageAnimator->AddAnimation(arrowLeftLanguageOverAnim);
@@ -99,14 +99,14 @@ bool SceneOptions::Start()
 
 	//Button Exit
 	float exitSettingsButtonOffset = 30;
-	exitSettingsButtonSize = { 48,48 };
+	exitSettingsButtonSize = { 64,64 };
 	exitSettingsButton = new UIButton(this, Vector2{ SCREEN_WIDTH - (exitSettingsButtonSize.x) - exitSettingsButtonOffset, exitSettingsButtonOffset}, exitSettingsButtonSize);
 	exitSettingsButton->onMouseClick.emplace_back([&]() {Exit(); });
 	exitSettingsButton->onMouseEnter.emplace_back([&]() {EnterExit(); });
 	exitSettingsButton->onMouseExit.emplace_back([&]() {ExitExit(); });
 
 	//Buttons Language
-	languageButtonSize = { 48,48 };
+	languageButtonSize = { 32,32 };
 
 	nextLanguageButton = new UIButton(this, Vector2{ SCREEN_WIDTH / 2 + 130, (SCREEN_HEIGHT / 6) * 2 - 70}, languageButtonSize);
 	nextLanguageButton->onMouseClick.emplace_back([&]() {NextLanguage(); });
@@ -124,7 +124,7 @@ bool SceneOptions::Start()
 
 	//Slider General Volume
 	generalVolumeSliderSize = { 300,10 };
-	generalVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (generalVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 3.15f + (textSize_agencyB.y / 2) - (generalVolumeSliderSize.y / 2) }, generalVolumeSliderSize, {30,30});
+	generalVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (generalVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 3.15f + (textSize_agencyB.y / 2) - (generalVolumeSliderSize.y / 2) }, generalVolumeSliderSize, {32,32});
 
 	float general_value = generalVolumeSlider->GetValue();
 	generalVolumeSlider->onValueChange.emplace_back([&](float general_value) {App->audio->ChangeGeneralVolume(general_value); });
@@ -133,7 +133,7 @@ bool SceneOptions::Start()
 
 	//Slider Music Volume
 	musicVolumeSliderSize = { 300,10 };
-	musicVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (musicVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 4.15f + (textSize_agencyB.y / 2) - (musicVolumeSliderSize.y / 2) }, musicVolumeSliderSize, { 30,30 });
+	musicVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (musicVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 4.15f + (textSize_agencyB.y / 2) - (musicVolumeSliderSize.y / 2) }, musicVolumeSliderSize, { 32,32 });
 
 	float music_value = musicVolumeSlider->GetValue();
 	musicVolumeSlider->onValueChange.emplace_back([&](float music_value) {App->audio->ChangeMusicVolume(music_value); });
@@ -142,7 +142,7 @@ bool SceneOptions::Start()
 
 	//Slider SFX Volume
 	sfxVolumeSliderSize = { 300,10 };
-	sfxVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (sfxVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 5.15f + (textSize_agencyB.y / 2) - (sfxVolumeSliderSize.y / 2) }, sfxVolumeSliderSize, { 30,30 });
+	sfxVolumeSlider = new UISlider(this, Vector2{ SCREEN_WIDTH / 2 - (sfxVolumeSliderSize.x / 2) , (SCREEN_HEIGHT / 6) * 5.15f + (textSize_agencyB.y / 2) - (sfxVolumeSliderSize.y / 2) }, sfxVolumeSliderSize, { 32,32 });
 	
 	float sfx_value = sfxVolumeSlider->GetValue();
 	sfxVolumeSlider->onValueChange.emplace_back([&](float sfx_value) {App->audio->ChangeSfxVolume(sfx_value); });
