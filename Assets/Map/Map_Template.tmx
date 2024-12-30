@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="146" height="79" tilewidth="1" tileheight="1" infinite="0" nextlayerid="8" nextobjectid="1">
+ <imagelayer id="3" name="Texture">
+  <properties>
+   <property name="TextureID" value="MapName"/>
+  </properties>
+ </imagelayer>
+ <objectgroup id="2" name="Collisions"/>
+ <objectgroup id="7" name="StartingPositions"/>
+ <objectgroup id="6" name="CheckPoints"/>
+ <objectgroup id="5" name="TractionAreas"/>
+ <objectgroup id="4" name="Objects"/>
+</map>

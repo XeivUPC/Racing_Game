@@ -1,0 +1,142 @@
+#include "RaceTrack.h"
+#include "Application.h"
+#include "ModuleRender.h"
+#include "ModuleTexture.h"
+#include "ModulePhysics.h"
+#include "Box2DFactory.h"
+
+#include <pugixml.hpp>
+#include <sstream>
+using namespace pugi;
+
+RaceTrack::RaceTrack(Module* moduleAt, string trackPath) : MapObject(moduleAt)
+{
+	this->trackPath = trackPath;
+
+	LoadTrack();
+}
+
+RaceTrack::~RaceTrack()
+{
+}
+
+update_status RaceTrack::Update()
+{
+	return UPDATE_CONTINUE;
+}
+
+bool RaceTrack::Render()
+{
+	moduleAt->App->renderer->Draw(*trackTexture, { 0,0 }, { 0,0 });
+	return true;
+}
+
+bool RaceTrack::CleanUp()
+{
+	for (const auto& collider : trackColliders) {
+		delete collider;
+	}
+	trackColliders.clear();
+
+	return true;
+}
+
+void RaceTrack::LoadTrack()
+{
+	pugi::xml_document trackFile;
+	pugi::xml_parse_result result = trackFile.load_file(trackPath.c_str());
+
+	const Box2DFactory& factory = moduleAt->App->physics->factory();
+
+	if (result)
+	{
+		LOG("config.xml parsed without errors");
+
+		xml_node map_node = trackFile.child("map");
+
+
+		/*Texture From Tiled*/
+
+		xml_node imageLayer_node = map_node.child("imagelayer");
+		xml_node textureId_node = imageLayer_node.child("properties").find_child_by_attribute("property", "name","TextureID");
+		string textureId = textureId_node.attribute("value").as_string();
+		trackTexture = moduleAt->App->texture->GetTexture(textureId);
+		
+
+		/*Other things*/
+
+		for (xml_node objectGroup_node = map_node.child("objectgroup"); objectGroup_node != NULL; objectGroup_node = objectGroup_node.next_sibling("objectgroup")) {
+
+			string objectGroup_name = objectGroup_node.attribute("name").as_string();
+
+			if (objectGroup_name == "Collisions") {
+
+				///Create Map Colliders
+				for (pugi::xml_node collisionNode = objectGroup_node.child("object"); collisionNode != NULL; collisionNode = collisionNode.next_sibling("object"))
+				{
+					std::string collisionPolygonPoints = collisionNode.child("polygon").attribute("points").as_string();
+					vector<Vector2> vertices;
+					FromStringToVertices(collisionPolygonPoints, vertices);
+
+					float x = PIXEL_TO_METERS(collisionNode.attribute("x").as_float());
+					float y = PIXEL_TO_METERS(collisionNode.attribute("y").as_float());
+
+					PhysBody* body = factory.CreateChain({ x,y }, vertices);
+					trackColliders.emplace_back(body);
+				}
+
+			}
+			else if (objectGroup_name == "StartingPositions") {
+
+			}
+			else if (objectGroup_name == "CheckPoints") {
+
+			}
+			else if (objectGroup_name == "TractionAreas") {
+
+			}
+			else if (objectGroup_name == "Objects") {
+
+			}
+		}
+
+	}
+	else
+	{
+		LOG("Error loading config.xml: %s", result.description());
+	}
+}
+
+string RaceTrack::ResolvePath(string basePath, string relativePath)
+{
+	string baseDir = basePath.substr(0, basePath.find_last_of('/'));
+
+	while (relativePath.substr(0, 3) == "../") {
+		baseDir = baseDir.substr(0, baseDir.find_last_of('/'));
+		relativePath = relativePath.substr(3);
+	}
+	return baseDir + '/' + relativePath;
+}
+
+void RaceTrack::FromStringToVertices(string stringData, vector<Vector2>& vector)
+{
+	stringstream ss(stringData);
+	string vectorValue;
+
+	vector.clear();
+
+	while (getline(ss, vectorValue, ' ')) {
+		stringstream ss_vectorValue(vectorValue);
+
+		string x_str, y_str;
+
+		getline(ss_vectorValue, x_str, ',');
+		getline(ss_vectorValue, y_str);
+
+		float x_poly = stof(x_str);
+		float y_poly = stof(y_str);
+
+
+		vector.push_back({ PIXEL_TO_METERS(x_poly),PIXEL_TO_METERS( y_poly) });
+	}
+}

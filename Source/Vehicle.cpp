@@ -9,7 +9,11 @@
 #include "ParticleSystem.h"
 #include <raymath.h>
 
-Vehicle::Vehicle(Module* gameAt, string id) : MapObject(gameAt)
+#include <pugixml.hpp>
+
+using namespace pugi;
+
+Vehicle::Vehicle(Module* moduleAt, string id) : MapObject(moduleAt)
 {
 	CreateVehicle(id);
 	//particleSystem = new ParticleSystem(moduleAt);
@@ -23,7 +27,6 @@ update_status Vehicle::Update()
 {
 	//particleSystem->UpdateParticles();
 
-	GetInput();
 	for (const auto& wheel : wheels)
 	{
 		wheel->Update();	
@@ -79,7 +82,7 @@ bool Vehicle::Render()
 	}
 
 	radianAngle = body->GetAngle();
-	moduleAt->App->renderer->Draw(*vehicleTexture, body->GetPhysicPosition(), vehicleRotatedOffset, &vehicleTextureRec, RAD2DEG * radianAngle, 9, (int)cos(-vehicleRotatedOffset.x), (int)sin(-vehicleRotatedOffset.y));
+	moduleAt->App->renderer->Draw(*vehicleTexture, body->GetPhysicPosition(), vehicleRotatedOffset, &vehicleTextureRec, RAD2DEG * radianAngle, 1.8f, (int)cos(-vehicleRotatedOffset.x), (int)sin(-vehicleRotatedOffset.y));
 
 	for (const auto& wheel : wheels)
 	{
@@ -110,19 +113,15 @@ double Vehicle::GetRotation()
 	return body->GetAngle();
 }
 
-void Vehicle::GetInput()
+
+void Vehicle::SetInput(Vector2 input)
 {
-	moveInput = { 0,0 };
+	moveInput = input;
+}
 
-	if (IsKeyDown(KEY_W))
-		moveInput.y += 1;
-	if (IsKeyDown(KEY_S))
-		moveInput.y -= 1;
-
-	if (IsKeyDown(KEY_A))
-		moveInput.x -= 1;
-	if (IsKeyDown(KEY_D))
-		moveInput.x += 1;
+Vector2 Vehicle::GetPos()
+{
+	return body->GetPosition();
 }
 
 void Vehicle::CreateVehicle(string id)
@@ -172,47 +171,38 @@ void Vehicle::CreateVehicle(string id)
 	maxBackwardSpeed = properties_node.child("max-backward-speed").attribute("value").as_float();
 
 	//// Create Wheels
-	for (xml_node wheelNode = vehicleNode.child("wheels").child("wheel"); wheelNode != NULL; wheelNode = wheelNode.next_sibling("wheel"))
+	for (xml_node wheel_node = vehicleNode.child("wheels").child("wheel"); wheel_node != NULL; wheel_node = wheel_node.next_sibling("wheel"))
 	{
-		CreateWheel(wheelNode);
+		Vector2 wheelSize = { wheel_node.attribute("radius").as_float(), wheel_node.attribute("width").as_float() };
+		Vector2 wheelOffset = { wheel_node.attribute("offset-x").as_float(), wheel_node.attribute("offset-y").as_float() };
+		bool canSteer = wheel_node.attribute("can-steer").as_bool();
+		bool canThrottle = wheel_node.attribute("can-throttle").as_bool();
+
+		xml_node wheel_properties_node = wheel_node.child("properties");
+		float maxDriveForce = wheel_properties_node.child("max-drive-force").attribute("value").as_float();
+		float maxLateralImpulse = wheel_properties_node.child("max-lateral-impulse").attribute("value").as_float();
+
+		Wheel* wheel = new Wheel(this, wheelSize.x, wheelSize.y);
+		wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, maxDriveForce, maxLateralImpulse);
+
+		xml_node texture_node = wheel_node.child("texture");
+		std::string textureName = texture_node.attribute("name").as_string();
+		Vector2 texturePos = { texture_node.attribute("pos-x").as_float(),texture_node.attribute("pos-y").as_float() };
+		Vector2 textureSize = { texture_node.attribute("size-x").as_float(),texture_node.attribute("size-y").as_float() };
+		Texture2D* wheelTexture = moduleAt->App->texture->GetTexture(textureName.c_str());
+		Rectangle wheelTextureRec = { texturePos.x,texturePos.y,textureSize.x,textureSize.y };
+
+		bool rendereable = wheel_properties_node.child("rendereable").attribute("value").as_bool();
+		bool renderOverVehicle = wheel_properties_node.child("renders-over-vehicle").attribute("value").as_bool();
+		wheel->SetUpWheelRenderCharacteristics(wheelTexture, wheelTextureRec, rendereable, renderOverVehicle);
+
+		PhysJoint* joint = factory.CreateRevoluteJoint(body, wheel->body, wheelOffset, { 0,0 }, true, 0, 0);
+		wheel->InstallJoint(joint);
+
+		wheels.emplace_back(wheel);
+		if (canThrottle)
+			throttlingWheels.emplace_back(wheel);
+		if (canSteer)
+			steeringWheels.emplace_back(wheel);
 	}
-}
-
-Wheel* Vehicle::CreateWheel(xml_node wheel_node)
-{
-	const Box2DFactory& factory = moduleAt->App->physics->factory();
-
-	Vector2 wheelSize = { wheel_node.attribute("radius").as_float(), wheel_node.attribute("width").as_float() };
-	Vector2 wheelOffset = { wheel_node.attribute("offset-x").as_float(), wheel_node.attribute("offset-y").as_float() };
-	bool canSteer = wheel_node.attribute("can-steer").as_bool();
-	bool canThrottle = wheel_node.attribute("can-throttle").as_bool();
-
-	xml_node wheel_properties_node = wheel_node.child("properties");
-	float maxDriveForce = wheel_properties_node.child("max-drive-force").attribute("value").as_float();
-	float maxLateralImpulse = wheel_properties_node.child("max-lateral-impulse").attribute("value").as_float();
-
-	Wheel* wheel = new Wheel(this, wheelSize.x, wheelSize.y);
-	wheel->SetUpWheelCharacteristics(maxForwardSpeed, maxBackwardSpeed, maxDriveForce, maxLateralImpulse);
-
-	xml_node texture_node = wheel_node.child("texture");
-	std::string textureName = texture_node.attribute("name").as_string();
-	Vector2 texturePos = { texture_node.attribute("pos-x").as_float(),texture_node.attribute("pos-y").as_float() };
-	Vector2 textureSize = { texture_node.attribute("size-x").as_float(),texture_node.attribute("size-y").as_float() };
-	Texture2D* wheelTexture = moduleAt->App->texture->GetTexture(textureName.c_str());
-	Rectangle wheelTextureRec = { texturePos.x,texturePos.y,textureSize.x,textureSize.y };
-
-	bool rendereable = wheel_properties_node.child("rendereable").attribute("value").as_bool();
-	bool renderOverVehicle = wheel_properties_node.child("renders-over-vehicle").attribute("value").as_bool();
-	wheel->SetUpWheelRenderCharacteristics(wheelTexture, wheelTextureRec, rendereable, renderOverVehicle);
-
-	PhysJoint* joint = factory.CreateRevoluteJoint(body, wheel->body, wheelOffset, { 0,0 }, true, 0, 0);
-	wheel->InstallJoint(joint);
-
-	wheels.emplace_back(wheel);
-	if (canThrottle)
-		throttlingWheels.emplace_back(wheel);
-	if (canSteer)
-		steeringWheels.emplace_back(wheel);
-
-	return wheel;
 }

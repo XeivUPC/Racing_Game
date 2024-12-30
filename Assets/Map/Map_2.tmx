@@ -1,82 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="146" height="79" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="34">
- <imagelayer id="2" name="Bg" offsetx="-24" offsety="0">
-  <image source="Map 2.png" width="2440" height="1272"/>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="146" height="79" tilewidth="1" tileheight="1" infinite="0" nextlayerid="8" nextobjectid="34">
+ <imagelayer id="2" name="Texture">
+  <image source="../Textures/Map 2.png" width="2440" height="1272"/>
+  <properties>
+   <property name="TextureID" value="Map2"/>
+  </properties>
  </imagelayer>
  <objectgroup id="3" name="Collisions">
-  <object id="1" x="254.5" y="776.75">
+  <object id="1" x="279.5" y="776.75">
    <polygon points="0,0 7.5,-6.5 152.629,-8.65909 418.5,-77.25 567,-206.25 593.5,-252.25 603,-314.25 625.75,-358.25 671,-395.75 721.25,-412.75 774.5,-409 1313.5,-183.114 1374.25,-170 1440.5,-172.5 1586.25,-189.25 1636.25,-183.5 1717.25,-148 1749.75,-113.25 1763.5,-72.25 1764.25,-32.5 1747.25,8.75 1714.25,41 1666.25,59.5 1614.75,70.25 1562.25,65.75 1366,37 1314.25,35.75 993.5,48.5833 928.5,39.9167 858.5,13.25 756.5,-40.0833 707.167,-56.4167 640.833,-62.0833 420.439,-60.9924 150.913,7.07386 9.16667,8.58333"/>
   </object>
-  <object id="33" x="0" y="0">
+  <object id="33" x="25" y="0">
    <polygon points="0,0 2336,0 2336,1264 0,1264 0,0 -16,0 -16,1280 2352,1280 2352,-16 0,-16"/>
   </object>
  </objectgroup>
- <objectgroup id="4" name="LapSensors">
-  <object id="19" x="1030.67" y="385.333">
+ <objectgroup id="7" name="StartingPositions"/>
+ <objectgroup id="4" name="CheckPoints">
+  <object id="19" x="1062.67" y="385.333">
    <properties>
     <property name="Order" type="int" value="0"/>
    </properties>
    <polygon points="524.25,414.167 524,886.667 572,886.667 572.25,414.167"/>
   </object>
-  <object id="20" x="86.67" y="385.333">
+  <object id="20" x="118.67" y="385.333">
    <properties>
     <property name="Order" type="int" value="1"/>
    </properties>
    <polygon points="616.33,321 614.667,902.667 678.667,902.667 680.33,322.334"/>
   </object>
-  <object id="21" x="-127.33" y="286.666">
+  <object id="21" x="-95.33" y="286.666">
    <properties>
     <property name="Order" type="int" value="2"/>
    </properties>
    <polygon points="448.833,493.758 144.667,1048 36.6667,959.333 397.53,493.788"/>
   </object>
-  <object id="22" x="-114.33" y="68.333">
+  <object id="22" x="-82.33" y="68.333">
    <properties>
     <property name="Order" type="int" value="3"/>
    </properties>
    <polygon points="387.417,709 20,-60 192,-109 437.667,707.667"/>
   </object>
-  <object id="23" x="83.67" y="-3.667">
+  <object id="23" x="115.67" y="-3.667">
    <properties>
     <property name="Order" type="int" value="4"/>
    </properties>
    <polygon points="428,754.667 294,-60 417,-68 506.833,729.833"/>
   </object>
-  <object id="24" x="361.337" y="-178">
+  <object id="24" x="393.337" y="-178">
    <properties>
     <property name="Order" type="int" value="5"/>
    </properties>
    <polygon points="544,626 515.333,722 293.333,151.333 371.333,148"/>
   </object>
-  <object id="25" x="619.337" y="-288">
+  <object id="25" x="651.337" y="-288">
    <properties>
     <property name="Order" type="int" value="6"/>
    </properties>
    <polygon points="459.667,739 590.667,230.667 502,223.333 409.667,726.333"/>
   </object>
-  <object id="27" x="894.67" y="194.333">
+  <object id="27" x="926.67" y="194.333">
    <properties>
     <property name="Order" type="int" value="7"/>
    </properties>
    <polygon points="457.333,356 627.667,-224.667 683.333,-220.333 513,380.667"/>
   </object>
-  <object id="29" x="1063.67" y="-20.667">
+  <object id="29" x="1095.67" y="-20.667">
    <properties>
     <property name="Order" type="int" value="8"/>
    </properties>
    <polygon points="918.667,-20.9697 664,674 749,670.333 1049.67,-31.9697"/>
   </object>
-  <object id="31" x="1294.67" y="166.333">
+  <object id="31" x="1326.67" y="166.333">
    <properties>
     <property name="Order" type="int" value="9"/>
    </properties>
    <polygon points="632.667,496 1188,499 1160,619 624.667,564"/>
   </object>
-  <object id="32" x="1376" y="352">
+  <object id="32" x="1408" y="352">
    <properties>
     <property name="Order" type="int" value="10"/>
    </properties>
    <polygon points="548.5,424.5 755.333,976 678,1006 488,448"/>
   </object>
  </objectgroup>
+ <objectgroup id="6" name="TractionAreas"/>
+ <objectgroup id="5" name="Objects"/>
 </map>

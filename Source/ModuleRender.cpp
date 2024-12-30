@@ -26,17 +26,25 @@ bool ModuleRender::Init()
 
     cursor.SetCursor("Assets/Textures/Cursor.png");
 
+    camera = { 0 };
+    camera.target = { 0.0f, 0.0f };
+    camera.offset = { 0.0f, 0.0f };
+    camera.rotation = 0.0f;
+    camera.zoom = 1.0f;
+
 	return ret;
 }
 
 // PreUpdate: clear buffer
 update_status ModuleRender::PreUpdate()
 {
+    
     ClearBackground(background);
     for (size_t i = 0; i < layers.size(); i++)
     {
         CleanRenderLayer(layers[i]);
     }
+
 	return UPDATE_CONTINUE;
 }
 
@@ -48,7 +56,7 @@ update_status ModuleRender::Update()
     // maximum performance, all consecutive Draw() calls are
     // not processed until EndDrawing() is called
     BeginDrawing();
-
+    
 	return UPDATE_CONTINUE;
 }
 
@@ -91,6 +99,8 @@ void ModuleRender::SetBackgroundColor(Color color)
 bool ModuleRender::Draw(Texture2D texture, Vector2 position, Vector2 offset, const Rectangle* section, double angle, float scale, int pivot_x, int pivot_y, Color tint )
 {
     BeginTextureMode(layers.at(currentRenderLayer).data);
+    if (IsCameraMode())
+        BeginMode2D(camera);
     bool ret = true;
 
     double radians = DEG2RAD * (angle);
@@ -115,6 +125,8 @@ bool ModuleRender::Draw(Texture2D texture, Vector2 position, Vector2 offset, con
 
     // Rotate the texture using DrawTexturePro with the correct parameters
     DrawTexturePro(texture, rect, destRect, pivot, (float)angle, tint);
+    if (IsCameraMode())
+        EndMode2D();
     EndTextureMode();
     if (!IsRenderLayerBlocked())
         ResetRenderLayer();
@@ -124,8 +136,12 @@ bool ModuleRender::Draw(Texture2D texture, Vector2 position, Vector2 offset, con
 bool ModuleRender::DrawSimpleRectangle(Rectangle bounds, Color tint)
 {
     BeginTextureMode(layers.at(currentRenderLayer).data);
+    if (IsCameraMode())
+        BeginMode2D(camera);
     bool ret = true;
     DrawRectangle((int)bounds.x, (int)bounds.y, (int)bounds.width, (int)bounds.height, tint);
+    if (IsCameraMode())
+        EndMode2D();
     EndTextureMode();
     if (!IsRenderLayerBlocked())
         ResetRenderLayer();
@@ -135,8 +151,12 @@ bool ModuleRender::DrawSimpleRectangle(Rectangle bounds, Color tint)
 bool ModuleRender::DrawSimpleCircle(Vector2 position, float radius, Color tint)
 {
     BeginTextureMode(layers.at(currentRenderLayer).data);
+    if (IsCameraMode())
+        BeginMode2D(camera);
     bool ret = true;
     DrawCircle((int)position.x, (int)position.y, radius, tint);
+    if (IsCameraMode())
+        EndMode2D();
     EndTextureMode();
     if (!IsRenderLayerBlocked())
         ResetRenderLayer();
@@ -146,8 +166,12 @@ bool ModuleRender::DrawSimpleCircle(Vector2 position, float radius, Color tint)
 bool ModuleRender::DrawSimpleLine(Rectangle bounds,Color tint)
 {
     BeginTextureMode(layers.at(currentRenderLayer).data);
+    if (IsCameraMode())
+        BeginMode2D(camera);
     bool ret = true;
     DrawLine((int)bounds.x, (int)bounds.y, (int)bounds.width, (int)bounds.height, tint);
+    if (IsCameraMode())
+        EndMode2D();
     EndTextureMode();
     if (!IsRenderLayerBlocked())
         ResetRenderLayer();
@@ -157,8 +181,12 @@ bool ModuleRender::DrawSimpleLine(Rectangle bounds,Color tint)
 bool ModuleRender::DrawSimpleCircleLine(Vector2 position, float radius, Color tint)
 {
     BeginTextureMode(layers.at(currentRenderLayer).data);
+    if(IsCameraMode())
+        BeginMode2D(camera);
     bool ret = true;
     DrawCircleLines((int)position.x, (int)position.y, radius, tint);
+    if (IsCameraMode())
+        EndMode2D();
     EndTextureMode();
     if (!IsRenderLayerBlocked())
         ResetRenderLayer();
@@ -168,10 +196,14 @@ bool ModuleRender::DrawSimpleCircleLine(Vector2 position, float radius, Color ti
 bool ModuleRender::DrawText(const char* text, Vector2 position, Vector2 offset, Font font, int fontSize, int spacing, Color tint)
 {
     BeginTextureMode(layers.at(currentRenderLayer).data);
+    if(IsCameraModeAffectingText())
+        BeginMode2D(camera);
     bool ret = true;
     position = { (float)position.x + offset.x, (float)position.y + offset.y };
 
     DrawTextEx(font, text, position, (float)fontSize, (float)spacing, tint);
+    if (IsCameraModeAffectingText())
+        EndMode2D();
     EndTextureMode();
     if (!IsRenderLayerBlocked())
         ResetRenderLayer();
@@ -214,6 +246,26 @@ bool ModuleRender::IsRenderLayerBlocked()
 void ModuleRender::ResetRenderLayer()
 {
     currentRenderLayer = DEFAULT;
+}
+
+void ModuleRender::SetCameraMode(bool status)
+{
+    cameraMode = status;
+}
+
+bool ModuleRender::IsCameraMode()
+{
+    return cameraMode;
+}
+
+void ModuleRender::SetCameraModeAffectText(bool status)
+{
+    cameraModeAffectsText = status;
+}
+
+bool ModuleRender::IsCameraModeAffectingText()
+{
+    return cameraMode && cameraModeAffectsText;
 }
 
 void ModuleRender::RenderLayerToScreen(Layer layer)
