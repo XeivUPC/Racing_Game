@@ -18,8 +18,8 @@ public:
 	void ExplodePlayer();
 	void ExplodeCPU();
 
-	double GetTimeToExploadeSec() const;
-	void SetTimeToExploadeSec(double time);
+	double GetTimeToExplodeSec() const;
+	void SetTimeToExplodeSec(double time);
 
 	void EndRace();
 

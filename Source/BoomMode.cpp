@@ -49,12 +49,12 @@ void BoomMode::ExplodeCPU()
 	timeToExplode.Start();
 }
 
-double BoomMode::GetTimeToExploadeSec() const
+double BoomMode::GetTimeToExplodeSec() const
 {
 	return timeToExplode.ReadSec();
 }
 
-void BoomMode::SetTimeToExploadeSec(double time)
+void BoomMode::SetTimeToExplodeSec(double time)
 {
 	explosionTime = time;
 }
