@@ -55,7 +55,6 @@ void Wheel::UpdateFriction()
 	float dragForceMagnitude = -2 * currentForwardSpeed;
 	body->ApplyForce(Vector2Scale(currentForwardNormal,currentTraction * dragForceMagnitude), body->GetWorldCenter());
 
-	
 }
 
 void Wheel::SetUpWheelCharacteristics(float maxForwardSpeed, float maxBackwardSpeed, float maxDriveForce, float maxLateralImpulse)

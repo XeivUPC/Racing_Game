@@ -51,6 +51,8 @@ bool ModuleAssetLoader::Init()
 	// Game
 	textureModule->CreateTexture("Assets/Textures/Map 1.png", "Map1");
 	textureModule->CreateTexture("Assets/Textures/Map 2.png", "Map2");
+	textureModule->CreateTexture("Assets/Textures/objectsSpring.png", "objectsSpring");
+	textureModule->CreateTexture("Assets/Textures/objectsWinter.png", "objectsWinter");
 
 	//// Audios
 	audioMotorId = audioModule->LoadFx("Assets/Sounds/Sfx/MotorSFX.wav");

@@ -9,6 +9,7 @@
 
 #include "Vehicle.h"
 #include "RaceTrack.h"
+#include "Tree.h"
 
 
 SceneGame::SceneGame(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
@@ -27,6 +28,8 @@ bool SceneGame::Start()
 
 	car = new Vehicle(this, "car-type1");
 	track = new RaceTrack(this, "Assets/Map/Map_2.tmx");
+
+	tree = new Tree(this, {40,40});
 
 	StartFadeOut(WHITE, 0.5f);
 	return ret;
@@ -65,6 +68,7 @@ update_status SceneGame::Update()
 
 	car->Update();
 	track->Update();
+	tree->Update();
 
 	App->renderer->camera.target = { (float)METERS_TO_PIXELS(car->GetPos().x),(float)METERS_TO_PIXELS(car->GetPos().y) };
 	App->renderer->camera.offset = { GetScreenWidth()/2.f,GetScreenHeight()/2.f};

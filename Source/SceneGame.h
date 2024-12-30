@@ -11,6 +11,7 @@
 class PhysBody;
 class Vehicle;
 class RaceTrack;
+class Tree;
 
 class SceneGame : public ModuleScene
 {
@@ -26,4 +27,6 @@ public:
 public:
 	Vehicle* car;
 	RaceTrack* track;
+
+	Tree* tree;
 };
