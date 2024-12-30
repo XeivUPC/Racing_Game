@@ -358,7 +358,7 @@ void SceneOptions::Exit()
 	//Go to MainMenu or the Game Scene
 	exitSettingsAnimator->SelectAnimation("exitClick", false);
 	App->audio->PlayFx(App->assetLoader->audioMotorId);
-	StartFadeIn(App->scene_main_menu, BLACK, 0.3f);
+	StartFadeIn(nullptr, BLACK, 0.3f);
 }
 
 void SceneOptions::EnterExit()

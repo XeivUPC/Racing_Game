@@ -14,7 +14,7 @@ public:
 	virtual bool Render();
 	virtual bool CleanUp();
 
-	void StartFadeIn(ModuleScene* target, Color color, float time);
+	void StartFadeIn(ModuleScene* target, Color color, float time, bool additiveLoad = false);
 	void StartFadeOut(Color color, float time);
 
 	void FadeUpdate();
@@ -29,6 +29,7 @@ private:
 	float fadeTime = -1;
 
 	ModuleScene* fadeTarget = nullptr;
+	bool unloadOnFade = false;
 
 	bool doingFadeIn = false;
 	bool doingFadeOut = false;
