@@ -4,6 +4,7 @@
 #include "ModuleTexture.h"
 #include "ModulePhysics.h"
 #include "Box2DFactory.h"
+#include "MapLapSensor.h"
 
 #include <pugixml.hpp>
 #include <sstream>
@@ -90,7 +91,23 @@ void RaceTrack::LoadTrack()
 
 			}
 			else if (objectGroup_name == "CheckPoints") {
+				///Create Map Colliders
+				for (pugi::xml_node checkPointNode = objectGroup_node.child("object"); checkPointNode != NULL; checkPointNode = checkPointNode.next_sibling("object"))
+				{
+					std::string collisionPolygonPoints = checkPointNode.child("polygon").attribute("points").as_string();
+					vector<Vector2> vertices;
+					FromStringToVertices(collisionPolygonPoints, vertices);
 
+					float x = PIXEL_TO_METERS(checkPointNode.attribute("x").as_float());
+					float y = PIXEL_TO_METERS(checkPointNode.attribute("y").as_float());
+
+					xml_node order_node = checkPointNode.child("properties").find_child_by_attribute("property", "name", "Order");
+					int order = order_node.attribute("value").as_int();
+
+					MapLapSensor* sensor = new MapLapSensor(moduleAt, { x,y }, vertices, order);
+
+					mapLapSensor.emplace_back(sensor);
+				}
 			}
 			else if (objectGroup_name == "TractionAreas") {
 
