@@ -158,6 +158,7 @@
     <ClCompile Include="Source\RaceTrack.cpp">
       <Filter>MapObjects\Type %28MapObjects%29\Map</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PauseMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ModuleAssetLoader.h">
@@ -273,6 +274,7 @@
     <ClInclude Include="Source\RaceTrack.h">
       <Filter>MapObjects\Type %28MapObjects%29\Map</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PauseMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Assets\Data\vehicle_data.xml">

@@ -3,7 +3,7 @@
 	<volume>
 		<general value="0.50333333" />
 		<music value="0.5" />
-		<sfx value="0.5" />
+		<sfx value="0.50333333" />
 	</volume>
-	<language value="2" />
+	<language value="0" />
 </settings>

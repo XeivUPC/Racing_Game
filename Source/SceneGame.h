@@ -10,6 +10,7 @@
 
 class PhysBody;
 class Vehicle;
+class PauseMenu;
 
 class SceneGame : public ModuleScene
 {
@@ -24,4 +25,5 @@ public:
 
 public:
 	Vehicle* car;
+	PauseMenu* pauseMenu;
 };
