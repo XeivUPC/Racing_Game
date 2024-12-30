@@ -166,9 +166,12 @@
     </ClCompile>
     <ClCompile Include="Source\RaceMode.cpp">
       <Filter>GameModes\Type %28GameMode%29</Filter>
-      </ClCompile>
+    </ClCompile>
     <ClCompile Include="Source\RaceTrack.cpp">
       <Filter>MapObjects\Type %28MapObjects%29\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BoomMode.cpp">
+      <Filter>GameModes\Type %28GameMode%29</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -287,6 +290,9 @@
     </ClInclude>
     <ClInclude Include="Source\RaceTrack.h">
       <Filter>MapObjects\Type %28MapObjects%29\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BoomMode.h">
+      <Filter>GameModes\Type %28GameMode%29</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
