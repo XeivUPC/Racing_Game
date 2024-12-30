@@ -6,13 +6,14 @@
 using namespace std;
 
 class PhysBody;
+class MapLapSensor;
 
-class RackTrack : public MapObject
+class RaceTrack : public MapObject
 {
 public:
 
-	RackTrack(Module* moduleAt, string trackPath);
-	~RackTrack();
+	RaceTrack(Module* moduleAt, string trackPath);
+	~RaceTrack();
 
 	update_status Update();
 	bool Render();
@@ -21,8 +22,13 @@ public:
 private:
 
 	void LoadTrack();
+	string ResolvePath(string basePath, string relativePath);
+
+	void FromStringToVertices(std::string stringData, std::vector<Vector2>& vector);
+
 	string trackPath;
 
 	Texture* trackTexture = nullptr;
 	vector<PhysBody*> trackColliders;
+	vector<MapLapSensor*> mapLapSensor;
 };

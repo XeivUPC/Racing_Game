@@ -9,6 +9,7 @@
 #include "PauseMenu.h"
 
 #include "Vehicle.h"
+#include "RaceTrack.h"
 
 
 SceneGame::SceneGame(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
@@ -24,12 +25,13 @@ bool SceneGame::Start()
 {
 	LOG("Loading Intro assets");
 	bool ret = true;
-
-	car = new Vehicle(this, "moto-type2");
 	//// Aqui ponemos todos los chars de la fuente en orden
 	
 	pauseMenu = new PauseMenu(this);
 	pauseMenu->Start();
+	car = new Vehicle(this, "car-type1");
+	track = new RaceTrack(this, "Assets/Map/Map_2.tmx");
+
 	StartFadeOut(WHITE, 0.5f);
 	return ret;
 }
@@ -42,6 +44,9 @@ bool SceneGame::CleanUp()
 	delete car;
 	pauseMenu->CleanUp();
 	delete pauseMenu;
+
+	track->CleanUp();
+	delete track;
 	return true;
 }
 
@@ -49,7 +54,12 @@ bool SceneGame::CleanUp()
 update_status SceneGame::Update()
 {
 	if(pauseMenu)
+	{
 		car->Update();
+		track->Update();
+		App->renderer->camera.target = { (float)METERS_TO_PIXELS(car->GetPos().x),(float)METERS_TO_PIXELS(car->GetPos().y) };
+		App->renderer->camera.offset = { GetScreenWidth()/2.f,GetScreenHeight()/2.f};
+	}
 	
 	if (IsKeyPressed(KEY_P))
 		pauseMenu->Pause();
@@ -62,6 +72,7 @@ update_status SceneGame::Update()
 
 bool SceneGame::Render()
 {
+	track->Render();
 	car->Render();
 	pauseMenu->Render();
 	ModuleScene::FadeRender();
