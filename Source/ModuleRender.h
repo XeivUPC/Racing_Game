@@ -56,6 +56,14 @@ public:
 
 	void ResetRenderLayer();
 
+	/// CameraMode
+
+	void SetCameraMode(bool status);
+	bool IsCameraMode();
+	void SetCameraModeAffectText(bool status);
+	bool IsCameraModeAffectingText();
+
+
 
 public:
 
@@ -78,4 +86,7 @@ private:
 	std::vector<Layer> layers;
 	RenderLayer currentRenderLayer = DEFAULT;
 	bool blockRenderLayer = false;
+
+	bool cameraMode = true;
+	bool cameraModeAffectsText = false;
 };

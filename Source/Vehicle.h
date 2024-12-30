@@ -19,9 +19,10 @@ public:
 	bool Render();
 	bool CleanUp();
 	double GetRotation();
+	void SetInput(Vector2 input);
+	Vector2 GetPos();
 
 private:
-	void SetInput(Vector2 input);
 
 	void CreateVehicle(string id);
 

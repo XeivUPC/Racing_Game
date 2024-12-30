@@ -48,6 +48,10 @@ bool ModuleAssetLoader::Init()
 	textureModule->CreateTexture("Assets/Textures/settings_arrow_right.png", "arrowSettings");
 	textureModule->CreateTexture("Assets/Textures/settings_exit.png", "exitSettings");
 
+	// Game
+	textureModule->CreateTexture("Assets/Textures/Map 1.png", "Map1");
+	textureModule->CreateTexture("Assets/Textures/Map 2.png", "Map2");
+
 	//// Audios
 	audioMotorId = App->audio->LoadFx("Assets/Sounds/Sfx/MotorSFX.wav");
 	audioClickId = App->audio->LoadFx("Assets/Sounds/Sfx/Ui_Click.wav");

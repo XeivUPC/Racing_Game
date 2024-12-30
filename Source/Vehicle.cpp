@@ -82,7 +82,7 @@ bool Vehicle::Render()
 	}
 
 	radianAngle = body->GetAngle();
-	moduleAt->App->renderer->Draw(*vehicleTexture, body->GetPhysicPosition(), vehicleRotatedOffset, &vehicleTextureRec, RAD2DEG * radianAngle, 9, (int)cos(-vehicleRotatedOffset.x), (int)sin(-vehicleRotatedOffset.y));
+	moduleAt->App->renderer->Draw(*vehicleTexture, body->GetPhysicPosition(), vehicleRotatedOffset, &vehicleTextureRec, RAD2DEG * radianAngle, 1.8f, (int)cos(-vehicleRotatedOffset.x), (int)sin(-vehicleRotatedOffset.y));
 
 	for (const auto& wheel : wheels)
 	{
@@ -117,6 +117,11 @@ double Vehicle::GetRotation()
 void Vehicle::SetInput(Vector2 input)
 {
 	moveInput = input;
+}
+
+Vector2 Vehicle::GetPos()
+{
+	return body->GetPosition();
 }
 
 void Vehicle::CreateVehicle(string id)
