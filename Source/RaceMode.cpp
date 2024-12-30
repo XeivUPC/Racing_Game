@@ -15,17 +15,17 @@ bool RaceMode::Init()
 
 update_status RaceMode::PreUpdate()
 {
-	return update_status();
+	return UPDATE_CONTINUE;
 }
 
 update_status RaceMode::Update()
 {
-	return update_status();
+	return UPDATE_CONTINUE;
 }
 
 update_status RaceMode::PostUpdate()
 {
-	return update_status();
+	return UPDATE_CONTINUE;
 }
 
 bool RaceMode::CleanUp()
