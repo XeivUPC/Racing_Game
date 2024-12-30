@@ -12,23 +12,27 @@ public:
 	~RaceMode();
 
 	bool Init();
-	update_status PreUpdate();
 	update_status Update();
-	update_status PostUpdate();
 	bool CleanUp();
 
-	int GetLapNum() const;
-	//int SetLapNum();
+	int GetCurrentLapNum() const;
+	void SetLapNum(int lapNum);
 
 	double GetLapTimeSec(int lapNum) const;
+	double GetCurrentLapTimeSec() const;
 
+	void EndRace();
 
 private:
-	int lapCounter = 0;
+	int currentLap = 0;
 	Timer lapTimeCounter;
 	
 	int maxLapNum = 3;
 	vector<double> lapTimes;
+
+	// Temporal bools
+	bool hasPlayerFinishedLap = false;
+	bool timerStarted = false;
 
 };
 

@@ -13,6 +13,8 @@ private:
 	Timer totalRaceTime;
 	Timer startCountdown;
 
+	bool raceStarted = false;
+
 public:
 	Application* App;
 
@@ -70,6 +72,7 @@ public:
 	{
 		if (startCountdown.ReadSec() == 5) {
 			totalRaceTime.Start();
+			raceStarted = true;
 		}
 		return UPDATE_CONTINUE;
 	}
@@ -92,6 +95,10 @@ public:
 	double GetCountdownTime() const
 	{
 		return startCountdown.ReadSec();
+	}
+
+	bool IsRaceStarted() const {
+		return raceStarted;
 	}
 
 };
