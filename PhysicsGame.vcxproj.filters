@@ -58,6 +58,12 @@
     <Filter Include="Systems\UI Elements\Type %28UI Elements%29">
       <UniqueIdentifier>{b8dca133-cd66-4c85-befb-085954201f28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameModes">
+      <UniqueIdentifier>{bea8adf1-e21d-4449-9508-4224eb50ffd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameModes\Type %28GameMode%29">
+      <UniqueIdentifier>{63c2187a-8b6a-4ebd-9cb5-77a0576fb2c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleAssetLoader.cpp">
@@ -144,13 +150,19 @@
       <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneSelectSetup.cpp">
-    <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
+      <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneIntro.cpp">
       <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClCompile>
     <ClCompile Include="Source\ModuleUserPreferences.cpp">
       <Filter>Modules\Type %28Module%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RaceMode.h">
+      <Filter>GameModes\Type %28GameMode%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RaceMode.cpp">
+      <Filter>GameModes\Type %28GameMode%29</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -263,6 +275,9 @@
     </ClInclude>
     <ClInclude Include="Source\ModuleUserPreferences.h">
       <Filter>Modules\Type %28Module%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameMode.h">
+      <Filter>GameModes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
