@@ -57,11 +57,15 @@ bool SceneMainMenu::Start()
 
 update_status SceneMainMenu::Update()
 {
-	play_button->Update();
-	settings_button->Update();
-	FadeUpdate();
+	if (!App->scene_options->IsEnabled()) {
+		play_button->Update();
+		settings_button->Update();
 
-	Render();
+		FadeUpdate();
+
+		Render();
+	}
+
 
 	return UPDATE_CONTINUE;
 }
@@ -108,7 +112,7 @@ void SceneMainMenu::ClickPlay()
 void SceneMainMenu::ClickSettings()
 {
 	App->audio->PlayFx(App->assetLoader->audioMotorId);
-	StartFadeIn(App->scene_options, BLACK, 0.3f);
+	StartFadeIn(App->scene_options, BLACK, 0.3f, true);
 	// Go to Options Scene
 }
 

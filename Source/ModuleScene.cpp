@@ -33,11 +33,12 @@ bool ModuleScene::CleanUp()
     return true;
 }
 
-void ModuleScene::StartFadeIn(ModuleScene* target, Color color, float time)
+void ModuleScene::StartFadeIn(ModuleScene* target, Color color, float time, bool additiveLoad)
 {
 	if (doingFadeIn)
 		return;
 
+	unloadOnFade = !additiveLoad;
 	fadeTarget = target;
 	fadeColor = color;
 	fadeTime = time;
@@ -104,7 +105,7 @@ void ModuleScene::FadeIn()
 				fadeTarget->Enable();
 			}
 		}
-		if (fadeTarget != this) {
+		if (fadeTarget != this && unloadOnFade) {
 			Disable();
 		}
 	}
