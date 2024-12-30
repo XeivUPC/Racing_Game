@@ -19,6 +19,7 @@ public:
 	void ExplodeCPU();
 
 	double GetTimeToExploadeSec() const;
+	void SetTimeToExploadeSec(double time);
 
 	void EndRace();
 

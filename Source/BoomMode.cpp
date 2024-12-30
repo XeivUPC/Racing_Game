@@ -54,6 +54,11 @@ double BoomMode::GetTimeToExploadeSec() const
 	return timeToExplode.ReadSec();
 }
 
+void BoomMode::SetTimeToExploadeSec(double time)
+{
+	explosionTime = time;
+}
+
 void BoomMode::EndRace()
 {
 	// Go to results
