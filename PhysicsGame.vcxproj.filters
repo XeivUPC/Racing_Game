@@ -63,6 +63,7 @@
     </Filter>
     <Filter Include="GameModes\Type %28GameMode%29">
       <UniqueIdentifier>{63c2187a-8b6a-4ebd-9cb5-77a0576fb2c3}</UniqueIdentifier>
+	</Filter>
     <Filter Include="MapObjects\Type %28MapObjects%29\Map">
       <UniqueIdentifier>{5c245351-c5ea-426a-8dff-2d92f1d21dab}</UniqueIdentifier>
     </Filter>
@@ -165,6 +166,7 @@
     </ClCompile>
     <ClCompile Include="Source\RaceMode.cpp">
       <Filter>GameModes\Type %28GameMode%29</Filter>
+	</ClCompile>
     <ClCompile Include="Source\RaceTrack.cpp">
       <Filter>MapObjects\Type %28MapObjects%29\Map</Filter>
     </ClCompile>
@@ -282,6 +284,7 @@
     </ClInclude>
     <ClInclude Include="Source\GameMode.h">
       <Filter>GameModes</Filter>
+	</ClInclude>
     <ClInclude Include="Source\RaceTrack.h">
       <Filter>MapObjects\Type %28MapObjects%29\Map</Filter>
     </ClInclude>
