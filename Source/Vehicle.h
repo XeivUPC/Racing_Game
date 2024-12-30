@@ -2,9 +2,7 @@
 #include "MapObject.h"
 #include <vector>
 #include <string>
-#include <pugixml.hpp>
 
-using namespace pugi;
 using namespace std;
 
 class Wheel;
@@ -15,7 +13,7 @@ class Vehicle : public MapObject
 {
 public:
 
-	Vehicle(Module* gameAt, string id);
+	Vehicle(Module* moduleAt, string id);
 	~Vehicle();
 	update_status Update();
 	bool Render();
@@ -23,10 +21,9 @@ public:
 	double GetRotation();
 
 private:
-	void GetInput();
+	void SetInput(Vector2 input);
 
 	void CreateVehicle(string id);
-	Wheel* CreateWheel(xml_node wheel_node);
 
 	vector<Wheel*> steeringWheels;
 	vector<Wheel*> throttlingWheels;
