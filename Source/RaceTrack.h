@@ -6,6 +6,7 @@
 using namespace std;
 
 class PhysBody;
+class MapLapSensor;
 
 class RaceTrack : public MapObject
 {
@@ -29,4 +30,5 @@ private:
 
 	Texture* trackTexture = nullptr;
 	vector<PhysBody*> trackColliders;
+	vector<MapLapSensor*> mapLapSensor;
 };
