@@ -1,14 +1,17 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRender.h"
+#include "ModuleWindow.h"
 #include "ModuleAssetLoader.h"
 #include "SceneGame.h"
 #include "ModuleAudio.h"
 #include "ModuleTexture.h"
 #include "ModulePhysics.h"
+#include "PauseMenu.h"
 
-#include "Vehicle.h"
+#include "Player.h"
 #include "RaceTrack.h"
+#include <raymath.h>
 
 
 SceneGame::SceneGame(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
@@ -24,8 +27,11 @@ bool SceneGame::Start()
 {
 	LOG("Loading Intro assets");
 	bool ret = true;
-
-	car = new Vehicle(this, "car-type1");
+	//// Aqui ponemos todos los chars de la fuente en orden
+	
+	pauseMenu = new PauseMenu(this);
+	pauseMenu->Start();
+	player = new Player(this);
 	track = new RaceTrack(this, "Assets/Map/Map_2.tmx");
 
 	StartFadeOut(WHITE, 0.5f);
@@ -36,50 +42,44 @@ bool SceneGame::Start()
 bool SceneGame::CleanUp()
 {
 	LOG("Unloading Intro scene");
-	car->CleanUp();
-	delete car;
+	player->CleanUp();
+	delete player;
+	pauseMenu->CleanUp();
+	delete pauseMenu;
 
 	track->CleanUp();
 	delete track;
+
+	App->renderer->camera.target = {0,0};
+	App->renderer->camera.offset = {0,0};
 	return true;
 }
 
 // Update: draw background
 update_status SceneGame::Update()
 {
-
-	Vector2 moveInput = { 0,0 };
-
-	if (IsKeyDown(KEY_W))
-		moveInput.y += 1;
-	if (IsKeyDown(KEY_S))
-		moveInput.y -= 1;
-
-	if (IsKeyDown(KEY_A))
-		moveInput.x -= 1;
-	if (IsKeyDown(KEY_D))
-		moveInput.x += 1;
-
-
-	car->SetInput(moveInput);
-
-	car->Update();
-	track->Update();
-
-	App->renderer->camera.target = { (float)METERS_TO_PIXELS(car->GetPos().x),(float)METERS_TO_PIXELS(car->GetPos().y) };
-	App->renderer->camera.offset = { GetScreenWidth()/2.f,GetScreenHeight()/2.f};
+	if(!pauseMenu->IsPaused())
+	{
+		player->Update();
+		track->Update();
+		App->renderer->camera.target = player->GetVehiclePosition();
+		App->renderer->camera.offset = { App->window->GetLogicWidth()/2.f,App->window->GetLogicHeight()/2.f};
+	}
 	
+	if (IsKeyPressed(KEY_P))
+		pauseMenu->Pause();
 	/// Last Things To Do
-	ModuleScene::FadeUpdate();
 	Render();
+	pauseMenu->Update();
+	ModuleScene::FadeUpdate();
 	return UPDATE_CONTINUE;
 }
 
 bool SceneGame::Render()
 {
 	track->Render();
-	car->Render();
-
+	player->Render();
+	pauseMenu->Render();
 	ModuleScene::FadeRender();
 	return true;
 }

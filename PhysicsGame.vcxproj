@@ -210,6 +210,8 @@
     <ClCompile Include="Source\ModuleAssetLoader.cpp" />
     <ClCompile Include="Source\ModuleAudio.cpp" />
     <ClCompile Include="Source\ModuleUserPreferences.cpp" />
+    <ClCompile Include="Source\PauseMenu.cpp" />
+    <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\RaceMode.cpp" />
     <ClCompile Include="Source\RaceMode.h" />
     <ClCompile Include="Source\RaceTrack.cpp" />
@@ -253,6 +255,8 @@
     <ClInclude Include="Source\ModuleAssetLoader.h" />
     <ClInclude Include="Source\ModuleAudio.h" />
     <ClInclude Include="Source\ModuleUserPreferences.h" />
+    <ClInclude Include="Source\PauseMenu.h" />
+    <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\RaceTrack.h" />
     <ClInclude Include="Source\SceneGame.h" />
     <ClInclude Include="Source\ModuleLocalization.h" />

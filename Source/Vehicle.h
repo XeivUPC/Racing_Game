@@ -19,8 +19,9 @@ public:
 	bool Render();
 	bool CleanUp();
 	double GetRotation();
+	Vector2 GetPosition();
+	Vector2 GetPhysicPosition();
 	void SetInput(Vector2 input);
-	Vector2 GetPos();
 
 private:
 

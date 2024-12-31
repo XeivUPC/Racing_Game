@@ -39,7 +39,9 @@ bool ModulePhysics::Start()
 update_status ModulePhysics::PreUpdate()
 {
 	float dt = GetFrameTime();
-	world->Step(1/60.f, 6, 2);
+
+	if(simulationOn)
+		world->Step(1/60.f, 6, 2);
 	return UPDATE_CONTINUE;
 }
 
@@ -165,6 +167,21 @@ bool ModulePhysics::CleanUp()
 	delete world;
 
 	return true;
+}
+
+void ModulePhysics::PauseSimulation()
+{
+	simulationOn = false;
+}
+
+void ModulePhysics::StartSimulation()
+{
+	simulationOn = true;
+}
+
+bool ModulePhysics::IsSimulationPaused()
+{
+	return simulationOn;
 }
 
 const Box2DFactory& ModulePhysics::factory()

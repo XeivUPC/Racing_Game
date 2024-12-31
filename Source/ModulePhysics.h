@@ -152,11 +152,16 @@ public:
 	update_status PostUpdate();
 	bool CleanUp();
 
+	void PauseSimulation();
+	void StartSimulation();
+	bool IsSimulationPaused();
+
 	const Box2DFactory& factory();
 
 private:
 	bool debug = false;
 	b2World* world = nullptr;
+	bool simulationOn = true;
 
 	CollisionsDispatcher* collisionsManager = nullptr;
 	Box2DFactory* box2Dfactory = nullptr;
