@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="146" height="79" tilewidth="1" tileheight="1" infinite="0" nextlayerid="16" nextobjectid="28">
  <imagelayer id="10" name="Texture">
-  <image source="../Textures/Map 1.png" width="2440" height="1272"/>
+  <image source="../Textures/Map_1.png" width="2440" height="1272"/>
   <properties>
    <property name="TextureID" value="Map1"/>
   </properties>
