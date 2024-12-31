@@ -16,10 +16,12 @@ Tree::Tree(Module* moduleAt, Vector2 position) : MapObject(moduleAt)
 	const Box2DFactory& factory = moduleAt->App->physics->factory();
 	body = factory.CreateBox(position, PIXEL_TO_METERS(treeTextureRec.width / 2), PIXEL_TO_METERS(treeTextureRec.height), fixtureData);
 	body->SetType(PhysBody::BodyType::Dynamic);
-	body->SetFriction(body->GetFixtureCount(), 5000);
 	sensor.SetFixtureToTrack(body, 0);
 
 	sensor.AcceptOnlyTriggers(false);
+
+	body->SetLinearDamping(linearDamping);
+	body->SetAngularDamping(angularDamping);
 
 	Enable();
 
@@ -39,8 +41,6 @@ Tree::Tree(Module* moduleAt, Vector2 position) : MapObject(moduleAt)
 
 update_status Tree::Update()
 {
-	UpdateFriction();
-
 	if (sensor.OnTriggerEnter() && enabled) {
 		OnTrigger();
 	}
@@ -101,27 +101,6 @@ double Tree::GetRotation()
     return body->GetAngle();
 }
 
-void Tree::UpdateFriction()
-{
-	// Set linear damping (slows down the object's movement over time)
-	body->SetLinearDamping(0.5f);  // Adjust the damping value to your needs
-
-	// Set angular damping (if needed for rotation)
-	body->SetAngularDamping(0.5f);  // Adjust for rotational damping
-
-}
-
-Vector2 Tree::GetLateralVelocity()
-{
-	Vector2 currentRightNormal = body->GetWorldVector({ 1,0 });
-	return Vector2Scale(currentRightNormal, Vector2DotProduct(currentRightNormal, body->GetLinearVelocity()));
-}
-
-Vector2 Tree::GetForwardVelocity()
-{
-	Vector2 currentForwardNormal = body->GetWorldVector({ 0, 1 });
-	return Vector2Scale(currentForwardNormal, Vector2DotProduct(currentForwardNormal, body->GetLinearVelocity()));
-}
 void Tree::OnTrigger()
 {
 	Activate();

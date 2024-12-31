@@ -25,10 +25,6 @@ public:
 	Vector2 GetPos();
 	double GetRotation();
 
-	void UpdateFriction();
-	Vector2 GetForwardVelocity();
-	Vector2 GetLateralVelocity();
-
 private:
 
 	void OnTrigger();
@@ -44,6 +40,6 @@ private:
 	Texture2D* treeTexture = nullptr;
 	Rectangle  treeTextureRec = { 0, 0, 47, 63};
 
-	float currentTraction = 5;
-	float maxLateralImpulse = 0;
+	float linearDamping = 2;
+	float angularDamping = 1;
 };
