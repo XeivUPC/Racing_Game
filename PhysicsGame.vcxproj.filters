@@ -175,6 +175,7 @@
     </ClCompile>
     <ClCompile Include="Source\Tree.cpp">
       <Filter>MapObjects</Filter>
+	</ClCompile>
     <ClCompile Include="Source\BoomMode.cpp">
       <Filter>GameModes\Type %28GameMode%29</Filter>
     </ClCompile>
@@ -304,6 +305,7 @@
     </ClInclude>
     <ClInclude Include="Source\Tree.h">
       <Filter>MapObjects</Filter>
+	</ClInclude>
     <ClInclude Include="Source\BoomMode.h">
       <Filter>GameModes\Type %28GameMode%29</Filter>
     </ClInclude>
