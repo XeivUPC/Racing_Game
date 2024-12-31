@@ -62,32 +62,12 @@ bool SceneGame::CleanUp()
 // Update: draw background
 update_status SceneGame::Update()
 {
-
-	Vector2 moveInput = { 0,0 };
-
-	if (IsKeyDown(KEY_W))
-		moveInput.y += 1;
-	if (IsKeyDown(KEY_S))
-		moveInput.y -= 1;
-
-	if (IsKeyDown(KEY_A))
-		moveInput.x -= 1;
-	if (IsKeyDown(KEY_D))
-		moveInput.x += 1;
-
-
-	car->SetInput(moveInput);
-
-	car->Update();
-	track->Update();
-	tree->Update();
-
-	App->renderer->camera.target = { (float)METERS_TO_PIXELS(car->GetPos().x),(float)METERS_TO_PIXELS(car->GetPos().y) };
-	App->renderer->camera.offset = { GetScreenWidth()/2.f,GetScreenHeight()/2.f};
 	if(!pauseMenu->IsPaused())
 	{
 		player->Update();
 		track->Update();
+		tree->Update();
+
 		App->renderer->camera.target = player->GetVehiclePosition();
 		App->renderer->camera.offset = { App->window->GetLogicWidth()/2.f,App->window->GetLogicHeight()/2.f};
 	}

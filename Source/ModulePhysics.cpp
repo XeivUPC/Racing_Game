@@ -290,6 +290,13 @@ void PhysBody::SetVelocity(const Vector2& velocity) {
 	}
 }
 
+void PhysBody::SetLinearDamping(float damping)
+{
+	if (body) {
+		body->SetLinearDamping(damping);
+	}
+}
+
 void PhysBody::SetAngularDamping(float angularDamping)
 {
 	if (body) {

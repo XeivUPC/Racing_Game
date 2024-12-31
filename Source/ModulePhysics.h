@@ -100,6 +100,7 @@ public:
 	void ApplyAngularImpulse(float impulse);
 	void ApplyTorque(float torque);
 	void SetVelocity(const Vector2& velocity);
+	void SetLinearDamping(float damping);
 	void SetAngularDamping(float angularDamping);
 	Vector2 GetLinearVelocity() const;
 	float GetAngularVelocity() const;

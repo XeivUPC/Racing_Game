@@ -12,11 +12,11 @@ Tree::Tree(Module* moduleAt, Vector2 position) : MapObject(moduleAt)
 	//Create body
 	b2FixtureUserData fixtureData;
 	fixtureData.pointer = (uintptr_t)(&sensor);
-
+	
 	const Box2DFactory& factory = moduleAt->App->physics->factory();
 	body = factory.CreateBox(position, PIXEL_TO_METERS(treeTextureRec.width / 2), PIXEL_TO_METERS(treeTextureRec.height), fixtureData);
 	body->SetType(PhysBody::BodyType::Dynamic);
-
+	body->SetFriction(body->GetFixtureCount(), 5000);
 	sensor.SetFixtureToTrack(body, 0);
 
 	sensor.AcceptOnlyTriggers(false);
@@ -103,24 +103,14 @@ double Tree::GetRotation()
 
 void Tree::UpdateFriction()
 {
-	Vector2 impulse = Vector2Scale(GetLateralVelocity(), -body->GetMass());
+	// Set linear damping (slows down the object's movement over time)
+	body->SetLinearDamping(0.5f);  // Adjust the damping value to your needs
 
-	if (Vector2Length(impulse) > maxLateralImpulse) {
-		impulse = Vector2Scale(impulse, maxLateralImpulse / Vector2Length(impulse));
-	}
-	body->ApplyLinearImpulse(Vector2Scale(impulse, currentTraction), body->GetWorldCenter());
-
-	//angular velocity
-	float angularImpulse = currentTraction * 0.1f * body->GetInertia() * -body->GetAngularVelocity();
-	body->ApplyAngularImpulse(angularImpulse);
-
-	//forward linear velocity
-	Vector2 currentForwardNormal = GetForwardVelocity();
-	float currentForwardSpeed = Vector2Length(Vector2Normalize(currentForwardNormal));
-	float dragForceMagnitude = -2 * currentForwardSpeed;
-	body->ApplyForce(Vector2Scale(currentForwardNormal, currentTraction * dragForceMagnitude), body->GetWorldCenter());
+	// Set angular damping (if needed for rotation)
+	body->SetAngularDamping(0.5f);  // Adjust for rotational damping
 
 }
+
 Vector2 Tree::GetLateralVelocity()
 {
 	Vector2 currentRightNormal = body->GetWorldVector({ 1,0 });
