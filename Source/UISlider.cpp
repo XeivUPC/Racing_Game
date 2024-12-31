@@ -22,7 +22,7 @@ void UISlider::Update()
 	thumb->Update();
 	UIElement::Update();
 
-	if (thumbSelected)
+	if (thumbSelected && canBeInteracted)
 	{
 		Vector2 mousePos = moduleAt->App->window->GetVirtualMousePos();
 		mousePos.x -= thumb->bounds.width / 2.f;
@@ -43,8 +43,17 @@ void UISlider::Update()
 		if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
 			DeselectThumb();
 	}
+	else
+	{
+		DeselectThumb();
+	}
 }
-\
+void UISlider::CanBeInteracted(bool status)
+{
+	UIElement::CanBeInteracted(status);
+	thumb->CanBeInteracted(status);
+}
+
 
 float UISlider::GetValue()
 {

@@ -314,5 +314,11 @@
     <Xml Include="Assets\Data\vehicle_data.xml">
       <Filter>Config</Filter>
     </Xml>
+    <Xml Include="Assets\Data\game_settings.xml">
+      <Filter>Config</Filter>
+    </Xml>
+    <Xml Include="Assets\Data\game_setup_options.xml">
+      <Filter>Config</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

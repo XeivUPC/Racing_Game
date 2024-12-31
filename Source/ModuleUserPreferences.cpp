@@ -2,6 +2,9 @@
 #include "ModuleUserPreferences.h"
 #include "ModuleLocalization.h"
 #include "ModuleAudio.h"
+#include "pugixml.hpp"
+
+using namespace pugi;
 
 
 ModuleUserPreferences::ModuleUserPreferences(Application* app, bool start_enabled) : Module(app, start_enabled)

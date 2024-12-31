@@ -7,10 +7,14 @@
 
 #include "raylib.h"
 #include <vector>
+#include <string>
+
 
 class UIButton;
 class Animator;
 class Timer;
+
+using namespace std;
 
 class SceneSelectSetup : public ModuleScene
 {
@@ -30,25 +34,46 @@ public:
 		BOOM
 	};
 
-	// Choosing Car Type
-	enum VEHICLES {
-		NO_VEHICLE,
-		CAR,
-		MOTO,
-		TRUCK,
-		END_VEHICLE
-	};
-
-	// Choosing Map
-	enum MAPS {
-		NO_MAP,
-		MAP1,
-		MAP2,
-		MAP3,
-		END_MAP
-	};
 
 private:
+
+
+	////NEW UPDATE
+	struct MapTypeData {
+		string name;
+		string mapPath;
+		string imagePreviewId;
+
+		MapTypeData(const string& name, const string& mapPath, const string& imagePreviewId)
+			: name(name), mapPath(mapPath), imagePreviewId(imagePreviewId)
+		{
+		}
+	};
+
+	struct VehicleTypeData {
+		string name;
+		string prefix;
+
+		VehicleTypeData(const string& name, const string& prefix)
+			: name(name), prefix(prefix)
+		{
+		}
+	};
+
+	string setupDataPath = "Assets/Data/game_setup_options.xml";
+	void LoadSetUpInformation();
+	vector<MapTypeData> maps;
+	Texture* mapPreviewTexture;
+	Rectangle mapPreviewTextureRec = { 0,0, 2440,1272};
+
+	vector<VehicleTypeData> vehicles;
+
+	int currentSelectedMap = 0;
+	int currentSelectedVehicle = 0;
+
+
+	/////////////////////////////////////////////////
+
 
 	// Choosing Modes
 	void ClickRACE();
@@ -115,8 +140,6 @@ private:
 	bool justClickedarrowLeftSetupCar = false;
 
 	bool isCarChosen = false;
-	VEHICLES currentVEHICLE = VEHICLES::CAR;
-	VEHICLES finalVEHICLE = VEHICLES::NO_VEHICLE;
 
 	// Choosing Map
 	void ClickMapFINISH();
@@ -154,6 +177,4 @@ private:
 	bool justClickedarrowLeftSetupMap = false;
 
 	bool isMapChosen = false;
-	MAPS currentMAP = MAPS::MAP1;
-	MAPS finalMAP = MAPS::NO_MAP;
 };
