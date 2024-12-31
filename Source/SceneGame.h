@@ -9,7 +9,7 @@
 #include <vector>
 
 class PhysBody;
-class Vehicle;
+class Player;
 class PauseMenu;
 class RaceTrack;
 
@@ -25,7 +25,7 @@ public:
 	bool CleanUp();
 
 public:
-	Vehicle* car;
+	Player* player;
 	PauseMenu* pauseMenu;
 	RaceTrack* track;
 };

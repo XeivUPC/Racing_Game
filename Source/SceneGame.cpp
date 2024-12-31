@@ -8,7 +8,7 @@
 #include "ModulePhysics.h"
 #include "PauseMenu.h"
 
-#include "Vehicle.h"
+#include "Player.h"
 #include "RaceTrack.h"
 
 
@@ -29,7 +29,7 @@ bool SceneGame::Start()
 	
 	pauseMenu = new PauseMenu(this);
 	pauseMenu->Start();
-	car = new Vehicle(this, "car-type1");
+	player = new Player(this);
 	track = new RaceTrack(this, "Assets/Map/Map_2.tmx");
 
 	StartFadeOut(WHITE, 0.5f);
@@ -40,8 +40,8 @@ bool SceneGame::Start()
 bool SceneGame::CleanUp()
 {
 	LOG("Unloading Intro scene");
-	car->CleanUp();
-	delete car;
+	player->CleanUp();
+	delete player;
 	pauseMenu->CleanUp();
 	delete pauseMenu;
 
@@ -55,9 +55,9 @@ update_status SceneGame::Update()
 {
 	if(pauseMenu)
 	{
-		car->Update();
+		player->Update();
 		track->Update();
-		App->renderer->camera.target = { (float)METERS_TO_PIXELS(car->GetPos().x),(float)METERS_TO_PIXELS(car->GetPos().y) };
+		App->renderer->camera.target = { (float)METERS_TO_PIXELS(player->GetVehiclePosition().x),(float)METERS_TO_PIXELS(player->GetVehiclePosition().y) };
 		App->renderer->camera.offset = { GetScreenWidth()/2.f,GetScreenHeight()/2.f};
 	}
 	
@@ -73,7 +73,7 @@ update_status SceneGame::Update()
 bool SceneGame::Render()
 {
 	track->Render();
-	car->Render();
+	player->Render();
 	pauseMenu->Render();
 	ModuleScene::FadeRender();
 	return true;
