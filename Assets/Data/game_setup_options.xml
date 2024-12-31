@@ -1,0 +1,14 @@
+<setup>
+
+    <map-type>
+        <map name ="SELECTMENU_MAP1" mapPath = "Assets/Data/Map/Map_1.tmx" imagePreviewID = "Map1"/>
+        <map name ="SELECTMENU_MAP2" mapPath = "Assets/Data/Map/Map_2.tmx" imagePreviewID = "Map2"/>
+    </map-type>
+
+    <vehicle-type>
+        <vehicle name = "SELECTMENU_VEHICLE_CAR" prefix = "car-"/>
+        <vehicle name = "SELECTMENU_VEHICLE_MOTO" prefix = "moto-"/>
+        <vehicle name = "SELECTMENU_VEHICLE_TRUCK" prefix = "truck-"/>
+    </vehicle-type>
+
+</setup>

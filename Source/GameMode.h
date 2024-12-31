@@ -11,6 +11,9 @@ private:
 	bool enabled;
 
 	Timer totalRaceTime;
+	Timer startCountdown;
+
+	bool raceStarted = false;
 
 public:
 	Application* App;
@@ -53,7 +56,7 @@ public:
 
 	virtual bool Start()
 	{
-		totalRaceTime.Start();
+		startCountdown.Start();
 		return true;
 	}
 
@@ -64,6 +67,10 @@ public:
 
 	virtual update_status Update()
 	{
+		if (startCountdown.ReadSec() >= 5 && !raceStarted) {
+			totalRaceTime.Start();
+			raceStarted = true;
+		}
 		return UPDATE_CONTINUE;
 	}
 
@@ -80,6 +87,15 @@ public:
 	double GetTotalRaceTime() const
 	{
 		return totalRaceTime.ReadSec();
+	}
+
+	double GetCountdownTime() const
+	{
+		return startCountdown.ReadSec();
+	}
+
+	bool IsRaceStarted() const {
+		return raceStarted;
 	}
 
 };

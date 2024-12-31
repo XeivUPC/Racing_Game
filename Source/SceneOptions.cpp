@@ -215,6 +215,7 @@ bool SceneOptions::CleanUp()
 
 bool SceneOptions::Render() {
 
+	App->renderer->SetCameraMode(false);
 	//Draw Background
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_3);
 	App->renderer->Draw(*backgroundTextureSettings, { backgroundTextureSettingsRec.x, backgroundTextureSettingsRec.y }, { 0,0 }, &backgroundTextureSettingsRec, 0, 2);
@@ -289,7 +290,7 @@ bool SceneOptions::Render() {
 	App->renderer->DrawText(sfxVolumeValueCharPtr, Vector2{ (SCREEN_WIDTH / 2) + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX * 5, (SCREEN_HEIGHT / 6) * 5.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, BLACK);
 
 	App->renderer->UnlockRenderLayer();
-
+	App->renderer->SetCameraMode(true);
 	FadeRender();
 
 	return true;

@@ -67,6 +67,9 @@
     <Filter Include="MapObjects\Type %28MapObjects%29\Map">
       <UniqueIdentifier>{5c245351-c5ea-426a-8dff-2d92f1d21dab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Others">
+      <UniqueIdentifier>{942bf262-2bea-4923-90f9-c8e8543062c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleAssetLoader.cpp">
@@ -172,6 +175,14 @@
     </ClCompile>
     <ClCompile Include="Source\Tree.cpp">
       <Filter>MapObjects</Filter>
+    <ClCompile Include="Source\BoomMode.cpp">
+      <Filter>GameModes\Type %28GameMode%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PauseMenu.cpp">
+      <Filter>Others</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player.cpp">
+      <Filter>Others</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -293,10 +304,24 @@
     </ClInclude>
     <ClInclude Include="Source\Tree.h">
       <Filter>MapObjects</Filter>
+    <ClInclude Include="Source\BoomMode.h">
+      <Filter>GameModes\Type %28GameMode%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PauseMenu.h">
+      <Filter>Others</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player.h">
+      <Filter>Others</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Assets\Data\vehicle_data.xml">
+      <Filter>Config</Filter>
+    </Xml>
+    <Xml Include="Assets\Data\game_settings.xml">
+      <Filter>Config</Filter>
+    </Xml>
+    <Xml Include="Assets\Data\game_setup_options.xml">
       <Filter>Config</Filter>
     </Xml>
   </ItemGroup>

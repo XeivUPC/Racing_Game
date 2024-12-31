@@ -49,16 +49,14 @@ bool ModuleAssetLoader::Init()
 	textureModule->CreateTexture("Assets/Textures/settings_exit.png", "exitSettings");
 
 	// Game
-	textureModule->CreateTexture("Assets/Textures/Map 1.png", "Map1");
-	textureModule->CreateTexture("Assets/Textures/Map 2.png", "Map2");
 	textureModule->CreateTexture("Assets/Textures/objectsSpring.png", "objectsSpring");
 	textureModule->CreateTexture("Assets/Textures/objectsWinter.png", "objectsWinter");
+	textureModule->CreateTexture("Assets/Textures/Map_1.png", "Map1");
+	textureModule->CreateTexture("Assets/Textures/Map_2.png", "Map2");
 
 	//// Audios
-	audioMotorId = audioModule->LoadFx("Assets/Sounds/Sfx/MotorSFX.wav");
-	audioMainMenuMusicId = audioModule->LoadFx("Assets/Sounds/Music/Main_Menu.wav");
-	audioMainMenuMarioWiiMusicId = audioModule->LoadFx("Assets/Sounds/Music/Main_Menu_Mario_Kart_Wii.wav");
-	audioClickId = audioModule->LoadFx("Assets/Sounds/Sfx/Ui_Click.wav");
+	audioMotorId = audioModule->LoadFx("Assets/Sounds/Sfx/MotorSFX.ogg");
+	audioClickId = audioModule->LoadFx("Assets/Sounds/Sfx/Ui_Click.ogg");
 
 	//// Fonts
 	std::vector<int> codepoints = {

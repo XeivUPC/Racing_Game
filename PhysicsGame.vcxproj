@@ -197,6 +197,7 @@
   <ItemGroup>
     <ClCompile Include="Source\AnimationSystem.cpp" />
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\BoomMode.cpp" />
     <ClCompile Include="Source\Box2DFactory.cpp" />
     <ClCompile Include="Source\CollisionSensor.cpp" />
     <ClCompile Include="Source\CollisionsDispatcher.cpp" />
@@ -209,6 +210,8 @@
     <ClCompile Include="Source\ModuleAssetLoader.cpp" />
     <ClCompile Include="Source\ModuleAudio.cpp" />
     <ClCompile Include="Source\ModuleUserPreferences.cpp" />
+    <ClCompile Include="Source\PauseMenu.cpp" />
+    <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\RaceMode.cpp" />
     <ClCompile Include="Source\RaceMode.h" />
     <ClCompile Include="Source\RaceTrack.cpp" />
@@ -235,6 +238,7 @@
   <ItemGroup>
     <ClInclude Include="Source\AnimationSystem.h" />
     <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\BoomMode.h" />
     <ClInclude Include="Source\Box2DFactory.h" />
     <ClInclude Include="Source\CollisionSensor.h" />
     <ClInclude Include="Source\CollisionsDispatcher.h" />
@@ -252,6 +256,8 @@
     <ClInclude Include="Source\ModuleAssetLoader.h" />
     <ClInclude Include="Source\ModuleAudio.h" />
     <ClInclude Include="Source\ModuleUserPreferences.h" />
+    <ClInclude Include="Source\PauseMenu.h" />
+    <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\RaceTrack.h" />
     <ClInclude Include="Source\SceneGame.h" />
     <ClInclude Include="Source\ModuleLocalization.h" />
@@ -276,6 +282,8 @@
     <ClInclude Include="Source\Wheel.h" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Assets\Data\game_settings.xml" />
+    <Xml Include="Assets\Data\game_setup_options.xml" />
     <Xml Include="Assets\Data\vehicle_data.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -68,6 +68,7 @@ update_status Vehicle::Update()
 
 bool Vehicle::Render()
 {
+	moduleAt->App->renderer->BlockRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_4);
 	double radianAngle = body->GetAngle();
 
 	Vector2 vehicleRotatedOffset = {
@@ -89,6 +90,7 @@ bool Vehicle::Render()
 		if (wheel->rendersOverVehicle)
 			wheel->Render();
 	}
+	moduleAt->App->renderer->UnlockRenderLayer();
 	return true;
 }
 
@@ -119,9 +121,14 @@ void Vehicle::SetInput(Vector2 input)
 	moveInput = input;
 }
 
-Vector2 Vehicle::GetPos()
+Vector2 Vehicle::GetPosition()
 {
 	return body->GetPosition();
+}
+
+Vector2 Vehicle::GetPhysicPosition()
+{
+	return body->GetPhysicPosition();
 }
 
 void Vehicle::CreateVehicle(string id)
