@@ -56,9 +56,6 @@ public:
 
 	virtual bool Start()
 	{
-		if (startCountdown.ReadSec() == 5) {
-			totalRaceTime.Start();
-		}
 		startCountdown.Start();
 		return true;
 	}
@@ -70,7 +67,7 @@ public:
 
 	virtual update_status Update()
 	{
-		if (startCountdown.ReadSec() == 5) {
+		if (startCountdown.ReadSec() >= 5 && !raceStarted) {
 			totalRaceTime.Start();
 			raceStarted = true;
 		}
