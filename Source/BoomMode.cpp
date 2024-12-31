@@ -15,6 +15,8 @@ bool BoomMode::Init()
 
 update_status BoomMode::Update()
 {
+	GameMode::Update();
+
 	if (IsRaceStarted() && !timerStarted) {
 		timeToExplode.Start();
 		timerStarted = true;

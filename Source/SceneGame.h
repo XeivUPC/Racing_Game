@@ -12,6 +12,7 @@ class PhysBody;
 class Player;
 class PauseMenu;
 class RaceTrack;
+class RaceMode;
 
 class SceneGame : public ModuleScene
 {
@@ -28,4 +29,5 @@ public:
 	Player* player;
 	PauseMenu* pauseMenu;
 	RaceTrack* track;
+	RaceMode* mode;
 };

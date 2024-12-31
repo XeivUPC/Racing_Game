@@ -8,6 +8,7 @@
 #include "ModuleTexture.h"
 #include "ModulePhysics.h"
 #include "PauseMenu.h"
+#include "RaceMode.h"
 
 #include "Player.h"
 #include "RaceTrack.h"
@@ -33,6 +34,9 @@ bool SceneGame::Start()
 	pauseMenu->Start();
 	player = new Player(this);
 	track = new RaceTrack(this, "Assets/Map/Map_2.tmx");
+	mode = new RaceMode(App);
+
+	mode->Start();
 
 	StartFadeOut(WHITE, 0.5f);
 	return ret;
@@ -50,6 +54,9 @@ bool SceneGame::CleanUp()
 	track->CleanUp();
 	delete track;
 
+	mode->CleanUp();
+	delete mode;
+
 	App->renderer->camera.target = {0,0};
 	App->renderer->camera.offset = {0,0};
 	return true;
@@ -64,6 +71,7 @@ update_status SceneGame::Update()
 		track->Update();
 		App->renderer->camera.target = player->GetVehiclePosition();
 		App->renderer->camera.offset = { App->window->GetLogicWidth()/2.f,App->window->GetLogicHeight()/2.f};
+		mode->Update();
 	}
 	
 	if (IsKeyPressed(KEY_P))

@@ -2,6 +2,9 @@
 
 #include "Globals.h"
 #include "Timer.h"
+#include "ModuleLocalization.h"
+#include "ModuleRender.h"
+#include "ModuleAssetLoader.h"
 
 class Application;
 
@@ -20,6 +23,7 @@ public:
 
 	GameMode(Application* parent, bool start_enabled = true) : App(parent), enabled(start_enabled)
 	{
+		startCountdown.Start();
 	}
 
 	virtual ~GameMode()
@@ -56,7 +60,6 @@ public:
 
 	virtual bool Start()
 	{
-		startCountdown.Start();
 		return true;
 	}
 
