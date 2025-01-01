@@ -182,9 +182,6 @@
     <ClCompile Include="Source\PauseMenu.cpp">
       <Filter>Others</Filter>
     </ClCompile>
-    <ClCompile Include="Source\MapLapSensorController.cpp">
-      <Filter>MapObjects\Type %28MapObjects%29\MapLapSensor</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Player.cpp">
       <Filter>Pilot</Filter>
     </ClCompile>
@@ -314,9 +311,6 @@
     </ClInclude>
     <ClInclude Include="Source\PauseMenu.h">
       <Filter>Others</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\MapLapSensorController.h">
-      <Filter>MapObjects\Type %28MapObjects%29\MapLapSensor</Filter>
     </ClInclude>
     <ClInclude Include="Source\Player.h">
       <Filter>Pilot</Filter>

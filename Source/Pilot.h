@@ -4,15 +4,12 @@
 class Module;
 class Vehicle;
 class Vector2;
-class CollisionSensor;
 
 class Pilot
 {
-private:
-	CollisionSensor sensor;
 protected:
-	int lap;
-	int checkpoint;
+	int lap=0;
+	int checkpoint=0;
 	Vehicle* vehicle;
 	Module* moduleAt;
 public:

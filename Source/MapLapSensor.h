@@ -5,11 +5,11 @@
 
 using namespace std;
 
-class MapLapSensorController;
+class RaceTrack;
 
 class MapLapSensor : public MapObject {
 public:
-	MapLapSensor(Module* moduleAt, Vector2 position, vector<Vector2> vertices, int order);
+	MapLapSensor(Module* moduleAt, Vector2 position, vector<Vector2> vertices, RaceTrack* track, int order);
 	~MapLapSensor();
 
 	update_status Update();
@@ -17,7 +17,6 @@ public:
 
 	void Enable();
 	void Disable();
-	void AddController(MapLapSensorController* lapcontroller);
 	int GetOrder() const;
 
 private:
@@ -28,8 +27,8 @@ private:
 	bool activated = false;
 
 	PhysBody* body = nullptr;
-	MapLapSensorController* controller;
 	CollisionSensor sensor;
+	RaceTrack* track;
 
 	int order = -1;
 };

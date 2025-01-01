@@ -12,7 +12,6 @@
 #include "Player.h"
 #include "RaceTrack.h"
 #include <raymath.h>
-#include "MapLapSensorController.h"
 
 
 SceneGame::SceneGame(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
@@ -34,7 +33,6 @@ bool SceneGame::Start()
 	pauseMenu->Start();
 	player = new Player(this, "car-type1");
 	track = new RaceTrack(this, trackPath);
-	lapController = new MapLapSensorController(this);
 
 	mode->Start();
 
@@ -81,6 +79,7 @@ update_status SceneGame::Update()
 	if(!pauseMenu->IsPaused())
 	{
 		player->Update();
+
 		track->Update();
 		App->renderer->camera.target = player->GetVehiclePosition();
 		App->renderer->camera.offset = { App->window->GetLogicWidth()/2.f,App->window->GetLogicHeight()/2.f};

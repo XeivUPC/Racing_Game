@@ -207,7 +207,6 @@
     <ClCompile Include="Source\Log.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\MapLapSensor.cpp" />
-    <ClCompile Include="Source\MapLapSensorController.cpp" />
     <ClCompile Include="Source\ModuleAssetLoader.cpp" />
     <ClCompile Include="Source\ModuleAudio.cpp" />
     <ClCompile Include="Source\ModuleUserPreferences.cpp" />
@@ -251,7 +250,6 @@
     <ClInclude Include="Source\GameMode.h" />
     <ClInclude Include="Source\Globals.h" />
     <ClInclude Include="Source\MapLapSensor.h" />
-    <ClInclude Include="Source\MapLapSensorController.h" />
     <ClInclude Include="Source\MapObject.h" />
     <ClInclude Include="Source\MemLeaks.h" />
     <ClInclude Include="Source\Module.h" />

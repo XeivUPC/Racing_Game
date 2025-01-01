@@ -456,6 +456,14 @@ float PhysBody::GetRestitutionThreshold(size_t fixtureIndex) const
 	return 0.0f;
 }
 
+b2FixtureUserData PhysBody::GetFixtureUserData(size_t fixtureIndex) const
+{
+	if (b2Fixture* fixture = GetFixtureByIndex(fixtureIndex)) {
+		return fixture->GetUserData();
+	}
+	return b2FixtureUserData();
+}
+
 bool PhysBody::IsSensor(size_t fixtureIndex) const {
 	if (b2Fixture* fixture = GetFixtureByIndex(fixtureIndex)) {
 		return fixture->IsSensor();

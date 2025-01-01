@@ -1,11 +1,12 @@
 #include "Pilot.h"
 #include "Vehicle.h"
 
+
 Pilot::Pilot(Module* moduleat, std::string vehicleType)
 {
 	moduleAt = moduleat;
 
-	vehicle = new Vehicle(moduleAt, vehicleType);
+	vehicle = new Vehicle(moduleAt,this, vehicleType);
 	checkpoint = 0;
 	lap = 0;
 }

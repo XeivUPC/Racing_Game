@@ -27,5 +27,7 @@ bool Player::Update()
 
 	vehicle->SetInput(moveInput);
 	vehicle->Update();
+
+	printf("%d\n",CurrentCheckpoint());
 	return true;
 }

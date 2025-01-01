@@ -14,7 +14,6 @@ class Player;
 class PauseMenu;
 class GameMode;
 class RaceTrack;
-class MapLapSensorController;
 
 using namespace std;
 
@@ -38,7 +37,6 @@ public:
 
 	RaceTrack* track;
 	GameMode* mode;
-	MapLapSensorController* lapController;
 private:
 	string trackPath = "";
 };
