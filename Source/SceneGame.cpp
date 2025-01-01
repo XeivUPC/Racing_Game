@@ -9,6 +9,7 @@
 #include "ModulePhysics.h"
 #include "PauseMenu.h"
 #include "RaceMode.h"
+#include "BoomMode.h"
 
 #include "Player.h"
 #include "RaceTrack.h"
@@ -34,7 +35,8 @@ bool SceneGame::Start()
 	pauseMenu->Start();
 	player = new Player(this);
 	track = new RaceTrack(this, trackPath);
-	mode = new RaceMode(App);
+	//mode = new RaceMode(App);
+	mode = new BoomMode(App);
 
 	mode->Start();
 

@@ -25,33 +25,34 @@ update_status RaceMode::Update()
 	App->renderer->SelectRenderLayer(App->renderer->OVER_LAYER_1);
 	App->renderer->BlockRenderLayer();
 	if (GetCountdownTime() >= 4 && GetCountdownTime() < 5 && !IsRaceStarted()) {
-		App->renderer->DrawText(App->localization->FormatNumber(1, 0).c_str(), { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(1,0).c_str(), 80, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(1,0).c_str(), 80, 0).y / 2 }, App->assetLoader->agencyB, 80, 0, WHITE);
+		App->renderer->DrawText(App->localization->FormatNumber(1, 0).c_str(), { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(1,0).c_str(), 120, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(1,0).c_str(), 120, 0).y / 2 }, App->assetLoader->agencyB, 120, 0, WHITE);
 	}
 	else if (GetCountdownTime() >= 3 && GetCountdownTime() < 4 && !IsRaceStarted()) {
-		App->renderer->DrawText(App->localization->FormatNumber(2, 0).c_str(), { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(2,0).c_str(), 80, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(2,0).c_str(), 80, 0).y / 2 }, App->assetLoader->agencyB, 80, 0, WHITE);
+		App->renderer->DrawText(App->localization->FormatNumber(2, 0).c_str(), { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(2,0).c_str(), 120, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(2,0).c_str(), 120, 0).y / 2 }, App->assetLoader->agencyB, 120, 0, WHITE);
 	}
 	else if (GetCountdownTime() >= 2 && GetCountdownTime() < 3 && !IsRaceStarted()) {
-		App->renderer->DrawText(App->localization->FormatNumber(3, 0).c_str(), { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(3,0).c_str(), 80, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(3,0).c_str(), 80, 0).y / 2 }, App->assetLoader->agencyB, 80, 0, WHITE);
+		App->renderer->DrawText(App->localization->FormatNumber(3, 0).c_str(), { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(3,0).c_str(), 120, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(3,0).c_str(), 120, 0).y / 2 }, App->assetLoader->agencyB, 120, 0, WHITE);
 	}
 
 	if (IsRaceStarted() && !timerStarted) {
 		lapTimeCounter.Start();
 		timerStarted = true;
 	}
+	if (IsRaceStarted()) {
+		App->renderer->DrawText("Lap ", { 0, 0 }, { 0, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
+		App->renderer->DrawText(App->localization->FormatNumber(currentLap, 0).c_str(), { 0, 0 }, { MeasureTextEx(App->assetLoader->agencyB, "Lap ", 80, 0).x, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
 
-	App->renderer->DrawText("Lap ", {0, 0}, { 0, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
-	App->renderer->DrawText(App->localization->FormatNumber(currentLap, 0).c_str(), {0, 0}, { MeasureTextEx(App->assetLoader->agencyB, "Lap ", 80, 0).x, 0}, App->assetLoader->agencyB, 80, 0, WHITE);
-	
-	App->renderer->DrawText(App->localization->FormatNumber(GetCurrentLapTimeSec(), 0).c_str(), {0, 0}, {0, MeasureTextEx(App->assetLoader->agencyB, "Lap ", 80, 0).y + 10}, App->assetLoader->agencyB, 80, 0, WHITE);
+		App->renderer->DrawText(App->localization->FormatNumber(GetCurrentLapTimeSec(), 0).c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, "Lap ", 80, 0).y + 10 }, App->assetLoader->agencyB, 80, 0, WHITE);
 
-	if (currentLap > 1) {
-		App->renderer->DrawText(App->localization->FormatNumber(GetLapTimeSec(1), 0).c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, "Lap ", 80, 0).y*2 + 10 }, App->assetLoader->agencyB, 80, 0, WHITE);
-	}
-	if (currentLap > 2) {
-		App->renderer->DrawText(App->localization->FormatNumber(GetLapTimeSec(2), 0).c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, "Lap ", 80, 0).y*3 + 10 }, App->assetLoader->agencyB, 80, 0, WHITE);
-	}
-	if (currentLap > 3) {
-		App->renderer->DrawText(App->localization->FormatNumber(GetLapTimeSec(3), 0).c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, "Lap ", 80, 0).y*4 + 10 }, App->assetLoader->agencyB, 80, 0, WHITE);
+		if (currentLap > 1) {
+			App->renderer->DrawText(App->localization->FormatNumber(GetLapTimeSec(1), 0).c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, "Lap ", 80, 0).y * 2 + 10 }, App->assetLoader->agencyB, 80, 0, WHITE);
+		}
+		if (currentLap > 2) {
+			App->renderer->DrawText(App->localization->FormatNumber(GetLapTimeSec(2), 0).c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, "Lap ", 80, 0).y * 3 + 10 }, App->assetLoader->agencyB, 80, 0, WHITE);
+		}
+		if (currentLap > 3) {
+			App->renderer->DrawText(App->localization->FormatNumber(GetLapTimeSec(3), 0).c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, "Lap ", 80, 0).y * 4 + 10 }, App->assetLoader->agencyB, 80, 0, WHITE);
+		}
 	}
 
 	if (hasPlayerFinishedLap) {

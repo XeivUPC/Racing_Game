@@ -13,7 +13,7 @@ class PhysBody;
 class Player;
 class PauseMenu;
 class RaceTrack;
-class RaceMode;
+class GameMode;
 
 using namespace std;
 
@@ -35,7 +35,7 @@ public:
 	PauseMenu* pauseMenu;
 
 	RaceTrack* track;
-	RaceMode* mode;
+	GameMode* mode;
 
 private:
 	string trackPath = "";
