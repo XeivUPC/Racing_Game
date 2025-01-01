@@ -250,7 +250,7 @@ bool SceneSelectSetup::Render()
 		string mapName = App->localization->GetString(maps[currentSelectedMap].name);
 		App->renderer->DrawText(mapName.c_str(), map_name_text_pos, { -MeasureTextEx(App->assetLoader->agencyB, mapName.c_str(), 40, 0).x / 2,0 }, App->assetLoader->agencyB, 40, 0, BLACK);
 
-		App->renderer->Draw(*mapPreviewTexture, { 194*2,130*2 }, {0,0},&mapPreviewTextureRec,0,0.21f);
+		App->renderer->Draw(*mapPreviewTexture, { 194*2,124*2 }, {0,0},&mapPreviewTextureRec,0,2);
 
 		arrowRightSetupMapAnimator->Animate({ map_arrow_right_rec.x, map_arrow_right_rec.y }, { 0,0 }, 0, 1, false);
 		arrowRightSetupMapAnimator->Update();
