@@ -9,7 +9,7 @@ class Pilot
 {
 protected:
 	int lap;
-	int currentCheckpoint;
+	int checkpoint;
 	Vehicle* vehicle;
 	Module* moduleAt;
 public:
@@ -23,4 +23,5 @@ public:
 	void AddLap();
 	void AddCheckpoint();
 	Vector2 GetVehiclePosition();
+	int CurrentCheckpoint();
 };
