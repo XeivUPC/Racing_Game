@@ -14,6 +14,7 @@
 #include "PilotCPU.h"
 #include "RaceTrack.h"
 #include <raymath.h>
+#include <algorithm>
 
 
 SceneGame::SceneGame(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
@@ -84,6 +85,21 @@ void SceneGame::SetUpTrack(string path)
 void SceneGame::SetMode(GameMode* mode)
 {
 	this->mode = mode;
+}
+
+vector<Pilot*> SceneGame::GetRacePlacePositions() const
+{
+	vector<Pilot*> orderedPlacePositions = pilots;
+
+	std::sort(orderedPlacePositions.begin(), orderedPlacePositions.end(),
+		[](Pilot* a, Pilot* b) {
+			if (a->CurrentLap() != b->CurrentLap()) {
+				return a->CurrentLap() > b->CurrentLap();
+			}
+			return a->CurrentCheckpoint() > b->CurrentCheckpoint();
+		});
+
+	return orderedPlacePositions;
 }
 
 // Update: draw background

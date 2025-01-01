@@ -32,6 +32,8 @@ public:
 	void SetUpTrack(string path);
 	void SetMode(GameMode* mode);
 
+	vector<Pilot*> GetRacePlacePositions() const;
+
 public:
 	PauseMenu* pauseMenu;
 

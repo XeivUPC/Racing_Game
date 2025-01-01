@@ -52,6 +52,11 @@ public:
 		return UPDATE_CONTINUE;
 	}
 
+	virtual bool Render()
+	{
+		return true;
+	}
+
 	virtual update_status PostUpdate()
 	{
 		return UPDATE_CONTINUE;
