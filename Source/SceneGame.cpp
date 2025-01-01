@@ -31,7 +31,7 @@ bool SceneGame::Start()
 	
 	pauseMenu = new PauseMenu(this);
 	pauseMenu->Start();
-	player = new Player(this);
+	player = new Player(this, "car-type1");
 	track = new RaceTrack(this, trackPath);
 
 	StartFadeOut(WHITE, 0.5f);
