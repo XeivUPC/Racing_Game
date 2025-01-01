@@ -435,7 +435,7 @@ void SceneSelectSetup::ClickMapFINISH()
 	// Stop previous music
 	App->audio->PlayFx(App->assetLoader->audioMotorId);
 	isMapChosen = true;
-
+	App->scene_game->SetUpTrack(maps[currentSelectedMap].mapPath);
 	StartFadeIn(App->scene_game, BLACK, 0.3f);
 }
 
