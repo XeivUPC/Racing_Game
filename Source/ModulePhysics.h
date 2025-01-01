@@ -110,6 +110,7 @@ public:
 
 	void SetMass(float mass, Vector2 center, float inertia);
 	void SetType(BodyType type);
+	void SetBullet(bool status);
 	void SetFriction(size_t fixtureIndex, float friction);
 	void SetDensity(size_t fixtureIndex, float density);
 	void SetRestitution(size_t fixtureIndex, float restitution);
@@ -145,6 +146,14 @@ class CollisionsDispatcher;
 class ModulePhysics : public Module
 {
 public:
+
+	const uint16_t DEFAULT_LAYER = 0x0001;
+	const uint16_t BOUNDARY_LAYER = 0x0002;
+	const uint16_t VEHICLE_LAYER = 0x0004;
+	const uint16_t VEHICLE_WHEEL_LAYER = 0x0008;
+	const uint16_t FRICTION_AREA_LAYER = 0x0010;
+	const uint16_t LAP_SENSOR_LAYER = 0x0020;
+
 	ModulePhysics(Application* app, bool start_enabled = true);
 	~ModulePhysics();
 

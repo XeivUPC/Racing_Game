@@ -54,3 +54,7 @@ int Pilot::CurrentCheckpoint()
 	return checkpoint;
 }
 
+int Pilot::CurrentLap()
+{
+	return lap;
+}

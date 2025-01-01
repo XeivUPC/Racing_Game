@@ -6,7 +6,7 @@
 class BoomMode : public GameMode
 {
 public:
-	BoomMode(Application* app, bool start_enabled = true);
+	BoomMode(SceneGame* gameAt);
 	~BoomMode();
 
 	bool Init();
@@ -17,6 +17,10 @@ public:
 	void ExecuteFunctionGivenDouble(std::string Id, double input) override;
 	double GetDoubleParameter(std::string Id) override;
 
+
+
+private:
+
 	void ExplodePlayer();
 	void ExplodeCPU();
 
@@ -25,7 +29,6 @@ public:
 
 	void EndRace();
 
-private:
 	int explosionTime = 60;
 	Timer timeToExplode;
 

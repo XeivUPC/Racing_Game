@@ -1,7 +1,9 @@
 #include "BoomMode.h"
 #include "Application.h"
+#include "SceneGame.h"
+#include "Player.h"
 
-BoomMode::BoomMode(Application* app, bool start_enabled) : GameMode(app, start_enabled)
+BoomMode::BoomMode(SceneGame* gameAt) : GameMode(gameAt)
 {
 }
 
@@ -21,6 +23,8 @@ update_status BoomMode::Update()
 	if (IsKeyPressed(KEY_E)) {
 		isPlayerLast = !isPlayerLast;
 	}
+
+	Application* App = gameAt->App;
 
 	App->renderer->SelectRenderLayer(App->renderer->OVER_LAYER_1);
 	App->renderer->BlockRenderLayer();
@@ -110,7 +114,7 @@ double BoomMode::GetDoubleParameter(std::string Id)
 void BoomMode::ExplodePlayer()
 {
 	// Explode player's car and loose
-	App->renderer->DrawText("BOOOOOM!!", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, "BOOOOOM!!", 160, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, "BOOOOOM!!", 120, 0).y / 2}, App->assetLoader->agencyB, 160, 0, WHITE);
+	gameAt->App->renderer->DrawText("BOOOOOM!!", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(gameAt->App->assetLoader->agencyB, "BOOOOOM!!", 160, 0).x / 2, -MeasureTextEx(gameAt->App->assetLoader->agencyB, "BOOOOOM!!", 120, 0).y / 2}, gameAt->App->assetLoader->agencyB, 160, 0, WHITE);
 	EndRace();
 }
 

@@ -388,6 +388,13 @@ void PhysBody::SetType(BodyType type)
 	}
 }
 
+void PhysBody::SetBullet(bool status)
+{
+	if (body) {
+		body->SetBullet(status);
+	}
+}
+
 void PhysBody::SetFriction(size_t fixtureIndex, float friction) {
 	if (b2Fixture* fixture = GetFixtureByIndex(fixtureIndex)) {
 		fixture->SetFriction(friction);

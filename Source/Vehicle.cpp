@@ -174,11 +174,17 @@ void Vehicle::CreateVehicle(string id)
 	b2FixtureUserData fixtureData;
 	fixtureData.pointer = (uintptr_t)(pilot);
 
-	const Box2DFactory& factory = moduleAt->App->physics->factory();
+	ModulePhysics* physics = moduleAt->App->physics;
+	const Box2DFactory& factory = physics->factory();
 	body = factory.CreateBox({ 5,5 }, size.x, size.y, fixtureData);
 	body->SetAngularDamping(3);
 	body->SetDensity(0, 0.4f);
+	body->SetBullet(true);
 	body->SetMass(mass, { 0,0 }, inertia);
+
+	uint16 categoryBits = physics->VEHICLE_LAYER;
+	uint16 maskBits = physics->BOUNDARY_LAYER | physics->LAP_SENSOR_LAYER;
+	body->SetFilter(0, categoryBits, maskBits, 0);
 
 	maxForwardSpeed = properties_node.child("max-forward-speed").attribute("value").as_float();
 	maxBackwardSpeed = properties_node.child("max-backward-speed").attribute("value").as_float();

@@ -1,7 +1,9 @@
 #include "RaceMode.h"
 #include "Application.h"
+#include "SceneGame.h"
+#include "Player.h"
 
-RaceMode::RaceMode(Application* app, bool start_enabled) : GameMode (app, start_enabled)
+RaceMode::RaceMode(SceneGame* gameAt) : GameMode (gameAt)
 {
 }
 
@@ -18,10 +20,13 @@ update_status RaceMode::Update()
 {
 	GameMode::Update();
 
-	if (IsKeyPressed(KEY_L)) {
+	if(gameAt->player->CurrentLap()+1!= currentLap)
+	{
 		hasPlayerFinishedLap = true;
 	}
 
+
+	Application* App = gameAt->App;
 	App->renderer->SelectRenderLayer(App->renderer->OVER_LAYER_1);
 	App->renderer->BlockRenderLayer();
 	if (GetCountdownTime() >= 4 && GetCountdownTime() < 5 && !IsRaceStarted()) {

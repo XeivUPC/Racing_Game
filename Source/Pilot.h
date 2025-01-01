@@ -24,4 +24,5 @@ public:
 	void AddCheckpoint();
 	Vector2 GetVehiclePosition();
 	int CurrentCheckpoint();
+	int CurrentLap();
 };

@@ -61,7 +61,8 @@ void RaceTrack::LoadTrack()
 	pugi::xml_document trackFile;
 	pugi::xml_parse_result result = trackFile.load_file(trackPath.c_str());
 
-	const Box2DFactory& factory = moduleAt->App->physics->factory();
+	ModulePhysics* physics = moduleAt->App->physics;
+	const Box2DFactory& factory = physics->factory();
 
 	if (result)
 	{
@@ -97,6 +98,11 @@ void RaceTrack::LoadTrack()
 					float y = PIXEL_TO_METERS(collisionNode.attribute("y").as_float());
 
 					PhysBody* body = factory.CreateChain({ x,y }, vertices);
+
+					uint16 categoryBits = physics->BOUNDARY_LAYER;
+					uint16 maskBits = physics->VEHICLE_LAYER;
+					body->SetFilter(0, categoryBits, maskBits, 0);
+
 					trackColliders.emplace_back(body);
 				}
 

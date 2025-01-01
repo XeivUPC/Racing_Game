@@ -6,7 +6,7 @@
 class RaceMode : public GameMode
 {
 public:
-	RaceMode(Application* app, bool start_enabled = true);
+	RaceMode(SceneGame* gameAt);
 	~RaceMode();
 
 	bool Init();
@@ -19,6 +19,9 @@ public:
 	double GetDoubleParameterGivenInt(std::string Id, int input) override;
 	int GetIntParameter(std::string Id) override;
 
+	
+
+private:
 	int GetCurrentLapNum() const;
 	void SetLapNum(int lapNum);
 
@@ -27,7 +30,6 @@ public:
 
 	void EndRace();
 
-private:
 	int currentLap = 1;
 	Timer lapTimeCounter;
 	

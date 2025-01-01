@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="146" height="79" tilewidth="1" tileheight="1" infinite="0" nextlayerid="16" nextobjectid="29">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="146" height="79" tilewidth="1" tileheight="1" infinite="0" nextlayerid="16" nextobjectid="33">
  <imagelayer id="10" name="Texture">
   <image source="../Textures/Map_1.png" width="2440" height="1272"/>
   <properties>
@@ -18,7 +18,7 @@
   </object>
  </objectgroup>
  <objectgroup id="15" name="StartingPositions"/>
- <objectgroup id="12" name="CheckPoints" visible="0">
+ <objectgroup id="12" name="CheckPoints">
   <object id="11" x="1520" y="816">
    <properties>
     <property name="Order" type="int" value="0"/>

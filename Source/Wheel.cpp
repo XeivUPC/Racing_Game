@@ -9,8 +9,13 @@ Wheel::Wheel(Vehicle* owner, float radius, float width)
 {
 	this->owner = owner;
 
-	const Box2DFactory& factory = owner->GetModuleAt()->App->physics->factory();
+	ModulePhysics* physics = owner->GetModuleAt()->App->physics;
+	const Box2DFactory& factory = physics->factory();
 	body = factory.CreateBox({0,0}, width, radius*2);
+
+	uint16 categoryBits = physics->VEHICLE_WHEEL_LAYER;
+	uint16 maskBits = physics->FRICTION_AREA_LAYER;
+	body->SetFilter(0, categoryBits, maskBits, 0);
 }
 
 Wheel::~Wheel()

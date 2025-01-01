@@ -345,7 +345,7 @@ void SceneSelectSetup::ClickRACE()
 	App->audio->PlayFx(App->assetLoader->audioMotorId);
 	isModeChosen = true;
 	currentMode = MODES::RACE;
-	App->scene_game->SetMode(new RaceMode(App));
+	App->scene_game->SetMode(new RaceMode(App->scene_game));
 
 	StartFadeOut(BLACK, 0.3f);
 }
@@ -355,7 +355,7 @@ void SceneSelectSetup::ClickBOOM()
 	App->audio->PlayFx(App->assetLoader->audioMotorId);
 	isModeChosen = true;
 	currentMode = MODES::BOOM;
-	App->scene_game->SetMode(new BoomMode(App));
+	App->scene_game->SetMode(new BoomMode(App->scene_game));
 
 	StartFadeOut(BLACK, 0.3f);
 }

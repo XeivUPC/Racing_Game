@@ -13,11 +13,18 @@ MapLapSensor::MapLapSensor(Module* moduleAt, Vector2 position, vector<Vector2> v
 	b2FixtureUserData fixtureData;
 	fixtureData.pointer = (uintptr_t)(&sensor);
 
-	const Box2DFactory& factory = moduleAt->App->physics->factory();
+	ModulePhysics* physics = moduleAt->App->physics;
+	const Box2DFactory& factory = physics->factory();
+
 	body = factory.CreateChain(position, vertices, fixtureData);
 	body->SetType(PhysBody::BodyType::Static);
 	body->SetSensor(0, true);
 	body->SetDensity(0, 1.f);
+	body->SetBullet(true);
+
+	uint16 categoryBits = physics->LAP_SENSOR_LAYER;
+	uint16 maskBits = physics->VEHICLE_LAYER;
+	body->SetFilter(0, categoryBits, maskBits, 0);
 
 	sensor.SetFixtureToTrack(body, 0);
 
