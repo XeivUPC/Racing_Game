@@ -11,6 +11,7 @@
 #include "GameMode.h"
 #include "Player.h"
 #include "Pilot.h"
+#include "PilotCPU.h"
 #include "RaceTrack.h"
 #include <raymath.h>
 
@@ -34,6 +35,11 @@ bool SceneGame::Start()
 	pauseMenu->Start();
 	player = new Player(this, "car-type1");
 	pilots.emplace_back(player);
+
+	for (size_t i = 0; i < 3; i++)
+	{
+		pilots.emplace_back(new PilotCPU(this, "moto-type1"));
+	}
 
 	track = new RaceTrack(this, trackPath);
 

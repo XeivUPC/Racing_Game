@@ -183,7 +183,7 @@ void Vehicle::CreateVehicle(string id)
 	body->SetMass(mass, { 0,0 }, inertia);
 
 	uint16 categoryBits = physics->VEHICLE_LAYER;
-	uint16 maskBits = physics->BOUNDARY_LAYER | physics->LAP_SENSOR_LAYER;
+	uint16 maskBits = physics->BOUNDARY_LAYER | physics->LAP_SENSOR_LAYER | physics->VEHICLE_LAYER;
 	body->SetFilter(0, categoryBits, maskBits, 0);
 
 	maxForwardSpeed = properties_node.child("max-forward-speed").attribute("value").as_float();
