@@ -6,7 +6,7 @@
 class RaceMode : public GameMode
 {
 public:
-	RaceMode(SceneGame* gameAt);
+	RaceMode(SceneGame* gameAt, int NumberOfLaps);
 	~RaceMode();
 
 	bool Init();
@@ -33,7 +33,7 @@ private:
 	int currentLap = 1;
 	Timer lapTimeCounter;
 	
-	int maxLapNum = 3;
+	int maxLapNum = 0;
 	std::vector<double> lapTimes;
 
 	// Temporal bools
