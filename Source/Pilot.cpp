@@ -5,7 +5,7 @@ Pilot::Pilot(Module* moduleat, std::string vehicleType)
 {
 	moduleAt = moduleat;
 	vehicle = new Vehicle(moduleAt, vehicleType);
-	currentCheckpoint = 0;
+	checkpoint = 0;
 	lap = 0;
 }
 
@@ -33,14 +33,22 @@ bool Pilot::CleanUp()
 
 void Pilot::AddLap()
 {
+	lap++;
+	checkpoint = 0;
 }
 
 void Pilot::AddCheckpoint()
 {
+	checkpoint++;
 }
 
 Vector2 Pilot::GetVehiclePosition()
 {
 	return vehicle->GetPhysicPosition();
+}
+
+int Pilot::CurrentCheckpoint()
+{
+	return checkpoint;
 }
 
