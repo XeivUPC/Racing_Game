@@ -22,6 +22,12 @@ bool ModuleAssetLoader::Init()
 	ModuleAudio* audioModule = App->audio;
 
 	//// Load All Requiered Files Here And Save The Returned Values If Requiered Inside The .hpp
+	
+	//// General UI
+	textureModule->CreateTexture("Assets/Textures/UI/UI_Background.png", "UI_Bg");
+
+	textureModule->CreateTexture("Assets/Textures/UI/UI_SliderThumb.png", "UI_SliderThumb");
+
 	//// Textures
 	textureModule->CreateTexture("Assets/Textures/Cars.png", "Car");
 	textureModule->CreateTexture("Assets/Textures/Motos.png", "Motos");

@@ -4,6 +4,7 @@
 
 #include "Application.h"
 #include "ModuleRender.h"
+#include "ModuleTexture.h"
 #include "ModuleWindow.h"
 #include "ModuleAssetLoader.h"
 
@@ -19,6 +20,7 @@ SceneIntro::~SceneIntro()
 bool SceneIntro::Start()
 {
 	intro_ended = false;
+	BgTexture = App->texture->GetTexture("UI_Bg");
 	return true;
 }
 
@@ -46,6 +48,7 @@ bool SceneIntro::Render()
 	float yTextPos = App->window->GetRealHeight()/2 - textSize.y/2 ;
 
 
+	App->renderer->Draw(*BgTexture, { 0,0 }, {0,0});
 	App->renderer->DrawText(text.c_str(), {xTextPos, yTextPos}, {0,0}, font, fontSize, 0, RED);
 
 	ModuleScene::FadeRender();
