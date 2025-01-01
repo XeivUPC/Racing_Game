@@ -9,7 +9,7 @@ class Vector2;
 class Player : public Pilot
 {
 public:
-	Player(Module* moduleat, std::string vehicleType);
+	Player(Module* moduleAt, std::string vehicleType);
 	~Player();
-	bool Update();
+	update_status Update();
 };

@@ -1,22 +1,22 @@
 #pragma once
 #include <string>
+#include "MapObject.h"
 
 class Module;
 class Vehicle;
 class Vector2;
 
-class Pilot
+class Pilot : public MapObject
 {
 protected:
 	int lap=0;
 	int checkpoint=0;
 	Vehicle* vehicle;
-	Module* moduleAt;
 public:
-	Pilot(Module* moduleat, std::string vehicleType);
+	Pilot(Module* moduleAt, std::string vehicleType);
 	~Pilot();
 	bool Start();
-	virtual bool Update() = 0;
+	update_status Update();
 	bool Render();
 	bool CleanUp();
 
