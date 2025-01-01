@@ -1,20 +1,14 @@
 #include "Player.h"
 #include "Vehicle.h"
 #include "Module.h"
+#include <string>
 
-Player::Player(Module* moduleat)
+Player::Player(Module* moduleat, std::string vehicleType) : Pilot(moduleat, vehicleType)
 {
-	moduleAt = moduleat;
-	vehicle = new Vehicle(moduleat, "car-type1");
 }
 
 Player::~Player()
 {
-}
-
-bool Player::Start()
-{
-	return true;
 }
 
 bool Player::Update()
@@ -34,22 +28,4 @@ bool Player::Update()
 	vehicle->SetInput(moveInput);
 	vehicle->Update();
 	return true;
-}
-
-bool Player::Render()
-{
-	vehicle->Render();
-	return true;
-}
-
-bool Player::CleanUp()
-{
-	vehicle->CleanUp();
-	delete vehicle;
-	return true;
-}
-
-Vector2 Player::GetVehiclePosition()
-{
-	return vehicle->GetPhysicPosition();
 }

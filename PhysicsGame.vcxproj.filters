@@ -70,6 +70,9 @@
     <Filter Include="Others">
       <UniqueIdentifier>{942bf262-2bea-4923-90f9-c8e8543062c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pilot">
+      <UniqueIdentifier>{d321f8b6-508f-42ba-b617-368340778b8c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleAssetLoader.cpp">
@@ -179,8 +182,14 @@
     <ClCompile Include="Source\PauseMenu.cpp">
       <Filter>Others</Filter>
     </ClCompile>
+    <ClCompile Include="Source\MapLapSensorController.cpp">
+      <Filter>MapObjects\Type %28MapObjects%29\MapLapSensor</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Player.cpp">
-      <Filter>Others</Filter>
+      <Filter>Pilot</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Pilot.cpp">
+      <Filter>Pilot</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -306,8 +315,14 @@
     <ClInclude Include="Source\PauseMenu.h">
       <Filter>Others</Filter>
     </ClInclude>
+    <ClInclude Include="Source\MapLapSensorController.h">
+      <Filter>MapObjects\Type %28MapObjects%29\MapLapSensor</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Player.h">
-      <Filter>Others</Filter>
+      <Filter>Pilot</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Pilot.h">
+      <Filter>Pilot</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

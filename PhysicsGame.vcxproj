@@ -207,10 +207,12 @@
     <ClCompile Include="Source\Log.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\MapLapSensor.cpp" />
+    <ClCompile Include="Source\MapLapSensorController.cpp" />
     <ClCompile Include="Source\ModuleAssetLoader.cpp" />
     <ClCompile Include="Source\ModuleAudio.cpp" />
     <ClCompile Include="Source\ModuleUserPreferences.cpp" />
     <ClCompile Include="Source\PauseMenu.cpp" />
+    <ClCompile Include="Source\Pilot.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\RaceMode.cpp" />
     <ClCompile Include="Source\RaceMode.h" />
@@ -249,6 +251,7 @@
     <ClInclude Include="Source\GameMode.h" />
     <ClInclude Include="Source\Globals.h" />
     <ClInclude Include="Source\MapLapSensor.h" />
+    <ClInclude Include="Source\MapLapSensorController.h" />
     <ClInclude Include="Source\MapObject.h" />
     <ClInclude Include="Source\MemLeaks.h" />
     <ClInclude Include="Source\Module.h" />
@@ -256,6 +259,7 @@
     <ClInclude Include="Source\ModuleAudio.h" />
     <ClInclude Include="Source\ModuleUserPreferences.h" />
     <ClInclude Include="Source\PauseMenu.h" />
+    <ClInclude Include="Source\Pilot.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\RaceTrack.h" />
     <ClInclude Include="Source\SceneGame.h" />

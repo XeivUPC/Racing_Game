@@ -1,20 +1,15 @@
 #pragma once
+#include "Pilot.h"
+#include <string>
 
 class Vehicle;
 class Module;
 class Vector2;
 
-class Player
+class Player : public Pilot
 {
 public:
-	Player(Module* moduleat);
+	Player(Module* moduleat, std::string vehicleType);
 	~Player();
-	bool Start();
 	bool Update();
-	bool Render();
-	bool CleanUp();
-	Vector2 GetVehiclePosition();
-private:
-	Vehicle* vehicle;
-	Module* moduleAt;
 };
