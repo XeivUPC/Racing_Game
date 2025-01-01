@@ -2,16 +2,19 @@
 #include "Box2DFactory.h"
 #include "Application.h"
 #include "ModulePhysics.h"
+#include "RaceTRack.h"
+#include "Pilot.h"
 
-MapLapSensor::MapLapSensor(Module* moduleAt, Vector2 position, vector<Vector2> vertices, int order) : MapObject(moduleAt)
+MapLapSensor::MapLapSensor(Module* moduleAt, Vector2 position, vector<Vector2> vertices,RaceTrack* track , int order) : MapObject(moduleAt)
 {
 	this->order = order;
+	this->track = track;
 
 	b2FixtureUserData fixtureData;
 	fixtureData.pointer = (uintptr_t)(&sensor);
 
 	const Box2DFactory& factory = moduleAt->App->physics->factory();
-	body = factory.CreateChain(position, vertices);
+	body = factory.CreateChain(position, vertices, fixtureData);
 	body->SetType(PhysBody::BodyType::Static);
 	body->SetSensor(0, true);
 	body->SetDensity(0, 1.f);
@@ -25,12 +28,24 @@ MapLapSensor::MapLapSensor(Module* moduleAt, Vector2 position, vector<Vector2> v
 
 MapLapSensor::~MapLapSensor()
 {
+	
 }
 
 update_status MapLapSensor::Update()
 {
-	if (sensor.OnTriggerEnter() && enabled) {
-		OnTrigger();
+	PhysBody* body = sensor.OnTriggerEnterGet();
+	if (body != nullptr && enabled) {
+		Pilot* pilot = (Pilot*)body->GetFixtureUserData(0).pointer;
+		if (pilot != nullptr)
+		{
+			if (order - 1 == pilot->CurrentCheckpoint() ){
+				pilot->AddCheckpoint();
+			}
+			else if(order == 0 && pilot->CurrentCheckpoint() == track->GetTrackSensors().size()-1){
+				pilot->AddLap();
+			}
+			
+		}
 	}
 	return UPDATE_CONTINUE;
 }
@@ -51,22 +66,8 @@ void MapLapSensor::Disable()
 	enabled = false;
 }
 
-void MapLapSensor::Activate()
-{
-	activated = true;
-}
-
-void MapLapSensor::Deactivate()
-{
-	activated = false;
-}
-
 int MapLapSensor::GetOrder() const
 {
 	return order;
 }
 
-void MapLapSensor::OnTrigger()
-{
-	Activate();
-}

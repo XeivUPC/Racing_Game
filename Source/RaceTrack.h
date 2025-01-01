@@ -14,7 +14,7 @@ public:
 
 	RaceTrack(Module* moduleAt, string trackPath);
 	~RaceTrack();
-
+	vector<MapLapSensor*>GetTrackSensors();
 	update_status Update();
 	bool Render();
 	bool CleanUp();

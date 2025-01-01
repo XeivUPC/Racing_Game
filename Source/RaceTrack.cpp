@@ -21,8 +21,15 @@ RaceTrack::~RaceTrack()
 {
 }
 
+vector<MapLapSensor*> RaceTrack::GetTrackSensors()
+{
+	return mapLapSensor;
+}
+
 update_status RaceTrack::Update()
 {
+	for (const auto& sensor : mapLapSensor)
+		sensor->Update();
 	return UPDATE_CONTINUE;
 }
 
@@ -111,7 +118,7 @@ void RaceTrack::LoadTrack()
 					xml_node order_node = checkPointNode.child("properties").find_child_by_attribute("property", "name", "Order");
 					int order = order_node.attribute("value").as_int();
 
-					MapLapSensor* sensor = new MapLapSensor(moduleAt, { x,y }, vertices, order);
+					MapLapSensor* sensor = new MapLapSensor(moduleAt, { x,y }, vertices, this, order);
 
 					mapLapSensor.emplace_back(sensor);
 				}

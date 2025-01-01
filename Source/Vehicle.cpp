@@ -7,14 +7,16 @@
 #include "ModuleRender.h"
 #include "DriftParticle.h"
 #include "ParticleSystem.h"
+#include "Pilot.h"
 #include <raymath.h>
 
 #include <pugixml.hpp>
 
 using namespace pugi;
 
-Vehicle::Vehicle(Module* moduleAt, string id) : MapObject(moduleAt)
+Vehicle::Vehicle(Module* moduleAt, Pilot* pilot, string id) : MapObject(moduleAt)
 {
+	this->pilot = pilot;
 	CreateVehicle(id);
 	//particleSystem = new ParticleSystem(moduleAt);
 }
@@ -168,8 +170,12 @@ void Vehicle::CreateVehicle(string id)
 	float inertia = vehicleNode.attribute("inertia").as_float();
 	float mass = vehicleNode.attribute("mass").as_float();
 
+
+	b2FixtureUserData fixtureData;
+	fixtureData.pointer = (uintptr_t)(pilot);
+
 	const Box2DFactory& factory = moduleAt->App->physics->factory();
-	body = factory.CreateBox({ 5,5 }, size.x, size.y);
+	body = factory.CreateBox({ 5,5 }, size.x, size.y, fixtureData);
 	body->SetAngularDamping(3);
 	body->SetDensity(0, 0.4f);
 	body->SetMass(mass, { 0,0 }, inertia);

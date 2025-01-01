@@ -8,12 +8,13 @@ using namespace std;
 class Wheel;
 class PhysBody;
 class ParticleSystem;
+class Pilot;
 
 class Vehicle : public MapObject
 {
 public:
 
-	Vehicle(Module* moduleAt, string id);
+	Vehicle(Module* moduleAt, Pilot* pilot, string id);
 	~Vehicle();
 	update_status Update();
 	bool Render();
@@ -33,6 +34,7 @@ private:
 
 	PhysBody* body = nullptr;
 	Vector2 moveInput;
+	Pilot* pilot;
 
 	float maxForwardSpeed = 150;
 	float maxBackwardSpeed = -70;

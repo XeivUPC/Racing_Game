@@ -121,6 +121,7 @@ public:
 	float GetDensity(size_t fixtureIndex) const;
 	float GetRestitution(size_t fixtureIndex) const;
 	float GetRestitutionThreshold(size_t fixtureIndex) const;
+	b2FixtureUserData GetFixtureUserData(size_t fixtureIndex) const;
 	bool IsSensor(size_t fixtureIndex) const;
 	b2Filter GetFilter(size_t fixtureIndex) const;
 

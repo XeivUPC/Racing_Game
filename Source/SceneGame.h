@@ -37,7 +37,6 @@ public:
 
 	RaceTrack* track;
 	GameMode* mode;
-
 private:
 	string trackPath = "";
 };

@@ -31,7 +31,7 @@ bool SceneGame::Start()
 	
 	pauseMenu = new PauseMenu(this);
 	pauseMenu->Start();
-	player = new Player(this);
+	player = new Player(this, "car-type1");
 	track = new RaceTrack(this, trackPath);
 
 	mode->Start();
@@ -79,6 +79,7 @@ update_status SceneGame::Update()
 	if(!pauseMenu->IsPaused())
 	{
 		player->Update();
+
 		track->Update();
 		App->renderer->camera.target = player->GetVehiclePosition();
 		App->renderer->camera.offset = { App->window->GetLogicWidth()/2.f,App->window->GetLogicHeight()/2.f};
