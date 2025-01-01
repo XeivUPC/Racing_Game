@@ -7,8 +7,14 @@
 
 #include "raylib.h"
 #include <vector>
+#include <string>
+
 
 class UIButton;
+class Animator;
+class Timer;
+
+using namespace std;
 
 class SceneSelectSetup : public ModuleScene
 {
@@ -28,25 +34,46 @@ public:
 		BOOM
 	};
 
-	// Choosing Car Type
-	enum VEHICLES {
-		NO_VEHICLE,
-		CAR,
-		MOTO,
-		TRUCK,
-		END_VEHICLE
-	};
-
-	// Choosing Map
-	enum MAPS {
-		NO_MAP,
-		MAP1,
-		MAP2,
-		MAP3,
-		END_MAP
-	};
 
 private:
+
+
+	////NEW UPDATE
+	struct MapTypeData {
+		string name;
+		string mapPath;
+		string imagePreviewId;
+
+		MapTypeData(const string& name, const string& mapPath, const string& imagePreviewId)
+			: name(name), mapPath(mapPath), imagePreviewId(imagePreviewId)
+		{
+		}
+	};
+
+	struct VehicleTypeData {
+		string name;
+		string prefix;
+
+		VehicleTypeData(const string& name, const string& prefix)
+			: name(name), prefix(prefix)
+		{
+		}
+	};
+
+	string setupDataPath = "Assets/Data/game_setup_options.xml";
+	void LoadSetUpInformation();
+	vector<MapTypeData> maps;
+	Texture* mapPreviewTexture;
+	Rectangle mapPreviewTextureRec = { 0,0, 256,145};
+
+	vector<VehicleTypeData> vehicles;
+
+	int currentSelectedMap = 0;
+	int currentSelectedVehicle = 0;
+
+
+	/////////////////////////////////////////////////
+
 
 	// Choosing Modes
 	void ClickRACE();
@@ -82,8 +109,12 @@ private:
 	void OnMouseOverFINISH();
 
 	void ClickCarRightArrow();
+	void OverCarRightArrow();
+	void ExitCarRightArrow();
 
 	void ClickCarLeftArrow();
+	void OverCarLeftArrow();
+	void ExitCarLeftArrow();
 
 	Texture2D* car_bg_texture = nullptr;
 	Rectangle  car_bg_textureRec = { 0, 0, 640, 360 };
@@ -101,17 +132,26 @@ private:
 	UIButton* car_arrow_left = nullptr;
 	Rectangle car_arrow_left_rec = { (36 * 2), (164 * 2), 15 * 2, 13 * 2 };
 
+	Texture2D* arrows_texture = nullptr;
+	Animator* arrowRightSetupCarAnimator = nullptr;
+	Animator* arrowLeftSetupCarAnimator = nullptr;
+
+	bool justClickedarrowRightSetupCar = false;
+	bool justClickedarrowLeftSetupCar = false;
+
 	bool isCarChosen = false;
-	VEHICLES currentVEHICLE = VEHICLES::CAR;
-	VEHICLES finalVEHICLE = VEHICLES::NO_VEHICLE;
 
 	// Choosing Map
 	void ClickMapFINISH();
 	void OnMouseOverMapFINISH();
 
 	void ClickMapRightArrow();
+	void OverMapRightArrow();
+	void ExitMapRightArrow();
 
 	void ClickMapLeftArrow();
+	void OverMapLeftArrow();
+	void ExitMapLeftArrow();
 
 	Texture2D* map_bg_texture = nullptr;
 	Rectangle  map_bg_textureRec = { 0, 0, 640, 360 };
@@ -130,7 +170,11 @@ private:
 	UIButton* map_arrow_left = nullptr;
 	Rectangle map_arrow_left_rec = { (167 * 2), (190 * 2), 15 * 2, 13 * 2 };
 
+	Animator* arrowRightSetupMapAnimator = nullptr;
+	Animator* arrowLeftSetupMapAnimator = nullptr;
+
+	bool justClickedarrowRightSetupMap = false;
+	bool justClickedarrowLeftSetupMap = false;
+
 	bool isMapChosen = false;
-	MAPS currentMAP = MAPS::MAP1;
-	MAPS finalMAP = MAPS::NO_MAP;
 };

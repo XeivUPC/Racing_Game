@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRender.h"
+#include "ModuleWindow.h"
 #include "ModuleAssetLoader.h"
 #include "SceneGame.h"
 #include "ModuleAudio.h"
@@ -10,6 +11,7 @@
 
 #include "Player.h"
 #include "RaceTrack.h"
+#include <raymath.h>
 
 
 SceneGame::SceneGame(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
@@ -30,9 +32,11 @@ bool SceneGame::Start()
 	pauseMenu = new PauseMenu(this);
 	pauseMenu->Start();
 	player = new Player(this);
-	track = new RaceTrack(this, "Assets/Map/Map_2.tmx");
+	track = new RaceTrack(this, trackPath);
 
 	StartFadeOut(WHITE, 0.5f);
+
+	App->renderer->camera.zoom = 2;
 	return ret;
 }
 
@@ -47,18 +51,27 @@ bool SceneGame::CleanUp()
 
 	track->CleanUp();
 	delete track;
+
+	App->renderer->camera.target = {0,0};
+	App->renderer->camera.offset = {0,0};
+	App->renderer->camera.zoom = 1;
 	return true;
+}
+
+void SceneGame::SetUpTrack(string path)
+{
+	trackPath = path;
 }
 
 // Update: draw background
 update_status SceneGame::Update()
 {
-	if(pauseMenu)
+	if(!pauseMenu->IsPaused())
 	{
 		player->Update();
 		track->Update();
-		App->renderer->camera.target = { (float)METERS_TO_PIXELS(player->GetVehiclePosition().x),(float)METERS_TO_PIXELS(player->GetVehiclePosition().y) };
-		App->renderer->camera.offset = { GetScreenWidth()/2.f,GetScreenHeight()/2.f};
+		App->renderer->camera.target = player->GetVehiclePosition();
+		App->renderer->camera.offset = { App->window->GetLogicWidth()/2.f,App->window->GetLogicHeight()/2.f};
 	}
 	
 	if (IsKeyPressed(KEY_P))

@@ -71,7 +71,7 @@ void ModuleScene::FadeUpdate()
 
 void ModuleScene::FadeRender()
 {
-	EndMode2D();
+	App->renderer->SetCameraMode(false);
 	if (doingFadeIn || doingFadeOut) {
 		int opacity;
 
@@ -91,7 +91,7 @@ void ModuleScene::FadeRender()
 		App->renderer->SelectRenderLayer(ModuleRender::OVER_LAYER_5);
 		App->renderer->DrawSimpleRectangle({ 0, 0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE }, color);
 	}
-	BeginMode2D(App->renderer->camera);
+	App->renderer->SetCameraMode(true);
 }
 
 void ModuleScene::FadeIn()

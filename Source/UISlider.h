@@ -11,6 +11,7 @@ public:
 	~UISlider();
 
 	void Update();
+	void CanBeInteracted(bool status);
 	float GetValue();
 	void SetValue(float valueToSet);
 	Rectangle GetThumbBounds();

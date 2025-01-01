@@ -18,16 +18,16 @@ public:
 		Vector2 mousePos = moduleAt->App->window->GetVirtualMousePos();
 		bool mouseInside = CheckCollisionPointRec(mousePos, bounds);
 
-		if (mouseInside && !isMouseOver) {
+		if (mouseInside && !isMouseOver && canBeInteracted) {
 			TriggerCallbacks(onMouseEnter);
 			isMouseOver = true;
 		}
-		else if(!mouseInside && isMouseOver){
+		else if(!mouseInside && isMouseOver || !canBeInteracted){
 			TriggerCallbacks(onMouseExit);
 			isMouseOver = false;
 		}
 
-		if (mouseInside) {
+		if (mouseInside && canBeInteracted) {
 			TriggerCallbacks(onMouseOver);
 
 			if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
@@ -46,6 +46,10 @@ public:
 		}
 	
 	};
+
+	virtual void CanBeInteracted(bool status) {
+		canBeInteracted = status;
+	}
 
 	/// <summary>
 	/// In Order to add function to one of this actions, add the following line
@@ -72,7 +76,11 @@ protected:
 	bool isMouseOver=false;
 	bool canBeClicked = false;
 
+
+	bool canBeInteracted = true;
+
 	void TriggerCallbacks(std::vector<std::function<void()>>& callbacks) {
+
 		for (auto& callback : callbacks) {
 			callback();
 		}

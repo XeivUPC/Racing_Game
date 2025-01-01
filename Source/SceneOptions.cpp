@@ -36,8 +36,8 @@ bool SceneOptions::Start()
 
 	/* Get Textures */
 
-	backgroundTextureSettings = App->texture->GetTexture("backgroundSettings");
-	thumbTextureSettings = App->texture->GetTexture("sliderThumbSettings");
+	backgroundTextureSettings = App->texture->GetTexture("UI_Bg");
+	thumbTextureSettings = App->texture->GetTexture("UI_SliderThumb");
 	arrowLanguageSettings = App->texture->GetTexture("arrowSettings");
 	exitSettings = App->texture->GetTexture("exitSettings");
 
@@ -215,33 +215,42 @@ bool SceneOptions::CleanUp()
 
 bool SceneOptions::Render() {
 
+	App->renderer->SetCameraMode(false);
 	//Draw Background
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_3);
-	App->renderer->Draw(*backgroundTextureSettings, { backgroundTextureSettingsRec.x, backgroundTextureSettingsRec.y }, { 0,0 }, &backgroundTextureSettingsRec, 0, 2);
+	App->renderer->Draw(*backgroundTextureSettings, { backgroundTextureSettingsRec.x, backgroundTextureSettingsRec.y }, { 0,0 }, &backgroundTextureSettingsRec, 0, 1);
 
 	//Draw Text
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_5);
 	App->renderer->BlockRenderLayer();
 
-	Vector2 textSize_language = MeasureTextEx(App->assetLoader->titleFont, App->localization->GetString("SETTINGS_LANGUAGE").c_str(), 100, 0);
-	App->renderer->DrawText(App->localization->GetString("SETTINGS_LANGUAGE").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_language.x / 2), (SCREEN_HEIGHT / 6) - (SCREEN_HEIGHT / 10) }, Vector2{ 0,0 }, App->assetLoader->titleFont, 100, 1, WHITE);
+	App->renderer->DrawText(App->localization->GetString("MAINMENU_SETTINGS").c_str(), Vector2{ 40,10}, Vector2{ 0,0 }, App->assetLoader->basicFont, 120, 0, WHITE);
+
+
+
+	Vector2 textSize_language = MeasureTextEx(App->assetLoader->basicFont, App->localization->GetString("SETTINGS_LANGUAGE").c_str(), 100, 0);
+	App->renderer->DrawText(App->localization->GetString("SETTINGS_LANGUAGE").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_language.x / 2), (SCREEN_HEIGHT / 6) - (SCREEN_HEIGHT / 10) }, Vector2{ 0,0 }, App->assetLoader->basicFont, 100, 1, WHITE);
 
 	Vector2 textSize_language_select = MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("Language").c_str(), 60, 0);
-	App->renderer->DrawText(App->localization->GetString("Language").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_language_select.x / 2) , (SCREEN_HEIGHT / 6) * 2 - 70 }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, BLACK);
+	App->renderer->DrawText(App->localization->GetString("Language").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_language_select.x / 2) , (SCREEN_HEIGHT / 6) * 2 - 70 }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, WHITE);
 
-	Vector2 textSize_sound = MeasureTextEx(App->assetLoader->titleFont, App->localization->GetString("SETTINGS_SOUND").c_str(), 100, 0);
-	App->renderer->DrawText(App->localization->GetString("SETTINGS_SOUND").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_sound.x / 2), (SCREEN_HEIGHT / 6) * 2 }, Vector2{ 0,0 }, App->assetLoader->titleFont, 100, 1, WHITE);
+
+	App->renderer->DrawSimpleRectangle({ (SCREEN_WIDTH / 2) - 350,(SCREEN_HEIGHT / 3 + 10) ,700,5}, Color{ 255, 255, 255, 255 });
+
+
+	Vector2 textSize_sound = MeasureTextEx(App->assetLoader->basicFont, App->localization->GetString("SETTINGS_SOUND").c_str(), 100, 0);
+	App->renderer->DrawText(App->localization->GetString("SETTINGS_SOUND").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_sound.x / 2), (SCREEN_HEIGHT / 6) * 2 +20}, Vector2{ 0,0 }, App->assetLoader->basicFont, 100, 1, WHITE);
 
 	float OffsetTextToSliderX = 20;
 
 	Vector2 textSize_general = MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SETTINGS_GENERAL").c_str(), 60, 0);
-	App->renderer->DrawText(App->localization->GetString("SETTINGS_GENERAL").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_general.x) - (generalVolumeSliderSize.x / 2) - OffsetTextToSliderX, (SCREEN_HEIGHT / 6) * 3.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, BLACK);
+	App->renderer->DrawText(App->localization->GetString("SETTINGS_GENERAL").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_general.x) - (generalVolumeSliderSize.x / 2) - OffsetTextToSliderX, (SCREEN_HEIGHT / 6) * 3.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, WHITE);
 
 	Vector2 textSize_music = MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SETTINGS_MUSIC").c_str(), 60, 0);
-	App->renderer->DrawText(App->localization->GetString("SETTINGS_MUSIC").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_music.x) - (musicVolumeSliderSize.x / 2) - OffsetTextToSliderX, (SCREEN_HEIGHT / 6) * 4.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, BLACK);
+	App->renderer->DrawText(App->localization->GetString("SETTINGS_MUSIC").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_music.x) - (musicVolumeSliderSize.x / 2) - OffsetTextToSliderX, (SCREEN_HEIGHT / 6) * 4.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, WHITE);
 
 	Vector2 textSize_sfx = MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SETTINGS_SFX").c_str(), 60, 0);
-	App->renderer->DrawText(App->localization->GetString("SETTINGS_SFX").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_sfx.x) - (sfxVolumeSliderSize.x / 2) - OffsetTextToSliderX, (SCREEN_HEIGHT / 6) * 5.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, BLACK);
+	App->renderer->DrawText(App->localization->GetString("SETTINGS_SFX").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_sfx.x) - (sfxVolumeSliderSize.x / 2) - OffsetTextToSliderX, (SCREEN_HEIGHT / 6) * 5.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, WHITE);
 
 	App->renderer->UnlockRenderLayer();
 
@@ -258,13 +267,13 @@ bool SceneOptions::Render() {
 	exitSettingsAnimator->Animate(Vector2{ SCREEN_WIDTH - (exitSettingsButtonSize.x) - 30, 30 }, {0,0}, 0, 1, false);
 	exitSettingsAnimator->Update();
 
-	App->renderer->DrawSimpleRectangle(generalVolumeSlider->bounds, Color{ 101, 116, 129, 255 });
+	App->renderer->DrawSimpleRectangle(generalVolumeSlider->bounds, Color{ 217, 217, 217, 255 });
 	App->renderer->Draw(*thumbTextureSettings, { generalVolumeSlider->GetThumbBounds().x, generalVolumeSlider->GetThumbBounds().y }, { 0,0 }, &thumbTextureSettingsRec, 0, 1);
 
-	App->renderer->DrawSimpleRectangle(musicVolumeSlider->bounds, Color{ 101, 116, 129, 255 });
+	App->renderer->DrawSimpleRectangle(musicVolumeSlider->bounds, Color{ 217, 217, 217, 255 });
 	App->renderer->Draw(*thumbTextureSettings, { musicVolumeSlider->GetThumbBounds().x, musicVolumeSlider->GetThumbBounds().y }, { 0,0 }, &thumbTextureSettingsRec, 0, 1);
 
-	App->renderer->DrawSimpleRectangle(sfxVolumeSlider->bounds, Color{ 101, 116, 129, 255 });
+	App->renderer->DrawSimpleRectangle(sfxVolumeSlider->bounds, Color{ 217, 217, 217, 255 });
 	App->renderer->Draw(*thumbTextureSettings, { sfxVolumeSlider->GetThumbBounds().x, sfxVolumeSlider->GetThumbBounds().y }, { 0,0 }, &thumbTextureSettingsRec, 0, 1);
 
 	App->renderer->UnlockRenderLayer();
@@ -276,20 +285,20 @@ bool SceneOptions::Render() {
 	int generalVolumeValue = generalVolumeSlider->GetValue() * 100;
 	std::string generalVolumeValueString = std::to_string(generalVolumeValue);
 	const char* generalVolumeValueCharPtr = generalVolumeValueString.c_str();
-	App->renderer->DrawText(generalVolumeValueCharPtr, Vector2{(SCREEN_WIDTH / 2) + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX * 5, (SCREEN_HEIGHT / 6) * 3.15f }, Vector2{0,0}, App->assetLoader->agencyB, 60, 1, BLACK);
+	App->renderer->DrawText(generalVolumeValueCharPtr, Vector2{(SCREEN_WIDTH / 2) + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX * 5, (SCREEN_HEIGHT / 6) * 3.15f }, Vector2{0,0}, App->assetLoader->agencyB, 60, 1, WHITE);
 
 	int musicVolumeValue = musicVolumeSlider->GetValue() * 100;
 	std::string musicVolumeValueString = std::to_string(musicVolumeValue);
 	const char* musicVolumeValueCharPtr = musicVolumeValueString.c_str();
-	App->renderer->DrawText(musicVolumeValueCharPtr, Vector2{ (SCREEN_WIDTH / 2)  + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX * 5, (SCREEN_HEIGHT / 6) * 4.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, BLACK);
+	App->renderer->DrawText(musicVolumeValueCharPtr, Vector2{ (SCREEN_WIDTH / 2)  + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX * 5, (SCREEN_HEIGHT / 6) * 4.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, WHITE);
 
 	int sfxVolumeValue = sfxVolumeSlider->GetValue() * 100;
 	std::string sfxVolumeValueString = std::to_string(sfxVolumeValue);
 	const char* sfxVolumeValueCharPtr = sfxVolumeValueString.c_str();
-	App->renderer->DrawText(sfxVolumeValueCharPtr, Vector2{ (SCREEN_WIDTH / 2) + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX * 5, (SCREEN_HEIGHT / 6) * 5.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, BLACK);
+	App->renderer->DrawText(sfxVolumeValueCharPtr, Vector2{ (SCREEN_WIDTH / 2) + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX * 5, (SCREEN_HEIGHT / 6) * 5.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, WHITE);
 
 	App->renderer->UnlockRenderLayer();
-
+	App->renderer->SetCameraMode(true);
 	FadeRender();
 
 	return true;

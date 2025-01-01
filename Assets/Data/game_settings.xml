@@ -2,8 +2,8 @@
 <settings>
 	<volume>
 		<general value="0.50333333" />
-		<music value="0.5" />
-		<sfx value="0.50333333" />
+		<music value="0.50666666" />
+		<sfx value="0.50666666" />
 	</volume>
-	<language value="0" />
+	<language value="1" />
 </settings>

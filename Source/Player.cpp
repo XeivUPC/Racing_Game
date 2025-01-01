@@ -51,5 +51,5 @@ bool Player::CleanUp()
 
 Vector2 Player::GetVehiclePosition()
 {
-	return vehicle->GetPos();
+	return vehicle->GetPhysicPosition();
 }

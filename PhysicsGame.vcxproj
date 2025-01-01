@@ -197,6 +197,7 @@
   <ItemGroup>
     <ClCompile Include="Source\AnimationSystem.cpp" />
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\BoomMode.cpp" />
     <ClCompile Include="Source\Box2DFactory.cpp" />
     <ClCompile Include="Source\CollisionSensor.cpp" />
     <ClCompile Include="Source\CollisionsDispatcher.cpp" />
@@ -211,6 +212,8 @@
     <ClCompile Include="Source\ModuleUserPreferences.cpp" />
     <ClCompile Include="Source\PauseMenu.cpp" />
     <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\RaceMode.cpp" />
+    <ClCompile Include="Source\RaceMode.h" />
     <ClCompile Include="Source\RaceTrack.cpp" />
     <ClCompile Include="Source\SceneGame.cpp" />
     <ClCompile Include="Source\ModuleLocalization.cpp" />
@@ -234,6 +237,7 @@
   <ItemGroup>
     <ClInclude Include="Source\AnimationSystem.h" />
     <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\BoomMode.h" />
     <ClInclude Include="Source\Box2DFactory.h" />
     <ClInclude Include="Source\CollisionSensor.h" />
     <ClInclude Include="Source\CollisionsDispatcher.h" />
@@ -242,6 +246,7 @@
     <ClInclude Include="Source\external\pugi\pugiconfig.hpp" />
     <ClInclude Include="Source\external\pugi\pugixml.hpp" />
     <ClInclude Include="Source\FontCreator.h" />
+    <ClInclude Include="Source\GameMode.h" />
     <ClInclude Include="Source\Globals.h" />
     <ClInclude Include="Source\MapLapSensor.h" />
     <ClInclude Include="Source\MapObject.h" />
@@ -275,6 +280,8 @@
     <ClInclude Include="Source\Wheel.h" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Assets\Data\game_settings.xml" />
+    <Xml Include="Assets\Data\game_setup_options.xml" />
     <Xml Include="Assets\Data\vehicle_data.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

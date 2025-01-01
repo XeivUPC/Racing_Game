@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="146" height="79" tilewidth="1" tileheight="1" infinite="0" nextlayerid="8" nextobjectid="34">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="146" height="79" tilewidth="1" tileheight="1" infinite="0" nextlayerid="8" nextobjectid="36">
  <imagelayer id="2" name="Texture">
-  <image source="../Textures/Map 2.png" width="2440" height="1272"/>
+  <image source="../Textures/Map_2.png" width="2440" height="1272"/>
   <properties>
    <property name="TextureID" value="Map2"/>
   </properties>
@@ -10,8 +10,8 @@
   <object id="1" x="279.5" y="776.75">
    <polygon points="0,0 7.5,-6.5 152.629,-8.65909 418.5,-77.25 567,-206.25 593.5,-252.25 603,-314.25 625.75,-358.25 671,-395.75 721.25,-412.75 774.5,-409 1313.5,-183.114 1374.25,-170 1440.5,-172.5 1586.25,-189.25 1636.25,-183.5 1717.25,-148 1749.75,-113.25 1763.5,-72.25 1764.25,-32.5 1747.25,8.75 1714.25,41 1666.25,59.5 1614.75,70.25 1562.25,65.75 1366,37 1314.25,35.75 993.5,48.5833 928.5,39.9167 858.5,13.25 756.5,-40.0833 707.167,-56.4167 640.833,-62.0833 420.439,-60.9924 150.913,7.07386 9.16667,8.58333"/>
   </object>
-  <object id="33" x="25" y="0">
-   <polygon points="0,0 2336,0 2336,1264 0,1264 0,0 -16,0 -16,1280 2352,1280 2352,-16 0,-16"/>
+  <object id="35" x="2378" y="-15">
+   <polygon points="0,0 0,1296 -2368,1297 -2368,16 -2352,16 -2352,1280 -16,1280 -16,16 -2352,16 -2352,0"/>
   </object>
  </objectgroup>
  <objectgroup id="7" name="StartingPositions"/>

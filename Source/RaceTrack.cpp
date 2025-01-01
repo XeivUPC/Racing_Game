@@ -28,6 +28,7 @@ update_status RaceTrack::Update()
 
 bool RaceTrack::Render()
 {
+	moduleAt->App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_5);
 	moduleAt->App->renderer->Draw(*trackTexture, { 0,0 }, { 0,0 });
 	return true;
 }
@@ -38,6 +39,12 @@ bool RaceTrack::CleanUp()
 		delete collider;
 	}
 	trackColliders.clear();
+
+	for (const auto& sensor : mapLapSensor) {
+		sensor->CleanUp();
+		delete sensor;
+	}
+	mapLapSensor.clear();
 
 	return true;
 }
