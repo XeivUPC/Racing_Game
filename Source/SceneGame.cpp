@@ -8,9 +8,7 @@
 #include "ModuleTexture.h"
 #include "ModulePhysics.h"
 #include "PauseMenu.h"
-#include "RaceMode.h"
-#include "BoomMode.h"
-
+#include "GameMode.h"
 #include "Player.h"
 #include "RaceTrack.h"
 #include <raymath.h>
@@ -35,8 +33,6 @@ bool SceneGame::Start()
 	pauseMenu->Start();
 	player = new Player(this);
 	track = new RaceTrack(this, trackPath);
-	//mode = new RaceMode(App);
-	mode = new BoomMode(App);
 
 	mode->Start();
 
@@ -70,6 +66,11 @@ bool SceneGame::CleanUp()
 void SceneGame::SetUpTrack(string path)
 {
 	trackPath = path;
+}
+
+void SceneGame::SetMode(GameMode* mode)
+{
+	this->mode = mode;
 }
 
 // Update: draw background
