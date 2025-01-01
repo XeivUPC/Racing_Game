@@ -3,7 +3,7 @@
 #include "Module.h"
 #include <string>
 
-Player::Player(Module* moduleat, std::string vehicleType) : Pilot(moduleat, vehicleType)
+Player::Player(Module* moduleAt, std::string vehicleType) : Pilot(moduleAt, vehicleType)
 {
 }
 
@@ -11,7 +11,7 @@ Player::~Player()
 {
 }
 
-bool Player::Update()
+update_status Player::Update()
 {
 	Vector2 moveInput = { 0,0 };
 
@@ -28,6 +28,5 @@ bool Player::Update()
 	vehicle->SetInput(moveInput);
 	vehicle->Update();
 
-	printf("%d\n",CurrentCheckpoint());
-	return true;
+	return UPDATE_CONTINUE;
 }

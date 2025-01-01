@@ -10,6 +10,8 @@
 #include "PauseMenu.h"
 #include "GameMode.h"
 #include "Player.h"
+#include "Pilot.h"
+#include "PilotCPU.h"
 #include "RaceTrack.h"
 #include <raymath.h>
 
@@ -32,6 +34,13 @@ bool SceneGame::Start()
 	pauseMenu = new PauseMenu(this);
 	pauseMenu->Start();
 	player = new Player(this, "car-type1");
+	pilots.emplace_back(player);
+
+	for (size_t i = 0; i < 3; i++)
+	{
+		pilots.emplace_back(new PilotCPU(this, "moto-type1"));
+	}
+
 	track = new RaceTrack(this, trackPath);
 
 	mode->Start();
@@ -46,8 +55,12 @@ bool SceneGame::Start()
 bool SceneGame::CleanUp()
 {
 	LOG("Unloading Intro scene");
-	player->CleanUp();
-	delete player;
+
+	for (const auto& pilot : pilots) {
+		pilot->CleanUp();
+		delete pilot;
+	}
+
 	pauseMenu->CleanUp();
 	delete pauseMenu;
 
@@ -78,7 +91,12 @@ update_status SceneGame::Update()
 {
 	if(!pauseMenu->IsPaused())
 	{
-		player->Update();
+		if (mode->IsRaceStarted()) {
+			for (const auto& pilot : pilots) {
+				pilot->Update();
+			}
+		}
+		
 
 		track->Update();
 		App->renderer->camera.target = player->GetVehiclePosition();
@@ -98,7 +116,9 @@ update_status SceneGame::Update()
 bool SceneGame::Render()
 {
 	track->Render();
-	player->Render();
+	for (const auto& pilot : pilots) {
+		pilot->Render();
+	}
 	pauseMenu->Render();
 	ModuleScene::FadeRender();
 	return true;

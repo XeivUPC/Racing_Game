@@ -212,6 +212,7 @@
     <ClCompile Include="Source\ModuleUserPreferences.cpp" />
     <ClCompile Include="Source\PauseMenu.cpp" />
     <ClCompile Include="Source\Pilot.cpp" />
+    <ClCompile Include="Source\PilotCPU.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\RaceMode.cpp" />
     <ClCompile Include="Source\RaceMode.h" />
@@ -258,6 +259,7 @@
     <ClInclude Include="Source\ModuleUserPreferences.h" />
     <ClInclude Include="Source\PauseMenu.h" />
     <ClInclude Include="Source\Pilot.h" />
+    <ClInclude Include="Source\PilotCPU.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\RaceTrack.h" />
     <ClInclude Include="Source\SceneGame.h" />

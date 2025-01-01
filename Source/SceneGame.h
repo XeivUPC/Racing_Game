@@ -14,6 +14,7 @@ class Player;
 class PauseMenu;
 class GameMode;
 class RaceTrack;
+class Pilot;
 
 using namespace std;
 
@@ -32,11 +33,13 @@ public:
 	void SetMode(GameMode* mode);
 
 public:
-	Player* player;
 	PauseMenu* pauseMenu;
 
 	RaceTrack* track;
 	GameMode* mode;
+
+	Player* player;
+	vector<Pilot*> pilots;
 private:
 	string trackPath = "";
 };
