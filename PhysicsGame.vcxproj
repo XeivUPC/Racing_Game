@@ -280,6 +280,8 @@
     <ClInclude Include="Source\Wheel.h" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Assets\Data\game_settings.xml" />
+    <Xml Include="Assets\Data\game_setup_options.xml" />
     <Xml Include="Assets\Data\vehicle_data.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

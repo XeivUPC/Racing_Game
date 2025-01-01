@@ -11,6 +11,12 @@
 #include "AnimationSystem.h"
 #include "Timer.h"
 
+#include "pugixml.hpp"
+
+using namespace pugi;
+
+
+
 SceneSelectSetup::SceneSelectSetup(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
 {
 }
@@ -156,6 +162,14 @@ bool SceneSelectSetup::Start()
 	arrowLeftSetupMapAnimator->SetSpeed(0.1f);
 	arrowLeftSetupMapAnimator->SelectAnimation("arrowLeftSetupMapIdle", true);
 
+	currentSelectedMap = 0;
+	currentSelectedVehicle = 0;
+	isCarChosen = false;
+	isMapChosen = false;
+
+	LoadSetUpInformation();
+	mapPreviewTexture = App->texture->GetTexture(maps[currentSelectedMap].imagePreviewId);
+
 	StartFadeOut(BLACK, 0.3f);
 
 	return ret;
@@ -207,15 +221,9 @@ bool SceneSelectSetup::Render()
 		
 		App->renderer->DrawText(App->localization->GetString("SELECTMENU_FINISH").c_str(), { finish_car_button_textureRec.x , finish_car_button_textureRec.y }, finish_car_button_textOffset, App->assetLoader->titleFont, 100, 0, WHITE);
 
-		if (currentVEHICLE == VEHICLES::CAR) {
-			App->renderer->DrawText(App->localization->GetString("SELECTMENU_VEHICLE_CAR").c_str(), car_name_text_pos, {-MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_VEHICLE_CAR").c_str(), 40, 0).x / 2,0}, App->assetLoader->agencyB, 40, 0, BLACK);
-		}
-		else if (currentVEHICLE == VEHICLES::MOTO) {
-			App->renderer->DrawText(App->localization->GetString("SELECTMENU_VEHICLE_MOTO").c_str(), car_name_text_pos, {-MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_VEHICLE_MOTO").c_str(), 40, 0).x / 2,0}, App->assetLoader->agencyB, 40, 0, BLACK);
-		}
-		else if (currentVEHICLE == VEHICLES::TRUCK) {
-			App->renderer->DrawText(App->localization->GetString("SELECTMENU_VEHICLE_TRUCK").c_str(), car_name_text_pos, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_VEHICLE_TRUCK").c_str(), 40, 0).x / 2,0 }, App->assetLoader->agencyB, 40, 0, BLACK);
-		}
+		string vehicleName = App->localization->GetString(vehicles [currentSelectedVehicle].name);
+		App->renderer->DrawText(vehicleName.c_str(), car_name_text_pos, { -MeasureTextEx(App->assetLoader->agencyB, vehicleName.c_str(), 40, 0).x / 2,0 }, App->assetLoader->agencyB, 40, 0, BLACK);
+		
 
 		arrowRightSetupCarAnimator->Animate({ car_arrow_right_rec.x, car_arrow_right_rec.y }, { 0,0 }, 0, 1, false);
 		arrowRightSetupCarAnimator->Update();
@@ -238,15 +246,11 @@ bool SceneSelectSetup::Render()
 
 		App->renderer->DrawText(App->localization->GetString("SELECTMENU_FINISH").c_str(), map_finish_text_pos, { -MeasureTextEx(App->assetLoader->titleFont, App->localization->GetString("SELECTMENU_FINISH").c_str(), 50, 0).x / 2, 0 }, App->assetLoader->titleFont, 50, 0, WHITE);
 
-		if (currentMAP == MAPS::MAP1) {
-			App->renderer->DrawText(App->localization->GetString("SELECTMENU_MAP1").c_str(), map_name_text_pos, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_MAP1").c_str(), 40, 0).x / 2,0 }, App->assetLoader->agencyB, 40, 0, BLACK);
-		}
-		else if (currentMAP == MAPS::MAP2) {
-			App->renderer->DrawText(App->localization->GetString("SELECTMENU_MAP2").c_str(), map_name_text_pos, {-MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_MAP2").c_str(), 40, 0).x / 2,0}, App->assetLoader->agencyB, 40, 0, BLACK);
-		}
-		else if (currentMAP == MAPS::MAP3) {
-			App->renderer->DrawText(App->localization->GetString("SELECTMENU_MAP3").c_str(), map_name_text_pos, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_MAP3").c_str(), 40, 0).x / 2,0 }, App->assetLoader->agencyB, 40, 0, BLACK);
-		}
+
+		string mapName = App->localization->GetString(maps[currentSelectedMap].name);
+		App->renderer->DrawText(mapName.c_str(), map_name_text_pos, { -MeasureTextEx(App->assetLoader->agencyB, mapName.c_str(), 40, 0).x / 2,0 }, App->assetLoader->agencyB, 40, 0, BLACK);
+
+		App->renderer->Draw(*mapPreviewTexture, { 194*2,124*2 }, {0,0},&mapPreviewTextureRec,0,2);
 
 		arrowRightSetupMapAnimator->Animate({ map_arrow_right_rec.x, map_arrow_right_rec.y }, { 0,0 }, 0, 1, false);
 		arrowRightSetupMapAnimator->Update();
@@ -301,6 +305,39 @@ bool SceneSelectSetup::CleanUp()
 	return true;
 }
 
+void SceneSelectSetup::LoadSetUpInformation()
+{
+	pugi::xml_document setupData;
+	pugi::xml_parse_result result = setupData.load_file(setupDataPath.c_str());
+
+	if (result)
+	{
+		LOG("config.xml parsed without errors");
+
+		xml_node maps_node = setupData.child("setup").child("map-type");
+		xml_node vehicles_node = setupData.child("setup").child("vehicle-type");
+
+		for (xml_node map_node = maps_node.child("map"); map_node != NULL; map_node = map_node.next_sibling("map")) {
+			string mapName = map_node.attribute("name").as_string();
+			string mapPath = map_node.attribute("mapPath").as_string();
+			string mapTextureId = map_node.attribute("imagePreviewID").as_string();
+			MapTypeData mapData = { mapName,mapPath, mapTextureId };
+			maps.emplace_back(mapData);
+		}
+
+		for (xml_node vehicle_node = vehicles_node.child("vehicle"); vehicle_node != NULL; vehicle_node = vehicle_node.next_sibling("vehicle")) {
+			string vehicleName = vehicle_node.attribute("name").as_string();
+			string vehiclePrefix = vehicle_node.attribute("prefix").as_string();
+			VehicleTypeData vehicleData = { vehicleName,vehiclePrefix };
+			vehicles.emplace_back(vehicleData);
+		}
+	}
+	else
+	{
+		LOG("Error loading config.xml: %s", result.description());
+	}
+}
+
 void SceneSelectSetup::ClickRACE()
 {
 	App->audio->PlayFx(App->assetLoader->audioMotorId);
@@ -337,7 +374,7 @@ void SceneSelectSetup::ClickFINISH()
 {
 	App->audio->PlayFx(App->assetLoader->audioMotorId);
 	isCarChosen = true;
-	finalVEHICLE = currentVEHICLE;
+	
 
 	StartFadeOut(BLACK, 0.3f);
 }
@@ -352,9 +389,9 @@ void SceneSelectSetup::OnMouseOverFINISH()
 void SceneSelectSetup::ClickCarRightArrow()
 {
 	App->audio->PlayFx(App->assetLoader->audioClickId);
-	currentVEHICLE = (VEHICLES)(currentVEHICLE + 1);
-	if (currentVEHICLE == VEHICLES::END_VEHICLE) {
-		currentVEHICLE = (VEHICLES)(VEHICLES::NO_VEHICLE + 1);
+	currentSelectedVehicle++;
+	if (currentSelectedVehicle >= (int)vehicles.size()) {
+		currentSelectedVehicle = 0;
 	}
 	arrowRightSetupCarAnimator->SelectAnimation("arrowRightSetupCarClick", false);
 	justClickedarrowRightSetupCar = true;
@@ -374,9 +411,9 @@ void SceneSelectSetup::ExitCarRightArrow()
 void SceneSelectSetup::ClickCarLeftArrow()
 {
 	App->audio->PlayFx(App->assetLoader->audioClickId);
-	currentVEHICLE = (VEHICLES)(currentVEHICLE - 1);
-	if (currentVEHICLE == VEHICLES::NO_VEHICLE) {
-		currentVEHICLE = (VEHICLES)(VEHICLES::END_VEHICLE - 1);
+	currentSelectedVehicle--;
+	if (currentSelectedVehicle<0) {
+		currentSelectedVehicle = (int)vehicles.size() - 1;
 	}
 	arrowLeftSetupCarAnimator->SelectAnimation("arrowLeftSetupCarClick", false);
 	justClickedarrowLeftSetupCar = true;
@@ -398,8 +435,7 @@ void SceneSelectSetup::ClickMapFINISH()
 	// Stop previous music
 	App->audio->PlayFx(App->assetLoader->audioMotorId);
 	isMapChosen = true;
-	finalMAP = currentMAP;
-
+	App->scene_game->SetUpTrack(maps[currentSelectedMap].mapPath);
 	StartFadeIn(App->scene_game, BLACK, 0.3f);
 }
 
@@ -413,10 +449,11 @@ void SceneSelectSetup::OnMouseOverMapFINISH()
 void SceneSelectSetup::ClickMapRightArrow()
 {
 	App->audio->PlayFx(App->assetLoader->audioClickId);
-	currentMAP = (MAPS)(currentMAP + 1);
-	if (currentMAP == MAPS::END_MAP) {
-		currentMAP = (MAPS)(MAPS::NO_MAP + 1);
+	currentSelectedMap++;
+	if (currentSelectedMap>=(int)maps.size()) {
+		currentSelectedMap = 0;
 	}
+	mapPreviewTexture = App->texture->GetTexture(maps[currentSelectedMap].imagePreviewId);
 	arrowRightSetupMapAnimator->SelectAnimation("arrowRightSetupMapClick", false);
 	justClickedarrowRightSetupMap = true;
 }
@@ -435,10 +472,11 @@ void SceneSelectSetup::ExitMapRightArrow()
 void SceneSelectSetup::ClickMapLeftArrow()
 {
 	App->audio->PlayFx(App->assetLoader->audioClickId);
-	currentMAP = (MAPS)(currentMAP - 1);
-	if (currentMAP == MAPS::NO_MAP) {
-		currentMAP = (MAPS)(MAPS::END_MAP - 1);
+	currentSelectedMap--;
+	if (currentSelectedMap<0) {
+		currentSelectedMap = (int)maps.size() - 1;
 	}
+	mapPreviewTexture = App->texture->GetTexture(maps[currentSelectedMap].imagePreviewId);
 	arrowLeftSetupMapAnimator->SelectAnimation("arrowLeftSetupMapClick", false);
 	justClickedarrowLeftSetupMap = true;
 }

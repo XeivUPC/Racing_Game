@@ -2,9 +2,7 @@
 #include "Module.h"
 #include <unordered_map>
 #include <string>
-#include "pugixml.hpp"
 
-using namespace pugi;
 
 class ModuleUserPreferences : public Module
 {

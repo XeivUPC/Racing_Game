@@ -35,7 +35,7 @@ private:
 	Vector2 sfxVolumeSliderSize = { 0,0 };
 
 	Texture2D* backgroundTextureSettings = nullptr;
-	Rectangle  backgroundTextureSettingsRec = { 0, 0, 640, 360 };
+	Rectangle  backgroundTextureSettingsRec = { 0, 0, 1280, 720 };
 
 	Texture2D* thumbTextureSettings = nullptr;
 	Rectangle  thumbTextureSettingsRec = { 0, 0, 32, 32 };

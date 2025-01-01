@@ -17,6 +17,7 @@ public:
 
 private:
 	Texture* logoTexture = nullptr;
+	Texture* BgTexture = nullptr;
 
 	Timer intro_timer;
 	float intro_duration = 2;

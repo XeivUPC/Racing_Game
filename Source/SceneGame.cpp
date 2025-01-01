@@ -33,12 +33,14 @@ bool SceneGame::Start()
 	pauseMenu = new PauseMenu(this);
 	pauseMenu->Start();
 	player = new Player(this);
-	track = new RaceTrack(this, "Assets/Map/Map_2.tmx");
+	track = new RaceTrack(this, trackPath);
 	mode = new RaceMode(App);
 
 	mode->Start();
 
 	StartFadeOut(WHITE, 0.5f);
+
+	App->renderer->camera.zoom = 2;
 	return ret;
 }
 
@@ -59,7 +61,13 @@ bool SceneGame::CleanUp()
 
 	App->renderer->camera.target = {0,0};
 	App->renderer->camera.offset = {0,0};
+	App->renderer->camera.zoom = 1;
 	return true;
+}
+
+void SceneGame::SetUpTrack(string path)
+{
+	trackPath = path;
 }
 
 // Update: draw background
