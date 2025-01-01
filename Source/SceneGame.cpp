@@ -12,6 +12,7 @@
 #include "Player.h"
 #include "RaceTrack.h"
 #include <raymath.h>
+#include "MapLapSensorController.h"
 
 
 SceneGame::SceneGame(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
@@ -33,6 +34,7 @@ bool SceneGame::Start()
 	pauseMenu->Start();
 	player = new Player(this, "car-type1");
 	track = new RaceTrack(this, trackPath);
+	lapController = new MapLapSensorController(this);
 
 	mode->Start();
 

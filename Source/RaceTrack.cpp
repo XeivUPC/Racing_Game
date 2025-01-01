@@ -21,8 +21,15 @@ RaceTrack::~RaceTrack()
 {
 }
 
+vector<MapLapSensor*> RaceTrack::GetTrackSensors()
+{
+	return mapLapSensor;
+}
+
 update_status RaceTrack::Update()
 {
+	for (const auto& sensor : mapLapSensor)
+		sensor->Update();
 	return UPDATE_CONTINUE;
 }
 
