@@ -8,7 +8,7 @@
 #include "ModuleTexture.h"
 #include "ModulePhysics.h"
 #include "PauseMenu.h"
-
+#include "GameMode.h"
 #include "Player.h"
 #include "RaceTrack.h"
 #include <raymath.h>
@@ -34,6 +34,8 @@ bool SceneGame::Start()
 	player = new Player(this, "car-type1");
 	track = new RaceTrack(this, trackPath);
 
+	mode->Start();
+
 	StartFadeOut(WHITE, 0.5f);
 
 	App->renderer->camera.zoom = 2;
@@ -52,6 +54,9 @@ bool SceneGame::CleanUp()
 	track->CleanUp();
 	delete track;
 
+	mode->CleanUp();
+	delete mode;
+
 	App->renderer->camera.target = {0,0};
 	App->renderer->camera.offset = {0,0};
 	App->renderer->camera.zoom = 1;
@@ -63,6 +68,11 @@ void SceneGame::SetUpTrack(string path)
 	trackPath = path;
 }
 
+void SceneGame::SetMode(GameMode* mode)
+{
+	this->mode = mode;
+}
+
 // Update: draw background
 update_status SceneGame::Update()
 {
@@ -72,6 +82,7 @@ update_status SceneGame::Update()
 		track->Update();
 		App->renderer->camera.target = player->GetVehiclePosition();
 		App->renderer->camera.offset = { App->window->GetLogicWidth()/2.f,App->window->GetLogicHeight()/2.f};
+		mode->Update();
 	}
 	
 	if (IsKeyPressed(KEY_P))

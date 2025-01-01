@@ -12,6 +12,7 @@
 class PhysBody;
 class Player;
 class PauseMenu;
+class GameMode;
 class RaceTrack;
 
 using namespace std;
@@ -28,12 +29,14 @@ public:
 	bool CleanUp();
 
 	void SetUpTrack(string path);
+	void SetMode(GameMode* mode);
 
 public:
 	Player* player;
 	PauseMenu* pauseMenu;
 
 	RaceTrack* track;
+	GameMode* mode;
 
 private:
 	string trackPath = "";

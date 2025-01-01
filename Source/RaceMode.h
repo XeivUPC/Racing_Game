@@ -24,7 +24,7 @@ public:
 	void EndRace();
 
 private:
-	int currentLap = 0;
+	int currentLap = 1;
 	Timer lapTimeCounter;
 	
 	int maxLapNum = 3;

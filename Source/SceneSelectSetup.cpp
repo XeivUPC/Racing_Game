@@ -9,6 +9,8 @@
 #include "UIButton.h"
 #include "ModuleLocalization.h"
 #include "AnimationSystem.h"
+#include "RaceMode.h"
+#include "BoomMode.h"
 #include "Timer.h"
 
 #include "pugixml.hpp"
@@ -343,6 +345,7 @@ void SceneSelectSetup::ClickRACE()
 	App->audio->PlayFx(App->assetLoader->audioMotorId);
 	isModeChosen = true;
 	currentMode = MODES::RACE;
+	App->scene_game->SetMode(new RaceMode(App));
 
 	StartFadeOut(BLACK, 0.3f);
 }
@@ -352,6 +355,7 @@ void SceneSelectSetup::ClickBOOM()
 	App->audio->PlayFx(App->assetLoader->audioMotorId);
 	isModeChosen = true;
 	currentMode = MODES::BOOM;
+	App->scene_game->SetMode(new BoomMode(App));
 
 	StartFadeOut(BLACK, 0.3f);
 }
