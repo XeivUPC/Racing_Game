@@ -1,6 +1,5 @@
 #include "CollisionSensor.h"
 
-
 CollisionSensor::CollisionSensor()
 {
 
@@ -52,7 +51,7 @@ PhysBody* CollisionSensor::OnTriggerEnterGet()
         lastBodyEnter = nullptr;
         return aux;
     }
-    return false;
+    return nullptr;
 }
 
 PhysBody* CollisionSensor::OnTriggerExitGet()

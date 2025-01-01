@@ -4,6 +4,7 @@
 Pilot::Pilot(Module* moduleat, std::string vehicleType)
 {
 	moduleAt = moduleat;
+
 	vehicle = new Vehicle(moduleAt, vehicleType);
 	checkpoint = 0;
 	lap = 0;
