@@ -3,8 +3,6 @@
 
 #include <vector>
 
-using namespace std;
-
 class RaceMode : public GameMode
 {
 public:
@@ -14,6 +12,12 @@ public:
 	bool Init();
 	update_status Update();
 	bool CleanUp();
+
+	void ExecuteFunction(std::string Id) override;
+	void ExecuteFunctionGivenInt(std::string Id, int input) override;
+	double GetDoubleParameter(std::string Id) override;
+	double GetDoubleParameterGivenInt(std::string Id, int input) override;
+	int GetIntParameter(std::string Id) override;
 
 	int GetCurrentLapNum() const;
 	void SetLapNum(int lapNum);
@@ -28,7 +32,7 @@ private:
 	Timer lapTimeCounter;
 	
 	int maxLapNum = 3;
-	vector<double> lapTimes;
+	std::vector<double> lapTimes;
 
 	// Temporal bools
 	bool hasPlayerFinishedLap = false;

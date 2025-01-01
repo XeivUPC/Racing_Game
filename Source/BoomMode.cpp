@@ -71,6 +71,42 @@ bool BoomMode::CleanUp()
 	return false;
 }
 
+void BoomMode::ExecuteFunction(std::string Id)
+{
+	if (Id.c_str() == "ExplodePlayer") {
+		ExplodePlayer();
+	}
+	else if (Id.c_str() == "ExplodeCPU") {
+		ExplodeCPU();
+	}
+	else if (Id.c_str() == "EndRace") {
+		EndRace();
+	}
+	else {
+		return;
+	}
+}
+
+void BoomMode::ExecuteFunctionGivenDouble(std::string Id, double input)
+{
+	if (Id.c_str() == "SetTimeToExplodeSec") {
+		SetTimeToExplodeSec(input);
+	}
+	else {
+		return;
+	}
+}
+
+double BoomMode::GetDoubleParameter(std::string Id)
+{
+	if (Id.c_str() == "GetTimeToExplodeSec") {
+		return GetTimeToExplodeSec();
+	}
+	else {
+		return 0.0;
+	}
+}
+
 void BoomMode::ExplodePlayer()
 {
 	// Explode player's car and loose

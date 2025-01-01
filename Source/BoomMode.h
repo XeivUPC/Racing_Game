@@ -3,8 +3,6 @@
 
 #include <vector>
 
-using namespace std;
-
 class BoomMode : public GameMode
 {
 public:
@@ -14,6 +12,10 @@ public:
 	bool Init();
 	update_status Update();
 	bool CleanUp();
+
+	void ExecuteFunction(std::string Id) override;
+	void ExecuteFunctionGivenDouble(std::string Id, double input) override;
+	double GetDoubleParameter(std::string Id) override;
 
 	void ExplodePlayer();
 	void ExplodeCPU();

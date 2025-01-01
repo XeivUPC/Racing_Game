@@ -101,4 +101,28 @@ public:
 		return raceStarted;
 	}
 
+	virtual void ExecuteFunction(std::string Id) {
+		return;
+	}
+	
+	virtual void ExecuteFunctionGivenInt(std::string Id, int input) {
+		return;
+	}
+
+	virtual void ExecuteFunctionGivenDouble(std::string Id, double input) {
+		return;
+	}
+
+	virtual double GetDoubleParameter(std::string Id) {
+		return 0.0;
+	}
+
+	virtual double GetDoubleParameterGivenInt(std::string Id, int input) {
+		return 0.0;
+	}
+
+	virtual int GetIntParameter(std::string Id) {
+		return 0;
+	}
+
 };
