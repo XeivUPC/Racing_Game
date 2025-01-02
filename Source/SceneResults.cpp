@@ -2,8 +2,8 @@
 #include "Application.h"
 #include "ModuleRender.h"
 #include "SceneResults.h"
-#include "SceneSelectSetup.h"
 #include "SceneOptions.h"
+#include "SceneMainMenu.h"
 #include "ModuleAudio.h"
 #include "ModuleTexture.h"
 #include "ModuleAssetLoader.h"
@@ -24,7 +24,7 @@ bool SceneResults::Start()
 	bool ret = true;
 
 	// Background
-	backgroundTexture = App->texture->GetTexture("main_menu");
+	backgroundTexture = App->texture->GetTexture("UI_Bg");
 
 	// Play Button
 	// Texture
@@ -60,15 +60,15 @@ update_status SceneResults::Update()
 bool SceneResults::Render() {
 
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_3);
-	App->renderer->Draw(*backgroundTexture, { backgroundTextureRec.x, backgroundTextureRec.y }, { 0,0 }, &backgroundTextureRec, 0, 2);
+	App->renderer->Draw(*backgroundTexture, { backgroundTextureRec.x, backgroundTextureRec.y }, { 0,0 }, &backgroundTextureRec, 0, 1);
 
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_4);
 	App->renderer->BlockRenderLayer();
 	if (App->localization->GetString("MAINMENU_PLAY").length() < 5) {
-		App->renderer->DrawText("next", { next_buttonTextureRec.x , next_buttonTextureRec.y }, { buttonsText_Offset.x + App->assetLoader->titleFont.recs->width, buttonsText_Offset.y }, App->assetLoader->titleFont, 100, 0, WHITE);
+		App->renderer->DrawText("NEXT", { next_buttonTextureRec.x , next_buttonTextureRec.y }, { buttonsText_Offset.x + App->assetLoader->agencyB.recs->width, buttonsText_Offset.y }, App->assetLoader->agencyB, 100, 0, WHITE);
 	}
 	else {
-		App->renderer->DrawText("next", { next_buttonTextureRec.x , next_buttonTextureRec.y}, buttonsText_Offset, App->assetLoader->titleFont, 100, 0, WHITE);
+		App->renderer->DrawText("NEXT", { next_buttonTextureRec.x , next_buttonTextureRec.y}, buttonsText_Offset, App->assetLoader->agencyB, 100, 0, WHITE);
 	}
 
 	App->renderer->UnlockRenderLayer();
@@ -90,7 +90,7 @@ bool SceneResults::CleanUp()
 void SceneResults::ClickNext()
 {
 	App->audio->PlayFx(App->assetLoader->audioMotorId);
-	StartFadeIn(App->scene_select_setup, BLACK, 0.3f);
+	StartFadeIn(App->scene_main_menu, BLACK, 0.3f);
 	// Go to Play Scene
 }
 

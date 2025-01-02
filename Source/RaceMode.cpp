@@ -1,6 +1,7 @@
 #include "RaceMode.h"
 #include "Application.h"
 #include "SceneGame.h"
+#include "SceneResults.h"
 #include "Player.h"
 
 RaceMode::RaceMode(SceneGame* gameAt, int NumberOfLaps) : GameMode (gameAt)
@@ -33,6 +34,11 @@ update_status RaceMode::Update()
 		else {
 			SetLapNum(currentLap + 1);
 		}
+	}
+
+	Application* App = gameAt->App;
+	if (IsKeyPressed(KEY_N)) {
+		App->scene_game->StartFadeIn(App->scene_results, BLACK, 0.3f);
 	}
 
 	Render();
@@ -164,4 +170,6 @@ double RaceMode::GetCurrentLapTimeSec() const
 void RaceMode::EndRace()
 {
 	// Go to result scene
+	Application* App = gameAt->App;
+	App->scene_game->StartFadeIn(App->scene_results, BLACK, 0.3f);
 }
