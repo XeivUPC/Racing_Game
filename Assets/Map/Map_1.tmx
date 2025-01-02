@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="146" height="79" tilewidth="1" tileheight="1" infinite="0" nextlayerid="17" nextobjectid="70">
- <imagelayer id="10" name="Texture">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="146" height="79" tilewidth="1" tileheight="1" infinite="0" nextlayerid="17" nextobjectid="79">
+ <imagelayer id="10" name="Texture" locked="1">
   <image source="../Textures/Map_1.png" width="2440" height="1272"/>
   <properties>
    <property name="TextureID" value="Map1"/>
   </properties>
  </imagelayer>
- <objectgroup id="11" name="Collisions">
+ <objectgroup id="11" name="Collisions" locked="1">
   <object id="25" x="622" y="415.667">
    <polygon points="0,0 5.66667,3.66667 5.66667,10.3333 1,15.6667 -40.3333,18 -92.3333,21.6667 -152.333,28.6667 -192.333,47 -222.667,70.3333 -248.333,100 -265,129.667 -276.667,174.333 -277.667,216.333 -268.667,254 -251.333,291.667 -233.667,314.667 -205.333,341 -175,358.667 -131.333,373 -84.3333,381.333 -60,382.667 187.667,382.667 254.5,328.833 307,288.333 368,240.833 403.5,217.833 451,199.833 485.5,196.333 508.5,195.833 541.5,202.333 582.5,216.333 613,236.333 646.5,266.333 777,381.833 1031,381.833 1046.5,371.833 1069.5,356.833 1087,340.333 1101,317.333 1111.5,295.333 1114.5,257.333 1121,178.833 1130,164.333 1146,159.333 1164.5,163.833 1173,177.833 1213,282.833 1225,300.333 1238.5,315.833 1261.5,334.833 1282,351.333 1292.5,361.833 1294,374.333 1290,385.333 1285.5,393.333 1275.5,396.833 1251.5,398.333 -77,398.333 -93,395.833 -141.5,385.833 -170.5,376.833 -197,365.833 -227.5,343.833 -252.5,319.333 -272.5,284.333 -287.5,248.833 -294,202.833 -289,157.333 -275,114.833 -257.5,84.8333 -232,56.8333 -197.5,31.8333 -156,13.8333 -122.5,8.33333 -74.5,5.33333"/>
   </object>
@@ -17,8 +17,57 @@
    <polygon points="0,0 0,1296 -2368,1296 -2368,16 -2352,16 -2352,1279 -16,1279 -16,16 -2352,16 -2352,0"/>
   </object>
  </objectgroup>
- <objectgroup id="15" name="StartingPositions"/>
- <objectgroup id="12" name="CheckPoints">
+ <objectgroup id="15" name="StartingPositions">
+  <object id="70" x="1274.17" y="976">
+   <properties>
+    <property name="Order" type="int" value="0"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="71" x="1307.17" y="934.333">
+   <properties>
+    <property name="Order" type="int" value="1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="72" x="1345.17" y="976">
+   <properties>
+    <property name="Order" type="int" value="2"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="73" x="1387.17" y="934.333">
+   <properties>
+    <property name="Order" type="int" value="3"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="74" x="1422.5" y="976">
+   <properties>
+    <property name="Order" type="int" value="4"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="75" x="1463.17" y="934.333">
+   <properties>
+    <property name="Order" type="int" value="5"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="76" x="1507" y="976">
+   <properties>
+    <property name="Order" type="int" value="6"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="77" x="1541.83" y="934.333">
+   <properties>
+    <property name="Order" type="int" value="7"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="12" name="CheckPoints" locked="1">
   <object id="11" x="1520" y="816">
    <properties>
     <property name="Order" type="int" value="0"/>
@@ -104,7 +153,7 @@
    <polygon points="-13.5,-19.5 581.333,-20 560,120 -60,24"/>
   </object>
  </objectgroup>
- <objectgroup id="13" name="TractionAreas">
+ <objectgroup id="13" name="TractionAreas" locked="1">
   <object id="67" x="1120" y="442">
    <properties>
     <property name="Traction" type="float" value="2"/>
@@ -124,5 +173,5 @@
    <polygon points="0,0 0,-276 465,-276 606.5,-291.5 640,-300.5 672,-316.5 697,-333.5 719,-357.5 736.5,-384 749.5,-417 755.5,-442 758.5,-479.5 751.5,-524 738.75,-552.75 720,-583.5 698,-608.5 671.25,-627 644,-640 615,-649 588.25,-655 564,-666.25 547.75,-680 532.5,-695 519.25,-712.75 459.75,-881 447.25,-911.25 430,-934.25 409.75,-951.25 380,-969.75 351.25,-978.25 306.75,-980.75 255,-966.75 233,-951.5 214.75,-936.25 198.25,-915.25 185.5,-893.5 121.5,-694.25 109.25,-679 99.25,-671.25 88.5,-662.75 73,-656.5 50,-654.25 27.75,-658 10.5,-667.75 -2,-677 -159.75,-859 -180.5,-877.5 -202,-893.75 -231.75,-908.25 -266,-919.25 -293.5,-922 -328.5,-922 -348.75,-918.25 -378.5,-908.5 -401.75,-898.75 -423.5,-884 -445.75,-864.75 -588.5,-685 -613.25,-664.5 -640.75,-649 -665,-640.25 -694.5,-634.5 -851,-634.25 -861.25,-640 -867.5,-649.75 -867.75,-664.5 -858.25,-673.5 -834.5,-675.75 -803,-680.75 -766.5,-682.75 -728,-689.25 -697.75,-700.25 -672,-715 -650.5,-731.25 -630.5,-753.5 -615.75,-775 -601,-806.25 -597,-831.5 -595.5,-863.75 -597.75,-890.5 -608.25,-923 -626.25,-955 -646.5,-981.75 -678,-1006.25 -712,-1021 -786.75,-1037.5 -823.75,-1037.5 -1041.25,-1025.25 -1072.5,-1021.5 -1100.25,-1012.75 -1139.25,-997.25 -1175.25,-975.5 -1206.25,-948 -1234.75,-915.5 -1257.5,-880 -1270,-852.25 -1281.25,-818.25 -1287.25,-786.5 -1289.25,-590.75 -1283.75,-549.75 -1272.75,-506.5 -1253.5,-465.5 -1232,-428.5 -1210.25,-400.25 -1179,-369 -1149.25,-343.5 -1105.5,-316.5 -1058.5,-298.25 -1010.5,-283.25 -965,-276.5 -0.954545,-275.932 -0.795455,0.0681818 -1425,-1 -1421,-1267 917,-1265 921,-3"/>
   </object>
  </objectgroup>
- <objectgroup id="14" name="Objects"/>
+ <objectgroup id="14" name="Objects" locked="1"/>
 </map>

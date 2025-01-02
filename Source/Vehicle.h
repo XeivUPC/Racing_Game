@@ -22,6 +22,9 @@ public:
 	double GetRotation();
 	Vector2 GetPosition();
 	Vector2 GetPhysicPosition();
+	void SetPosition(Vector2 position);
+	void SetPhysicPosition(Vector2 position);
+	void SetRotation(double rotation);
 	void SetInput(Vector2 input);
 
 private:

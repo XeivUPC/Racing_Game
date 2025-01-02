@@ -54,6 +54,16 @@ Vector2 Pilot::GetVehiclePosition()
 	return vehicle->GetPhysicPosition();
 }
 
+void Pilot::SetVehiclePosition(Vector2 pos)
+{
+	vehicle->SetPosition(pos);
+}
+
+void Pilot::SetVehicleRotation(double angle)
+{
+	vehicle->SetRotation(angle);
+}
+
 int Pilot::CurrentCheckpoint()
 {
 	return checkpoint;

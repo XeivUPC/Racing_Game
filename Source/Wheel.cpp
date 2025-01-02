@@ -57,7 +57,6 @@ void Wheel::UpdateTraction()
 				currentTraction = area->GetFriction(0);
 		}
 	}
-	printf("%f\n", currentTraction);
 }
 
 void Wheel::UpdateFriction()
