@@ -185,6 +185,16 @@ update_status ModulePhysics::PostUpdate()
 		}
 	}
 
+	for (b2Joint* j = world->GetJointList(); j; j = j->GetNext())
+	{
+		b2Vec2 anchorA = j->GetAnchorA();
+		b2Vec2 anchorB = j->GetAnchorB();
+
+		App->renderer->DrawSimpleCircleLine({ (float)METERS_TO_PIXELS(anchorA.x), (float)METERS_TO_PIXELS(anchorA.y) }, 4, YELLOW);
+		App->renderer->DrawSimpleCircleLine({ (float)METERS_TO_PIXELS(anchorB.x), (float)METERS_TO_PIXELS(anchorB.y) }, 4, YELLOW);
+		App->renderer->DrawSimpleLine({ (float)METERS_TO_PIXELS(anchorA.x), (float)METERS_TO_PIXELS(anchorA.y), (float)METERS_TO_PIXELS(anchorB.x), (float)METERS_TO_PIXELS(anchorB.y) }, BLUE);
+	}
+
 	App->renderer->UnlockRenderLayer();
 
 	return UPDATE_CONTINUE;
