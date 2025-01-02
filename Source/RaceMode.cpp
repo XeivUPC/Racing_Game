@@ -60,8 +60,8 @@ bool RaceMode::Render()
 	}
 	if (IsRaceStarted()) {
 		if (currentLap != maxLapNum) {
-			App->renderer->DrawText("Lap ", { 0, 0 }, { 0, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
-			App->renderer->DrawText(App->localization->FormatNumber(currentLap, 0).c_str(), { 0, 0 }, { MeasureTextEx(App->assetLoader->agencyB, "Lap ", 80, 0).x, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
+			App->renderer->DrawText(App->localization->GetString("RACEMODE_LAP").c_str(), {0, 0}, {0, 0}, App->assetLoader->agencyB, 80, 0, WHITE);
+			App->renderer->DrawText(App->localization->FormatNumber(currentLap, 0).c_str(), { 0, 0 }, { MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("RACEMODE_LAP").c_str(), 80, 0).x, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
 
 			App->renderer->DrawText(App->localization->FormatNumber(GetCurrentLapTimeSec(), 2).c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(GetCurrentLapTimeSec(), 2).c_str() , 80, 0).y + 10 }, App->assetLoader->agencyB, 70, 0, WHITE);
 		}

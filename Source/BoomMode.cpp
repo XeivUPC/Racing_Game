@@ -38,6 +38,8 @@ update_status BoomMode::Update()
 		}
 	}
 
+	Render();
+
 	return UPDATE_CONTINUE;
 }
 
@@ -58,16 +60,11 @@ bool BoomMode::Render()
 	}
 
 	if (IsRaceStarted()) {
-		App->renderer->DrawText("Time to explode: ", { 0, 0 }, { 0, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
-		App->renderer->DrawText(App->localization->FormatNumber(explosionTime - timeToExplode.ReadSec(), 0).c_str(), { 0, 0 }, { MeasureTextEx(App->assetLoader->agencyB, "Time to explode: ", 80, 0).x, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
-
-		App->renderer->DrawText("Is player last: ", { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, "Time to explode: ", 80, 0).y + 10 }, App->assetLoader->agencyB, 80, 0, WHITE);
+		App->renderer->DrawText(App->localization->GetString("BOOMMODE_TIME_TILL_EXPLOSION").c_str(), { 0, 0 }, { 0, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
+		App->renderer->DrawText(App->localization->FormatNumber(explosionTime - timeToExplode.ReadSec(), 0).c_str(), { 0, 0 }, { MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("BOOMMODE_TIME_TILL_EXPLOSION").c_str(), 80, 0).x, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
 
 		if (isPlayerLast) {
-			App->renderer->DrawText("Yes", { 0, 0 }, { MeasureTextEx(App->assetLoader->agencyB, "Is player last? ", 80, 0).x, MeasureTextEx(App->assetLoader->agencyB, "Is player last? ", 80, 0).y + 10 }, App->assetLoader->agencyB, 80, 0, WHITE);
-		}
-		else {
-			App->renderer->DrawText("No", { 0, 0 }, { MeasureTextEx(App->assetLoader->agencyB, "Is player last? ", 80, 0).x, MeasureTextEx(App->assetLoader->agencyB, "Is player last? ", 80, 0).y + 10 }, App->assetLoader->agencyB, 80, 0, WHITE);
+			App->renderer->DrawText(App->localization->GetString("BOOMMODE_LAST").c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("BOOMMODE_TIME_TILL_EXPLOSION").c_str(), 80, 0).y + 10 }, App->assetLoader->agencyB, 80, 0, WHITE);
 		}
 	}
 	App->renderer->UnlockRenderLayer();
