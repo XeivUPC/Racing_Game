@@ -48,7 +48,15 @@ update_status ModulePhysics::PreUpdate()
 // 
 update_status ModulePhysics::PostUpdate()
 {
-	
+
+	auto GetLineRectangle = [](Vector2 p1, Vector2 p2) -> Rectangle {
+		float minX = fmin(p1.x, p2.x) - 1;
+		float minY = fmin(p1.y, p2.y) - 1;
+		float maxX = fmax(p1.x, p2.x) + 1;
+		float maxY = fmax(p1.y, p2.y) + 1;
+
+		return { minX, minY, maxX - minX, maxY - minY };
+	};
 
 	if (IsKeyPressed(KEY_F1))
 	{
@@ -60,81 +68,120 @@ update_status ModulePhysics::PostUpdate()
 		return UPDATE_CONTINUE;
 	}
 
-	// Bonus code: this will iterate all objects in the world and draw the circles
-	// You need to provide your own macro to translate meters to pixels
+	// Obtén el rectángulo visible de la cámara
+	Rectangle cameraView = {
+		(App->renderer->camera.target.x - App->renderer->camera.offset.x/2),
+		(App->renderer->camera.target.y - App->renderer->camera.offset.y/2),
+		SCREEN_WIDTH / App->renderer->camera.zoom,
+		SCREEN_HEIGHT / App->renderer->camera.zoom
+	};
 
 	App->renderer->BlockRenderLayer(ModuleRender::OVER_LAYER_5);
 
 	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
 	{
-		for(b2Fixture* f = b->GetFixtureList(); f; f = f->GetNext())
+		for (b2Fixture* f = b->GetFixtureList(); f; f = f->GetNext())
 		{
-			switch(f->GetType())
+			switch (f->GetType())
 			{
-				// Draw circles ------------------------------------------------
-				case b2Shape::e_circle:
-				{
-					b2CircleShape* shape = (b2CircleShape*)f->GetShape();
-					b2Vec2 pos = f->GetBody()->GetPosition();
-					
-					App->renderer->DrawSimpleCircleLine({ (float)METERS_TO_PIXELS(pos.x), (float)METERS_TO_PIXELS(pos.y) }, (float)METERS_TO_PIXELS(shape->m_radius), WHITE);
-				}
-				break;
+			case b2Shape::e_chain:
+			{
+				b2ChainShape* shape = (b2ChainShape*)f->GetShape();
+				b2Vec2 prev, v;
 
-				// Draw polygons ------------------------------------------------
-				case b2Shape::e_polygon:
+				for (int32 i = 0; i < shape->m_count; ++i)
 				{
-					b2PolygonShape* polygonShape = (b2PolygonShape*)f->GetShape();
-					int32 count = polygonShape->m_count;
-					b2Vec2 prev, v;
-
-					for(int32 i = 0; i < count; ++i)
+					v = b->GetWorldPoint(shape->m_vertices[i]);
+					if (i > 0)
 					{
-						v = b->GetWorldPoint(polygonShape->m_vertices[i]);
-						if(i > 0)
-							App->renderer->DrawSimpleLine({ (float)METERS_TO_PIXELS(prev.x), (float)METERS_TO_PIXELS(prev.y), (float)METERS_TO_PIXELS(v.x), (float)METERS_TO_PIXELS(v.y) }, RED);
+						// Representar la línea como un rectángulo
+						Rectangle lineRect = GetLineRectangle(
+							{ (float)METERS_TO_PIXELS(prev.x), (float)METERS_TO_PIXELS(prev.y) },
+							{ (float)METERS_TO_PIXELS(v.x), (float)METERS_TO_PIXELS(v.y) }
+						);
 
-						prev = v;
+						if (CheckCollisionRecs(lineRect, cameraView))
+						{
+							App->renderer->DrawSimpleLine(
+								{ (float)METERS_TO_PIXELS(prev.x), (float)METERS_TO_PIXELS(prev.y),
+								  (float)METERS_TO_PIXELS(v.x), (float)METERS_TO_PIXELS(v.y) },
+								GREEN
+							);
+						}
 					}
-
-					v = b->GetWorldPoint(polygonShape->m_vertices[0]);
-					App->renderer->DrawSimpleLine({ (float)METERS_TO_PIXELS(prev.x), (float)METERS_TO_PIXELS(prev.y), (float)METERS_TO_PIXELS(v.x), (float)METERS_TO_PIXELS(v.y) }, RED);
+					prev = v;
 				}
-				break;
-
-				// Draw chains contour -------------------------------------------
-				case b2Shape::e_chain:
-				{
-					b2ChainShape* shape = (b2ChainShape*)f->GetShape();
-					b2Vec2 prev, v;
-
-					for(int32 i = 0; i < shape->m_count; ++i)
-					{
-						v = b->GetWorldPoint(shape->m_vertices[i]);
-						if(i > 0)
-							App->renderer->DrawSimpleLine({ (float)METERS_TO_PIXELS(prev.x), (float)METERS_TO_PIXELS(prev.y), (float)METERS_TO_PIXELS(v.x), (float)METERS_TO_PIXELS(v.y) }, GREEN);
-						prev = v;
-					}
-
-					v = b->GetWorldPoint(shape->m_vertices[0]);
-					App->renderer->DrawSimpleLine({ (float)METERS_TO_PIXELS(prev.x), (float)METERS_TO_PIXELS(prev.y), (float)METERS_TO_PIXELS(v.x), (float)METERS_TO_PIXELS(v.y) }, GREEN);
-				}
-				break;
-
-				// Draw a single segment(edge) ----------------------------------
-				case b2Shape::e_edge:
-				{
-					b2EdgeShape* shape = (b2EdgeShape*)f->GetShape();
-					b2Vec2 v1, v2;
-
-					v1 = b->GetWorldPoint(shape->m_vertex0);
-					v1 = b->GetWorldPoint(shape->m_vertex1);
-					App->renderer->DrawSimpleLine({ (float)METERS_TO_PIXELS(v1.x), (float)METERS_TO_PIXELS(v1.y), (float)METERS_TO_PIXELS(v2.x), (float)METERS_TO_PIXELS(v2.y) }, BLUE);
-				}
-				break;
 			}
+			break;
 
-			
+			case b2Shape::e_polygon:
+			{
+				b2PolygonShape* polygonShape = (b2PolygonShape*)f->GetShape();
+				int32 count = polygonShape->m_count;
+				b2Vec2 prev, v;
+
+				for (int32 i = 0; i < count; ++i)
+				{
+					v = b->GetWorldPoint(polygonShape->m_vertices[i]);
+					if (i > 0)
+					{
+						// Representar la línea como un rectángulo
+						Rectangle lineRect = GetLineRectangle(
+							{ (float)METERS_TO_PIXELS(prev.x), (float)METERS_TO_PIXELS(prev.y) },
+							{ (float)METERS_TO_PIXELS(v.x), (float)METERS_TO_PIXELS(v.y) }
+						);
+
+						if (CheckCollisionRecs(lineRect, cameraView))
+						{
+							App->renderer->DrawSimpleLine(
+								{ (float)METERS_TO_PIXELS(prev.x), (float)METERS_TO_PIXELS(prev.y),
+								  (float)METERS_TO_PIXELS(v.x), (float)METERS_TO_PIXELS(v.y) },
+								RED
+							);
+						}
+					}
+					prev = v;
+				}
+
+				v = b->GetWorldPoint(polygonShape->m_vertices[0]);
+				Rectangle lineRect = GetLineRectangle(
+					{ (float)METERS_TO_PIXELS(prev.x), (float)METERS_TO_PIXELS(prev.y) },
+					{ (float)METERS_TO_PIXELS(v.x), (float)METERS_TO_PIXELS(v.y) }
+				);
+
+				if (CheckCollisionRecs(lineRect, cameraView))
+				{
+					App->renderer->DrawSimpleLine(
+						{ (float)METERS_TO_PIXELS(prev.x), (float)METERS_TO_PIXELS(prev.y),
+						  (float)METERS_TO_PIXELS(v.x), (float)METERS_TO_PIXELS(v.y) },
+						RED
+					);
+				}
+			}
+			break;
+
+			case b2Shape::e_edge:
+			{
+				b2EdgeShape* shape = (b2EdgeShape*)f->GetShape();
+				b2Vec2 v1 = b->GetWorldPoint(shape->m_vertex0);
+				b2Vec2 v2 = b->GetWorldPoint(shape->m_vertex1);
+
+				Rectangle lineRect = GetLineRectangle(
+					{ (float)METERS_TO_PIXELS(v1.x), (float)METERS_TO_PIXELS(v1.y) },
+					{ (float)METERS_TO_PIXELS(v2.x), (float)METERS_TO_PIXELS(v2.y) }
+				);
+
+				if (CheckCollisionRecs(lineRect, cameraView))
+				{
+					App->renderer->DrawSimpleLine(
+						{ (float)METERS_TO_PIXELS(v1.x), (float)METERS_TO_PIXELS(v1.y),
+						  (float)METERS_TO_PIXELS(v2.x), (float)METERS_TO_PIXELS(v2.y) },
+						BLUE
+					);
+				}
+			}
+			break;
+			}
 		}
 	}
 
@@ -144,13 +191,12 @@ update_status ModulePhysics::PostUpdate()
 		b2Vec2 anchorB = j->GetAnchorB();
 
 		App->renderer->DrawSimpleCircleLine({ (float)METERS_TO_PIXELS(anchorA.x), (float)METERS_TO_PIXELS(anchorA.y) }, 4, YELLOW);
-		App->renderer->DrawSimpleCircleLine({ (float)METERS_TO_PIXELS(anchorB.x), (float)METERS_TO_PIXELS(anchorB.y)}, 4, YELLOW);
-		App->renderer->DrawSimpleLine({ (float)METERS_TO_PIXELS(anchorA.x), (float)METERS_TO_PIXELS(anchorA.y), (float)METERS_TO_PIXELS(anchorB.x), (float)METERS_TO_PIXELS(anchorB.y)}, BLUE);
+		App->renderer->DrawSimpleCircleLine({ (float)METERS_TO_PIXELS(anchorB.x), (float)METERS_TO_PIXELS(anchorB.y) }, 4, YELLOW);
+		App->renderer->DrawSimpleLine({ (float)METERS_TO_PIXELS(anchorA.x), (float)METERS_TO_PIXELS(anchorA.y), (float)METERS_TO_PIXELS(anchorB.x), (float)METERS_TO_PIXELS(anchorB.y) }, BLUE);
 	}
 
 	App->renderer->UnlockRenderLayer();
 
-	
 	return UPDATE_CONTINUE;
 }
 

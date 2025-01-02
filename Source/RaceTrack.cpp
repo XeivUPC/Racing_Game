@@ -98,6 +98,7 @@ void RaceTrack::LoadTrack()
 					float y = PIXEL_TO_METERS(collisionNode.attribute("y").as_float());
 
 					PhysBody* body = factory.CreateChain({ x,y }, vertices);
+					body->SetType(PhysBody::BodyType::Static);
 
 					uint16 categoryBits = physics->BOUNDARY_LAYER;
 					uint16 maskBits = physics->VEHICLE_LAYER;
@@ -142,7 +143,7 @@ void RaceTrack::LoadTrack()
 					xml_node order_node = collisionNode.child("properties").find_child_by_attribute("property", "name", "Traction");
 					float friction = order_node.attribute("value").as_float();
 
-					vector<vector<Vector2>> newPolys = Triangulate(vertices);
+					vector<vector<Vector2>> newPolys = factory.Triangulate(vertices);
 
 					for (size_t i = 0; i < newPolys.size(); i++)
 					{
@@ -152,6 +153,7 @@ void RaceTrack::LoadTrack()
 						uint16 maskBits = physics->VEHICLE_WHEEL_LAYER;
 						body->SetFilter(0, categoryBits, maskBits, 0);
 						body->SetSensor(0,true);
+						body->SetType(PhysBody::BodyType::Static);
 						body->SetFriction(0, friction);
 
 						trackColliders.emplace_back(body);

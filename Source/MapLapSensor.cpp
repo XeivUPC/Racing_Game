@@ -22,6 +22,8 @@ MapLapSensor::MapLapSensor(Module* moduleAt, Vector2 position, vector<Vector2> v
 	body->SetDensity(0, 1.f);
 	body->SetBullet(true);
 
+
+
 	uint16 categoryBits = physics->LAP_SENSOR_LAYER;
 	uint16 maskBits = physics->VEHICLE_LAYER;
 	body->SetFilter(0, categoryBits, maskBits, 0);
