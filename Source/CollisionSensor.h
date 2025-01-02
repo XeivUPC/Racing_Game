@@ -1,6 +1,6 @@
 #pragma once
 #include "ModulePhysics.h"
-#include <set>
+#include <vector>
 
 class PhysBody;
 
@@ -22,7 +22,7 @@ public:
     void BeginContact(b2Contact* contact);
     void EndContact(b2Contact* contact);
 
-    std::set<PhysBody*> GetBodiesColliding();
+    std::vector<PhysBody*> GetBodiesColliding();
     
 private:
     PhysBody* GetDifferentBody(PhysBody* body1, PhysBody* body2, PhysBody* bodyToBeDifferentFrom);
@@ -36,5 +36,5 @@ private:
     PhysBody* lastBodyEnter=nullptr;
     PhysBody* lastBodyExit=nullptr;
 
-    std::set<PhysBody*> bodiesColliding;
+    std::vector<PhysBody*> bodiesColliding;
 };

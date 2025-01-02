@@ -45,7 +45,6 @@ private:
 	float maxLateralImpulse = 0;
 
 	float currentTraction=5;
-	vector<float> tractionAreas;
 
 	bool rendereable;
 

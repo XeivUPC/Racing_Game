@@ -47,7 +47,16 @@ bool Wheel::CleanUp()
 
 void Wheel::UpdateTraction()
 {
-
+	vector<PhysBody*> areas = sensor.GetBodiesColliding();
+	if (areas.size() == 0)
+		currentTraction = 1;
+	else {
+		currentTraction = 0;
+		for (const auto& area : areas) {
+			if (area->GetFriction(0) > currentTraction)
+				currentTraction = area->GetFriction(0);
+		}
+	}
 }
 
 void Wheel::UpdateFriction()
