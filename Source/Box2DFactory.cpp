@@ -177,6 +177,36 @@ PhysBody* Box2DFactory::CreateChain(Vector2 position, const std::vector<Vector2>
 	return pbody;
 }
 
+PhysBody* Box2DFactory::CreatePolygon(Vector2 position, const std::vector<Vector2> vertices, b2FixtureUserData userData) const
+{
+	PhysBody* pbody = new PhysBody();
+
+	b2BodyDef bodyDef;
+	bodyDef.type = b2_dynamicBody; // Typically chains are static
+	bodyDef.position.Set(position.x, position.y);
+	bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(pbody);
+	b2Body* body = world->CreateBody(&bodyDef);
+
+	b2PolygonShape chainShape;
+	std::vector<b2Vec2> b2Vertices(vertices.size());
+	for (size_t i = 0; i < vertices.size(); ++i)
+	{
+		b2Vertices[i].Set(vertices[i].x, vertices[i].y);
+	}
+	chainShape.Set(&b2Vertices[0], b2Vertices.size());
+
+	b2FixtureDef chainFixtureDef;
+	chainFixtureDef.shape = &chainShape;
+	chainFixtureDef.userData = userData;
+	chainFixtureDef.density = 1.0f;
+	chainFixtureDef.friction = 1.0f;
+	body->CreateFixture(&chainFixtureDef);
+
+	pbody->body = body;
+
+	return pbody;
+}
+
 int Box2DFactory::AddCircle(PhysBody* bodyToAddTo, Vector2 offset, float radius, b2FixtureUserData userData)const
 {
 	b2CircleShape circleShape = CreateCircleShape(radius, { offset.x, offset.y });

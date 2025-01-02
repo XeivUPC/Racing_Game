@@ -4,18 +4,26 @@
 #include "ModuleRender.h"
 #include "Box2DFactory.h"
 #include <raymath.h>
+#include <set> 
 
 Wheel::Wheel(Vehicle* owner, float radius, float width)
 {
 	this->owner = owner;
 
+	b2FixtureUserData fixtureData;
+	fixtureData.pointer = (uintptr_t)(&sensor);
+
 	ModulePhysics* physics = owner->GetModuleAt()->App->physics;
 	const Box2DFactory& factory = physics->factory();
-	body = factory.CreateBox({0,0}, width, radius*2);
+	body = factory.CreateBox({0,0}, width, radius*2, fixtureData);
 
 	uint16 categoryBits = physics->VEHICLE_WHEEL_LAYER;
 	uint16 maskBits = physics->FRICTION_AREA_LAYER;
 	body->SetFilter(0, categoryBits, maskBits, 0);
+	body->SetBullet(true);
+
+	sensor.SetFixtureToTrack(body,0);
+	sensor.AcceptOnlyTriggers(true);
 }
 
 Wheel::~Wheel()
@@ -39,6 +47,7 @@ bool Wheel::CleanUp()
 
 void Wheel::UpdateTraction()
 {
+
 }
 
 void Wheel::UpdateFriction()

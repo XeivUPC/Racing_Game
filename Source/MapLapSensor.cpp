@@ -16,7 +16,7 @@ MapLapSensor::MapLapSensor(Module* moduleAt, Vector2 position, vector<Vector2> v
 	ModulePhysics* physics = moduleAt->App->physics;
 	const Box2DFactory& factory = physics->factory();
 
-	body = factory.CreateChain(position, vertices, fixtureData);
+	body = factory.CreatePolygon(position, vertices, fixtureData);
 	body->SetType(PhysBody::BodyType::Static);
 	body->SetSensor(0, true);
 	body->SetDensity(0, 1.f);

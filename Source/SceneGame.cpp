@@ -38,7 +38,7 @@ bool SceneGame::Start()
 
 	for (size_t i = 0; i < 3; i++)
 	{
-		pilots.emplace_back(new PilotCPU(this, "moto-type1"));
+		//pilots.emplace_back(new PilotCPU(this, "moto-type1"));
 	}
 
 	track = new RaceTrack(this, trackPath);
