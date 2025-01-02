@@ -17,6 +17,7 @@ public:
 	PhysBody* CreateBevelBox(Vector2 position, float width, float height, float bevelSize, b2FixtureUserData userData = b2FixtureUserData())const;
 	PhysBody* CreateCapsule(Vector2 position, float width, float height, float radius, b2FixtureUserData userData = b2FixtureUserData())const;
 	PhysBody* CreateChain(Vector2 position, const std::vector<Vector2> vertices, b2FixtureUserData userData = b2FixtureUserData()) const;
+	PhysBody* CreatePolygon(Vector2 position, const std::vector<Vector2> vertices, b2FixtureUserData userData = b2FixtureUserData()) const;
 
 	int AddCircle(PhysBody* bodyToAddTo, Vector2 offset, float radius, b2FixtureUserData userData = b2FixtureUserData())const;
 	int AddBox(PhysBody* bodyToAddTo, Vector2 offset, float width, float height, b2FixtureUserData userData = b2FixtureUserData())const;

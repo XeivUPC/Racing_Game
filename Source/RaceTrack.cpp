@@ -130,7 +130,33 @@ void RaceTrack::LoadTrack()
 				}
 			}
 			else if (objectGroup_name == "TractionAreas") {
+				for (pugi::xml_node collisionNode = objectGroup_node.child("object"); collisionNode != NULL; collisionNode = collisionNode.next_sibling("object"))
+				{
+					std::string collisionPolygonPoints = collisionNode.child("polygon").attribute("points").as_string();
+					vector<Vector2> vertices;
+					FromStringToVertices(collisionPolygonPoints, vertices);
 
+					float x = PIXEL_TO_METERS(collisionNode.attribute("x").as_float());
+					float y = PIXEL_TO_METERS(collisionNode.attribute("y").as_float());
+
+					xml_node order_node = collisionNode.child("properties").find_child_by_attribute("property", "name", "Traction");
+					float friction = order_node.attribute("value").as_float();
+
+					vector<vector<Vector2>> newPolys = Triangulate(vertices);
+
+					for (size_t i = 0; i < newPolys.size(); i++)
+					{
+						PhysBody* body = factory.CreatePolygon({ x,y }, newPolys[i]);
+
+						uint16 categoryBits = physics->FRICTION_AREA_LAYER;
+						uint16 maskBits = physics->VEHICLE_WHEEL_LAYER;
+						body->SetFilter(0, categoryBits, maskBits, 0);
+						body->SetSensor(0,true);
+						body->SetFriction(0, friction);
+
+						trackColliders.emplace_back(body);
+					}
+				}
 			}
 			else if (objectGroup_name == "Objects") {
 

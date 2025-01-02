@@ -1,5 +1,7 @@
 #pragma once
 #include "Vehicle.h"
+#include "CollisionSensor.h"
+
 
 class PhysBody;
 class PhysJoint;
@@ -34,7 +36,7 @@ private:
 	void UpdateTraction();
 	void UpdateFriction();
 
-
+	CollisionSensor sensor;
 	Vehicle* owner=nullptr;
 
 	float maxForwardSpeed=0;
