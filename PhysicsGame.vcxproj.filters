@@ -194,6 +194,9 @@
     <ClCompile Include="Source\PilotCPU.cpp">
       <Filter>MapObjects\Type %28MapObjects%29\Pilots\Type %28Pilot%29</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SceneResults.cpp">
+      <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ModuleAssetLoader.h">
@@ -326,6 +329,9 @@
     </ClInclude>
     <ClInclude Include="Source\PilotCPU.h">
       <Filter>MapObjects\Type %28MapObjects%29\Pilots\Type %28Pilot%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneResults.h">
+      <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
