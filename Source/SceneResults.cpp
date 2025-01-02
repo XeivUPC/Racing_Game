@@ -24,11 +24,11 @@ bool SceneResults::Start()
 	bool ret = true;
 
 	// Background
-	backgroundTexture = App->texture->GetTexture("UI_Bg");
+	backgroundTexture = App->texture->GetTexture("results_Background");
 
 	// Play Button
 	// Texture
-	next_buttonTexture_hover = App->texture->GetTexture("main_menu_play_hover");
+	next_buttonTexture_hover = App->texture->GetTexture("results_next_button");
 
 	//Functionality
 	next_button = new UIButton(this, { next_buttonTextureRec.x, next_buttonTextureRec.y }, { next_buttonTextureRec.width, next_buttonTextureRec.height });

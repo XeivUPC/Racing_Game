@@ -53,6 +53,9 @@ bool ModuleAssetLoader::Init()
 	textureModule->CreateTexture("Assets/Textures/settings_slider_thumb.png", "sliderThumbSettings");
 	textureModule->CreateTexture("Assets/Textures/settings_arrow_right.png", "arrowSettings");
 	textureModule->CreateTexture("Assets/Textures/settings_exit.png", "exitSettings");
+	// Results
+	textureModule->CreateTexture("Assets/Textures/Results_Background.png", "results_Background");
+	textureModule->CreateTexture("Assets/Textures/Results_next_button.png", "results_next_button");
 
 	// Game
 	textureModule->CreateTexture("Assets/Textures/Map_1.png", "Map1");
