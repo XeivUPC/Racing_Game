@@ -94,6 +94,7 @@ public:
 	Vector2 GetWorldVector(Vector2 axis) const;
 
 	void SetPosition(float x, float y);
+	void SetPhysicPosition(float x, float y);
 	void SetRotation(float rotation);
 	void ApplyForce(const Vector2& force, const Vector2& point);
 	void ApplyLinearImpulse(const Vector2& impulse, const Vector2& point);

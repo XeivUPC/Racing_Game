@@ -305,7 +305,7 @@ void ModuleRender::RenderLayerToScreen(Layer layer)
 void ModuleRender::CreateLayer(RenderLayer layer)
 {
     RenderTexture2D texture = LoadRenderTexture(SCREEN_WIDTH, SCREEN_HEIGHT);
-    SetTextureFilter(texture.texture, TEXTURE_FILTER_BILINEAR);
+    SetTextureFilter(texture.texture, TEXTURE_FILTER_POINT);
     layers.push_back({layer, texture});
 }
 

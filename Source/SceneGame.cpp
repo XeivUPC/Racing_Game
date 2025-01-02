@@ -19,7 +19,7 @@
 
 SceneGame::SceneGame(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
 {
-	
+
 }
 
 SceneGame::~SceneGame()
@@ -31,18 +31,26 @@ bool SceneGame::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 	//// Aqui ponemos todos los chars de la fuente en orden
-	
+
 	pauseMenu = new PauseMenu(this);
 	pauseMenu->Start();
+
+	track = new RaceTrack(this, trackPath);
+
 	player = new Player(this, "car-type1");
 	pilots.emplace_back(player);
 
-	for (size_t i = 0; i < 3; i++)
+	vector<Vector2> startingPositions = track->GetTrackStartingPositions();
+	for (size_t i = 0; i < startingPositions.size() - 1; i++)
 	{
-		//pilots.emplace_back(new PilotCPU(this, "moto-type1"));
+		pilots.emplace_back(new PilotCPU(this, "car-type2"));
 	}
 
-	track = new RaceTrack(this, trackPath);
+	for (size_t i = 0; i < startingPositions.size(); i++)
+	{
+		pilots[i]->SetVehiclePosition(startingPositions[i]);
+	}
+
 
 	mode->Start();
 
@@ -71,8 +79,8 @@ bool SceneGame::CleanUp()
 	mode->CleanUp();
 	delete mode;
 
-	App->renderer->camera.target = {0,0};
-	App->renderer->camera.offset = {0,0};
+	App->renderer->camera.target = { 0,0 };
+	App->renderer->camera.offset = { 0,0 };
 	App->renderer->camera.zoom = 1;
 	return true;
 }
@@ -105,21 +113,21 @@ vector<Pilot*> SceneGame::GetRacePlacePositions() const
 // Update: draw background
 update_status SceneGame::Update()
 {
-	if(!pauseMenu->IsPaused())
+	if (!pauseMenu->IsPaused())
 	{
 		if (mode->IsRaceStarted()) {
 			for (const auto& pilot : pilots) {
 				pilot->Update();
 			}
 		}
-		
+
 
 		track->Update();
 		App->renderer->camera.target = player->GetVehiclePosition();
-		App->renderer->camera.offset = { App->window->GetLogicWidth()/2.f,App->window->GetLogicHeight()/2.f};
+		App->renderer->camera.offset = { App->window->GetLogicWidth() / 2.f,App->window->GetLogicHeight() / 2.f };
 		mode->Update();
 	}
-	
+
 	if (IsKeyPressed(KEY_P))
 		pauseMenu->Pause();
 	/// Last Things To Do

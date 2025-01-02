@@ -23,6 +23,8 @@ public:
 	void AddLap();
 	void AddCheckpoint();
 	Vector2 GetVehiclePosition();
+	void SetVehicleRotation(double angle);
+	void SetVehiclePosition(Vector2 pos);
 	int CurrentCheckpoint();
 	int CurrentLap();
 };

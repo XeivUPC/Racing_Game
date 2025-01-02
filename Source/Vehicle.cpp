@@ -118,6 +118,11 @@ double Vehicle::GetRotation()
 }
 
 
+void Vehicle::SetRotation(double rotation)
+{
+	body->SetRotation(rotation);
+}
+
 void Vehicle::SetInput(Vector2 input)
 {
 	moveInput = input;
@@ -132,6 +137,17 @@ Vector2 Vehicle::GetPhysicPosition()
 {
 	return body->GetPhysicPosition();
 }
+
+void Vehicle::SetPosition(Vector2 position)
+{
+	body->SetPosition(position.x, position.y);
+}
+
+void Vehicle::SetPhysicPosition(Vector2 position)
+{
+	body->SetPhysicPosition(position.x, position.y);
+}
+
 
 void Vehicle::CreateVehicle(string id)
 {

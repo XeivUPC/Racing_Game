@@ -23,12 +23,17 @@ RaceTrack::~RaceTrack()
 
 vector<MapLapSensor*> RaceTrack::GetTrackSensors()
 {
-	return mapLapSensor;
+	return mapLapSensors;
+}
+
+vector<Vector2> RaceTrack::GetTrackStartingPositions()
+{
+	return startingPositions;
 }
 
 update_status RaceTrack::Update()
 {
-	for (const auto& sensor : mapLapSensor)
+	for (const auto& sensor : mapLapSensors)
 		sensor->Update();
 	return UPDATE_CONTINUE;
 }
@@ -47,11 +52,12 @@ bool RaceTrack::CleanUp()
 	}
 	trackColliders.clear();
 
-	for (const auto& sensor : mapLapSensor) {
+	for (const auto& sensor : mapLapSensors) {
 		sensor->CleanUp();
 		delete sensor;
 	}
-	mapLapSensor.clear();
+	mapLapSensors.clear();
+	startingPositions.clear();
 
 	return true;
 }
@@ -109,7 +115,17 @@ void RaceTrack::LoadTrack()
 
 			}
 			else if (objectGroup_name == "StartingPositions") {
+				for (pugi::xml_node startingPosNode = objectGroup_node.child("object"); startingPosNode != NULL; startingPosNode = startingPosNode.next_sibling("object"))
+				{
 
+					float x = PIXEL_TO_METERS(startingPosNode.attribute("x").as_float());
+					float y = PIXEL_TO_METERS(startingPosNode.attribute("y").as_float());
+
+					xml_node order_node = startingPosNode.child("properties").find_child_by_attribute("property", "name", "Order");
+					int order = order_node.attribute("value").as_int();
+
+					startingPositions.emplace(startingPositions.begin() + order, Vector2{ x,y });
+				}
 			}
 			else if (objectGroup_name == "CheckPoints") {
 				///Create Map Colliders
@@ -127,21 +143,21 @@ void RaceTrack::LoadTrack()
 
 					MapLapSensor* sensor = new MapLapSensor(moduleAt, { x,y }, vertices, this, order);
 
-					mapLapSensor.emplace_back(sensor);
+					mapLapSensors.emplace_back(sensor);
 				}
 			}
 			else if (objectGroup_name == "TractionAreas") {
-				for (pugi::xml_node collisionNode = objectGroup_node.child("object"); collisionNode != NULL; collisionNode = collisionNode.next_sibling("object"))
+				for (pugi::xml_node tractionAreaNode = objectGroup_node.child("object"); tractionAreaNode != NULL; tractionAreaNode = tractionAreaNode.next_sibling("object"))
 				{
-					std::string collisionPolygonPoints = collisionNode.child("polygon").attribute("points").as_string();
+					std::string collisionPolygonPoints = tractionAreaNode.child("polygon").attribute("points").as_string();
 					vector<Vector2> vertices;
 					FromStringToVertices(collisionPolygonPoints, vertices);
 
-					float x = PIXEL_TO_METERS(collisionNode.attribute("x").as_float());
-					float y = PIXEL_TO_METERS(collisionNode.attribute("y").as_float());
+					float x = PIXEL_TO_METERS(tractionAreaNode.attribute("x").as_float());
+					float y = PIXEL_TO_METERS(tractionAreaNode.attribute("y").as_float());
 
-					xml_node order_node = collisionNode.child("properties").find_child_by_attribute("property", "name", "Traction");
-					float friction = order_node.attribute("value").as_float();
+					xml_node friction_node = tractionAreaNode.child("properties").find_child_by_attribute("property", "name", "Traction");
+					float friction = friction_node.attribute("value").as_float();
 
 					vector<vector<Vector2>> newPolys = factory.Triangulate(vertices);
 

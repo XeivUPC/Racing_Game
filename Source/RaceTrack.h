@@ -16,6 +16,7 @@ public:
 	RaceTrack(Module* moduleAt, string trackPath);
 	~RaceTrack();
 	vector<MapLapSensor*>GetTrackSensors();
+	vector<Vector2>GetTrackStartingPositions();
 	update_status Update();
 	bool Render();
 	bool CleanUp();
@@ -31,5 +32,6 @@ private:
 
 	Texture* trackTexture = nullptr;
 	vector<PhysBody*> trackColliders;
-	vector<MapLapSensor*> mapLapSensor;
+	vector<Vector2> startingPositions;
+	vector<MapLapSensor*> mapLapSensors;
 };
