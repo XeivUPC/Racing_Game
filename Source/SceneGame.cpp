@@ -40,7 +40,7 @@ bool SceneGame::Start()
 	pilots.emplace_back(player);
 
 	vector<Vector2> startingPositions = track->GetTrackStartingPositions();
-	for (int i = 0; i <0; i++)
+	for (int i = 0; i < (int)startingPositions.size()-1; i++)
 	{
 		pilots.emplace_back(new PilotCPU(this, "car-type3"));
 	}
@@ -133,9 +133,6 @@ bool SceneGame::Render()
 		pilot->Render();
 	}
 
-	for (const auto& points : track->GetTrackStartingPositions()) {
-		App->renderer->DrawSimpleCircle({(float)METERS_TO_PIXELS(points.x),(float)METERS_TO_PIXELS(points.y) }, 5, RED);
-	}
 	pauseMenu->Render();
 	ModuleScene::FadeRender();
 	return true;
