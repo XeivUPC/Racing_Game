@@ -1,8 +1,10 @@
 #pragma once
 
 #include "ModuleScene.h"
+#include <vector>
 
 class UIButton;
+class Pilot;
 
 class SceneResults : public ModuleScene
 {
@@ -25,8 +27,11 @@ private:
 
 	UIButton* next_button = nullptr;
 	Texture2D* next_buttonTexture_hover = nullptr;
-	Rectangle  next_buttonTextureRec = { (SCREEN_WIDTH / 2), (72 * 8), 66 * 8, 12 * 8 };
-	Rectangle  next_button_section = { 0, 0, 66 * 8, 12 * 8 };
+	Rectangle  next_buttonTextureRec = { (47 * 8), (72 * 8), 528, 96 };
+	Rectangle  next_button_section = { 0, 0, 528, 96 };
 
-	Vector2 buttonsText_Offset = { 48, 7 };
+	Vector2 buttonsText_Offset = { 0, 8 };
+
+	Vector2 pilotsPos = { SCREEN_WIDTH / 2, 72 };
+	std::vector<Pilot*> pilots;
 };

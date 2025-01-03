@@ -1,6 +1,7 @@
 #include "BoomMode.h"
 #include "Application.h"
 #include "SceneGame.h"
+#include "SceneResults.h"
 #include "Player.h"
 
 BoomMode::BoomMode(SceneGame* gameAt) : GameMode(gameAt)
@@ -36,6 +37,11 @@ update_status BoomMode::Update()
 		else {
 			ExplodeCPU();
 		}
+	}
+
+	Application* App = gameAt->App;
+	if (IsKeyPressed(KEY_N)) {
+		App->scene_game->StartFadeIn(App->scene_results, BLACK, 0.3f);
 	}
 
 	Render();
@@ -139,4 +145,6 @@ void BoomMode::SetTimeToExplodeSec(double time)
 void BoomMode::EndRace()
 {
 	// Go to results
+	Application* App = gameAt->App;
+	App->scene_game->StartFadeIn(App->scene_results, BLACK, 0.3f);
 }

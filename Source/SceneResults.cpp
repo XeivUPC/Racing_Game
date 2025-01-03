@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleRender.h"
 #include "SceneResults.h"
+#include "SceneGame.h"
 #include "SceneOptions.h"
 #include "SceneMainMenu.h"
 #include "ModuleAudio.h"
@@ -9,6 +10,7 @@
 #include "ModuleAssetLoader.h"
 #include "UIButton.h"
 #include "ModuleLocalization.h"
+#include "Pilot.h"
 
 SceneResults::SceneResults(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
 {
@@ -39,6 +41,8 @@ bool SceneResults::Start()
 	/* Play Audio */
 	//App->audio->PlayMusic("Assets/Sounds/Music/Main_Menu.wav");
 
+	pilots = App->scene_game->GetRacePlacePositions();
+
 	StartFadeOut(BLACK, 0.3f);
 
 	return ret;
@@ -64,11 +68,13 @@ bool SceneResults::Render() {
 
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_4);
 	App->renderer->BlockRenderLayer();
-	if (App->localization->GetString("MAINMENU_PLAY").length() < 5) {
-		App->renderer->DrawText("NEXT", { next_buttonTextureRec.x , next_buttonTextureRec.y }, { buttonsText_Offset.x + App->assetLoader->agencyB.recs->width, buttonsText_Offset.y }, App->assetLoader->agencyB, 100, 0, WHITE);
-	}
-	else {
-		App->renderer->DrawText("NEXT", { next_buttonTextureRec.x , next_buttonTextureRec.y}, buttonsText_Offset, App->assetLoader->agencyB, 100, 0, WHITE);
+
+	App->renderer->DrawText("NEXT", { SCREEN_WIDTH / 2 , next_buttonTextureRec.y }, { -MeasureTextEx(App->assetLoader->agencyB, "NEXT", 80, 0).x / 2 , buttonsText_Offset.y}, App->assetLoader->agencyB, 80, 0, WHITE);
+
+	float increasing_offset = 0;
+	for (const auto& pilot : pilots) {
+		App->renderer->DrawText("Position - Pilot name"/*pilot->name*/, pilotsPos, { -MeasureTextEx(App->assetLoader->agencyB, "Julian"/*pilot->name*/, 40, 0).x / 2, buttonsText_Offset.y + increasing_offset }, App->assetLoader->agencyB, 40, 0, WHITE);
+		increasing_offset += 55;
 	}
 
 	App->renderer->UnlockRenderLayer();
@@ -97,5 +103,5 @@ void SceneResults::ClickNext()
 void SceneResults::OnMouseOverNext()
 {
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_1);
-	App->renderer->Draw(*next_buttonTexture_hover, { next_buttonTextureRec.x , next_buttonTextureRec.y }, { 0,0 }, &next_button_section, 0, 2);
+	App->renderer->Draw(*next_buttonTexture_hover, { next_buttonTextureRec.x , next_buttonTextureRec.y }, { 0,0 }, &next_button_section, 0, 1);
 }
