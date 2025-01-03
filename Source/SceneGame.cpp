@@ -40,17 +40,10 @@ bool SceneGame::Start()
 	pilots.emplace_back(player);
 
 	vector<Vector2> startingPositions = track->GetTrackStartingPositions();
-	for (int i = 0; i < (int)startingPositions.size() - 1; i++)
+	for (int i = 0; i <0; i++)
 	{
 		pilots.emplace_back(new PilotCPU(this, "car-type3"));
 	}
-
-	for (int i = 0; i < (int)startingPositions.size(); i++)
-	{
-		pilots[i]->SetVehiclePosition(startingPositions[i]);
-		pilots[i]->SetVehicleRotation(PI/2.f);
-	}
-
 
 	mode->Start();
 
@@ -100,11 +93,20 @@ void SceneGame::SetMode(GameMode* mode)
 // Update: draw background
 update_status SceneGame::Update()
 {
+	
 	if (!pauseMenu->IsPaused())
 	{
 		if (mode->IsRaceStarted()) {
 			for (const auto& pilot : pilots) {
 				pilot->Update();
+			}
+		}
+		else {
+			vector<Vector2> startingPositions = track->GetTrackStartingPositions();
+			for (int i = 0; i < pilots.size(); i++)
+			{
+				pilots[i]->SetVehicleRotation(PI / 2.f);
+				pilots[i]->SetVehiclePosition(startingPositions[i]);
 			}
 		}
 
@@ -129,6 +131,10 @@ bool SceneGame::Render()
 	track->Render();
 	for (const auto& pilot : pilots) {
 		pilot->Render();
+	}
+
+	for (const auto& points : track->GetTrackStartingPositions()) {
+		App->renderer->DrawSimpleCircle({(float)METERS_TO_PIXELS(points.x),(float)METERS_TO_PIXELS(points.y) }, 5, RED);
 	}
 	pauseMenu->Render();
 	ModuleScene::FadeRender();

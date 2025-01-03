@@ -121,7 +121,6 @@ double Vehicle::GetRotation()
 void Vehicle::SetRotation(double rotation)
 {
 	body->SetRotation(rotation);
-	printf("%f\n", body->GetAngle());
 }
 
 void Vehicle::SetInput(Vector2 input)

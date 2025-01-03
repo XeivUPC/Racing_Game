@@ -295,12 +295,29 @@ void PhysBody::SetPosition(float x, float y) {
 	}
 }
 
+void PhysBody::SetPositionAndRotation(float x, float y, float rotation)
+{
+	if (body) {
+		body->SetTransform({ x, y }, rotation);
+	}
+}
+
 void PhysBody::SetPhysicPosition(float x, float y) {
 	if (body) {
 
 		float posX = PIXEL_TO_METERS(x);
 		float posY = PIXEL_TO_METERS(y);
 		body->SetTransform({ posX, posY }, body->GetAngle());
+	}
+}
+
+void PhysBody::SetPhysicPositionAndRotation(float x, float y, float rotation)
+{
+	if (body) {
+
+		float posX = PIXEL_TO_METERS(x);
+		float posY = PIXEL_TO_METERS(y);
+		body->SetTransform({ posX, posY }, rotation);
 	}
 }
 
