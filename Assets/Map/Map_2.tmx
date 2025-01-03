@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="146" height="79" tilewidth="1" tileheight="1" infinite="0" nextlayerid="8" nextobjectid="45">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="146" height="79" tilewidth="1" tileheight="1" infinite="0" nextlayerid="8" nextobjectid="69">
+ <properties>
+  <property name="MapScale" type="float" value="3"/>
+ </properties>
  <imagelayer id="2" name="Texture">
   <image source="../Textures/Map_2.png" width="2440" height="1272"/>
   <properties>
@@ -14,7 +17,56 @@
    <polygon points="0,0 0,1296 -2368,1297 -2368,16 -2352,16 -2352,1280 -16,1280 -16,16 -2352,16 -2352,0"/>
   </object>
  </objectgroup>
- <objectgroup id="7" name="StartingPositions"/>
+ <objectgroup id="7" name="StartingPositions" offsetx="200" offsety="288">
+  <object id="61" x="1142.34" y="743.667">
+   <properties>
+    <property name="Order" type="int" value="0"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="62" x="1175.34" y="702">
+   <properties>
+    <property name="Order" type="int" value="1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="63" x="1213.34" y="743.667">
+   <properties>
+    <property name="Order" type="int" value="2"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="64" x="1255.34" y="702">
+   <properties>
+    <property name="Order" type="int" value="3"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="65" x="1290.67" y="743.667">
+   <properties>
+    <property name="Order" type="int" value="4"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="66" x="1331.34" y="702">
+   <properties>
+    <property name="Order" type="int" value="5"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="67" x="1375.17" y="743.667">
+   <properties>
+    <property name="Order" type="int" value="6"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="68" x="1410" y="702">
+   <properties>
+    <property name="Order" type="int" value="7"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
  <objectgroup id="4" name="CheckPoints">
   <object id="19" x="1062.67" y="385.333">
    <properties>

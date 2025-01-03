@@ -40,14 +40,15 @@ bool SceneGame::Start()
 	pilots.emplace_back(player);
 
 	vector<Vector2> startingPositions = track->GetTrackStartingPositions();
-	for (size_t i = 0; i < startingPositions.size() - 1; i++)
+	for (int i = 0; i < (int)startingPositions.size() - 1; i++)
 	{
-		pilots.emplace_back(new PilotCPU(this, "car-type2"));
+		pilots.emplace_back(new PilotCPU(this, "car-type3"));
 	}
 
-	for (size_t i = 0; i < startingPositions.size(); i++)
+	for (int i = 0; i < (int)startingPositions.size(); i++)
 	{
 		pilots[i]->SetVehiclePosition(startingPositions[i]);
+		pilots[i]->SetVehicleRotation(PI/2.f);
 	}
 
 
@@ -55,7 +56,7 @@ bool SceneGame::Start()
 
 	StartFadeOut(WHITE, 0.5f);
 
-	App->renderer->camera.zoom = 2;
+	App->renderer->camera.zoom = 2/track->GetScale();
 	return ret;
 }
 

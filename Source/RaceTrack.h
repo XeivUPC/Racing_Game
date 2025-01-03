@@ -20,15 +20,17 @@ public:
 	update_status Update();
 	bool Render();
 	bool CleanUp();
+	float GetScale();
 
 private:
 
 	void LoadTrack();
 	string ResolvePath(string basePath, string relativePath);
 
-	void FromStringToVertices(std::string stringData, std::vector<Vector2>& vector);
+	void FromStringToVertices(std::string stringData, float scale, std::vector<Vector2>& vector);
 
 	string trackPath;
+	float mapScale = 1;
 
 	Texture* trackTexture = nullptr;
 	vector<PhysBody*> trackColliders;

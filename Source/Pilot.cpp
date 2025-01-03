@@ -62,6 +62,7 @@ void Pilot::SetVehiclePosition(Vector2 pos)
 void Pilot::SetVehicleRotation(double angle)
 {
 	vehicle->SetRotation(angle);
+	
 }
 
 int Pilot::CurrentCheckpoint()

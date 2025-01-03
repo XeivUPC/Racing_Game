@@ -23,7 +23,7 @@ update_status RaceMode::Update()
 
 	if(gameAt->player->CurrentLap()+1!= currentLap)
 	{
-		hasPlayerFinishedLap = true;
+		hasPlayerFinishedLap = true; 
 	}
 
 

@@ -70,8 +70,8 @@ update_status ModulePhysics::PostUpdate()
 
 	// Obtén el rectángulo visible de la cámara
 	Rectangle cameraView = {
-		(App->renderer->camera.target.x - App->renderer->camera.offset.x/2),
-		(App->renderer->camera.target.y - App->renderer->camera.offset.y/2),
+		(App->renderer->camera.target.x - App->renderer->camera.offset.x / App->renderer->camera.zoom),
+		(App->renderer->camera.target.y - App->renderer->camera.offset.y / App->renderer->camera.zoom),
 		SCREEN_WIDTH / App->renderer->camera.zoom,
 		SCREEN_HEIGHT / App->renderer->camera.zoom
 	};
@@ -307,7 +307,7 @@ void PhysBody::SetPhysicPosition(float x, float y) {
 void PhysBody::SetRotation(float rotation)
 {
 	if (body) {
-		body->SetTransform(body->GetPosition(),rotation);
+		body->SetTransform(body->GetWorldCenter(),rotation);
 	}
 }
 

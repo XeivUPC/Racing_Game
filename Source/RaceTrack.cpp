@@ -41,7 +41,8 @@ update_status RaceTrack::Update()
 bool RaceTrack::Render()
 {
 	moduleAt->App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_5);
-	moduleAt->App->renderer->Draw(*trackTexture, { 0,0 }, { 0,0 });
+	Rectangle rect = { 0,0,2440,1272 };
+	moduleAt->App->renderer->Draw(*trackTexture, { 0,0 }, { 0,0 },&rect, 0, mapScale);
 	return true;
 }
 
@@ -60,6 +61,11 @@ bool RaceTrack::CleanUp()
 	startingPositions.clear();
 
 	return true;
+}
+
+float RaceTrack::GetScale()
+{
+	return mapScale;
 }
 
 void RaceTrack::LoadTrack()
@@ -87,6 +93,9 @@ void RaceTrack::LoadTrack()
 
 		/*Other things*/
 
+		xml_node mapScale_node = map_node.child("properties").find_child_by_attribute("property", "name", "MapScale");
+		mapScale = mapScale_node.attribute("value").as_float();
+
 		for (xml_node objectGroup_node = map_node.child("objectgroup"); objectGroup_node != NULL; objectGroup_node = objectGroup_node.next_sibling("objectgroup")) {
 
 			string objectGroup_name = objectGroup_node.attribute("name").as_string();
@@ -98,10 +107,10 @@ void RaceTrack::LoadTrack()
 				{
 					std::string collisionPolygonPoints = collisionNode.child("polygon").attribute("points").as_string();
 					vector<Vector2> vertices;
-					FromStringToVertices(collisionPolygonPoints, vertices);
+					FromStringToVertices(collisionPolygonPoints, mapScale, vertices);
 
-					float x = PIXEL_TO_METERS(collisionNode.attribute("x").as_float());
-					float y = PIXEL_TO_METERS(collisionNode.attribute("y").as_float());
+					float x = PIXEL_TO_METERS(collisionNode.attribute("x").as_float()) * mapScale;
+					float y = PIXEL_TO_METERS(collisionNode.attribute("y").as_float()) * mapScale;
 
 					PhysBody* body = factory.CreateChain({ x,y }, vertices);
 					body->SetType(PhysBody::BodyType::Static);
@@ -118,8 +127,8 @@ void RaceTrack::LoadTrack()
 				for (pugi::xml_node startingPosNode = objectGroup_node.child("object"); startingPosNode != NULL; startingPosNode = startingPosNode.next_sibling("object"))
 				{
 
-					float x = PIXEL_TO_METERS(startingPosNode.attribute("x").as_float());
-					float y = PIXEL_TO_METERS(startingPosNode.attribute("y").as_float());
+					float x = PIXEL_TO_METERS(startingPosNode.attribute("x").as_float()) * mapScale;
+					float y = PIXEL_TO_METERS(startingPosNode.attribute("y").as_float()) * mapScale;
 
 					xml_node order_node = startingPosNode.child("properties").find_child_by_attribute("property", "name", "Order");
 					int order = order_node.attribute("value").as_int();
@@ -133,10 +142,10 @@ void RaceTrack::LoadTrack()
 				{
 					std::string collisionPolygonPoints = checkPointNode.child("polygon").attribute("points").as_string();
 					vector<Vector2> vertices;
-					FromStringToVertices(collisionPolygonPoints, vertices);
+					FromStringToVertices(collisionPolygonPoints, mapScale, vertices);
 
-					float x = PIXEL_TO_METERS(checkPointNode.attribute("x").as_float());
-					float y = PIXEL_TO_METERS(checkPointNode.attribute("y").as_float());
+					float x = PIXEL_TO_METERS(checkPointNode.attribute("x").as_float()) * mapScale;
+					float y = PIXEL_TO_METERS(checkPointNode.attribute("y").as_float()) * mapScale;
 
 					xml_node order_node = checkPointNode.child("properties").find_child_by_attribute("property", "name", "Order");
 					int order = order_node.attribute("value").as_int();
@@ -151,10 +160,10 @@ void RaceTrack::LoadTrack()
 				{
 					std::string collisionPolygonPoints = tractionAreaNode.child("polygon").attribute("points").as_string();
 					vector<Vector2> vertices;
-					FromStringToVertices(collisionPolygonPoints, vertices);
+					FromStringToVertices(collisionPolygonPoints, mapScale, vertices);
 
-					float x = PIXEL_TO_METERS(tractionAreaNode.attribute("x").as_float());
-					float y = PIXEL_TO_METERS(tractionAreaNode.attribute("y").as_float());
+					float x = PIXEL_TO_METERS(tractionAreaNode.attribute("x").as_float()) * mapScale;
+					float y = PIXEL_TO_METERS(tractionAreaNode.attribute("y").as_float()) * mapScale;
 
 					xml_node friction_node = tractionAreaNode.child("properties").find_child_by_attribute("property", "name", "Traction");
 					float friction = friction_node.attribute("value").as_float();
@@ -199,7 +208,7 @@ string RaceTrack::ResolvePath(string basePath, string relativePath)
 	return baseDir + '/' + relativePath;
 }
 
-void RaceTrack::FromStringToVertices(string stringData, vector<Vector2>& vector)
+void RaceTrack::FromStringToVertices(string stringData, float scale, vector<Vector2>& vector)
 {
 	stringstream ss(stringData);
 	string vectorValue;
@@ -218,6 +227,6 @@ void RaceTrack::FromStringToVertices(string stringData, vector<Vector2>& vector)
 		float y_poly = stof(y_str);
 
 
-		vector.push_back({ PIXEL_TO_METERS(x_poly),PIXEL_TO_METERS( y_poly) });
+		vector.push_back({ PIXEL_TO_METERS((x_poly*scale)),PIXEL_TO_METERS((y_poly*scale)) });
 	}
 }
