@@ -13,6 +13,7 @@ protected:
 	int checkpoint=0;
 	Vehicle* vehicle;
 public:
+	std::string pilotName = "The Unamed";
 	Pilot(Module* moduleAt, std::string vehicleType);
 	~Pilot();
 	bool Start();
@@ -27,4 +28,5 @@ public:
 	void SetVehiclePosition(Vector2 pos);
 	int CurrentCheckpoint();
 	int CurrentLap();
+	std::string GetPilotName();
 };

@@ -5,6 +5,7 @@
 
 Player::Player(Module* moduleAt, std::string vehicleType) : Pilot(moduleAt, vehicleType)
 {
+	pilotName = "Player";
 }
 
 Player::~Player()

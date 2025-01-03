@@ -5,6 +5,7 @@
 
 PilotCPU::PilotCPU(Module* moduleAt, std::string vehicleType) : Pilot(moduleAt, vehicleType)
 {
+	pilotName = "CPU";
 }
 
 PilotCPU::~PilotCPU()

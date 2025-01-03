@@ -72,9 +72,12 @@ bool SceneResults::Render() {
 	App->renderer->DrawText("NEXT", { SCREEN_WIDTH / 2 , next_buttonTextureRec.y }, { -MeasureTextEx(App->assetLoader->agencyB, "NEXT", 80, 0).x / 2 , buttonsText_Offset.y}, App->assetLoader->agencyB, 80, 0, WHITE);
 
 	float increasing_offset = 0;
+	int pos = 1;
 	for (const auto& pilot : pilots) {
-		App->renderer->DrawText("Position - Pilot name"/*pilot->name*/, pilotsPos, { -MeasureTextEx(App->assetLoader->agencyB, "Julian"/*pilot->name*/, 40, 0).x / 2, buttonsText_Offset.y + increasing_offset }, App->assetLoader->agencyB, 40, 0, WHITE);
+		std::string text = std::to_string(pos) + " - " + pilot->pilotName;
+		App->renderer->DrawText(text.c_str(), pilotsPos, {-MeasureTextEx(App->assetLoader->agencyB, text.c_str(), 40, 0).x / 2, buttonsText_Offset.y + increasing_offset}, App->assetLoader->agencyB, 40, 0, WHITE);
 		increasing_offset += 55;
+		pos++;
 	}
 
 	App->renderer->UnlockRenderLayer();
