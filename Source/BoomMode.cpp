@@ -1,6 +1,7 @@
 #include "BoomMode.h"
 #include "Application.h"
 #include "SceneGame.h"
+#include "SceneResults.h"
 #include "Player.h"
 
 BoomMode::BoomMode(SceneGame* gameAt) : GameMode(gameAt)
@@ -22,36 +23,7 @@ update_status BoomMode::Update()
 
 	if (IsKeyPressed(KEY_E)) {
 		isPlayerLast = !isPlayerLast;
-	}
-
-	Application* App = gameAt->App;
-
-	App->renderer->SelectRenderLayer(App->renderer->OVER_LAYER_1);
-	App->renderer->BlockRenderLayer();
-	if (GetCountdownTime() >= 4 && GetCountdownTime() < 5 && !IsRaceStarted()) {
-		App->renderer->DrawText(App->localization->FormatNumber(1, 0).c_str(), { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(1,0).c_str(), 120, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(1,0).c_str(), 120, 0).y / 2 }, App->assetLoader->agencyB, 120, 0, WHITE);
-	}
-	else if (GetCountdownTime() >= 3 && GetCountdownTime() < 4 && !IsRaceStarted()) {
-		App->renderer->DrawText(App->localization->FormatNumber(2, 0).c_str(), { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(2,0).c_str(), 120, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(2,0).c_str(), 120, 0).y / 2 }, App->assetLoader->agencyB, 120, 0, WHITE);
-	}
-	else if (GetCountdownTime() >= 2 && GetCountdownTime() < 3 && !IsRaceStarted()) {
-		App->renderer->DrawText(App->localization->FormatNumber(3, 0).c_str(), { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(3,0).c_str(), 120, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(3,0).c_str(), 120, 0).y / 2 }, App->assetLoader->agencyB, 120, 0, WHITE);
-	}
-
-	if (IsRaceStarted()) {
-		App->renderer->DrawText("Time to explode: ", { 0, 0 }, { 0, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
-		App->renderer->DrawText(App->localization->FormatNumber(explosionTime - timeToExplode.ReadSec(), 0).c_str(), {0, 0}, {MeasureTextEx(App->assetLoader->agencyB, "Time to explode: ", 80, 0).x, 0}, App->assetLoader->agencyB, 80, 0, WHITE);
-
-		App->renderer->DrawText("Is player last: ", {0, 0}, {0, MeasureTextEx(App->assetLoader->agencyB, "Time to explode: ", 80, 0).y + 10}, App->assetLoader->agencyB, 80, 0, WHITE);
-	
-		if (isPlayerLast) {
-			App->renderer->DrawText("Yes", {0, 0}, {MeasureTextEx(App->assetLoader->agencyB, "Is player last? ", 80, 0).x, MeasureTextEx(App->assetLoader->agencyB, "Is player last? ", 80, 0).y + 10 }, App->assetLoader->agencyB, 80, 0, WHITE);
-		}
-		else {
-			App->renderer->DrawText("No", {0, 0}, {MeasureTextEx(App->assetLoader->agencyB, "Is player last? ", 80, 0).x, MeasureTextEx(App->assetLoader->agencyB, "Is player last? ", 80, 0).y + 10 }, App->assetLoader->agencyB, 80, 0, WHITE);
-		}
-	}
-	
+	}	
 
 	if (IsRaceStarted() && !timerStarted) {
 		timeToExplode.Start();
@@ -67,7 +39,43 @@ update_status BoomMode::Update()
 		}
 	}
 
+	Application* App = gameAt->App;
+	if (IsKeyPressed(KEY_N)) {
+		App->scene_game->StartFadeIn(App->scene_results, BLACK, 0.3f);
+	}
+
+	Render();
+
 	return UPDATE_CONTINUE;
+}
+
+bool BoomMode::Render()
+{
+	Application* App = gameAt->App;
+
+	App->renderer->SelectRenderLayer(App->renderer->OVER_LAYER_1);
+	App->renderer->BlockRenderLayer();
+	if (GetCountdownTime() >= 4 && GetCountdownTime() < 5 && !IsRaceStarted()) {
+		App->renderer->DrawText(App->localization->FormatNumber(1, 0).c_str(), { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(1,0).c_str(), 120, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(1,0).c_str(), 120, 0).y / 2 }, App->assetLoader->agencyB, 120, 0, WHITE);
+	}
+	else if (GetCountdownTime() >= 3 && GetCountdownTime() < 4 && !IsRaceStarted()) {
+		App->renderer->DrawText(App->localization->FormatNumber(2, 0).c_str(), { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(2,0).c_str(), 120, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(2,0).c_str(), 120, 0).y / 2 }, App->assetLoader->agencyB, 120, 0, WHITE);
+	}
+	else if (GetCountdownTime() >= 2 && GetCountdownTime() < 3 && !IsRaceStarted()) {
+		App->renderer->DrawText(App->localization->FormatNumber(3, 0).c_str(), { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(3,0).c_str(), 120, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(3,0).c_str(), 120, 0).y / 2 }, App->assetLoader->agencyB, 120, 0, WHITE);
+	}
+
+	if (IsRaceStarted()) {
+		App->renderer->DrawText(App->localization->GetString("BOOMMODE_TIME_TILL_EXPLOSION").c_str(), { 0, 0 }, { 0, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
+		App->renderer->DrawText(App->localization->FormatNumber(explosionTime - timeToExplode.ReadSec(), 0).c_str(), { 0, 0 }, { MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("BOOMMODE_TIME_TILL_EXPLOSION").c_str(), 80, 0).x, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
+
+		if (isPlayerLast) {
+			App->renderer->DrawText(App->localization->GetString("BOOMMODE_LAST").c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("BOOMMODE_TIME_TILL_EXPLOSION").c_str(), 80, 0).y + 10 }, App->assetLoader->agencyB, 80, 0, WHITE);
+		}
+	}
+	App->renderer->UnlockRenderLayer();
+
+	return true;
 }
 
 bool BoomMode::CleanUp()
@@ -137,4 +145,6 @@ void BoomMode::SetTimeToExplodeSec(double time)
 void BoomMode::EndRace()
 {
 	// Go to results
+	Application* App = gameAt->App;
+	App->scene_game->StartFadeIn(App->scene_results, BLACK, 0.3f);
 }

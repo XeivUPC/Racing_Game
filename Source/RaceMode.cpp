@@ -1,6 +1,7 @@
 #include "RaceMode.h"
 #include "Application.h"
 #include "SceneGame.h"
+#include "SceneResults.h"
 #include "Player.h"
 
 RaceMode::RaceMode(SceneGame* gameAt, int NumberOfLaps) : GameMode (gameAt)
@@ -26,7 +27,26 @@ update_status RaceMode::Update()
 		hasPlayerFinishedLap = true; 
 	}
 
+	if (hasPlayerFinishedLap) {
+		if (currentLap == maxLapNum) {
+			EndRace();
+		}
+		else {
+			SetLapNum(currentLap + 1);
+		}
+	}
 
+	Application* App = gameAt->App;
+	if (IsKeyPressed(KEY_N)) {
+		App->scene_game->StartFadeIn(App->scene_results, BLACK, 0.3f);
+	}
+
+	Render();
+	return UPDATE_CONTINUE;
+}
+
+bool RaceMode::Render()
+{
 	Application* App = gameAt->App;
 	App->renderer->SelectRenderLayer(App->renderer->OVER_LAYER_1);
 	App->renderer->BlockRenderLayer();
@@ -46,9 +66,9 @@ update_status RaceMode::Update()
 	}
 	if (IsRaceStarted()) {
 		if (currentLap != maxLapNum) {
-			App->renderer->DrawText("Lap ", { 0, 0 }, { 0, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
-			App->renderer->DrawText(App->localization->FormatNumber(currentLap, 0).c_str(), { 0, 0 }, { MeasureTextEx(App->assetLoader->agencyB, "Lap ", 80, 0).x, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
-			
+			App->renderer->DrawText(App->localization->GetString("RACEMODE_LAP").c_str(), {0, 0}, {0, 0}, App->assetLoader->agencyB, 80, 0, WHITE);
+			App->renderer->DrawText(App->localization->FormatNumber(currentLap, 0).c_str(), { 0, 0 }, { MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("RACEMODE_LAP").c_str(), 80, 0).x, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
+
 			App->renderer->DrawText(App->localization->FormatNumber(GetCurrentLapTimeSec(), 2).c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(GetCurrentLapTimeSec(), 2).c_str() , 80, 0).y + 10 }, App->assetLoader->agencyB, 70, 0, WHITE);
 		}
 		else {
@@ -65,18 +85,8 @@ update_status RaceMode::Update()
 			App->renderer->DrawText(App->localization->FormatNumber(GetLapTimeSec(3), 2).c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(GetCurrentLapTimeSec(), 2).c_str() , 100, 0).y * 2 + 10 + MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(GetCurrentLapTimeSec(), 2).c_str(), 40, 0).y * 2 }, App->assetLoader->agencyB, 40, 0, WHITE);
 		}
 	}
-
-	if (hasPlayerFinishedLap) {
-		if (currentLap == maxLapNum) {
-			EndRace();
-		}
-		else {
-			SetLapNum(currentLap + 1);
-		}
-	}
-
 	App->renderer->UnlockRenderLayer();
-	return UPDATE_CONTINUE;
+	return true;
 }
 
 bool RaceMode::CleanUp()
@@ -160,4 +170,6 @@ double RaceMode::GetCurrentLapTimeSec() const
 void RaceMode::EndRace()
 {
 	// Go to result scene
+	Application* App = gameAt->App;
+	App->scene_game->StartFadeIn(App->scene_results, BLACK, 0.3f);
 }

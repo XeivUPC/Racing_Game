@@ -14,6 +14,7 @@ class ModuleUserPreferences;
 class ModuleAssetLoader;
 class ModulePhysics;
 
+class SceneResults;
 class SceneGame;
 class SceneOptions;
 class SceneMainMenu;
@@ -33,6 +34,7 @@ public:
 	ModuleAssetLoader* assetLoader;
 	ModulePhysics* physics;
 
+	SceneResults* scene_results;
 	SceneOptions* scene_options;
 	SceneMainMenu* scene_main_menu;
 	SceneSelectSetup* scene_select_setup;

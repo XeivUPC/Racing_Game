@@ -11,6 +11,7 @@ public:
 
 	bool Init();
 	update_status Update();
+	bool Render();
 	bool CleanUp();
 
 	void ExecuteFunction(std::string Id) override;
