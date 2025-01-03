@@ -166,8 +166,11 @@ bool SceneSelectSetup::Start()
 
 	currentSelectedMap = 0;
 	currentSelectedVehicle = 0;
+	currentMode = MODES::NO_MODE;
 	isCarChosen = false;
 	isMapChosen = false;
+	isModeChosen = false;
+
 
 	LoadSetUpInformation();
 	mapPreviewTexture = App->texture->GetTexture(maps[currentSelectedMap].imagePreviewId);

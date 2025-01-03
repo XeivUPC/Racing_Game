@@ -64,10 +64,12 @@ bool SceneGame::CleanUp()
 {
 	LOG("Unloading Intro scene");
 
+	player = nullptr;
 	for (const auto& pilot : pilots) {
 		pilot->CleanUp();
 		delete pilot;
 	}
+	pilots.clear();
 
 	pauseMenu->CleanUp();
 	delete pauseMenu;
