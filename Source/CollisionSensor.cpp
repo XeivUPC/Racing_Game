@@ -1,6 +1,5 @@
 #include "CollisionSensor.h"
 
-
 CollisionSensor::CollisionSensor()
 {
 
@@ -52,7 +51,7 @@ PhysBody* CollisionSensor::OnTriggerEnterGet()
         lastBodyEnter = nullptr;
         return aux;
     }
-    return false;
+    return nullptr;
 }
 
 PhysBody* CollisionSensor::OnTriggerExitGet()
@@ -78,7 +77,7 @@ void CollisionSensor::BeginContact(b2Contact* contact)
             PhysBody* bodyA = (PhysBody*)fixtureA->GetBody()->GetUserData().pointer;
             PhysBody* bodyB = (PhysBody*)fixtureB->GetBody()->GetUserData().pointer;
             lastBodyEnter = GetDifferentBody(bodyA, bodyB, physBodyToTrack);
-            bodiesColliding.emplace(lastBodyEnter);
+            bodiesColliding.emplace_back(lastBodyEnter);
         }
     }
 }
@@ -95,12 +94,15 @@ void CollisionSensor::EndContact(b2Contact* contact)
             PhysBody* bodyA = (PhysBody*)fixtureA->GetBody()->GetUserData().pointer;
             PhysBody* bodyB = (PhysBody*)fixtureB->GetBody()->GetUserData().pointer;
             lastBodyExit = GetDifferentBody(bodyA, bodyB, physBodyToTrack);
-            bodiesColliding.erase(lastBodyEnter);
+            //bodiesColliding.erase(lastBodyEnter);
+
+            auto ne = std::remove(bodiesColliding.begin(), bodiesColliding.end(), lastBodyExit);
+            bodiesColliding.erase(ne, bodiesColliding.end());
         }
     }
 }
 
-std::set<PhysBody*> CollisionSensor::GetBodiesColliding()
+std::vector<PhysBody*> CollisionSensor::GetBodiesColliding()
 {
     return bodiesColliding;
 }

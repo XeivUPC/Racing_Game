@@ -9,6 +9,7 @@
 #include "ModuleAssetLoader.h"
 #include "ModulePhysics.h"
 
+#include "SceneResults.h"
 #include "SceneGame.h"
 #include "SceneOptions.h"
 #include "SceneMainMenu.h"
@@ -29,6 +30,7 @@ Application::Application()
 	physics = new ModulePhysics(this);
 	scene_options = new SceneOptions(this);
 	scene_game = new SceneGame(this, false);
+	scene_results = new SceneResults(this, false);
 	scene_select_setup = new SceneSelectSetup(this, false);
 	scene_main_menu = new SceneMainMenu(this, false);
 	scene_intro = new SceneIntro(this,true);
@@ -47,6 +49,7 @@ Application::Application()
 	AddModule(assetLoader);
 	
 	// Scenes
+	AddModule(scene_results);
 	AddModule(scene_game);
 	AddModule(scene_select_setup);
 	AddModule(scene_main_menu);

@@ -7,12 +7,17 @@
 
 #include "raylib.h"
 #include <vector>
+#include <string>
 
 class PhysBody;
 class Player;
 class PauseMenu;
+class GameMode;
 class RaceTrack;
 class Tree;
+class Pilot;
+
+using namespace std;
 
 class SceneGame : public ModuleScene
 {
@@ -25,10 +30,21 @@ public:
 	bool Render();
 	bool CleanUp();
 
+	void SetUpTrack(string path);
+	void SetMode(GameMode* mode);
+
+	vector<Pilot*> GetRacePlacePositions() const;
+
 public:
-	Player* player;
 	PauseMenu* pauseMenu;
+
 	RaceTrack* track;
 
 	Tree* tree;
+	GameMode* mode;
+
+	Player* player;
+	vector<Pilot*> pilots;
+private:
+	string trackPath = "";
 };

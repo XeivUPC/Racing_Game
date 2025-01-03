@@ -4,13 +4,26 @@
 #include "ModuleRender.h"
 #include "Box2DFactory.h"
 #include <raymath.h>
+#include <set> 
 
 Wheel::Wheel(Vehicle* owner, float radius, float width)
 {
 	this->owner = owner;
 
-	const Box2DFactory& factory = owner->GetModuleAt()->App->physics->factory();
-	body = factory.CreateBox({0,0}, width, radius*2);
+	b2FixtureUserData fixtureData;
+	fixtureData.pointer = (uintptr_t)(&sensor);
+
+	ModulePhysics* physics = owner->GetModuleAt()->App->physics;
+	const Box2DFactory& factory = physics->factory();
+	body = factory.CreateBox({0,0}, width, radius*2, fixtureData);
+
+	uint16 categoryBits = physics->VEHICLE_WHEEL_LAYER;
+	uint16 maskBits = physics->FRICTION_AREA_LAYER;
+	body->SetFilter(0, categoryBits, maskBits, 0);
+	body->SetBullet(true);
+
+	sensor.SetFixtureToTrack(body,0);
+	sensor.AcceptOnlyTriggers(true);
 }
 
 Wheel::~Wheel()
@@ -34,6 +47,16 @@ bool Wheel::CleanUp()
 
 void Wheel::UpdateTraction()
 {
+	vector<PhysBody*> areas = sensor.GetBodiesColliding();
+	if (areas.size() == 0)
+		currentTraction = 1;
+	else {
+		currentTraction = 0;
+		for (const auto& area : areas) {
+			if (area->GetFriction(0) > currentTraction)
+				currentTraction = area->GetFriction(0);
+		}
+	}
 }
 
 void Wheel::UpdateFriction()
@@ -151,5 +174,5 @@ void Wheel::Render()
 	if (GetJoint() != nullptr)
 		extraAngle = GetJoint()->GetJointAngle();
 	radianAngle += extraAngle;
-	owner->GetModuleAt()->App->renderer->Draw(*wheelTexture, body->GetPhysicPosition(), wheelRotatedOffset, &wheelTextureRec, RAD2DEG * (radianAngle), 1.8f, (int)cos(-wheelRotatedOffset.x), (int)sin(-wheelRotatedOffset.y));
+	owner->GetModuleAt()->App->renderer->Draw(*wheelTexture, body->GetPhysicPosition(), wheelRotatedOffset, &wheelTextureRec, RAD2DEG * (radianAngle), 1.8f*3, (int)cos(-wheelRotatedOffset.x), (int)sin(-wheelRotatedOffset.y));
 }

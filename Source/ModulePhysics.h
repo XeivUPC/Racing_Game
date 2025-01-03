@@ -6,7 +6,7 @@
 #include "box2d/box2d.h"
 
 
-#define PIXELS_PER_METER 10.0f // if touched change METER_PER_PIXEL too
+#define PIXELS_PER_METER 30.0f // if touched change METER_PER_PIXEL too
 #define METER_PER_PIXEL 1/PIXELS_PER_METER // this is 1 / PIXELS_PER_METER !
 
 #define METERS_TO_PIXELS(m) ((int) floor(PIXELS_PER_METER * m))
@@ -94,6 +94,9 @@ public:
 	Vector2 GetWorldVector(Vector2 axis) const;
 
 	void SetPosition(float x, float y);
+	void SetPositionAndRotation(float x, float y, float rotation);
+	void SetPhysicPosition(float x, float y);
+	void SetPhysicPositionAndRotation(float x, float y, float rotation);
 	void SetRotation(float rotation);
 	void ApplyForce(const Vector2& force, const Vector2& point);
 	void ApplyLinearImpulse(const Vector2& impulse, const Vector2& point);
@@ -111,6 +114,8 @@ public:
 
 	void SetMass(float mass, Vector2 center, float inertia);
 	void SetType(BodyType type);
+	void SetBullet(bool status);
+	void SetLinearDamping(float damping);
 	void SetFriction(size_t fixtureIndex, float friction);
 	void SetDensity(size_t fixtureIndex, float density);
 	void SetRestitution(size_t fixtureIndex, float restitution);
@@ -122,6 +127,7 @@ public:
 	float GetDensity(size_t fixtureIndex) const;
 	float GetRestitution(size_t fixtureIndex) const;
 	float GetRestitutionThreshold(size_t fixtureIndex) const;
+	b2FixtureUserData GetFixtureUserData(size_t fixtureIndex) const;
 	bool IsSensor(size_t fixtureIndex) const;
 	b2Filter GetFilter(size_t fixtureIndex) const;
 
@@ -145,6 +151,14 @@ class CollisionsDispatcher;
 class ModulePhysics : public Module
 {
 public:
+
+	const uint16_t DEFAULT_LAYER = 0x0001;
+	const uint16_t BOUNDARY_LAYER = 0x0002;
+	const uint16_t VEHICLE_LAYER = 0x0004;
+	const uint16_t VEHICLE_WHEEL_LAYER = 0x0008;
+	const uint16_t FRICTION_AREA_LAYER = 0x0010;
+	const uint16_t LAP_SENSOR_LAYER = 0x0020;
+
 	ModulePhysics(Application* app, bool start_enabled = true);
 	~ModulePhysics();
 

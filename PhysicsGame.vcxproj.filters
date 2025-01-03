@@ -70,6 +70,12 @@
     <Filter Include="Others">
       <UniqueIdentifier>{942bf262-2bea-4923-90f9-c8e8543062c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MapObjects\Type %28MapObjects%29\Pilots">
+      <UniqueIdentifier>{b1d10c72-021a-4e56-a438-5f5678843c20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MapObjects\Type %28MapObjects%29\Pilots\Type %28Pilot%29">
+      <UniqueIdentifier>{892e5f92-ff84-4d1d-b9e4-a058ee397201}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleAssetLoader.cpp">
@@ -182,8 +188,17 @@
     <ClCompile Include="Source\PauseMenu.cpp">
       <Filter>Others</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Pilot.cpp">
+      <Filter>MapObjects\Type %28MapObjects%29\Pilots</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Player.cpp">
-      <Filter>Others</Filter>
+      <Filter>MapObjects\Type %28MapObjects%29\Pilots\Type %28Pilot%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PilotCPU.cpp">
+      <Filter>MapObjects\Type %28MapObjects%29\Pilots\Type %28Pilot%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneResults.cpp">
+      <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -312,8 +327,17 @@
     <ClInclude Include="Source\PauseMenu.h">
       <Filter>Others</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Pilot.h">
+      <Filter>MapObjects\Type %28MapObjects%29\Pilots</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Player.h">
-      <Filter>Others</Filter>
+      <Filter>MapObjects\Type %28MapObjects%29\Pilots\Type %28Pilot%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PilotCPU.h">
+      <Filter>MapObjects\Type %28MapObjects%29\Pilots\Type %28Pilot%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneResults.h">
+      <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="146" height="79" tilewidth="1" tileheight="1" infinite="0" nextlayerid="8" nextobjectid="1">
+ <properties>
+  <property name="MapScale" type="float" value="3"/>
+ </properties>
  <imagelayer id="3" name="Texture">
   <properties>
    <property name="TextureID" value="MapName"/>

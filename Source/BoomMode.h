@@ -3,17 +3,24 @@
 
 #include <vector>
 
-using namespace std;
-
 class BoomMode : public GameMode
 {
 public:
-	BoomMode(Application* app, bool start_enabled = true);
+	BoomMode(SceneGame* gameAt);
 	~BoomMode();
 
 	bool Init();
 	update_status Update();
+	bool Render();
 	bool CleanUp();
+
+	void ExecuteFunction(std::string Id) override;
+	void ExecuteFunctionGivenDouble(std::string Id, double input) override;
+	double GetDoubleParameter(std::string Id) override;
+
+
+
+private:
 
 	void ExplodePlayer();
 	void ExplodeCPU();
@@ -23,7 +30,6 @@ public:
 
 	void EndRace();
 
-private:
 	int explosionTime = 60;
 	Timer timeToExplode;
 

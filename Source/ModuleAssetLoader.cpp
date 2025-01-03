@@ -22,6 +22,12 @@ bool ModuleAssetLoader::Init()
 	ModuleAudio* audioModule = App->audio;
 
 	//// Load All Requiered Files Here And Save The Returned Values If Requiered Inside The .hpp
+	
+	//// General UI
+	textureModule->CreateTexture("Assets/Textures/UI/UI_Background.png", "UI_Bg");
+
+	textureModule->CreateTexture("Assets/Textures/UI/UI_SliderThumb.png", "UI_SliderThumb");
+
 	//// Textures
 	textureModule->CreateTexture("Assets/Textures/Cars.png", "Car");
 	textureModule->CreateTexture("Assets/Textures/Motos.png", "Motos");
@@ -47,12 +53,17 @@ bool ModuleAssetLoader::Init()
 	textureModule->CreateTexture("Assets/Textures/settings_slider_thumb.png", "sliderThumbSettings");
 	textureModule->CreateTexture("Assets/Textures/settings_arrow_right.png", "arrowSettings");
 	textureModule->CreateTexture("Assets/Textures/settings_exit.png", "exitSettings");
+	// Results
+	textureModule->CreateTexture("Assets/Textures/Results_Background.png", "results_Background");
+	textureModule->CreateTexture("Assets/Textures/Results_next_button.png", "results_next_button");
 
 	// Game
 	textureModule->CreateTexture("Assets/Textures/objectsSpring.png", "objectsSpring");
 	textureModule->CreateTexture("Assets/Textures/objectsWinter.png", "objectsWinter");
 	textureModule->CreateTexture("Assets/Textures/Map_1.png", "Map1");
+	textureModule->CreateTexture("Assets/Textures/Map_1_Preview.png", "Map1_Preview");
 	textureModule->CreateTexture("Assets/Textures/Map_2.png", "Map2");
+	textureModule->CreateTexture("Assets/Textures/Map_2_Preview.png", "Map2_Preview");
 
 	//// Audios
 	audioMotorId = audioModule->LoadFx("Assets/Sounds/Sfx/MotorSFX.ogg");

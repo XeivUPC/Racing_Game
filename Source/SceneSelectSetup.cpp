@@ -9,6 +9,8 @@
 #include "UIButton.h"
 #include "ModuleLocalization.h"
 #include "AnimationSystem.h"
+#include "RaceMode.h"
+#include "BoomMode.h"
 #include "Timer.h"
 
 #include "pugixml.hpp"
@@ -164,8 +166,11 @@ bool SceneSelectSetup::Start()
 
 	currentSelectedMap = 0;
 	currentSelectedVehicle = 0;
+	currentMode = MODES::NO_MODE;
 	isCarChosen = false;
 	isMapChosen = false;
+	isModeChosen = false;
+
 
 	LoadSetUpInformation();
 	mapPreviewTexture = App->texture->GetTexture(maps[currentSelectedMap].imagePreviewId);
@@ -250,7 +255,7 @@ bool SceneSelectSetup::Render()
 		string mapName = App->localization->GetString(maps[currentSelectedMap].name);
 		App->renderer->DrawText(mapName.c_str(), map_name_text_pos, { -MeasureTextEx(App->assetLoader->agencyB, mapName.c_str(), 40, 0).x / 2,0 }, App->assetLoader->agencyB, 40, 0, BLACK);
 
-		App->renderer->Draw(*mapPreviewTexture, { 194*2,130*2 }, {0,0},&mapPreviewTextureRec,0,0.21f);
+		App->renderer->Draw(*mapPreviewTexture, { 194*2,124*2 }, {0,0},&mapPreviewTextureRec,0,2);
 
 		arrowRightSetupMapAnimator->Animate({ map_arrow_right_rec.x, map_arrow_right_rec.y }, { 0,0 }, 0, 1, false);
 		arrowRightSetupMapAnimator->Update();
@@ -343,6 +348,7 @@ void SceneSelectSetup::ClickRACE()
 	App->audio->PlayFx(App->assetLoader->audioMotorId);
 	isModeChosen = true;
 	currentMode = MODES::RACE;
+	App->scene_game->SetMode(new RaceMode(App->scene_game, 3));
 
 	StartFadeOut(BLACK, 0.3f);
 }
@@ -352,6 +358,7 @@ void SceneSelectSetup::ClickBOOM()
 	App->audio->PlayFx(App->assetLoader->audioMotorId);
 	isModeChosen = true;
 	currentMode = MODES::BOOM;
+	App->scene_game->SetMode(new BoomMode(App->scene_game));
 
 	StartFadeOut(BLACK, 0.3f);
 }
@@ -435,7 +442,7 @@ void SceneSelectSetup::ClickMapFINISH()
 	// Stop previous music
 	App->audio->PlayFx(App->assetLoader->audioMotorId);
 	isMapChosen = true;
-
+	App->scene_game->SetUpTrack(maps[currentSelectedMap].mapPath);
 	StartFadeIn(App->scene_game, BLACK, 0.3f);
 }
 

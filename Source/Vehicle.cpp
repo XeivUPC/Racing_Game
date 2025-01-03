@@ -7,14 +7,16 @@
 #include "ModuleRender.h"
 #include "DriftParticle.h"
 #include "ParticleSystem.h"
+#include "Pilot.h"
 #include <raymath.h>
 
 #include <pugixml.hpp>
 
 using namespace pugi;
 
-Vehicle::Vehicle(Module* moduleAt, string id) : MapObject(moduleAt)
+Vehicle::Vehicle(Module* moduleAt, Pilot* pilot, string id) : MapObject(moduleAt)
 {
+	this->pilot = pilot;
 	CreateVehicle(id);
 	//particleSystem = new ParticleSystem(moduleAt);
 }
@@ -83,7 +85,7 @@ bool Vehicle::Render()
 	}
 
 	radianAngle = body->GetAngle();
-	moduleAt->App->renderer->Draw(*vehicleTexture, body->GetPhysicPosition(), vehicleRotatedOffset, &vehicleTextureRec, RAD2DEG * radianAngle, 1.8f, (int)cos(-vehicleRotatedOffset.x), (int)sin(-vehicleRotatedOffset.y));
+	moduleAt->App->renderer->Draw(*vehicleTexture, body->GetPhysicPosition(), vehicleRotatedOffset, &vehicleTextureRec, RAD2DEG * radianAngle, 1.8f*3, (int)cos(-vehicleRotatedOffset.x), (int)sin(-vehicleRotatedOffset.y));
 
 	for (const auto& wheel : wheels)
 	{
@@ -116,6 +118,11 @@ double Vehicle::GetRotation()
 }
 
 
+void Vehicle::SetRotation(double rotation)
+{
+	body->SetRotation(rotation);
+}
+
 void Vehicle::SetInput(Vector2 input)
 {
 	moveInput = input;
@@ -130,6 +137,17 @@ Vector2 Vehicle::GetPhysicPosition()
 {
 	return body->GetPhysicPosition();
 }
+
+void Vehicle::SetPosition(Vector2 position)
+{
+	body->SetPosition(position.x, position.y);
+}
+
+void Vehicle::SetPhysicPosition(Vector2 position)
+{
+	body->SetPhysicPosition(position.x, position.y);
+}
+
 
 void Vehicle::CreateVehicle(string id)
 {
@@ -168,11 +186,22 @@ void Vehicle::CreateVehicle(string id)
 	float inertia = vehicleNode.attribute("inertia").as_float();
 	float mass = vehicleNode.attribute("mass").as_float();
 
-	const Box2DFactory& factory = moduleAt->App->physics->factory();
-	body = factory.CreateBox({ 5,5 }, size.x, size.y);
+
+	b2FixtureUserData fixtureData;
+	fixtureData.pointer = (uintptr_t)(pilot);
+
+	ModulePhysics* physics = moduleAt->App->physics;
+	const Box2DFactory& factory = physics->factory();
+	body = factory.CreateBox({ 5,5 }, size.x, size.y, fixtureData);
 	body->SetAngularDamping(3);
 	body->SetDensity(0, 0.4f);
+	body->SetLinearDamping(0.1f);
+	body->SetBullet(true);
 	body->SetMass(mass, { 0,0 }, inertia);
+
+	uint16 categoryBits = physics->VEHICLE_LAYER;
+	uint16 maskBits = physics->BOUNDARY_LAYER | physics->LAP_SENSOR_LAYER | physics->VEHICLE_LAYER;
+	body->SetFilter(0, categoryBits, maskBits, 0);
 
 	maxForwardSpeed = properties_node.child("max-forward-speed").attribute("value").as_float();
 	maxBackwardSpeed = properties_node.child("max-backward-speed").attribute("value").as_float();

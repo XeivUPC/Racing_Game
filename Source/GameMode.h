@@ -2,51 +2,30 @@
 
 #include "Globals.h"
 #include "Timer.h"
+#include "ModuleLocalization.h"
+#include "ModuleRender.h"
+#include "ModuleAssetLoader.h"
 
-class Application;
+class SceneGame;
 
 class GameMode
 {
 private:
-	bool enabled;
-
 	Timer totalRaceTime;
 	Timer startCountdown;
 
 	bool raceStarted = false;
 
 public:
-	Application* App;
+	SceneGame* gameAt;
 
-	GameMode(Application* parent, bool start_enabled = true) : App(parent), enabled(start_enabled)
+	GameMode(SceneGame* gameAt) : gameAt(gameAt)
 	{
+		startCountdown.Start();
 	}
 
 	virtual ~GameMode()
 	{
-	}
-
-	bool IsEnabled() const
-	{
-		return enabled;
-	}
-
-	void Enable()
-	{
-		if (enabled == false)
-		{
-			enabled = true;
-			Start();
-		}
-	}
-
-	void Disable()
-	{
-		if (enabled == true)
-		{
-			enabled = false;
-			CleanUp();
-		}
 	}
 
 	virtual bool Init()
@@ -56,7 +35,6 @@ public:
 
 	virtual bool Start()
 	{
-		startCountdown.Start();
 		return true;
 	}
 
@@ -72,6 +50,11 @@ public:
 			raceStarted = true;
 		}
 		return UPDATE_CONTINUE;
+	}
+
+	virtual bool Render()
+	{
+		return true;
 	}
 
 	virtual update_status PostUpdate()
@@ -96,6 +79,30 @@ public:
 
 	bool IsRaceStarted() const {
 		return raceStarted;
+	}
+
+	virtual void ExecuteFunction(std::string Id) {
+		return;
+	}
+	
+	virtual void ExecuteFunctionGivenInt(std::string Id, int input) {
+		return;
+	}
+
+	virtual void ExecuteFunctionGivenDouble(std::string Id, double input) {
+		return;
+	}
+
+	virtual double GetDoubleParameter(std::string Id) {
+		return 0.0;
+	}
+
+	virtual double GetDoubleParameterGivenInt(std::string Id, int input) {
+		return 0.0;
+	}
+
+	virtual int GetIntParameter(std::string Id) {
+		return 0;
 	}
 
 };

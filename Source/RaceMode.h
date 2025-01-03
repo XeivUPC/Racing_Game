@@ -3,18 +3,26 @@
 
 #include <vector>
 
-using namespace std;
-
 class RaceMode : public GameMode
 {
 public:
-	RaceMode(Application* app, bool start_enabled = true);
+	RaceMode(SceneGame* gameAt, int NumberOfLaps);
 	~RaceMode();
 
 	bool Init();
 	update_status Update();
+	bool Render();
 	bool CleanUp();
 
+	void ExecuteFunction(std::string Id) override;
+	void ExecuteFunctionGivenInt(std::string Id, int input) override;
+	double GetDoubleParameter(std::string Id) override;
+	double GetDoubleParameterGivenInt(std::string Id, int input) override;
+	int GetIntParameter(std::string Id) override;
+
+	
+
+private:
 	int GetCurrentLapNum() const;
 	void SetLapNum(int lapNum);
 
@@ -23,12 +31,11 @@ public:
 
 	void EndRace();
 
-private:
-	int currentLap = 0;
+	int currentLap = 1;
 	Timer lapTimeCounter;
 	
-	int maxLapNum = 3;
-	vector<double> lapTimes;
+	int maxLapNum = 0;
+	std::vector<double> lapTimes;
 
 	// Temporal bools
 	bool hasPlayerFinishedLap = false;

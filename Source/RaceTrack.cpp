@@ -21,15 +21,28 @@ RaceTrack::~RaceTrack()
 {
 }
 
+vector<MapLapSensor*> RaceTrack::GetTrackSensors()
+{
+	return mapLapSensors;
+}
+
+vector<Vector2> RaceTrack::GetTrackStartingPositions()
+{
+	return startingPositions;
+}
+
 update_status RaceTrack::Update()
 {
+	for (const auto& sensor : mapLapSensors)
+		sensor->Update();
 	return UPDATE_CONTINUE;
 }
 
 bool RaceTrack::Render()
 {
 	moduleAt->App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_5);
-	moduleAt->App->renderer->Draw(*trackTexture, { 0,0 }, { 0,0 });
+	Rectangle rect = { 0,0,2440,1272 };
+	moduleAt->App->renderer->Draw(*trackTexture, { 0,0 }, { 0,0 },&rect, 0, mapScale);
 	return true;
 }
 
@@ -40,13 +53,19 @@ bool RaceTrack::CleanUp()
 	}
 	trackColliders.clear();
 
-	for (const auto& sensor : mapLapSensor) {
+	for (const auto& sensor : mapLapSensors) {
 		sensor->CleanUp();
 		delete sensor;
 	}
-	mapLapSensor.clear();
+	mapLapSensors.clear();
+	startingPositions.clear();
 
 	return true;
+}
+
+float RaceTrack::GetScale()
+{
+	return mapScale;
 }
 
 void RaceTrack::LoadTrack()
@@ -54,7 +73,8 @@ void RaceTrack::LoadTrack()
 	pugi::xml_document trackFile;
 	pugi::xml_parse_result result = trackFile.load_file(trackPath.c_str());
 
-	const Box2DFactory& factory = moduleAt->App->physics->factory();
+	ModulePhysics* physics = moduleAt->App->physics;
+	const Box2DFactory& factory = physics->factory();
 
 	if (result)
 	{
@@ -73,6 +93,9 @@ void RaceTrack::LoadTrack()
 
 		/*Other things*/
 
+		xml_node mapScale_node = map_node.child("properties").find_child_by_attribute("property", "name", "MapScale");
+		mapScale = mapScale_node.attribute("value").as_float();
+
 		for (xml_node objectGroup_node = map_node.child("objectgroup"); objectGroup_node != NULL; objectGroup_node = objectGroup_node.next_sibling("objectgroup")) {
 
 			string objectGroup_name = objectGroup_node.attribute("name").as_string();
@@ -84,18 +107,34 @@ void RaceTrack::LoadTrack()
 				{
 					std::string collisionPolygonPoints = collisionNode.child("polygon").attribute("points").as_string();
 					vector<Vector2> vertices;
-					FromStringToVertices(collisionPolygonPoints, vertices);
+					FromStringToVertices(collisionPolygonPoints, mapScale, vertices);
 
-					float x = PIXEL_TO_METERS(collisionNode.attribute("x").as_float());
-					float y = PIXEL_TO_METERS(collisionNode.attribute("y").as_float());
+					float x = PIXEL_TO_METERS(collisionNode.attribute("x").as_float()) * mapScale;
+					float y = PIXEL_TO_METERS(collisionNode.attribute("y").as_float()) * mapScale;
 
 					PhysBody* body = factory.CreateChain({ x,y }, vertices);
+					body->SetType(PhysBody::BodyType::Static);
+
+					uint16 categoryBits = physics->BOUNDARY_LAYER;
+					uint16 maskBits = physics->VEHICLE_LAYER;
+					body->SetFilter(0, categoryBits, maskBits, 0);
+
 					trackColliders.emplace_back(body);
 				}
 
 			}
 			else if (objectGroup_name == "StartingPositions") {
+				for (pugi::xml_node startingPosNode = objectGroup_node.child("object"); startingPosNode != NULL; startingPosNode = startingPosNode.next_sibling("object"))
+				{
 
+					float x = PIXEL_TO_METERS(startingPosNode.attribute("x").as_float()) * mapScale;
+					float y = PIXEL_TO_METERS(startingPosNode.attribute("y").as_float()) * mapScale;
+
+					xml_node order_node = startingPosNode.child("properties").find_child_by_attribute("property", "name", "Order");
+					int order = order_node.attribute("value").as_int();
+
+					startingPositions.emplace(startingPositions.begin() + order, Vector2{ x,y });
+				}
 			}
 			else if (objectGroup_name == "CheckPoints") {
 				///Create Map Colliders
@@ -103,21 +142,48 @@ void RaceTrack::LoadTrack()
 				{
 					std::string collisionPolygonPoints = checkPointNode.child("polygon").attribute("points").as_string();
 					vector<Vector2> vertices;
-					FromStringToVertices(collisionPolygonPoints, vertices);
+					FromStringToVertices(collisionPolygonPoints, mapScale, vertices);
 
-					float x = PIXEL_TO_METERS(checkPointNode.attribute("x").as_float());
-					float y = PIXEL_TO_METERS(checkPointNode.attribute("y").as_float());
+					float x = PIXEL_TO_METERS(checkPointNode.attribute("x").as_float()) * mapScale;
+					float y = PIXEL_TO_METERS(checkPointNode.attribute("y").as_float()) * mapScale;
 
 					xml_node order_node = checkPointNode.child("properties").find_child_by_attribute("property", "name", "Order");
 					int order = order_node.attribute("value").as_int();
 
-					MapLapSensor* sensor = new MapLapSensor(moduleAt, { x,y }, vertices, order);
+					MapLapSensor* sensor = new MapLapSensor(moduleAt, { x,y }, vertices, this, order);
 
-					mapLapSensor.emplace_back(sensor);
+					mapLapSensors.emplace_back(sensor);
 				}
 			}
 			else if (objectGroup_name == "TractionAreas") {
+				for (pugi::xml_node tractionAreaNode = objectGroup_node.child("object"); tractionAreaNode != NULL; tractionAreaNode = tractionAreaNode.next_sibling("object"))
+				{
+					std::string collisionPolygonPoints = tractionAreaNode.child("polygon").attribute("points").as_string();
+					vector<Vector2> vertices;
+					FromStringToVertices(collisionPolygonPoints, mapScale, vertices);
 
+					float x = PIXEL_TO_METERS(tractionAreaNode.attribute("x").as_float()) * mapScale;
+					float y = PIXEL_TO_METERS(tractionAreaNode.attribute("y").as_float()) * mapScale;
+
+					xml_node friction_node = tractionAreaNode.child("properties").find_child_by_attribute("property", "name", "Traction");
+					float friction = friction_node.attribute("value").as_float();
+
+					vector<vector<Vector2>> newPolys = factory.Triangulate(vertices);
+
+					for (size_t i = 0; i < newPolys.size(); i++)
+					{
+						PhysBody* body = factory.CreatePolygon({ x,y }, newPolys[i]);
+
+						uint16 categoryBits = physics->FRICTION_AREA_LAYER;
+						uint16 maskBits = physics->VEHICLE_WHEEL_LAYER;
+						body->SetFilter(0, categoryBits, maskBits, 0);
+						body->SetSensor(0,true);
+						body->SetType(PhysBody::BodyType::Static);
+						body->SetFriction(0, friction);
+
+						trackColliders.emplace_back(body);
+					}
+				}
 			}
 			else if (objectGroup_name == "Objects") {
 
@@ -142,7 +208,7 @@ string RaceTrack::ResolvePath(string basePath, string relativePath)
 	return baseDir + '/' + relativePath;
 }
 
-void RaceTrack::FromStringToVertices(string stringData, vector<Vector2>& vector)
+void RaceTrack::FromStringToVertices(string stringData, float scale, vector<Vector2>& vector)
 {
 	stringstream ss(stringData);
 	string vectorValue;
@@ -161,6 +227,6 @@ void RaceTrack::FromStringToVertices(string stringData, vector<Vector2>& vector)
 		float y_poly = stof(y_str);
 
 
-		vector.push_back({ PIXEL_TO_METERS(x_poly),PIXEL_TO_METERS( y_poly) });
+		vector.push_back({ PIXEL_TO_METERS((x_poly*scale)),PIXEL_TO_METERS((y_poly*scale)) });
 	}
 }

@@ -8,17 +8,20 @@
 #include "ModuleTexture.h"
 #include "ModulePhysics.h"
 #include "PauseMenu.h"
-
+#include "GameMode.h"
 #include "Player.h"
+#include "Pilot.h"
+#include "PilotCPU.h"
 #include "RaceTrack.h"
 #include "Tree.h"
 
 #include <raymath.h>
+#include <algorithm>
 
 
 SceneGame::SceneGame(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
 {
-	
+
 }
 
 SceneGame::~SceneGame()
@@ -30,15 +33,28 @@ bool SceneGame::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 	//// Aqui ponemos todos los chars de la fuente en orden
-	
+
 	pauseMenu = new PauseMenu(this);
 	pauseMenu->Start();
-	player = new Player(this);
-	track = new RaceTrack(this, "Assets/Map/Map_2.tmx");
+
+	track = new RaceTrack(this, trackPath);
+
+	player = new Player(this, "car-type1");
+	pilots.emplace_back(player);
+
+	vector<Vector2> startingPositions = track->GetTrackStartingPositions();
+	for (int i = 0; i < (int)startingPositions.size()-1; i++)
+	{
+		pilots.emplace_back(new PilotCPU(this, "car-type3"));
+	}
+
+	mode->Start();
 
 	tree = new Tree(this, {40,40});
 
 	StartFadeOut(WHITE, 0.5f);
+
+	App->renderer->camera.zoom = 2/track->GetScale();
 	return ret;
 }
 
@@ -46,32 +62,83 @@ bool SceneGame::Start()
 bool SceneGame::CleanUp()
 {
 	LOG("Unloading Intro scene");
-	player->CleanUp();
-	delete player;
+
+	player = nullptr;
+	for (const auto& pilot : pilots) {
+		pilot->CleanUp();
+		delete pilot;
+	}
+	pilots.clear();
+
 	pauseMenu->CleanUp();
 	delete pauseMenu;
 
 	track->CleanUp();
 	delete track;
 
-	App->renderer->camera.target = {0,0};
-	App->renderer->camera.offset = {0,0};
+	mode->CleanUp();
+	delete mode;
+
+	App->renderer->camera.target = { 0,0 };
+	App->renderer->camera.offset = { 0,0 };
+	App->renderer->camera.zoom = 1;
 	return true;
+}
+
+void SceneGame::SetUpTrack(string path)
+{
+	trackPath = path;
+}
+
+void SceneGame::SetMode(GameMode* mode)
+{
+	this->mode = mode;
+}
+
+vector<Pilot*> SceneGame::GetRacePlacePositions() const
+{
+	vector<Pilot*> orderedPlacePositions = pilots;
+
+	std::sort(orderedPlacePositions.begin(), orderedPlacePositions.end(),
+		[](Pilot* a, Pilot* b) {
+			if (a->CurrentLap() != b->CurrentLap()) {
+				return a->CurrentLap() > b->CurrentLap();
+			}
+			return a->CurrentCheckpoint() > b->CurrentCheckpoint();
+		});
+
+	return orderedPlacePositions;
 }
 
 // Update: draw background
 update_status SceneGame::Update()
 {
-	if(!pauseMenu->IsPaused())
+	
+	if (!pauseMenu->IsPaused())
 	{
-		player->Update();
+		if (mode->IsRaceStarted()) {
+			for (const auto& pilot : pilots) {
+				pilot->Update();
+			}
+		}
+		else {
+			vector<Vector2> startingPositions = track->GetTrackStartingPositions();
+			for (int i = 0; i < pilots.size(); i++)
+			{
+				pilots[i]->SetVehicleRotation(PI / 2.f);
+				pilots[i]->SetVehiclePosition(startingPositions[i]);
+			}
+		}
+
+
 		track->Update();
 		tree->Update();
 
 		App->renderer->camera.target = player->GetVehiclePosition();
-		App->renderer->camera.offset = { App->window->GetLogicWidth()/2.f,App->window->GetLogicHeight()/2.f};
+		App->renderer->camera.offset = { App->window->GetLogicWidth() / 2.f,App->window->GetLogicHeight() / 2.f };
+		mode->Update();
 	}
-	
+
 	if (IsKeyPressed(KEY_P))
 		pauseMenu->Pause();
 	/// Last Things To Do
@@ -84,7 +151,10 @@ update_status SceneGame::Update()
 bool SceneGame::Render()
 {
 	track->Render();
-	player->Render();
+	for (const auto& pilot : pilots) {
+		pilot->Render();
+	}
+
 	pauseMenu->Render();
 	ModuleScene::FadeRender();
 	return true;
