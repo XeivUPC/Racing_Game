@@ -112,6 +112,7 @@ public:
 	void SetMass(float mass, Vector2 center, float inertia);
 	void SetType(BodyType type);
 	void SetBullet(bool status);
+	void SetLinearDamping(float damping);
 	void SetFriction(size_t fixtureIndex, float friction);
 	void SetDensity(size_t fixtureIndex, float density);
 	void SetRestitution(size_t fixtureIndex, float restitution);

@@ -450,6 +450,13 @@ void PhysBody::SetBullet(bool status)
 	}
 }
 
+void PhysBody::SetLinearDamping(float damping)
+{
+	if (body) {
+		body->SetLinearDamping(damping);
+	}
+}
+
 void PhysBody::SetFriction(size_t fixtureIndex, float friction) {
 	if (b2Fixture* fixture = GetFixtureByIndex(fixtureIndex)) {
 		fixture->SetFriction(friction);

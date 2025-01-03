@@ -195,6 +195,7 @@ void Vehicle::CreateVehicle(string id)
 	body = factory.CreateBox({ 5,5 }, size.x, size.y, fixtureData);
 	body->SetAngularDamping(3);
 	body->SetDensity(0, 0.4f);
+	body->SetLinearDamping(0.1f);
 	body->SetBullet(true);
 	body->SetMass(mass, { 0,0 }, inertia);
 
