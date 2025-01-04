@@ -14,7 +14,7 @@ Tree::Tree(Module* moduleAt, Vector2 position) : MapObject(moduleAt)
 	fixtureData.pointer = (uintptr_t)(&sensor);
 	
 	const Box2DFactory& factory = moduleAt->App->physics->factory();
-	body = factory.CreateBox(position, PIXEL_TO_METERS(treeTextureRec.width / 2), PIXEL_TO_METERS(treeTextureRec.height), fixtureData);
+	body = factory.CreateBox(position, PIXEL_TO_METERS(treeTextureRec.width / 2)*3, PIXEL_TO_METERS(treeTextureRec.height / 3)*3, fixtureData);
 	body->SetType(PhysBody::BodyType::Dynamic);
 	sensor.SetFixtureToTrack(body, 0);
 
@@ -60,7 +60,7 @@ bool Tree::Render()
 	double radianAngle = body->GetAngle();
 
 	moduleAt->App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_5);
-	moduleAt->App->renderer->Draw(*treeTexture, body->GetPhysicPosition(), treeRotatedOffset, &treeTextureRec, RAD2DEG * radianAngle, 1.f, (int)cos(-treeRotatedOffset.x), (int)sin(-treeRotatedOffset.y));
+	moduleAt->App->renderer->Draw(*treeTexture, body->GetPhysicPosition(), treeRotatedOffset, &treeTextureRec, RAD2DEG * radianAngle, 1.f * 3, (int)cos(-treeRotatedOffset.x), (int)sin(-treeRotatedOffset.y));
 
     return true;
 }

@@ -135,8 +135,7 @@ update_status SceneGame::Update()
 		track->Update();
 		tree->Update();
 
-		App->renderer->camera.target = player->GetVehiclePosition();
-		App->renderer->camera.target = pilots[1]->vehicle->body->GetPhysicPosition();
+		App->renderer->camera.target = pilots[0]->vehicle->body->GetPhysicPosition();
 		App->renderer->camera.offset = { App->window->GetLogicWidth() / 2.f,App->window->GetLogicHeight() / 2.f };
 		mode->Update();
 	}
