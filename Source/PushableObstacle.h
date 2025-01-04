@@ -1,5 +1,4 @@
-#include "PushableObstacle.h"
-#include "MapObject.h"
+#include "Obstacle.h"
 #include "CollisionSensor.h"
 
 #include <vector>
@@ -7,14 +6,13 @@
 
 class PhysBody;
 
-class Tree : public PushableObstacle
+class PushableObstacle : public Obstacle
 {
 public:
-	Tree(Module* moduleAt, Vector2 position);
-	~Tree() {}
+	PushableObstacle(Module* moduleAt, Vector2 position);
+	~PushableObstacle() {}
 
 	update_status Update();
-	bool Render();
 	bool CleanUp();
 
 	void Enable();
@@ -38,9 +36,4 @@ private:
 	PhysBody* body = nullptr;
 	CollisionSensor sensor;
 
-	Texture2D* treeTexture = nullptr;
-	Rectangle  treeTextureRec = { 0, 0, 47, 63 };
-
-	float linearDamping = 2;
-	float angularDamping = 1;
 };

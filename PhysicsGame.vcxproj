@@ -214,6 +214,7 @@
     <ClCompile Include="Source\Pilot.cpp" />
     <ClCompile Include="Source\PilotCPU.cpp" />
     <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\PushableObstacle.cpp" />
     <ClCompile Include="Source\RaceMode.cpp" />
     <ClCompile Include="Source\RaceMode.h" />
     <ClCompile Include="Source\RaceTrack.cpp" />
@@ -232,6 +233,7 @@
     <ClCompile Include="Source\SceneResults.cpp" />
     <ClCompile Include="Source\SceneSelectSetup.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
+    <ClCompile Include="Source\Obstacle.cpp" />
     <ClCompile Include="Source\Tree.cpp" />
     <ClCompile Include="Source\UIButton.cpp" />
     <ClCompile Include="Source\UISlider.cpp" />
@@ -263,6 +265,7 @@
     <ClInclude Include="Source\Pilot.h" />
     <ClInclude Include="Source\PilotCPU.h" />
     <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\PushableObstacle.h" />
     <ClInclude Include="Source\RaceTrack.h" />
     <ClInclude Include="Source\SceneGame.h" />
     <ClInclude Include="Source\ModuleLocalization.h" />
@@ -280,6 +283,7 @@
     <ClInclude Include="Source\SceneResults.h" />
     <ClInclude Include="Source\SceneSelectSetup.h" />
     <ClInclude Include="Source\Timer.h" />
+    <ClInclude Include="Source\Obstacle.h" />
     <ClInclude Include="Source\Tree.h" />
     <ClInclude Include="Source\UIButton.h" />
     <ClInclude Include="Source\UIElement.h" />

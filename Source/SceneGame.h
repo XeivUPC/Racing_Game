@@ -14,7 +14,7 @@ class Player;
 class PauseMenu;
 class GameMode;
 class RaceTrack;
-class Tree;
+class Obstacle;
 class Pilot;
 
 using namespace std;
@@ -40,7 +40,7 @@ public:
 
 	RaceTrack* track;
 
-	Tree* tree;
+	Obstacle* tree;
 	GameMode* mode;
 
 	Player* player;
