@@ -7,7 +7,7 @@
 
 #include <raymath.h>
 
-Tree::Tree(Module* moduleAt, Vector2 position) : MapObject(moduleAt)
+Tree::Tree(Module* moduleAt, Vector2 position) : PushableObstacle(moduleAt,position)
 {
 	//Create body
 	b2FixtureUserData fixtureData;

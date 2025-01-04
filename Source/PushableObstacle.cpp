@@ -9,7 +9,7 @@
 
 #include <raymath.h>
 
-PushableObstacle::PushableObstacle(Module* moduleAt, Vector2 position) : MapObject(moduleAt)
+PushableObstacle::PushableObstacle(Module* moduleAt, Vector2 position) : Obstacle(moduleAt, position)
 {
 	//Create body
 	b2FixtureUserData fixtureData;
