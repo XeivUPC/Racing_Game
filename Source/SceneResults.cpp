@@ -73,8 +73,11 @@ bool SceneResults::Render() {
 
 	float increasing_offset = 0;
 	int pos = 1;
+	std::string text = "null";
 	for (const auto& pilot : pilots) {
-		std::string text = std::to_string(pos) + " - " + pilot->pilotName;
+		if (pilot != nullptr) {
+			text = std::to_string(pos) + " - " + pilot->pilotName;
+		}
 		App->renderer->DrawText(text.c_str(), pilotsPos, {-MeasureTextEx(App->assetLoader->agencyB, text.c_str(), 40, 0).x / 2, buttonsText_Offset.y + increasing_offset}, App->assetLoader->agencyB, 40, 0, WHITE);
 		increasing_offset += 55;
 		pos++;

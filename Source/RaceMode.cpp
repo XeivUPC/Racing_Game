@@ -6,7 +6,7 @@
 
 RaceMode::RaceMode(SceneGame* gameAt, int NumberOfLaps) : GameMode (gameAt)
 {
-	maxLapNum = NumberOfLaps + 1;
+	maxLapNum = NumberOfLaps + 1; 
 }
 
 RaceMode::~RaceMode()
