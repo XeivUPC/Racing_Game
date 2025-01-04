@@ -3,13 +3,13 @@
 #include <string>
 
 class Vehicle;
-class Module;
+class SceneGame;
 class Vector2;
 
 class Player : public Pilot
 {
 public:
-	Player(Module* moduleAt, std::string vehicleType);
+	Player(SceneGame* gameAt, RaceTrack* track, std::string vehicleType);
 	~Player();
 	update_status Update();
 };

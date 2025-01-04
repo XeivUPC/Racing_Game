@@ -18,7 +18,6 @@ public:
 	void Enable();
 	void Disable();
 	int GetOrder() const;
-
 private:
 
 	// Enabled determines wether the sensor can be interacted with

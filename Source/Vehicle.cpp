@@ -35,7 +35,7 @@ update_status Vehicle::Update()
 	}
 	for (const auto& wheel : throttlingWheels)
 	{
-		wheel->Move((int)moveInput.y);
+		wheel->Move(moveInput.y);
 	}
 
 	float lockAngle = 35 * DEGTORAD;
@@ -112,40 +112,9 @@ bool Vehicle::CleanUp()
 	return true;
 }
 
-double Vehicle::GetRotation()
-{
-	return body->GetAngle();
-}
-
-
-void Vehicle::SetRotation(double rotation)
-{
-	body->SetRotation(rotation);
-}
-
 void Vehicle::SetInput(Vector2 input)
 {
 	moveInput = input;
-}
-
-Vector2 Vehicle::GetPosition()
-{
-	return body->GetPosition();
-}
-
-Vector2 Vehicle::GetPhysicPosition()
-{
-	return body->GetPhysicPosition();
-}
-
-void Vehicle::SetPosition(Vector2 position)
-{
-	body->SetPosition(position.x, position.y);
-}
-
-void Vehicle::SetPhysicPosition(Vector2 position)
-{
-	body->SetPhysicPosition(position.x, position.y);
 }
 
 
@@ -200,7 +169,7 @@ void Vehicle::CreateVehicle(string id)
 	body->SetMass(mass, { 0,0 }, inertia);
 
 	uint16 categoryBits = physics->VEHICLE_LAYER;
-	uint16 maskBits = physics->BOUNDARY_LAYER | physics->LAP_SENSOR_LAYER | physics->VEHICLE_LAYER;
+	uint16 maskBits = physics->BOUNDARY_LAYER | physics->LAP_SENSOR_LAYER | physics->VEHICLE_LAYER | physics->VEHICLE_SENSOR_LAYER;
 	body->SetFilter(0, categoryBits, maskBits, 0);
 
 	maxForwardSpeed = properties_node.child("max-forward-speed").attribute("value").as_float();

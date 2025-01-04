@@ -21,7 +21,7 @@ public:
 
 	GameMode(SceneGame* gameAt) : gameAt(gameAt)
 	{
-		startCountdown.Start();
+		
 	}
 
 	virtual ~GameMode()
@@ -35,6 +35,7 @@ public:
 
 	virtual bool Start()
 	{
+		startCountdown.Start();
 		return true;
 	}
 

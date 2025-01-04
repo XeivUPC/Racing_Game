@@ -2,9 +2,10 @@
 #include "Vehicle.h"
 
 
-Pilot::Pilot(Module* moduleAt, std::string vehicleType) : MapObject(moduleAt)
+Pilot::Pilot(SceneGame* gameAt, RaceTrack* track, std::string vehicleType) : MapObject((Module*)gameAt)
 {
-	this->moduleAt = moduleAt;
+	this->gameAt = gameAt;
+	this->track = track;
 
 	vehicle = new Vehicle(moduleAt,this, vehicleType);
 	checkpoint = 0;
@@ -47,22 +48,6 @@ void Pilot::AddLap()
 void Pilot::AddCheckpoint()
 {
 	checkpoint++;
-}
-
-Vector2 Pilot::GetVehiclePosition()
-{
-	return vehicle->GetPhysicPosition();
-}
-
-void Pilot::SetVehiclePosition(Vector2 pos)
-{
-	vehicle->SetPosition(pos);
-}
-
-void Pilot::SetVehicleRotation(double angle)
-{
-	vehicle->SetRotation(angle);
-	
 }
 
 int Pilot::CurrentCheckpoint()

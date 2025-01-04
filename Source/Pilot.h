@@ -2,19 +2,20 @@
 #include <string>
 #include "MapObject.h"
 
-class Module;
+class SceneGame;
 class Vehicle;
 class Vector2;
+class RaceTrack;
 
 class Pilot : public MapObject
 {
 protected:
 	int lap=0;
 	int checkpoint=0;
-	Vehicle* vehicle;
+	RaceTrack* track;
+	SceneGame* gameAt;
 public:
-	std::string pilotName = "The Unamed";
-	Pilot(Module* moduleAt, std::string vehicleType);
+	Pilot(SceneGame* gameAt, RaceTrack* track, std::string vehicleType);
 	~Pilot();
 	bool Start();
 	update_status Update();
@@ -23,10 +24,9 @@ public:
 
 	void AddLap();
 	void AddCheckpoint();
-	Vector2 GetVehiclePosition();
-	void SetVehicleRotation(double angle);
-	void SetVehiclePosition(Vector2 pos);
 	int CurrentCheckpoint();
 	int CurrentLap();
 	std::string GetPilotName();
+	std::string pilotName = "The Unamed";
+	Vehicle* vehicle;
 };

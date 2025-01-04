@@ -49,7 +49,7 @@ void Wheel::UpdateTraction()
 {
 	vector<PhysBody*> areas = sensor.GetBodiesColliding();
 	if (areas.size() == 0)
-		currentTraction = 1;
+		currentTraction = 5;
 	else {
 		currentTraction = 0;
 		for (const auto& area : areas) {
@@ -120,7 +120,7 @@ PhysJoint* Wheel::GetJoint()
 	return joint;
 }
 
-void Wheel::Turn(int direction)
+void Wheel::Turn(float direction)
 {
 	float desiredTorque = 0;
 
@@ -129,7 +129,7 @@ void Wheel::Turn(int direction)
 	body->ApplyTorque(desiredTorque);
 }
 
-void Wheel::Move(int direction)
+void Wheel::Move(float direction)
 {
 	//find current speed in forward direction
 	Vector2 currentForwardNormal = body->GetWorldVector({ 0, 1 });
@@ -138,11 +138,8 @@ void Wheel::Move(int direction)
 
 	//find desired speed
 	float desiredSpeed = 0;
-	if (direction == 1) {
-		desiredSpeed = maxForwardSpeed;
-	}
-	else if(direction == -1){
-		desiredSpeed = maxBackwardSpeed;
+	if (direction != 0) {
+		desiredSpeed = maxForwardSpeed * direction;
 	}
 	else
 		desiredSpeed = currentSpeed;
@@ -170,7 +167,7 @@ void Wheel::Render()
 		-wheelTextureRec.height / 2
 	};
 
-	double radianAngle = owner->GetRotation();
+	double radianAngle = owner->body->GetAngle();
 	double extraAngle = 0;
 	if (GetJoint() != nullptr)
 		extraAngle = GetJoint()->GetJointAngle();

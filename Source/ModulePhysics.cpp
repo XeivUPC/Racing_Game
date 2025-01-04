@@ -82,22 +82,39 @@ update_status ModulePhysics::PostUpdate()
 	{
 		for (b2Fixture* f = b->GetFixtureList(); f; f = f->GetNext())
 		{
+			b2Shape* shape = f->GetShape();
 			switch (f->GetType())
 			{
+				// Draw circles ------------------------------------------------
+			case b2Shape::e_circle:
+			{
+				b2CircleShape* circleShape = (b2CircleShape*)shape;
+				b2Vec2 pos = b->GetWorldPoint(circleShape->m_p);
+
+				if (CheckCollisionCircleRec(
+					{ (float)METERS_TO_PIXELS(pos.x), (float)METERS_TO_PIXELS(pos.y) },
+					(float)METERS_TO_PIXELS(circleShape->m_radius), cameraView))
+				{
+					App->renderer->DrawSimpleCircleLine(
+						{ (float)METERS_TO_PIXELS(pos.x), (float)METERS_TO_PIXELS(pos.y) },
+						(float)METERS_TO_PIXELS(circleShape->m_radius), WHITE);
+				}
+			}
+			break;
+
 			case b2Shape::e_chain:
 			{
-				b2ChainShape* shape = (b2ChainShape*)f->GetShape();
+				b2ChainShape* chainShape = (b2ChainShape*)shape;
 				b2Vec2 prev, v;
 
-				for (int32 i = 0; i < shape->m_count; ++i)
+				for (int32 i = 0; i < chainShape->m_count; ++i)
 				{
-					v = b->GetWorldPoint(shape->m_vertices[i]);
+					v = b->GetWorldPoint(chainShape->m_vertices[i]);
 					if (i > 0)
 					{
-						// Representar la línea como un rectángulo
 						Rectangle lineRect = GetLineRectangle(
-							{ (float)METERS_TO_PIXELS(prev.x), (float)METERS_TO_PIXELS(prev.y) },
-							{ (float)METERS_TO_PIXELS(v.x), (float)METERS_TO_PIXELS(v.y) }
+							{ (float)METERS_TO_PIXELS(prev.x),(float)METERS_TO_PIXELS(prev.y) },
+							{ (float)METERS_TO_PIXELS(v.x),(float)METERS_TO_PIXELS(v.y) }
 						);
 
 						if (CheckCollisionRecs(lineRect, cameraView))
@@ -105,8 +122,7 @@ update_status ModulePhysics::PostUpdate()
 							App->renderer->DrawSimpleLine(
 								{ (float)METERS_TO_PIXELS(prev.x), (float)METERS_TO_PIXELS(prev.y),
 								  (float)METERS_TO_PIXELS(v.x), (float)METERS_TO_PIXELS(v.y) },
-								GREEN
-							);
+								GREEN);
 						}
 					}
 					prev = v;
@@ -116,7 +132,7 @@ update_status ModulePhysics::PostUpdate()
 
 			case b2Shape::e_polygon:
 			{
-				b2PolygonShape* polygonShape = (b2PolygonShape*)f->GetShape();
+				b2PolygonShape* polygonShape = (b2PolygonShape*)shape;
 				int32 count = polygonShape->m_count;
 				b2Vec2 prev, v;
 
@@ -125,10 +141,9 @@ update_status ModulePhysics::PostUpdate()
 					v = b->GetWorldPoint(polygonShape->m_vertices[i]);
 					if (i > 0)
 					{
-						// Representar la línea como un rectángulo
 						Rectangle lineRect = GetLineRectangle(
 							{ (float)METERS_TO_PIXELS(prev.x), (float)METERS_TO_PIXELS(prev.y) },
-							{ (float)METERS_TO_PIXELS(v.x), (float)METERS_TO_PIXELS(v.y) }
+							{ (float)METERS_TO_PIXELS(v.x),(float)METERS_TO_PIXELS(v.y) }
 						);
 
 						if (CheckCollisionRecs(lineRect, cameraView))
@@ -136,8 +151,7 @@ update_status ModulePhysics::PostUpdate()
 							App->renderer->DrawSimpleLine(
 								{ (float)METERS_TO_PIXELS(prev.x), (float)METERS_TO_PIXELS(prev.y),
 								  (float)METERS_TO_PIXELS(v.x), (float)METERS_TO_PIXELS(v.y) },
-								RED
-							);
+								RED);
 						}
 					}
 					prev = v;
@@ -152,19 +166,18 @@ update_status ModulePhysics::PostUpdate()
 				if (CheckCollisionRecs(lineRect, cameraView))
 				{
 					App->renderer->DrawSimpleLine(
-						{ (float)METERS_TO_PIXELS(prev.x), (float)METERS_TO_PIXELS(prev.y),
+						{ (float)METERS_TO_PIXELS(prev.x),(float)METERS_TO_PIXELS(prev.y),
 						  (float)METERS_TO_PIXELS(v.x), (float)METERS_TO_PIXELS(v.y) },
-						RED
-					);
+						RED);
 				}
 			}
 			break;
 
 			case b2Shape::e_edge:
 			{
-				b2EdgeShape* shape = (b2EdgeShape*)f->GetShape();
-				b2Vec2 v1 = b->GetWorldPoint(shape->m_vertex0);
-				b2Vec2 v2 = b->GetWorldPoint(shape->m_vertex1);
+				b2EdgeShape* edgeShape = (b2EdgeShape*)shape;
+				b2Vec2 v1 = b->GetWorldPoint(edgeShape->m_vertex0);
+				b2Vec2 v2 = b->GetWorldPoint(edgeShape->m_vertex1);
 
 				Rectangle lineRect = GetLineRectangle(
 					{ (float)METERS_TO_PIXELS(v1.x), (float)METERS_TO_PIXELS(v1.y) },
@@ -176,8 +189,7 @@ update_status ModulePhysics::PostUpdate()
 					App->renderer->DrawSimpleLine(
 						{ (float)METERS_TO_PIXELS(v1.x), (float)METERS_TO_PIXELS(v1.y),
 						  (float)METERS_TO_PIXELS(v2.x), (float)METERS_TO_PIXELS(v2.y) },
-						BLUE
-					);
+						BLUE);
 				}
 			}
 			break;
