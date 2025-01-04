@@ -19,14 +19,9 @@ public:
 	update_status Update();
 	bool Render();
 	bool CleanUp();
-	double GetRotation();
-	Vector2 GetPosition();
-	Vector2 GetPhysicPosition();
-	void SetPosition(Vector2 position);
-	void SetPhysicPosition(Vector2 position);
-	void SetRotation(double rotation);
 	void SetInput(Vector2 input);
 
+	PhysBody* body = nullptr;
 private:
 
 	void CreateVehicle(string id);
@@ -35,7 +30,6 @@ private:
 	vector<Wheel*> throttlingWheels;
 	vector<Wheel*> wheels;
 
-	PhysBody* body = nullptr;
 	Vector2 moveInput;
 	Pilot* pilot;
 

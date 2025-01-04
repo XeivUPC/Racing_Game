@@ -21,6 +21,7 @@ public:
 
 	int AddCircle(PhysBody* bodyToAddTo, Vector2 offset, float radius, b2FixtureUserData userData = b2FixtureUserData())const;
 	int AddBox(PhysBody* bodyToAddTo, Vector2 offset, float width, float height, b2FixtureUserData userData = b2FixtureUserData())const;
+	int AddPolygon(PhysBody* bodyToAddTo, Vector2 offset, const std::vector<Vector2> vertices, b2FixtureUserData userData = b2FixtureUserData())const;
 
 
 

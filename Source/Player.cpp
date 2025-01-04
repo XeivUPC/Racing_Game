@@ -1,10 +1,11 @@
 #include "Player.h"
 #include "Vehicle.h"
-#include "Module.h"
+#include "SceneGame.h"
 #include <string>
 
-Player::Player(Module* moduleAt, std::string vehicleType) : Pilot(moduleAt, vehicleType)
+Player::Player(SceneGame* gameAt, RaceTrack* track, std::string vehicleType) : Pilot(gameAt, track, vehicleType)
 {
+
 }
 
 Player::~Player()
@@ -27,6 +28,8 @@ update_status Player::Update()
 
 	vehicle->SetInput(moveInput);
 	vehicle->Update();
+
+	
 
 	return UPDATE_CONTINUE;
 }

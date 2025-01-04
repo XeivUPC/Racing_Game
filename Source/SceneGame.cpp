@@ -10,6 +10,7 @@
 #include "PauseMenu.h"
 #include "GameMode.h"
 #include "Player.h"
+#include "Vehicle.h"
 #include "Pilot.h"
 #include "PilotCPU.h"
 #include "RaceTrack.h"
@@ -39,13 +40,13 @@ bool SceneGame::Start()
 
 	track = new RaceTrack(this, trackPath);
 
-	player = new Player(this, "car-type1");
+	player = new Player(this, track, "car-type1");
 	pilots.emplace_back(player);
 
 	vector<Vector2> startingPositions = track->GetTrackStartingPositions();
-	for (int i = 0; i < (int)startingPositions.size()-1; i++)
+	for (int i = 0; i < 1; i++)
 	{
-		pilots.emplace_back(new PilotCPU(this, "car-type3"));
+		pilots.emplace_back(new PilotCPU(this, track, "car-type1"));
 	}
 
 	mode->Start();
@@ -125,8 +126,8 @@ update_status SceneGame::Update()
 			vector<Vector2> startingPositions = track->GetTrackStartingPositions();
 			for (int i = 0; i < pilots.size(); i++)
 			{
-				pilots[i]->SetVehicleRotation(PI / 2.f);
-				pilots[i]->SetVehiclePosition(startingPositions[i]);
+				pilots[i]->vehicle->body->SetRotation(PI / 2.f);
+				pilots[i]->vehicle->body->SetPosition(startingPositions[i].x, startingPositions[i].y);
 			}
 		}
 
@@ -135,6 +136,7 @@ update_status SceneGame::Update()
 		tree->Update();
 
 		App->renderer->camera.target = player->GetVehiclePosition();
+		App->renderer->camera.target = pilots[1]->vehicle->body->GetPhysicPosition();
 		App->renderer->camera.offset = { App->window->GetLogicWidth() / 2.f,App->window->GetLogicHeight() / 2.f };
 		mode->Update();
 	}

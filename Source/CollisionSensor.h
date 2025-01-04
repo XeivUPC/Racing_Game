@@ -28,7 +28,7 @@ private:
     PhysBody* GetDifferentBody(PhysBody* body1, PhysBody* body2, PhysBody* bodyToBeDifferentFrom);
     
     PhysBody* physBodyToTrack =nullptr;
-    size_t fixtureIndex = 0;
+    b2Fixture* fixture;
 
     int bodiesInside = 0;
     bool onlyTriggers = true;

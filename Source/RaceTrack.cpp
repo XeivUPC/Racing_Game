@@ -175,7 +175,7 @@ void RaceTrack::LoadTrack()
 						PhysBody* body = factory.CreatePolygon({ x,y }, newPolys[i]);
 
 						uint16 categoryBits = physics->FRICTION_AREA_LAYER;
-						uint16 maskBits = physics->VEHICLE_WHEEL_LAYER;
+						uint16 maskBits = physics->VEHICLE_WHEEL_LAYER | physics->VEHICLE_SENSOR_LAYER;
 						body->SetFilter(0, categoryBits, maskBits, 0);
 						body->SetSensor(0,true);
 						body->SetType(PhysBody::BodyType::Static);
