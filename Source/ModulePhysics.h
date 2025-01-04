@@ -157,6 +157,7 @@ public:
 	const uint16_t VEHICLE_WHEEL_LAYER = 0x0008;
 	const uint16_t FRICTION_AREA_LAYER = 0x0010;
 	const uint16_t LAP_SENSOR_LAYER = 0x0020;
+	const uint16_t VEHICLE_SENSOR_LAYER = 0x0040;
 
 	ModulePhysics(Application* app, bool start_enabled = true);
 	~ModulePhysics();

@@ -17,8 +17,8 @@ public:
 	void InstallJoint(PhysJoint* joint);
 	PhysJoint* GetJoint();
 
-	void Turn(int direction);
-	void Move(int direction);
+	void Turn(float direction);
+	void Move(float direction);
 	void Render();
 
 	void SetUpWheelCharacteristics(float maxForwardSpeed, float maxBackwardSpeed, float maxDriveForce, float maxLateralImpulse);

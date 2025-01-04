@@ -214,7 +214,7 @@ int Box2DFactory::AddCircle(PhysBody* bodyToAddTo, Vector2 offset, float radius,
 
 	b2FixtureDef circleFixtureDef;
 	circleFixtureDef.shape = &circleShape;
-	circleFixtureDef.density = 1.0f;
+	circleFixtureDef.density = 0.0f;
 	circleFixtureDef.userData = userData;
 	circleFixtureDef.friction = 1.0f;
 
@@ -224,6 +224,7 @@ int Box2DFactory::AddCircle(PhysBody* bodyToAddTo, Vector2 offset, float radius,
 	int fixtureIndex = 0;
 
 	const b2Fixture* fixture = bodyToAddTo->body->GetFixtureList();
+
 	while (fixture != NULL)
 	{
 		if (fixture == fixtureCreated)
@@ -242,10 +243,40 @@ int Box2DFactory::AddBox(PhysBody* bodyToAddTo, Vector2 offset, float width, flo
 	b2FixtureDef boxFixtureDef;
 	boxFixtureDef.userData = userData;
 	boxFixtureDef.shape = &boxShape;
-	boxFixtureDef.density = 1.0f;
+	boxFixtureDef.density = 0.0f;
 	boxFixtureDef.friction = 1.0f;
 
 	b2Fixture* fixtureCreated = bodyToAddTo->body->CreateFixture(&boxFixtureDef);
+
+	int fixtureIndex = 0;
+
+	const b2Fixture* fixture = bodyToAddTo->body->GetFixtureList();
+	while (fixture != NULL)
+	{
+		if (fixture == fixtureCreated)
+			return fixtureIndex;
+		fixture = fixture->GetNext();
+		fixtureIndex++;
+	}
+	return -1;
+}
+
+int Box2DFactory::AddPolygon(PhysBody* bodyToAddTo, Vector2 offset, const std::vector<Vector2> vertices, b2FixtureUserData userData) const
+{
+	b2PolygonShape chainShape;
+	std::vector<b2Vec2> b2Vertices(vertices.size());
+	for (size_t i = 0; i < vertices.size(); ++i)
+	{
+		b2Vertices[i].Set(vertices[i].x + offset.x, vertices[i].y + offset.y);
+	}
+	chainShape.Set(&b2Vertices[0], b2Vertices.size());
+
+	b2FixtureDef chainFixtureDef;
+	chainFixtureDef.shape = &chainShape;
+	chainFixtureDef.userData = userData;
+	chainFixtureDef.density = 0.0f;
+	chainFixtureDef.friction = 1.0f;
+	b2Fixture* fixtureCreated = bodyToAddTo->body->CreateFixture(&chainFixtureDef);
 
 	int fixtureIndex = 0;
 

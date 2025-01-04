@@ -13,7 +13,7 @@ CollisionSensor::~CollisionSensor()
 void CollisionSensor::SetFixtureToTrack(PhysBody* physBodyToTrack, size_t fixtureIndex)
 {
     this->physBodyToTrack = physBodyToTrack;
-    this->fixtureIndex = fixtureIndex;
+    fixture = &this->physBodyToTrack->body->GetFixtureList()[fixtureIndex];
 }
 
 bool CollisionSensor::IsBeingTriggered()
@@ -70,7 +70,7 @@ void CollisionSensor::BeginContact(b2Contact* contact)
     b2Fixture* fixtureA = contact->GetFixtureA();
     b2Fixture* fixtureB = contact->GetFixtureB();
 
-    b2Fixture* fixtureToTrack = &physBodyToTrack->body->GetFixtureList()[fixtureIndex];
+    b2Fixture* fixtureToTrack = fixture;
     if (fixtureA == fixtureToTrack || fixtureB == fixtureToTrack) {
         if (!onlyTriggers || fixtureA->IsSensor() || fixtureB->IsSensor()) {
             bodiesInside++;
@@ -87,7 +87,7 @@ void CollisionSensor::EndContact(b2Contact* contact)
     b2Fixture* fixtureA = contact->GetFixtureA();
     b2Fixture* fixtureB = contact->GetFixtureB();
 
-    b2Fixture* fixtureToTrack = &physBodyToTrack->body->GetFixtureList()[fixtureIndex];
+    b2Fixture* fixtureToTrack = fixture;
     if (fixtureA == fixtureToTrack || fixtureB == fixtureToTrack) {
         if (!onlyTriggers || fixtureA->IsSensor() || fixtureB->IsSensor()) {
             bodiesInside--;
