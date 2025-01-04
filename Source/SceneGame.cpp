@@ -15,6 +15,7 @@
 #include "PilotCPU.h"
 #include "RaceTrack.h"
 #include "Obstacle.h"
+#include "Tree.h"
 
 #include <raymath.h>
 #include <algorithm>
@@ -51,7 +52,7 @@ bool SceneGame::Start()
 
 	mode->Start();
 
-	tree = new Obstacle(this, {40,40});
+	tree = new Tree(this, {40,40});
 
 	StartFadeOut(WHITE, 0.5f);
 

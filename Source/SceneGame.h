@@ -15,6 +15,7 @@ class PauseMenu;
 class GameMode;
 class RaceTrack;
 class Obstacle;
+class Tree;
 class Pilot;
 
 using namespace std;
@@ -40,8 +41,8 @@ public:
 
 	RaceTrack* track;
 
-	Obstacle* tree;
-	GameMode* mode;
+	Tree* tree = nullptr;
+	GameMode* mode; 
 
 	Player* player;
 	vector<Pilot*> pilots;

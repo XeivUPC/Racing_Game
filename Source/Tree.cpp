@@ -15,13 +15,8 @@ Tree::Tree(Module* moduleAt, Vector2 position) : PushableObstacle(moduleAt,posit
 
 	const Box2DFactory& factory = moduleAt->App->physics->factory();
 	body = factory.CreateBox({ position.x,position.y }, PIXEL_TO_METERS(treeTextureRec.width / 2) * 3, PIXEL_TO_METERS(treeTextureRec.height / 3) * 3, fixtureData);
-	body->SetType(PhysBody::BodyType::Dynamic);
+
 	sensor.SetFixtureToTrack(body, 0);
-
-	body->SetLinearDamping(linearDamping);
-	body->SetAngularDamping(angularDamping);
-
-	Enable();
 
 	//Get Texture
 	treeTexture = moduleAt->App->texture->GetTexture("objectsSpring");
@@ -30,10 +25,6 @@ Tree::Tree(Module* moduleAt, Vector2 position) : PushableObstacle(moduleAt,posit
 
 update_status Tree::Update()
 {
-	if (sensor.OnTriggerEnter() && enabled) {
-		OnTrigger();
-	}
-
 	Render();
 
 	return UPDATE_CONTINUE;
@@ -58,36 +49,6 @@ bool Tree::CleanUp()
 {
 	delete body;
 	return true;
-}
-
-void Tree::Enable()
-{
-	enabled = true;
-}
-
-void Tree::Disable()
-{
-	enabled = false;
-}
-
-void Tree::Activate()
-{
-	activated = true;
-}
-
-void Tree::Deactivate()
-{
-	activated = false;
-}
-
-Vector2 Tree::GetPos()
-{
-	return body->GetPosition();
-}
-
-double Tree::GetRotation()
-{
-	return body->GetAngle();
 }
 
 void Tree::OnTrigger()

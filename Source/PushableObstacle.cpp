@@ -12,13 +12,8 @@
 PushableObstacle::PushableObstacle(Module* moduleAt, Vector2 position) : Obstacle(moduleAt, position)
 {
 	//Create body
-	b2FixtureUserData fixtureData;
-	fixtureData.pointer = (uintptr_t)(&sensor);
-
-	const Box2DFactory& factory = moduleAt->App->physics->factory();
-	sensor.SetFixtureToTrack(body, 0);
-
-	sensor.AcceptOnlyTriggers(false);
+	body->SetLinearDamping(linearDamping);
+	body->SetAngularDamping(angularDamping);
 
 	uint16 categoryBits = moduleAt->App->physics->OBSTACLE_LAYER;
 	uint16 maskBits = moduleAt->App->physics->VEHICLE_LAYER | moduleAt->App->physics->BOUNDARY_LAYER;

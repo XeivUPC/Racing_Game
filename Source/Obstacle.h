@@ -13,7 +13,6 @@ public:
 	~Obstacle(){}
 
 	update_status Update();
-	bool Render();
 	bool CleanUp();
 
 	void Enable();
@@ -36,10 +35,4 @@ private:
 
 	PhysBody* body = nullptr;
 	CollisionSensor sensor;
-
-	Texture2D* treeTexture = nullptr;
-	Rectangle  treeTextureRec = { 0, 0, 47, 63};
-
-	float linearDamping = 2;
-	float angularDamping = 1;
 };

@@ -36,4 +36,6 @@ private:
 	PhysBody* body = nullptr;
 	CollisionSensor sensor;
 
+	float linearDamping = 2;
+	float angularDamping = 1; 
 };
