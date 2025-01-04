@@ -51,8 +51,4 @@ bool Tree::CleanUp()
 	return true;
 }
 
-void Tree::OnTrigger()
-{
-	Activate();
-}
 

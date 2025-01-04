@@ -12,19 +12,17 @@ Obstacle::Obstacle(Module* moduleAt, Vector2 position) : MapObject(moduleAt)
 	b2FixtureUserData fixtureData;
 	fixtureData.pointer = (uintptr_t)(&sensor);
 
-	
 	sensor.AcceptOnlyTriggers(false);
 
-	/*uint16 categoryBits = moduleAt->App->physics->OBSTACLE_LAYER;
+	uint16 categoryBits = moduleAt->App->physics->OBSTACLE_LAYER;
 	uint16 maskBits = moduleAt->App->physics->VEHICLE_LAYER | moduleAt->App->physics->BOUNDARY_LAYER;
-	body->SetFilter(0, categoryBits, maskBits, 0);*/
+	body->SetFilter(0, categoryBits, maskBits, 0);
 
-	Enable();
 }
 
 update_status Obstacle::Update()
 {
-	if (sensor.OnTriggerEnter() && enabled) {
+	if (sensor.OnTriggerEnter()) {
 		OnTrigger();
 	}
 
@@ -34,26 +32,6 @@ update_status Obstacle::Update()
 bool Obstacle::CleanUp()
 {
     return true;
-}
-
-void Obstacle::Enable()
-{
-	enabled = true;
-}
-
-void Obstacle::Disable()
-{
-	enabled = false;
-}
-
-void Obstacle::Activate()
-{
-	activated = true;
-}
-
-void Obstacle::Deactivate()
-{
-	activated = false;
 }
 
 Vector2 Obstacle::GetPos()
@@ -66,7 +44,11 @@ double Obstacle::GetRotation()
     return body->GetAngle();
 }
 
+void Obstacle::OnHit()
+{
+}
+
 void Obstacle::OnTrigger()
 {
-	Activate();
+	OnHit();
 }

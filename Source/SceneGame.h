@@ -14,7 +14,6 @@ class Player;
 class PauseMenu;
 class GameMode;
 class RaceTrack;
-class Obstacle;
 class Tree;
 class Pilot;
 

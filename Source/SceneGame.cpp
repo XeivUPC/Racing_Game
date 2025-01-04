@@ -14,7 +14,6 @@
 #include "Pilot.h"
 #include "PilotCPU.h"
 #include "RaceTrack.h"
-#include "Obstacle.h"
 #include "Tree.h"
 
 #include <raymath.h>

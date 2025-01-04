@@ -19,16 +19,6 @@ PushableObstacle::PushableObstacle(Module* moduleAt, Vector2 position) : Obstacl
 	uint16 maskBits = moduleAt->App->physics->VEHICLE_LAYER | moduleAt->App->physics->BOUNDARY_LAYER;
 	body->SetFilter(0, categoryBits, maskBits, 0);
 
-	Enable();
-}
-
-update_status PushableObstacle::Update()
-{
-	if (sensor.OnTriggerEnter() && enabled) {
-		OnTrigger();
-	}
-
-	return UPDATE_CONTINUE;
 }
 
 bool PushableObstacle::CleanUp()
@@ -37,37 +27,7 @@ bool PushableObstacle::CleanUp()
 	return true;
 }
 
-void PushableObstacle::Enable()
+void PushableObstacle::OnHit()
 {
-	enabled = true;
 }
 
-void PushableObstacle::Disable()
-{
-	enabled = false;
-}
-
-void PushableObstacle::Activate()
-{
-	activated = true;
-}
-
-void PushableObstacle::Deactivate()
-{
-	activated = false;
-}
-
-Vector2 PushableObstacle::GetPos()
-{
-	return body->GetPosition();
-}
-
-double PushableObstacle::GetRotation()
-{
-	return body->GetAngle();
-}
-
-void PushableObstacle::OnTrigger()
-{
-	Activate();
-}
