@@ -116,7 +116,7 @@ void RaceTrack::LoadTrack()
 					body->SetType(PhysBody::BodyType::Static);
 
 					uint16 categoryBits = physics->BOUNDARY_LAYER;
-					uint16 maskBits = physics->VEHICLE_LAYER;
+					uint16 maskBits = physics->VEHICLE_LAYER | physics->OBSTACLE_LAYER;
 					body->SetFilter(0, categoryBits, maskBits, 0);
 
 					trackColliders.emplace_back(body);
