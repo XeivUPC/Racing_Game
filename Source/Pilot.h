@@ -14,6 +14,7 @@ protected:
 	int checkpoint=0;
 	RaceTrack* track;
 	SceneGame* gameAt;
+	std::string pilotName = "The Unamed";
 public:
 	Pilot(SceneGame* gameAt, RaceTrack* track, std::string vehicleType);
 	~Pilot();
@@ -26,5 +27,6 @@ public:
 	void AddCheckpoint();
 	int CurrentCheckpoint();
 	int CurrentLap();
+	std::string GetPilotName();
 	Vehicle* vehicle;
 };

@@ -59,3 +59,8 @@ int Pilot::CurrentLap()
 {
 	return lap;
 }
+
+std::string Pilot::GetPilotName()
+{
+	return pilotName;
+}

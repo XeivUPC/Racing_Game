@@ -11,6 +11,7 @@
 
 PilotCPU::PilotCPU(SceneGame* gameAt, RaceTrack* track, std::string vehicleType) : Pilot(gameAt, track, vehicleType)
 {
+    pilotName = "CPU";
     ModulePhysics* physics = moduleAt->App->physics;
     const Box2DFactory& factory = physics->factory();
 

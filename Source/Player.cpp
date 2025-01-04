@@ -5,7 +5,7 @@
 
 Player::Player(SceneGame* gameAt, RaceTrack* track, std::string vehicleType) : Pilot(gameAt, track, vehicleType)
 {
-
+	pilotName = "Player";
 }
 
 Player::~Player()
