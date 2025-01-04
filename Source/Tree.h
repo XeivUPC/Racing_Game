@@ -18,15 +18,6 @@ public:
 	bool CleanUp();
 
 private:
-
-	void OnTrigger();
-
-	PhysBody* body = nullptr;
-	CollisionSensor sensor;
-
 	Texture2D* treeTexture = nullptr;
 	Rectangle  treeTextureRec = { 0, 0, 47, 63 };
-
-	float linearDamping = 2;
-	float angularDamping = 1;
 };

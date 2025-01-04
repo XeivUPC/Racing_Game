@@ -156,6 +156,7 @@ bool SceneGame::Render()
 		pilot->Render();
 	}
 
+	tree->Render();
 	pauseMenu->Render();
 	ModuleScene::FadeRender();
 	return true;

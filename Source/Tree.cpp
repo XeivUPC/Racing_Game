@@ -7,25 +7,15 @@
 
 #include <raymath.h>
 
-Tree::Tree(Module* moduleAt, Vector2 position) : PushableObstacle(moduleAt,position)
+Tree::Tree(Module* moduleAt, Vector2 position) : PushableObstacle(moduleAt, position, { PIXEL_TO_METERS(47) * 3, PIXEL_TO_METERS(63) * 3 }, 2,1)
 {
-	//Create body
-	b2FixtureUserData fixtureData;
-	fixtureData.pointer = (uintptr_t)(&sensor);
-
-	const Box2DFactory& factory = moduleAt->App->physics->factory();
-	body = factory.CreateBox({ position.x,position.y }, PIXEL_TO_METERS(treeTextureRec.width / 2) * 3, PIXEL_TO_METERS(treeTextureRec.height / 3) * 3, fixtureData);
-
-	sensor.SetFixtureToTrack(body, 0);
-
 	//Get Texture
 	treeTexture = moduleAt->App->texture->GetTexture("objectsSpring");
-
 }
 
 update_status Tree::Update()
 {
-	Render();
+	PushableObstacle::Update();
 
 	return UPDATE_CONTINUE;
 }
@@ -47,7 +37,7 @@ bool Tree::Render()
 
 bool Tree::CleanUp()
 {
-	delete body;
+	PushableObstacle::CleanUp();
 	return true;
 }
 

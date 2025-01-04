@@ -9,11 +9,20 @@
 
 #include <raymath.h>
 
-PushableObstacle::PushableObstacle(Module* moduleAt, Vector2 position) : Obstacle(moduleAt, position)
+PushableObstacle::PushableObstacle(Module* moduleAt, Vector2 position, Vector2 size,float linearDamping, float angularDamping) : Obstacle(moduleAt, position)
 {
-	//Create body
+	b2FixtureUserData fixtureData;
+	fixtureData.pointer = (uintptr_t)(&sensor);
+
+	const Box2DFactory& factory = moduleAt->App->physics->factory();
+	body = factory.CreateBox({ position.x,position.y }, size.x, size.y, fixtureData);
+
+	this->linearDamping = linearDamping;
+	this->angularDamping = angularDamping;
 	body->SetLinearDamping(linearDamping);
 	body->SetAngularDamping(angularDamping);
+
+	sensor.SetFixtureToTrack(body, 0);
 
 	uint16 categoryBits = moduleAt->App->physics->OBSTACLE_LAYER;
 	uint16 maskBits = moduleAt->App->physics->VEHICLE_LAYER | moduleAt->App->physics->BOUNDARY_LAYER;
@@ -21,9 +30,16 @@ PushableObstacle::PushableObstacle(Module* moduleAt, Vector2 position) : Obstacl
 
 }
 
+update_status PushableObstacle::Update()
+{
+	Obstacle::Update();
+
+	return UPDATE_CONTINUE;
+}
+
 bool PushableObstacle::CleanUp()
 {
-	delete body;
+	Obstacle::CleanUp();
 	return true;
 }
 

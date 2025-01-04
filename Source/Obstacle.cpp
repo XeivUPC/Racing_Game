@@ -14,10 +14,6 @@ Obstacle::Obstacle(Module* moduleAt, Vector2 position) : MapObject(moduleAt)
 
 	sensor.AcceptOnlyTriggers(false);
 
-	uint16 categoryBits = moduleAt->App->physics->OBSTACLE_LAYER;
-	uint16 maskBits = moduleAt->App->physics->VEHICLE_LAYER | moduleAt->App->physics->BOUNDARY_LAYER;
-	body->SetFilter(0, categoryBits, maskBits, 0);
-
 }
 
 update_status Obstacle::Update()
@@ -31,6 +27,7 @@ update_status Obstacle::Update()
 
 bool Obstacle::CleanUp()
 {
+	delete body;
     return true;
 }
 

@@ -19,8 +19,11 @@ public:
 	double GetRotation();
 
 private:
-	virtual void OnHit();
+	
 	void OnTrigger();
+
+protected:
+	virtual void OnHit();
 
 	PhysBody* body = nullptr;
 	CollisionSensor sensor;
