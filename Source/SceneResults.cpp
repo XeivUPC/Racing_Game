@@ -41,7 +41,11 @@ bool SceneResults::Start()
 	/* Play Audio */
 	//App->audio->PlayMusic("Assets/Sounds/Music/Main_Menu.wav");
 
-	pilots = App->scene_game->GetRacePlacePositions();
+	for (auto* pilot : App->scene_game->GetRacePlacePositions()) {
+		PilotDataResults data;
+		data.name = pilot->GetPilotName();
+		pilotDatas.push_back(data);
+	}
 
 	StartFadeOut(BLACK, 0.3f);
 
@@ -74,11 +78,24 @@ bool SceneResults::Render() {
 	float increasing_offset = 0;
 	int pos = 1;
 	std::string text = "null";
-	for (const auto& pilot : pilots) {
-		if (pilot != nullptr) {
-			text = std::to_string(pos) + " - " + pilot->pilotName;
+	for (const auto& pilot : pilotDatas) {
+		text = std::to_string(pos) + " - " + pilot.name;
+		Color color = WHITE;
+		switch (pos)
+		{
+		case 1:
+			color = GOLD;
+			break;
+		case 2:
+			color = LIGHTGRAY;
+			break;
+		case 3:
+			color = BROWN;
+			break;
+		default:
+			break;
 		}
-		App->renderer->DrawText(text.c_str(), pilotsPos, {-MeasureTextEx(App->assetLoader->agencyB, text.c_str(), 40, 0).x / 2, buttonsText_Offset.y + increasing_offset}, App->assetLoader->agencyB, 40, 0, WHITE);
+		App->renderer->DrawText(text.c_str(), pilotsPos, {-MeasureTextEx(App->assetLoader->agencyB, text.c_str(), 40, 0).x / 2, buttonsText_Offset.y + increasing_offset}, App->assetLoader->agencyB, 40, 0, color);
 		increasing_offset += 55;
 		pos++;
 	}

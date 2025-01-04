@@ -17,6 +17,10 @@ public:
 	bool Render();
 	bool CleanUp();
 
+	struct PilotDataResults {
+		std::string name;
+	};
+
 private:
 
 	void ClickNext();
@@ -33,5 +37,5 @@ private:
 	Vector2 buttonsText_Offset = { 0, 8 };
 
 	Vector2 pilotsPos = { SCREEN_WIDTH / 2, 72 };
-	std::vector<Pilot*> pilots;
+	std::vector<PilotDataResults> pilotDatas;
 };
