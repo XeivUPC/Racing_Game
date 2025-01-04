@@ -37,14 +37,14 @@ public:
 	vector<Pilot*> GetRacePlacePositions() const;
 
 public:
-	PauseMenu* pauseMenu;
+	PauseMenu* pauseMenu = nullptr;
 
-	RaceTrack* track;
+	RaceTrack* track = nullptr;
 
 	Tree* tree = nullptr;
-	GameMode* mode; 
+	GameMode* mode = nullptr;
 
-	Player* player;
+	Player* player = nullptr;
 	vector<Pilot*> pilots;
 private:
 	string trackPath = "";
