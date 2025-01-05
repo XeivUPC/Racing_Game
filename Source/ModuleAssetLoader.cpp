@@ -27,6 +27,7 @@ bool ModuleAssetLoader::Init()
 	textureModule->CreateTexture("Assets/Textures/UI/UI_Background.png", "UI_Bg");
 
 	textureModule->CreateTexture("Assets/Textures/UI/UI_SliderThumb.png", "UI_SliderThumb");
+	textureModule->CreateTexture("Assets/Textures/UI/UI_Arrow.png", "UI_Arrow");
 
 	//// Textures
 	textureModule->CreateTexture("Assets/Textures/Cars.png", "Car");
@@ -88,7 +89,7 @@ bool ModuleAssetLoader::Init()
 	// hard-coding bc it does not recognise the characters
 	192, 193, 200, 201, 204, 205, 210, 211, 217, 218,
 	224, 225, 232, 233, 236, 237, 242, 243, 249, 250,
-	'!', 161, 231, 209
+	'!', 161, 231, 209,'/', '*'
 	};
 	
 	agencyB = FontCreator::GetInstance().CreateFontFromTexture(*textureModule->GetTexture("agencyB"), 10, 20, codepoints2, 0);

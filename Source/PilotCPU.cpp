@@ -87,8 +87,6 @@ update_status PilotCPU::Update()
 	Brain();
 	vehicle->SetInput(direction);
 	vehicle->Update();
-
-    printf("DEBUG CPU--> dirX = %f  /  dirY = %f\n", direction.x, direction.y);
 	return UPDATE_CONTINUE;
 }
 

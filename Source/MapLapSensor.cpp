@@ -9,6 +9,8 @@ MapLapSensor::MapLapSensor(Module* moduleAt, Vector2 position, vector<Vector2> v
 {
 	this->order = order;
 	this->track = track;
+	this->vertices = vertices;
+	this->position = position;
 
 	b2FixtureUserData fixtureData;
 	fixtureData.pointer = (uintptr_t)(&sensor);
@@ -44,7 +46,7 @@ update_status MapLapSensor::Update()
 {
 	PhysBody* body = sensor.OnTriggerEnterGet();
 	if (body != nullptr && enabled) {
-		Pilot* pilot = (Pilot*)body->GetFixtureUserData(0).pointer;
+		 Pilot* pilot = (Pilot*)body->GetFixtureUserData(body->GetFixtureCount() - 1).pointer;
 		if (pilot != nullptr)
 		{
 			if (order - 1 == pilot->CurrentCheckpoint() ){
@@ -78,5 +80,22 @@ void MapLapSensor::Disable()
 int MapLapSensor::GetOrder() const
 {
 	return order;
+}
+
+Vector2 MapLapSensor::GetCenter()
+{
+	
+	Vector2 center= {0,0};
+	int vertexCount = vertices.size();
+
+	for (const Vector2& vertex : vertices) {
+		Vector2Add(center, vertex);
+	}
+
+	if (vertexCount > 0) {
+		Vector2Scale(center, 1.0f / vertexCount);
+	}
+
+	return Vector2Add(position,center);
 }
 

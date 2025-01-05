@@ -38,7 +38,7 @@ bool SceneOptions::Start()
 
 	backgroundTextureSettings = App->texture->GetTexture("UI_Bg");
 	thumbTextureSettings = App->texture->GetTexture("UI_SliderThumb");
-	arrowLanguageSettings = App->texture->GetTexture("arrowSettings");
+	arrowLanguageSettings = App->texture->GetTexture("UI_Arrow");
 	exitSettings = App->texture->GetTexture("exitSettings");
 
 	/* Create Animations */
