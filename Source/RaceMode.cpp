@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "SceneGame.h"
 #include "SceneResults.h"
-#include "Player.h"
+#include "Player.h" 
 
 RaceMode::RaceMode(SceneGame* gameAt, int NumberOfLaps) : GameMode (gameAt)
 {

@@ -1,4 +1,5 @@
 #include "SceneSelectSetup.h"
+#include "SceneVehicleSelectSetup.h"
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRender.h"
@@ -12,6 +13,7 @@
 #include "RaceMode.h"
 #include "BoomMode.h"
 #include "Timer.h"
+
 
 #include "pugixml.hpp"
 
@@ -382,7 +384,7 @@ void SceneSelectSetup::ClickFINISH()
 	App->audio->PlayFx(App->assetLoader->audioMotorId);
 	isCarChosen = true;
 	
-
+	App->scene_vehicle_select_setup->SetData(vehicles[currentSelectedVehicle].prefix);
 	StartFadeOut(BLACK, 0.3f);
 }
 
@@ -443,7 +445,7 @@ void SceneSelectSetup::ClickMapFINISH()
 	App->audio->PlayFx(App->assetLoader->audioMotorId);
 	isMapChosen = true;
 	App->scene_game->SetUpTrack(maps[currentSelectedMap].mapPath);
-	StartFadeIn(App->scene_game, BLACK, 0.3f);
+	StartFadeIn(App->scene_vehicle_select_setup, BLACK, 0.3f);
 }
 
 void SceneSelectSetup::OnMouseOverMapFINISH()

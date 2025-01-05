@@ -20,7 +20,7 @@ SceneIntro::~SceneIntro()
 bool SceneIntro::Start()
 {
 	intro_ended = false;
-	BgTexture = App->texture->GetTexture("UI_Bg");
+	BgTexture = App->texture->GetTexture("UI_Intro_Bg");
 	return true;
 }
 

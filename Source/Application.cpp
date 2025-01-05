@@ -14,6 +14,7 @@
 #include "SceneOptions.h"
 #include "SceneMainMenu.h"
 #include "SceneSelectSetup.h"
+#include "SceneVehicleSelectSetup.h"
 #include "SceneIntro.h"
 
 #include "Application.h"
@@ -32,6 +33,7 @@ Application::Application()
 	scene_game = new SceneGame(this, false);
 	scene_results = new SceneResults(this, false);
 	scene_select_setup = new SceneSelectSetup(this, false);
+	scene_vehicle_select_setup = new SceneVehicleSelectSetup(this, false);
 	scene_main_menu = new SceneMainMenu(this, false);
 	scene_intro = new SceneIntro(this,true);
 
@@ -52,6 +54,7 @@ Application::Application()
 	AddModule(scene_results);
 	AddModule(scene_game);
 	AddModule(scene_select_setup);
+	AddModule(scene_vehicle_select_setup);
 	AddModule(scene_main_menu);
 	AddModule(scene_intro);
 	AddModule(scene_options);
