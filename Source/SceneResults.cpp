@@ -113,6 +113,7 @@ bool SceneResults::CleanUp()
 {
 	LOG("Unloading Main Menu");
 
+	pilotDatas.clear();
 	delete next_button;
 
 	return true;

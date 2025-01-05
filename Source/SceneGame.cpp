@@ -39,13 +39,13 @@ bool SceneGame::Start()
 
 	track = new RaceTrack(this, trackPath);
 
-	player = new Player(this, track, "car-type1");
+	player = new Player(this, track, player_vehicle_type);
 	pilots.emplace_back(player);
 
 	vector<Vector2> startingPositions = track->GetTrackStartingPositions();
 	for (int i = 0; i < 1; i++)
 	{
-		pilots.emplace_back(new PilotCPU(this, track, "car-type1"));
+		pilots.emplace_back(new PilotCPU(this, track, vehicle_type+"type"+to_string(rand()%vehicleTypeAmount+1)));
 	}
 
 	mode->Start();
@@ -93,6 +93,17 @@ void SceneGame::SetUpTrack(string path)
 void SceneGame::SetMode(GameMode* mode)
 {
 	this->mode = mode;
+}
+
+void SceneGame::SetPlayerVehicle(string type)
+{
+	player_vehicle_type = type;
+}
+
+void SceneGame::SetVehicleType(string type, int amount)
+{
+	vehicle_type = type;
+	vehicleTypeAmount = amount;
 }
 
 vector<Pilot*> SceneGame::GetRacePlacePositions() const

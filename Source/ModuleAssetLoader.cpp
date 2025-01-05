@@ -32,12 +32,15 @@ bool ModuleAssetLoader::Init()
 
 	//// Textures
 	textureModule->CreateTexture("Assets/Textures/Cars.png", "Car");
+	textureModule->CreateTexture("Assets/Textures/characters.png", "Characters");
 	textureModule->CreateTexture("Assets/Textures/Motos.png", "Motos");
 	textureModule->CreateTexture("Assets/Textures/Wheels.png", "Wheel");
 	textureModule->CreateTexture("Assets/Textures/drift_mark.png", "DriftMark");
 	textureModule->CreateTexture("Assets/Fonts/pixel_normal_6x11.png", "Font1");
 	textureModule->CreateTexture("Assets/Fonts/agency_b_10x20.png", "agencyB");
 	textureModule->CreateTexture("Assets/Fonts/title_font_30x50.png", "titleFont");
+	//Intro
+	textureModule->CreateTexture("Assets/Textures/UI/UI_Intro_Background.png", "UI_Intro_Bg");
 	// Main Menu
 	textureModule->CreateTexture("Assets/Textures/main_menu.png", "main_menu");
 	textureModule->CreateTexture("Assets/Textures/main_menu_play_hover.png", "main_menu_play_hover");
