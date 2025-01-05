@@ -44,7 +44,7 @@ bool SceneResults::Start()
 	for (auto* pilot : App->scene_game->GetRacePlacePositions()) {
 		PilotDataResults data;
 		data.name = pilot->GetPilotName();
-		pilotDatas.push_back(data);
+		pilotDatas.emplace_back(data);
 	}
 
 	App->audio->PlayMusic("Assets/Sounds/Music/Results.wav");

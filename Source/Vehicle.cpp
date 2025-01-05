@@ -5,6 +5,8 @@
 #include "ModulePhysics.h"
 #include "ModuleTexture.h"
 #include "ModuleRender.h"
+#include "ModuleAudio.h"
+#include "ModuleAssetLoader.h"
 #include "DriftParticle.h"
 #include "ParticleSystem.h"
 #include "Pilot.h"
@@ -19,6 +21,8 @@ Vehicle::Vehicle(Module* moduleAt, Pilot* pilot, string id) : MapObject(moduleAt
 	this->pilot = pilot;
 	CreateVehicle(id);
 	//particleSystem = new ParticleSystem(moduleAt);
+	engineTimer.Start();
+	moduleAt->App->audio->PlayFx(moduleAt->App->assetLoader->audioEngineStartId);
 }
 
 Vehicle::~Vehicle()
@@ -65,6 +69,12 @@ update_status Vehicle::Update()
 	//	}
 	//}
 	
+	if (engineTimer.ReadSec() > 2.9) {
+		moduleAt->App->audio->PlayFx(moduleAt->App->assetLoader->audioEngineId);
+		engineTimer.Start();
+	}
+	
+	engineTimer.Update();
 	return UPDATE_CONTINUE;
 }
 

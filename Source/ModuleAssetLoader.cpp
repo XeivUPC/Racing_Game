@@ -68,6 +68,8 @@ bool ModuleAssetLoader::Init()
 	//// Audios
 	audioMotorId = audioModule->LoadFx("Assets/Sounds/Sfx/MotorSFX.ogg");
 	audioClickId = audioModule->LoadFx("Assets/Sounds/Sfx/Ui_Click.ogg");
+	audioEngineId = audioModule->LoadFx("Assets/Sounds/Sfx/Engine.ogg");
+	audioEngineStartId = audioModule->LoadFx("Assets/Sounds/Sfx/EngineStart.ogg");
 
 	//// Fonts
 	std::vector<int> codepoints = {
