@@ -124,6 +124,20 @@ vector<Pilot*> SceneGame::GetRacePlacePositions() const
 	return orderedPlacePositions;
 }
 
+int SceneGame::GetRacePlayerPosition() const
+{
+	int position = -1;
+	vector<Pilot*> pilots = GetRacePlacePositions();
+	for (size_t i = 0; i < pilots.size(); i++)
+	{
+		if (pilots[i] == player) {
+			position = i;
+			break;
+		}
+	}
+	return position + 1;
+}
+
 // Update: draw background
 update_status SceneGame::Update()
 {
@@ -170,6 +184,7 @@ bool SceneGame::Render()
 	}
 
 	tree->Render();
+	mode->Render();
 	pauseMenu->Render();
 	ModuleScene::FadeRender();
 	return true;

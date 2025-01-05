@@ -43,9 +43,6 @@ update_status BoomMode::Update()
 	if (IsKeyPressed(KEY_N)) {
 		App->scene_game->StartFadeIn(App->scene_results, BLACK, 0.3f);
 	}
-
-	Render();
-
 	return UPDATE_CONTINUE;
 }
 
@@ -74,17 +71,8 @@ bool BoomMode::Render()
 		}
 
 
-		int position = -1;
-		vector<Pilot*> pilots = gameAt->GetRacePlacePositions();
-		for (size_t i = 0; i < pilots.size(); i++)
-		{
-			if (pilots[i] == gameAt->player) {
-				position = i;
-				break;
-			}
-		}
-		position += 1;
-		string infoPosition = to_string(position) + "/" + to_string(gameAt->GetRacePlacePositions().size());
+		int position = gameAt->GetRacePlayerPosition();
+		string infoPosition = to_string(position) + "/" + to_string(gameAt->pilots.size());
 		Vector2 posSize = MeasureTextEx(App->assetLoader->agencyB, infoPosition.c_str(), 100, 0);
 		App->renderer->DrawText(infoPosition.c_str(), { 0,SCREEN_HEIGHT - posSize.y }, { 0,0 }, App->assetLoader->agencyB, 120, 0, WHITE);
 

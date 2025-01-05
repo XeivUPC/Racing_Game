@@ -28,6 +28,8 @@ bool ModuleAssetLoader::Init()
 
 	textureModule->CreateTexture("Assets/Textures/UI/UI_SliderThumb.png", "UI_SliderThumb");
 	textureModule->CreateTexture("Assets/Textures/UI/UI_Arrow.png", "UI_Arrow");
+	textureModule->CreateTexture("Assets/Textures/UI/UI_PauseBackground.png", "UI_Pause_Bg");
+	textureModule->CreateTexture("Assets/Textures/UI/UI_Button1.png", "UI_Btn1");
 
 	//// Textures
 	textureModule->CreateTexture("Assets/Textures/Cars.png", "Car");

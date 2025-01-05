@@ -37,8 +37,10 @@ public:
 
 			if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
 				TriggerCallbacks(onMouseUp);
-				if(canBeClicked)
+				if (canBeClicked) {
 					TriggerCallbacks(onMouseClick);
+					canBeClicked = false;
+				}
 			}
 		}
 		else {

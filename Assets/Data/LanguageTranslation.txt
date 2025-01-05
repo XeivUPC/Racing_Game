@@ -25,4 +25,7 @@ SELECTMENU_MAP2|Very cool map|Mapa muy chulo|Mapa molt xulo
 SELECTMENU_MAP3|Best of maps|El mejor de los mapas|El millor dels mapes
 RACEMODE_LAP|Lap |Vuelta |Volta 
 BOOMMODE_LAST|You're the last one|Eres el último|Ets l'últim
-BOOMMODE_TIME_TILL_EXPLOSION|Time until explosion |Tiempo hasta la explosión |Temps fins a l'explosió 
+BOOMMODE_TIME_TILL_EXPLOSION|Time until explosion |Tiempo hasta la explosión |Temps fins a l'explosió
+PAUSEMENU_TITLE|PAUSE|PAUSA|PAUSA
+PAUSEMENU_CONTINUE|CONTINUE|CONTINUAR|CONTINUA
+PAUSEMENU_MAINMENU|MAIN MENU|MENÚ PRINCIPAL|MENÚ PRINCIPAL
