@@ -212,6 +212,12 @@
     <ClCompile Include="Source\Tree.cpp">
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
     </ClCompile>
+    <ClCompile Include="Source\FixedObstacle.cpp">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rock.cpp">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ModuleAssetLoader.h">
@@ -355,6 +361,12 @@
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
     </ClInclude>
     <ClInclude Include="Source\Tree.h">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FixedObstacle.h">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rock.h">
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
     </ClInclude>
   </ItemGroup>
