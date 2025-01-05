@@ -46,7 +46,7 @@ update_status RaceMode::Update()
 bool RaceMode::Render()
 {
 	Application* App = gameAt->App;
-	App->renderer->SelectRenderLayer(App->renderer->OVER_LAYER_1);
+	App->renderer->SelectRenderLayer(App->renderer->SUB_LAYER_4);
 	App->renderer->BlockRenderLayer();
 	if (GetCountdownTime() >= 4 && GetCountdownTime() < 5 && !IsRaceStarted()) {
 		App->renderer->DrawText(App->localization->FormatNumber(1, 0).c_str(), { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(1,0).c_str(), 120, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(1,0).c_str(), 120, 0).y / 2 }, App->assetLoader->agencyB, 120, 0, WHITE);
