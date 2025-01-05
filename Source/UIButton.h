@@ -4,13 +4,17 @@
 class UIButton : public UIElement
 {
 
-enum BUTTON_STATE {
-	NORMAL,
-	PRESSED,
-	CLICKED
-};
+
 
 public:
+
+	enum BUTTON_STATE {
+		NORMAL,
+		OVER,
+		PRESSED,
+		CLICKED
+	};
+
 	UIButton(Module* moduleAt, Vector2 position, Vector2 size);
 
 	~UIButton();
