@@ -119,6 +119,8 @@ bool Vehicle::CleanUp()
 	wheels.clear();
 	throttlingWheels.clear();
 	steeringWheels.clear();
+	moduleAt->App->audio->StopFx(moduleAt->App->assetLoader->audioEngineStartId);
+	moduleAt->App->audio->StopFx(moduleAt->App->assetLoader->audioEngineId);
 	return true;
 }
 
