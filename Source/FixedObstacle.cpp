@@ -17,7 +17,7 @@ FixedObstacle::FixedObstacle(Module* moduleAt, Vector2 position, Vector2 size) :
 	body->SetType(PhysBody::BodyType::Static);
 
 	sensor.SetFixtureToTrack(body, 0);
-
+	 
 	uint16 categoryBits = moduleAt->App->physics->OBSTACLE_LAYER;
 	uint16 maskBits = moduleAt->App->physics->VEHICLE_LAYER | moduleAt->App->physics->BOUNDARY_LAYER;
 	body->SetFilter(0, categoryBits, maskBits, 0);

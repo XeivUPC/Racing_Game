@@ -7,7 +7,7 @@
 
 #include <raymath.h>
 
-Rock::Rock(Module* moduleAt, Vector2 position) : FixedObstacle(moduleAt, position, { PIXEL_TO_METERS(47) * 3, PIXEL_TO_METERS(63) * 3 })
+Rock::Rock(Module* moduleAt, Vector2 position) : FixedObstacle(moduleAt, position, { PIXEL_TO_METERS(15) * 3, PIXEL_TO_METERS(16) * 3 })
 {
 	//Get Texture
 	rockTexture = moduleAt->App->texture->GetTexture("objectsSpring");
@@ -30,5 +30,6 @@ bool Rock::Render()
 
 bool Rock::CleanUp()
 {
-	return false;
+	FixedObstacle::CleanUp();
+	return true;
 }

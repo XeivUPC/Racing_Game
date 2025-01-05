@@ -16,6 +16,7 @@
 #include "PilotCPU.h"
 #include "RaceTrack.h"
 #include "Tree.h"
+#include "Rock.h"
 
 #include <raymath.h>
 #include <algorithm>
@@ -53,6 +54,7 @@ bool SceneGame::Start()
 	mode->Start();
 
 	tree = new Tree(this, {40,40});
+	rock = new Rock(this, {60,60});
 
 	StartFadeOut(WHITE, 0.5f);
 
@@ -79,6 +81,12 @@ bool SceneGame::CleanUp()
 
 	track->CleanUp();
 	delete track;
+
+	tree->CleanUp();
+	delete tree;
+
+	rock->CleanUp();
+	delete rock;
 
 	mode->CleanUp();
 	delete mode;
@@ -160,7 +168,9 @@ update_status SceneGame::Update()
 
 
 		track->Update();
+
 		tree->Update();
+		rock->Update();
 
 		App->renderer->camera.target =player->vehicle->body->GetPhysicPosition();
 		App->renderer->camera.offset = { App->window->GetLogicWidth() / 2.f,App->window->GetLogicHeight() / 2.f };

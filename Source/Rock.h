@@ -19,5 +19,5 @@ public:
 
 private:
 	Texture2D* rockTexture = nullptr;
-	Rectangle  rockTextureRec = { 0, 0, 47, 63 };
+	Rectangle  rockTextureRec = { 0, 63, 15, 16 };
 };
