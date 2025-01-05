@@ -93,8 +93,9 @@ bool RaceMode::Render()
 			}
 		}
 		position += 1;
-		Vector2 posSize = MeasureTextEx(App->assetLoader->agencyB, to_string(position).c_str(), 100, 0);
-		App->renderer->DrawText(to_string(position).c_str(), { 0,SCREEN_HEIGHT - posSize.y }, {0,0 }, App->assetLoader->agencyB, 120, 0, WHITE);
+		string infoPosition = to_string(position)+"*";
+		Vector2 posSize = MeasureTextEx(App->assetLoader->agencyB, infoPosition.c_str(), 100, 0);
+		App->renderer->DrawText(infoPosition.c_str(), { 0,SCREEN_HEIGHT - posSize.y }, {0,0 }, App->assetLoader->agencyB, 120, 0, WHITE);
 
 	}
 	App->renderer->UnlockRenderLayer();

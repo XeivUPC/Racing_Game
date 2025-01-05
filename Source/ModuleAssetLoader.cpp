@@ -89,7 +89,7 @@ bool ModuleAssetLoader::Init()
 	// hard-coding bc it does not recognise the characters
 	192, 193, 200, 201, 204, 205, 210, 211, 217, 218,
 	224, 225, 232, 233, 236, 237, 242, 243, 249, 250,
-	'!', 161, 231, 209,'/'
+	'!', 161, 231, 209,'/', '*'
 	};
 	
 	agencyB = FontCreator::GetInstance().CreateFontFromTexture(*textureModule->GetTexture("agencyB"), 10, 20, codepoints2, 0);
