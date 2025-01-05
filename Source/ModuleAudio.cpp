@@ -164,6 +164,51 @@ bool ModuleAudio::PlayFx(unsigned int soundId, bool overrideIfSoundPlaying)
 	return ret;
 }
 
+bool ModuleAudio::StopFx(unsigned int soundId)
+{
+	if (IsEnabled() == false)
+	{
+		return false;
+	}
+	if (soundId == -1 || !IsSoundLoaded(soundId))
+	{
+		LOG("Sound not loaded: Id --> %d", soundId);
+		return false;
+	}
+
+	bool ret = true;
+
+	for (const auto& sound : soundsMap.at(soundId).sounds)
+	{
+		if (IsSoundPlaying(sound)) {
+			StopSound(sound);
+		}
+	}
+	return ret;
+}
+
+bool ModuleAudio::ResumeFx(unsigned int soundId)
+{
+	if (IsEnabled() == false)
+	{
+		return false;
+	}
+	if (soundId == -1 || !IsSoundLoaded(soundId))
+	{
+		LOG("Sound not loaded: Id --> %d", soundId);
+		return false;
+	}
+
+	bool ret = true;
+
+	for (const auto& sound : soundsMap.at(soundId).sounds)
+	{
+		if (!IsSoundPlaying(sound)) {
+			ResumeSound(sound);
+		}
+	}
+}
+
 void ModuleAudio::ChangeGeneralVolume(float volume)
 {
 	general_volume = std::clamp(volume, 0.0f, 1.0f); // Clamp to valid range
