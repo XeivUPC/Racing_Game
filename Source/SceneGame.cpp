@@ -7,6 +7,7 @@
 #include "ModuleAudio.h"
 #include "ModuleTexture.h"
 #include "ModulePhysics.h"
+#include "MapLapSensor.h"
 #include "PauseMenu.h"
 #include "GameMode.h"
 #include "Player.h"
@@ -95,13 +96,23 @@ void SceneGame::SetMode(GameMode* mode)
 vector<Pilot*> SceneGame::GetRacePlacePositions() const
 {
 	vector<Pilot*> orderedPlacePositions = pilots;
-
-	std::sort(orderedPlacePositions.begin(), orderedPlacePositions.end(),
-		[](Pilot* a, Pilot* b) {
-			if (a->CurrentLap() != b->CurrentLap()) {
-				return a->CurrentLap() > b->CurrentLap();
+	RaceTrack* trackRef = track;
+	std::sort(orderedPlacePositions.begin(), orderedPlacePositions.end(), [trackRef](Pilot* a, Pilot* b) {
+		if (a->CurrentLap() == b->CurrentLap()) {
+			if (a->CurrentCheckpoint() == b->CurrentCheckpoint()) {
+				int checkPointIndex = b->CurrentCheckpoint()+1;
+				if (checkPointIndex >= trackRef->GetTrackSensors().size())
+					checkPointIndex = 0;
+				MapLapSensor* checkPoint = trackRef->GetTrackSensors()[checkPointIndex];
+				float distanceA = Vector2Distance(a->vehicle->body->GetPosition(), checkPoint->GetCenter());
+				float distanceB = Vector2Distance(b->vehicle->body->GetPosition(), checkPoint->GetCenter());
+				return distanceA < distanceB;
 			}
-			return a->CurrentCheckpoint() > b->CurrentCheckpoint();
+			else {
+				return a->CurrentCheckpoint() > b->CurrentCheckpoint();
+			}
+		}
+		return a->CurrentLap() > b->CurrentLap();
 		});
 
 	return orderedPlacePositions;
@@ -129,7 +140,7 @@ update_status SceneGame::Update()
 
 
 		track->Update();
-		App->renderer->camera.target = pilots[1]->vehicle->body->GetPhysicPosition();
+		App->renderer->camera.target =player->vehicle->body->GetPhysicPosition();
 		App->renderer->camera.offset = { App->window->GetLogicWidth() / 2.f,App->window->GetLogicHeight() / 2.f };
 		mode->Update();
 	}

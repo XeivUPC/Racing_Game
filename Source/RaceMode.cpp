@@ -28,11 +28,9 @@ update_status RaceMode::Update()
 	}
 
 	if (hasPlayerFinishedLap) {
+		SetLapNum(currentLap + 1);
 		if (currentLap == maxLapNum) {
 			EndRace();
-		}
-		else {
-			SetLapNum(currentLap + 1);
 		}
 	}
 
@@ -84,6 +82,20 @@ bool RaceMode::Render()
 		if (currentLap > 3) {
 			App->renderer->DrawText(App->localization->FormatNumber(GetLapTimeSec(3), 2).c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(GetCurrentLapTimeSec(), 2).c_str() , 100, 0).y * 2 + 10 + MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(GetCurrentLapTimeSec(), 2).c_str(), 40, 0).y * 2 }, App->assetLoader->agencyB, 40, 0, WHITE);
 		}
+
+		int position = -1;
+		vector<Pilot*> pilots = gameAt->GetRacePlacePositions();
+		for (size_t i = 0; i < pilots.size(); i++)
+		{
+			if (pilots[i] == gameAt->player) {
+				position = i;
+				break;
+			}
+		}
+		position += 1;
+		Vector2 posSize = MeasureTextEx(App->assetLoader->agencyB, to_string(position).c_str(), 100, 0);
+		App->renderer->DrawText(to_string(position).c_str(), { 0,SCREEN_HEIGHT - posSize.y }, {0,0 }, App->assetLoader->agencyB, 120, 0, WHITE);
+
 	}
 	App->renderer->UnlockRenderLayer();
 	return true;

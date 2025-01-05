@@ -72,6 +72,22 @@ bool BoomMode::Render()
 		if (isPlayerLast) {
 			App->renderer->DrawText(App->localization->GetString("BOOMMODE_LAST").c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("BOOMMODE_TIME_TILL_EXPLOSION").c_str(), 80, 0).y + 10 }, App->assetLoader->agencyB, 80, 0, WHITE);
 		}
+
+
+		int position = -1;
+		vector<Pilot*> pilots = gameAt->GetRacePlacePositions();
+		for (size_t i = 0; i < pilots.size(); i++)
+		{
+			if (pilots[i] == gameAt->player) {
+				position = i;
+				break;
+			}
+		}
+		position += 1;
+		string infoPosition = to_string(position) + "/" + to_string(gameAt->GetRacePlacePositions().size());
+		Vector2 posSize = MeasureTextEx(App->assetLoader->agencyB, infoPosition.c_str(), 100, 0);
+		App->renderer->DrawText(infoPosition.c_str(), { 0,SCREEN_HEIGHT - posSize.y }, { 0,0 }, App->assetLoader->agencyB, 120, 0, WHITE);
+
 	}
 	App->renderer->UnlockRenderLayer();
 
