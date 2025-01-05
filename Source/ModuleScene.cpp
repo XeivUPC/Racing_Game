@@ -67,6 +67,7 @@ void ModuleScene::FadeUpdate()
 		FadeIn();
 	if (doingFadeOut)
 		FadeOut();
+	fadeTimer.Update();
 }
 
 void ModuleScene::FadeRender()

@@ -12,7 +12,6 @@
 
 class UIButton;
 class Animator;
-class Timer;
 
 using namespace std;
 

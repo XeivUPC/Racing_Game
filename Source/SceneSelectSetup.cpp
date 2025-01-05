@@ -11,7 +11,6 @@
 #include "AnimationSystem.h"
 #include "RaceMode.h"
 #include "BoomMode.h"
-#include "Timer.h"
 
 #include "pugixml.hpp"
 

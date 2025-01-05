@@ -50,6 +50,10 @@ public:
 			totalRaceTime.Start();
 			raceStarted = true;
 		}
+
+		totalRaceTime.Update();
+		startCountdown.Update();
+
 		return UPDATE_CONTINUE;
 	}
 

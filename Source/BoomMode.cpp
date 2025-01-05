@@ -43,6 +43,8 @@ update_status BoomMode::Update()
 	if (IsKeyPressed(KEY_N)) {
 		App->scene_game->StartFadeIn(App->scene_results, BLACK, 0.3f);
 	}
+
+	timeToExplode.Update();
 	return UPDATE_CONTINUE;
 }
 

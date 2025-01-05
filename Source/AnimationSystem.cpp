@@ -154,7 +154,7 @@ void Animator::Update()
 			Previous();
 		}
 	}
-
+	timer.Update();
 }
 
 void Animator::LerpUpdate(float factor)

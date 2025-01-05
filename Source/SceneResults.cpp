@@ -47,7 +47,7 @@ bool SceneResults::Start()
 		pilotDatas.push_back(data);
 	}
 
-	App->audio->PlayMusic("Assets/Sounds/Music/OptionsResults.wav");
+	App->audio->PlayMusic("Assets/Sounds/Music/Results.wav");
 
 	StartFadeOut(BLACK, 0.3f);
 

@@ -6,7 +6,7 @@
 
 RaceMode::RaceMode(SceneGame* gameAt, int NumberOfLaps) : GameMode (gameAt)
 {
-	maxLapNum = NumberOfLaps + 1; 
+	maxLapNum = NumberOfLaps + 1;  
 }
 
 RaceMode::~RaceMode()
@@ -38,13 +38,15 @@ update_status RaceMode::Update()
 	if (IsKeyPressed(KEY_N)) {
 		App->scene_game->StartFadeIn(App->scene_results, BLACK, 0.3f);
 	}
+
+	lapTimeCounter.Update();
 	return UPDATE_CONTINUE;
 }
 
 bool RaceMode::Render()
 {
 	Application* App = gameAt->App;
-	App->renderer->SelectRenderLayer(App->renderer->OVER_LAYER_1);
+	App->renderer->SelectRenderLayer(App->renderer->SUB_LAYER_4);
 	App->renderer->BlockRenderLayer();
 	if (GetCountdownTime() >= 4 && GetCountdownTime() < 5 && !IsRaceStarted()) {
 		App->renderer->DrawText(App->localization->FormatNumber(1, 0).c_str(), { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(1,0).c_str(), 120, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(1,0).c_str(), 120, 0).y / 2 }, App->assetLoader->agencyB, 120, 0, WHITE);
@@ -66,9 +68,6 @@ bool RaceMode::Render()
 			App->renderer->DrawText(App->localization->FormatNumber(currentLap, 0).c_str(), { 0, 0 }, { MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("RACEMODE_LAP").c_str(), 80, 0).x, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
 
 			App->renderer->DrawText(App->localization->FormatNumber(GetCurrentLapTimeSec(), 2).c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(GetCurrentLapTimeSec(), 2).c_str() , 80, 0).y + 10 }, App->assetLoader->agencyB, 70, 0, WHITE);
-		}
-		else {
-			App->renderer->DrawText("Race ended :D Omedeto! ", { 0, 0 }, { 0, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
 		}
 
 		if (currentLap > 1) {
