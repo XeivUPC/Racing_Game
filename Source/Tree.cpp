@@ -7,7 +7,7 @@
 
 #include <raymath.h>
 
-Tree::Tree(Module* moduleAt, Vector2 position) : PushableObstacle(moduleAt, position, { PIXEL_TO_METERS(47) * 3, PIXEL_TO_METERS(63) * 3 }, 2,1)
+Tree::Tree(Module* moduleAt, Vector2 position) : PushableObstacle(moduleAt, position, { PIXEL_TO_METERS(32) * 3, PIXEL_TO_METERS(32) * 3 }, 2,1)
 {
 	//Get Texture
 	treeTexture = moduleAt->App->texture->GetTexture("objectsSpring");

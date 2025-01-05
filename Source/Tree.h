@@ -20,5 +20,5 @@ public:
 
 private:
 	Texture2D* treeTexture = nullptr;
-	Rectangle  treeTextureRec = { 0, 0, 47, 63 };
+	Rectangle  treeTextureRec = { 80, 0, 32, 32 };
 };
