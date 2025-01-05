@@ -218,6 +218,10 @@
     <ClCompile Include="Source\Rock.cpp">
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
     </ClCompile>
+    <ClCompile Include="Source\BreakableObstacle.cpp">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Fence.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ModuleAssetLoader.h">
@@ -367,6 +371,12 @@
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
     </ClInclude>
     <ClInclude Include="Source\Rock.h">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BreakableObstacle.h">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Fence.h">
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
     </ClInclude>
   </ItemGroup>
