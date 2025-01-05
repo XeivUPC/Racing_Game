@@ -57,6 +57,8 @@ bool SceneGame::Start()
 	StartFadeOut(WHITE, 0.5f);
 
 	App->renderer->camera.zoom = 2/track->GetScale();
+
+	App->audio->PlayMusic("Assets/Sounds/Music/Race.wav");
 	return ret;
 }
 

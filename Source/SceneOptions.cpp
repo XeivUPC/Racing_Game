@@ -153,6 +153,8 @@ bool SceneOptions::Start()
 
 	sfxVolumeSlider->SetValue(App->audio->GetSfxVolume());
 
+	App->audio->PlayMusic("Assets/Sounds/Music/OptionsResults.wav");
+
 	return ret;
 }
 
@@ -367,6 +369,7 @@ void SceneOptions::Exit()
 	//Go to MainMenu or the Game Scene
 	exitSettingsAnimator->SelectAnimation("exitClick", false);
 	App->audio->PlayFx(App->assetLoader->audioMotorId);
+	App->audio->PlayMusic("Assets/Sounds/Music/Main_Menu.wav");
 	StartFadeIn(nullptr, BLACK, 0.3f);
 }
 
