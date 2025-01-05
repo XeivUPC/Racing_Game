@@ -38,5 +38,5 @@ bool BreakableObstacle::CleanUp()
 
 void BreakableObstacle::OnHit()
 {
-	
+	BreakableObstacle::CleanUp();
 }

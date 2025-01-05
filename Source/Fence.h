@@ -20,5 +20,5 @@ public:
 
 private:
 	Texture2D* fenceTexture = nullptr;
-	Rectangle  fenceTextureRec = { 0, 0, 47, 63 };
+	Rectangle  fenceTextureRec = { 47, 0, 15, 16 };
 };

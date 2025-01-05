@@ -23,7 +23,7 @@ update_status Rock::Update()
 bool Rock::Render()
 {
 	moduleAt->App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_5);
-	moduleAt->App->renderer->Draw(*rockTexture, body->GetPhysicPosition(), {0,0}, &rockTextureRec);
+	moduleAt->App->renderer->Draw(*rockTexture, body->GetPhysicPosition(), { -rockTextureRec.width / 2.f, -rockTextureRec.height / 2.f }, &rockTextureRec, 0, 1.f * 3);
 
 	return true;
 }

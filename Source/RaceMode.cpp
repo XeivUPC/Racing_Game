@@ -21,7 +21,7 @@ bool RaceMode::Init()
 update_status RaceMode::Update()
 {
 	GameMode::Update();
-
+	 
 	if(gameAt->player->CurrentLap()+1!= currentLap) 
 	{
 		hasPlayerFinishedLap = true; 
