@@ -11,10 +11,11 @@ public:
 	Timer();
 
 	void Start();
+	void Update();
 	double ReadSec() const;
 
 private:
 
     // Start time in seconds
-	double started_at;   
+	double timePassed;   
 };
