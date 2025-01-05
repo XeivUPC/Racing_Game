@@ -63,6 +63,8 @@ bool ModuleAssetLoader::Init()
 	textureModule->CreateTexture("Assets/Textures/Results_next_button.png", "results_next_button");
 
 	// Game
+	textureModule->CreateTexture("Assets/Textures/objectsSpring.png", "objectsSpring");
+	textureModule->CreateTexture("Assets/Textures/objectsWinter.png", "objectsWinter");
 	textureModule->CreateTexture("Assets/Textures/Map_1.png", "Map1");
 	textureModule->CreateTexture("Assets/Textures/Map_1_Preview.png", "Map1_Preview");
 	textureModule->CreateTexture("Assets/Textures/Map_2.png", "Map2");

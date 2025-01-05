@@ -14,6 +14,9 @@ class Player;
 class PauseMenu;
 class GameMode;
 class RaceTrack;
+class Tree;
+class Rock;
+class Fence;
 class Pilot;
 
 using namespace std;
@@ -38,12 +41,17 @@ public:
 	int GetRacePlayerPosition() const;
 
 public:
-	PauseMenu* pauseMenu;
+	PauseMenu* pauseMenu = nullptr;
 
-	RaceTrack* track;
-	GameMode* mode;
+	RaceTrack* track = nullptr;
 
-	Player* player;
+	Tree* tree = nullptr;
+	Rock* rock = nullptr;
+	Fence* fence = nullptr;
+
+	GameMode* mode = nullptr;
+
+	Player* player = nullptr;
 	vector<Pilot*> pilots;
 private:
 	string trackPath = "";

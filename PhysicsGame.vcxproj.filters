@@ -76,6 +76,12 @@
     <Filter Include="MapObjects\Type %28MapObjects%29\Pilots\Type %28Pilot%29">
       <UniqueIdentifier>{892e5f92-ff84-4d1d-b9e4-a058ee397201}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MapObjects\Type %28MapObjects%29\Obstacles">
+      <UniqueIdentifier>{7b9caef1-69ec-4309-91e6-a5b90dee6177}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29">
+      <UniqueIdentifier>{4d683ba0-dcd4-4a29-8d6a-77c419eaa8f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModuleAssetLoader.cpp">
@@ -197,6 +203,27 @@
     <ClCompile Include="Source\SceneResults.cpp">
       <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Obstacle.cpp">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PushableObstacle.cpp">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tree.cpp">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FixedObstacle.cpp">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rock.cpp">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BreakableObstacle.cpp">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Fence.cpp">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
+	</ClCompile>
     <ClCompile Include="Source\SceneVehicleSelectSetup.cpp">
       <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClCompile>
@@ -248,9 +275,6 @@
     </ClInclude>
     <ClInclude Include="Source\Box2DFactory.h">
       <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\MapObject.h">
-      <Filter>MapObjects</Filter>
     </ClInclude>
     <ClInclude Include="Source\ModuleLocalization.h">
       <Filter>Modules\Type %28Module%29</Filter>
@@ -336,6 +360,30 @@
     <ClInclude Include="Source\SceneResults.h">
       <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Obstacle.h">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MapObject.h">
+      <Filter>MapObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PushableObstacle.h">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tree.h">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FixedObstacle.h">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rock.h">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BreakableObstacle.h">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Fence.h">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
+	</ClInclude>
     <ClInclude Include="Source\SceneVehicleSelectSetup.h">
       <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClInclude>

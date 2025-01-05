@@ -284,17 +284,17 @@ bool SceneOptions::Render() {
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_2);
 	App->renderer->BlockRenderLayer();
 
-	int generalVolumeValue = generalVolumeSlider->GetValue() * 100;
+	int generalVolumeValue = (int)(generalVolumeSlider->GetValue() * 100);
 	std::string generalVolumeValueString = std::to_string(generalVolumeValue);
 	const char* generalVolumeValueCharPtr = generalVolumeValueString.c_str();
 	App->renderer->DrawText(generalVolumeValueCharPtr, Vector2{(SCREEN_WIDTH / 2) + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX * 5, (SCREEN_HEIGHT / 6) * 3.15f }, Vector2{0,0}, App->assetLoader->agencyB, 60, 1, WHITE);
 
-	int musicVolumeValue = musicVolumeSlider->GetValue() * 100;
+	int musicVolumeValue = (int)(musicVolumeSlider->GetValue() * 100);
 	std::string musicVolumeValueString = std::to_string(musicVolumeValue);
 	const char* musicVolumeValueCharPtr = musicVolumeValueString.c_str();
 	App->renderer->DrawText(musicVolumeValueCharPtr, Vector2{ (SCREEN_WIDTH / 2)  + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX * 5, (SCREEN_HEIGHT / 6) * 4.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, WHITE);
 
-	int sfxVolumeValue = sfxVolumeSlider->GetValue() * 100;
+	int sfxVolumeValue = (int)(sfxVolumeSlider->GetValue() * 100);
 	std::string sfxVolumeValueString = std::to_string(sfxVolumeValue);
 	const char* sfxVolumeValueCharPtr = sfxVolumeValueString.c_str();
 	App->renderer->DrawText(sfxVolumeValueCharPtr, Vector2{ (SCREEN_WIDTH / 2) + (sfxVolumeSliderSize.x / 2) + OffsetTextToSliderX * 5, (SCREEN_HEIGHT / 6) * 5.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, WHITE);

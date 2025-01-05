@@ -51,7 +51,7 @@ private:
 
 	Timer rightButtonAnimTimer;
 	Timer leftButtonAnimTimer;
-	float ButtonAnimTime = 0.1;
+	double ButtonAnimTime = 0.1;
 
 	bool hasClicked = false;
 	bool hasClickedRight = false;

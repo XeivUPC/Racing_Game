@@ -103,6 +103,7 @@ public:
 	void ApplyAngularImpulse(float impulse);
 	void ApplyTorque(float torque);
 	void SetVelocity(const Vector2& velocity);
+	void SetLinearDamping(float damping);
 	void SetAngularDamping(float angularDamping);
 	Vector2 GetLinearVelocity() const;
 	float GetAngularVelocity() const;
@@ -114,7 +115,6 @@ public:
 	void SetMass(float mass, Vector2 center, float inertia);
 	void SetType(BodyType type);
 	void SetBullet(bool status);
-	void SetLinearDamping(float damping);
 	void SetFriction(size_t fixtureIndex, float friction);
 	void SetDensity(size_t fixtureIndex, float density);
 	void SetRestitution(size_t fixtureIndex, float restitution);

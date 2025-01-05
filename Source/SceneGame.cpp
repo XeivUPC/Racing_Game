@@ -15,6 +15,10 @@
 #include "Pilot.h"
 #include "PilotCPU.h"
 #include "RaceTrack.h"
+#include "Tree.h"
+#include "Rock.h"
+#include "Fence.h"
+
 #include <raymath.h>
 #include <algorithm>
 
@@ -50,6 +54,10 @@ bool SceneGame::Start()
 
 	mode->Start();
 
+	tree = new Tree(this, {10,20});
+	rock = new Rock(this, {20,20});
+	fence = new Fence(this, {30,20});
+
 	StartFadeOut(WHITE, 0.5f);
 
 	App->renderer->camera.zoom = 2/track->GetScale();
@@ -75,6 +83,15 @@ bool SceneGame::CleanUp()
 
 	track->CleanUp();
 	delete track;
+
+	tree->CleanUp();
+	delete tree;
+
+	rock->CleanUp();
+	delete rock;
+
+	fence->CleanUp();
+	delete fence;
 
 	mode->CleanUp();
 	delete mode;
@@ -167,6 +184,11 @@ update_status SceneGame::Update()
 
 
 		track->Update();
+
+		tree->Update();
+		rock->Update();
+		fence->Update();
+
 		App->renderer->camera.target =player->vehicle->body->GetPhysicPosition();
 		App->renderer->camera.offset = { App->window->GetLogicWidth() / 2.f,App->window->GetLogicHeight() / 2.f };
 		mode->Update();
@@ -187,6 +209,11 @@ bool SceneGame::Render()
 	for (const auto& pilot : pilots) {
 		pilot->Render();
 	}
+
+	tree->Render();
+	rock->Render();
+	fence->Render();
+
 	mode->Render();
 	pauseMenu->Render();
 	ModuleScene::FadeRender();
