@@ -34,6 +34,8 @@ public:
 
 	void SetUpTrack(string path);
 	void SetMode(GameMode* mode);
+	void SetPlayerVehicle(string type);
+	void SetVehicleType(string type, int amount);
 
 	vector<Pilot*> GetRacePlacePositions() const;
 	int GetRacePlayerPosition() const;
@@ -53,4 +55,7 @@ public:
 	vector<Pilot*> pilots;
 private:
 	string trackPath = "";
+	string player_vehicle_type;
+	string vehicle_type;
+	int vehicleTypeAmount;
 };

@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRender.h"
+#include "GameMode.h"
 #include "SceneResults.h"
 #include "SceneGame.h"
 #include "SceneOptions.h"
@@ -11,6 +12,8 @@
 #include "UIButton.h"
 #include "ModuleLocalization.h"
 #include "Pilot.h"
+#include <iomanip>
+#include <sstream>
 
 SceneResults::SceneResults(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
 {
@@ -44,8 +47,10 @@ bool SceneResults::Start()
 	for (auto* pilot : App->scene_game->GetRacePlacePositions()) {
 		PilotDataResults data;
 		data.name = pilot->GetPilotName();
-		pilotDatas.push_back(data);
+		pilotDatas.emplace_back(data);
 	}
+
+	bestLapTime = App->scene_game->mode->GetBestLapTimeSec();
 
 	App->audio->PlayMusic("Assets/Sounds/Music/Results.wav");
 
@@ -82,6 +87,11 @@ bool SceneResults::Render() {
 	std::string text = "null";
 	for (const auto& pilot : pilotDatas) {
 		text = std::to_string(pos) + " - " + pilot.name;
+		if (bestLapTime != -1 && pilot.name == "Player") {
+			std::ostringstream stream;
+			stream << std::fixed << std::setprecision(2) << bestLapTime;
+			text += " " + stream.str();
+		}
 		Color color = WHITE;
 		switch (pos)
 		{
@@ -113,6 +123,7 @@ bool SceneResults::CleanUp()
 {
 	LOG("Unloading Main Menu");
 
+	pilotDatas.clear();
 	delete next_button;
 
 	return true;

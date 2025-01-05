@@ -1,5 +1,6 @@
 #pragma once
 #include "MapObject.h"
+#include "Timer.h"
 #include <vector>
 #include <string>
 
@@ -46,5 +47,7 @@ private:
 	string vehicleTitle;
 	string vehicleCreator;
 	string vehicleDescription;
+
+	Timer engineTimer;
 };
 

@@ -38,4 +38,6 @@ private:
 
 	Vector2 pilotsPos = { SCREEN_WIDTH / 2, 72 };
 	std::vector<PilotDataResults> pilotDatas;
+
+	double bestLapTime = -1;
 };

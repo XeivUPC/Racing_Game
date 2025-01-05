@@ -27,12 +27,16 @@ public:
 
 	// Play a music file
 	bool PlayMusic(std::string path);
+	void StopMusic();
+	void ResumeMusic();
 
 	// Load a sound in memory
 	unsigned int LoadFx(std::string path, bool loadEvenIfItExist = false);
 
 	// Play a previously loaded sound
 	bool PlayFx(unsigned int soundId, bool overrideIfSoundPlaying = true);
+	bool StopFx(unsigned int soundId);
+	bool ResumeFx(unsigned int soundId);
 
 	void ChangeGeneralVolume(float volume);
 	float GetGeneralVolume();

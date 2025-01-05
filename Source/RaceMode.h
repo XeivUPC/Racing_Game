@@ -20,7 +20,8 @@ public:
 	double GetDoubleParameterGivenInt(std::string Id, int input) override;
 	int GetIntParameter(std::string Id) override;
 
-	
+	double GetBestLapTimeSec() const;
+	int GetBestLapIndex() const;
 
 private:
 	int GetCurrentLapNum() const;
