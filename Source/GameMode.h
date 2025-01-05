@@ -110,4 +110,12 @@ public:
 		return 0;
 	}
 
+	virtual double GetBestLapTimeSec() const {
+		return -1;
+	}
+
+	virtual int GetBestLapIndex() const {
+		return 0;
+	}
+
 };

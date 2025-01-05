@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRender.h"
+#include "GameMode.h"
 #include "SceneResults.h"
 #include "SceneGame.h"
 #include "SceneOptions.h"
@@ -11,6 +12,8 @@
 #include "UIButton.h"
 #include "ModuleLocalization.h"
 #include "Pilot.h"
+#include <iomanip>
+#include <sstream>
 
 SceneResults::SceneResults(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
 {
@@ -47,6 +50,8 @@ bool SceneResults::Start()
 		pilotDatas.emplace_back(data);
 	}
 
+	bestLapTime = App->scene_game->mode->GetBestLapTimeSec();
+
 	App->audio->PlayMusic("Assets/Sounds/Music/Results.wav");
 
 	StartFadeOut(BLACK, 0.3f);
@@ -82,6 +87,11 @@ bool SceneResults::Render() {
 	std::string text = "null";
 	for (const auto& pilot : pilotDatas) {
 		text = std::to_string(pos) + " - " + pilot.name;
+		if (bestLapTime != -1 && pilot.name == "Player") {
+			std::ostringstream stream;
+			stream << std::fixed << std::setprecision(2) << bestLapTime;
+			text += " " + stream.str();
+		}
 		Color color = WHITE;
 		switch (pos)
 		{
