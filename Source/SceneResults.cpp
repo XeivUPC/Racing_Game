@@ -47,6 +47,8 @@ bool SceneResults::Start()
 		pilotDatas.push_back(data);
 	}
 
+	App->audio->PlayMusic("Assets/Sounds/Music/OptionsResults.wav");
+
 	StartFadeOut(BLACK, 0.3f);
 
 	return ret;
@@ -120,6 +122,7 @@ void SceneResults::ClickNext()
 {
 	App->audio->PlayFx(App->assetLoader->audioMotorId);
 	StartFadeIn(App->scene_main_menu, BLACK, 0.3f);
+	pilotDatas.clear();
 	// Go to Play Scene
 }
 
