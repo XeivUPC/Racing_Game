@@ -48,6 +48,7 @@ bool PauseMenu::Update()
 	resume->Update();
 	settings->Update();
 	mainMenu->Update();
+	
 	return true;
 }
 
@@ -126,6 +127,7 @@ bool PauseMenu::Render()
 
 bool PauseMenu::CleanUp()
 {
+	Resume();
 	delete resume;
 	delete settings;
 	delete mainMenu;
@@ -159,6 +161,6 @@ void PauseMenu::Settings()
 void PauseMenu::MainMenu()
 {
 	moduleAt->App->audio->PlayFx(moduleAt->App->assetLoader->audioMotorId);
-	moduleAt->App->scene_game->StartFadeIn(moduleAt->App->scene_main_menu, BLACK, 0.3f, false);
+	moduleAt->App->scene_game->StartFadeIn(moduleAt->App->scene_main_menu, BLACK, 0.3f);
 	// Go to Main Menu Scene
 }
