@@ -6,7 +6,7 @@
 
 RaceMode::RaceMode(SceneGame* gameAt, int NumberOfLaps) : GameMode (gameAt)
 {
-	maxLapNum = NumberOfLaps + 1; 
+	maxLapNum = NumberOfLaps + 1;  
 }
 
 RaceMode::~RaceMode()
@@ -38,6 +38,8 @@ update_status RaceMode::Update()
 	if (IsKeyPressed(KEY_N)) {
 		App->scene_game->StartFadeIn(App->scene_results, BLACK, 0.3f);
 	}
+
+	lapTimeCounter.Update();
 	return UPDATE_CONTINUE;
 }
 

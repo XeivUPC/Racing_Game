@@ -17,7 +17,7 @@ bool Particle::Update()
 	if (lifeTime < life_timer.ReadSec()) {
 		system->AddParticleToRemove(this);
 	}
-
+	life_timer.Update();
 	return true;
 }
 

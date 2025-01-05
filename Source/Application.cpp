@@ -129,6 +129,11 @@ update_status Application::Update()
 
 	if (WindowShouldClose()) ret = UPDATE_STOP;
 
+
+	ptimer.Update();
+	startup_time.Update();
+	frame_time.Update();
+	last_sec_frame_time.Update();
 	return ret;
 }
 

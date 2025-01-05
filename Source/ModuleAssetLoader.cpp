@@ -3,7 +3,6 @@
 #include "ModuleTexture.h"
 #include "ModuleAudio.h"
 #include "FontCreator.h"
-#include "ModuleAudio.h"
 
 ModuleAssetLoader::ModuleAssetLoader(Application* app, bool start_enabled) : Module(app, start_enabled)
 {

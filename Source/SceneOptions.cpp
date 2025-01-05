@@ -181,6 +181,8 @@ update_status SceneOptions::Update()
 
 	FadeUpdate();
 
+	rightButtonAnimTimer.Update();
+	leftButtonAnimTimer.Update();
 	return UPDATE_CONTINUE;
 }
 

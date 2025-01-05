@@ -30,9 +30,9 @@ update_status SceneIntro::Update()
 		intro_ended = true;
 		StartFadeIn(App->scene_main_menu,BLACK, 0.5f);
 	}
-
 	ModuleScene::FadeUpdate();
 	Render();
+	intro_timer.Update();
 	return UPDATE_CONTINUE;
 }
 
