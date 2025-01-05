@@ -18,6 +18,7 @@ public:
 	void Enable();
 	void Disable();
 	int GetOrder() const;
+	Vector2 GetCenter();
 private:
 
 	// Enabled determines wether the sensor can be interacted with
@@ -30,4 +31,6 @@ private:
 	RaceTrack* track;
 
 	int order = -1;
+
+	vector<Vector2> vertices;
 };
