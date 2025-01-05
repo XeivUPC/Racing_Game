@@ -35,6 +35,8 @@ public:
 
 	// Play a previously loaded sound
 	bool PlayFx(unsigned int soundId, bool overrideIfSoundPlaying = true);
+	bool StopFx(unsigned int soundId);
+	bool ResumeFx(unsigned int soundId);
 
 	void ChangeGeneralVolume(float volume);
 	float GetGeneralVolume();
