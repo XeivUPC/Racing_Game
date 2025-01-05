@@ -221,7 +221,9 @@
     <ClCompile Include="Source\BreakableObstacle.cpp">
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Fence.cpp" />
+    <ClCompile Include="Source\Fence.cpp">
+      <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ModuleAssetLoader.h">
