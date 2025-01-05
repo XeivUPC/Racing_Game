@@ -1,4 +1,3 @@
-#pragma once
 #include "MapObject.h"
 #include "CollisionSensor.h"
 

@@ -1,4 +1,3 @@
-#pragma once
 #include "Obstacle.h"
 #include "CollisionSensor.h"
 
