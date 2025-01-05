@@ -69,9 +69,6 @@ bool RaceMode::Render()
 
 			App->renderer->DrawText(App->localization->FormatNumber(GetCurrentLapTimeSec(), 2).c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(GetCurrentLapTimeSec(), 2).c_str() , 80, 0).y + 10 }, App->assetLoader->agencyB, 70, 0, WHITE);
 		}
-		else {
-			App->renderer->DrawText("Race ended :D Omedeto! ", { 0, 0 }, { 0, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
-		}
 
 		if (currentLap > 1) {
 			App->renderer->DrawText(App->localization->FormatNumber(GetLapTimeSec(1), 2).c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(GetCurrentLapTimeSec(), 2).c_str() , 100, 0).y * 2 + 10 }, App->assetLoader->agencyB, 40, 0, WHITE);
