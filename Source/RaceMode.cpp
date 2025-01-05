@@ -100,7 +100,22 @@ bool RaceMode::Render()
 		int position = gameAt->GetRacePlayerPosition();
 		string infoPosition = to_string(position)+"*";
 		Vector2 posSize = MeasureTextEx(App->assetLoader->agencyB, infoPosition.c_str(), 100, 0);
-		App->renderer->DrawText(infoPosition.c_str(), { 0,SCREEN_HEIGHT - posSize.y }, {0,0 }, App->assetLoader->agencyB, 120, 0, WHITE);
+		Color posColor = WHITE;
+		switch (position)
+		{
+		case 1:
+			posColor = GOLD;
+			break;
+		case 2:
+			posColor = LIGHTGRAY;
+			break;
+		case 3:
+			posColor = BROWN;
+			break;
+		default:
+			break;
+		}
+		App->renderer->DrawText(infoPosition.c_str(), { 0,SCREEN_HEIGHT - posSize.y }, {0,0 }, App->assetLoader->agencyB, 120, 0, posColor);
 
 	}
 	App->renderer->UnlockRenderLayer();
