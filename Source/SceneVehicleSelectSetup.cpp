@@ -58,9 +58,9 @@ update_status SceneVehicleSelectSetup::Update()
 	nextCharacter->Update();
 	finish->Update();
 
+	Render();
 	FadeUpdate();
 
-	Render();
 	return UPDATE_CONTINUE;
 }
 
@@ -87,6 +87,9 @@ bool SceneVehicleSelectSetup::Render()
 
 bool SceneVehicleSelectSetup::CleanUp()
 {
+	vehicleNames.clear();
+
+
 	delete previousVehicle;
 	delete nextVehicle;
 	delete previousCharacter;
