@@ -33,6 +33,7 @@ public:
 	void SetMode(GameMode* mode);
 
 	vector<Pilot*> GetRacePlacePositions() const;
+	int GetRacePlayerPosition() const;
 
 public:
 	PauseMenu* pauseMenu;

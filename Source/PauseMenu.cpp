@@ -2,6 +2,7 @@
 #include "ModuleTexture.h"
 #include "ModuleRender.h"
 #include "ModuleAssetLoader.h"
+#include "ModuleLocalization.h"
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "Application.h"
@@ -23,15 +24,19 @@ PauseMenu::~PauseMenu()
 
 bool PauseMenu::Start()
 {
-	texture = moduleAt->App->texture->GetTexture("pause_texture");
+	bg_texture = moduleAt->App->texture->GetTexture("UI_Pause_Bg");
+	btn_texture = moduleAt->App->texture->GetTexture("UI_Btn1");
 
-	resume = new UIButton(moduleAt, { SCREEN_WIDTH/2-100,SCREEN_HEIGHT / 2 - 50 - 200}, {200,100});
+	Vector2 posOffset = { SCREEN_WIDTH / 2 -btn_rect.width/2.f,SCREEN_HEIGHT / 2 -btn_rect.height / 2.f };
+
+
+	resume = new UIButton(moduleAt, { posOffset.x,posOffset.y - 100 }, { btn_rect.width,btn_rect.height});
 	resume->onMouseClick.emplace_back([&]() {Resume(); });
 
-	settings = new UIButton(moduleAt, { SCREEN_WIDTH / 2 - 100,SCREEN_HEIGHT / 2 - 50 }, { 200,100 });
+	settings = new UIButton(moduleAt, { posOffset.x,posOffset.y + 40}, { btn_rect.width,btn_rect.height });
 	settings->onMouseClick.emplace_back([&]() {Settings(); });
 
-	mainMenu = new UIButton(moduleAt, { SCREEN_WIDTH / 2 - 100,SCREEN_HEIGHT / 2 - 50 + 200 }, { 200,100 });
+	mainMenu = new UIButton(moduleAt, { posOffset.x, posOffset.y + 180 }, { btn_rect.width,btn_rect.height });
 	mainMenu->onMouseClick.emplace_back([&]() {MainMenu(); });
 	return true;
 }
@@ -53,20 +58,67 @@ bool PauseMenu::Render()
 	moduleAt->App->renderer->BlockRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_1);
 	moduleAt->App->renderer->SetCameraMode(false);
 
-	rect = {SCREEN_WIDTH / 2 - 350/2, SCREEN_HEIGHT / 2 - 600/2,350,600};
-	moduleAt->App->renderer->DrawSimpleRectangle(rect, { 255,255,255,200 });
-
-	moduleAt->App->renderer->DrawSimpleRectangle(resume->bounds, { 255,0,0,255 });
-	moduleAt->App->renderer->DrawSimpleRectangle(settings->bounds, { 255,0,0,255 });
-	moduleAt->App->renderer->DrawSimpleRectangle(mainMenu->bounds, { 255,0,0,255 });
+	moduleAt->App->renderer->Draw(*bg_texture, { 0,0 }, { 0,0 });
 
 
-	//rect = /**/;
-	//App->renderer->Draw(*texture, { resume->bounds.x, resume->bounds.y}, {0,0}, &rect, 0, 1);
-	//rect = /**/;
-	//App->renderer->Draw(*texture, { settings->bounds.x, resume->bounds.y}, {0,0}, &rect, 0, 1);
-	//rect = /**/;
-	//App->renderer->Draw(*texture, { mainMenu->bounds.x, resume->bounds.y}, {0,0}, &rect, 0, 1);
+	string titleText = moduleAt->App->localization->GetString("PAUSEMENU_TITLE");
+	Vector2 textSize = MeasureTextEx(moduleAt->App->assetLoader->agencyB, titleText.c_str(), 80, 0);
+	moduleAt->App->renderer->DrawText(titleText.c_str(), {SCREEN_WIDTH / 2 - textSize.x / 2,100}, {0,0}, moduleAt->App->assetLoader->agencyB, 80, 0, WHITE);
+	
+	switch (resume->GetState())
+	{
+		case UIButton::BUTTON_STATE::NORMAL:
+			moduleAt->App->renderer->Draw(*btn_texture, { resume->bounds.x, resume->bounds.y }, { 0,0 },&btn_rect);
+			break;
+		case UIButton::BUTTON_STATE::OVER:
+			moduleAt->App->renderer->Draw(*btn_texture, { resume->bounds.x, resume->bounds.y }, { 0,0 }, &btn_rect_hover);
+			break;
+		case UIButton::BUTTON_STATE::PRESSED:
+			moduleAt->App->renderer->Draw(*btn_texture, { resume->bounds.x, resume->bounds.y }, { 0,0 }, &btn_rect_pressed);
+			break;
+		default:
+			break;
+	}
+	string btnText = moduleAt->App->localization->GetString("PAUSEMENU_CONTINUE");
+	textSize = MeasureTextEx(moduleAt->App->assetLoader->agencyB, btnText.c_str(), 35, 0);
+	moduleAt->App->renderer->DrawText(btnText.c_str(), { SCREEN_WIDTH / 2 - textSize.x / 2, resume->bounds.y + textSize.y/2 }, { 0,0 }, moduleAt->App->assetLoader->agencyB, 35, 0, BLACK);
+	
+	switch (settings->GetState())
+	{
+	case UIButton::BUTTON_STATE::NORMAL:
+		moduleAt->App->renderer->Draw(*btn_texture, { settings->bounds.x, settings->bounds.y }, { 0,0 }, &btn_rect);
+		break;
+	case UIButton::BUTTON_STATE::OVER:
+		moduleAt->App->renderer->Draw(*btn_texture, { settings->bounds.x, settings->bounds.y }, { 0,0 }, &btn_rect_hover);
+		break;
+	case UIButton::BUTTON_STATE::PRESSED:
+		moduleAt->App->renderer->Draw(*btn_texture, { settings->bounds.x, settings->bounds.y }, { 0,0 }, &btn_rect_pressed);
+		break;
+	default:
+		break;
+	}
+	btnText = moduleAt->App->localization->GetString("MAINMENU_SETTINGS");
+	textSize = MeasureTextEx(moduleAt->App->assetLoader->agencyB, btnText.c_str(), 35, 0);
+	moduleAt->App->renderer->DrawText(btnText.c_str(), { SCREEN_WIDTH / 2 - textSize.x / 2, settings->bounds.y + textSize.y / 2 }, { 0,0 }, moduleAt->App->assetLoader->agencyB, 35, 0, BLACK);
+
+	switch (mainMenu->GetState())
+	{
+	case UIButton::BUTTON_STATE::NORMAL:
+		moduleAt->App->renderer->Draw(*btn_texture, { mainMenu->bounds.x, mainMenu->bounds.y }, { 0,0 }, &btn_rect);
+		break;
+	case UIButton::BUTTON_STATE::OVER:
+		moduleAt->App->renderer->Draw(*btn_texture, { mainMenu->bounds.x, mainMenu->bounds.y }, { 0,0 }, &btn_rect_hover);
+		break;
+	case UIButton::BUTTON_STATE::PRESSED:
+		moduleAt->App->renderer->Draw(*btn_texture, { mainMenu->bounds.x, mainMenu->bounds.y }, { 0,0 }, &btn_rect_pressed);
+		break;
+	default:
+		break;
+	}
+	btnText = moduleAt->App->localization->GetString("PAUSEMENU_MAINMENU");
+	textSize = MeasureTextEx(moduleAt->App->assetLoader->agencyB, btnText.c_str(), 35, 0);
+	moduleAt->App->renderer->DrawText(btnText.c_str(), { SCREEN_WIDTH / 2 - textSize.x / 2, mainMenu->bounds.y + textSize.y / 2 }, { 0,0 }, moduleAt->App->assetLoader->agencyB, 35, 0, BLACK);
+
 
 	moduleAt->App->renderer->SetCameraMode(true);
 	moduleAt->App->renderer->UnlockRenderLayer();
