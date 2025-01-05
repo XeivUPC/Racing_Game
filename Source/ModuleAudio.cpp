@@ -77,6 +77,16 @@ bool ModuleAudio::PlayMusic(std::string path)
 	return ret;
 }
 
+void ModuleAudio::StopMusic()
+{
+	StopMusicStream(music);
+}
+
+void ModuleAudio::ResumeMusic()
+{
+	ResumeMusicStream(music);
+}
+
 // Load WAV
 unsigned int ModuleAudio::LoadFx(std::string path, bool loadEvenIfItExist)
 {
