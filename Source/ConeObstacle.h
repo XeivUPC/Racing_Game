@@ -8,11 +8,11 @@
 
 class PhysBody;
 
-class Tree : public PushableObstacle
+class ConeObstacle : public PushableObstacle
 {
 public:
-	Tree(Module* moduleAt, Vector2 position);
-	~Tree() {}
+	ConeObstacle(Module* moduleAt, Vector2 position);
+	~ConeObstacle() {}
 
 	update_status Update();
 	bool Render();
@@ -20,5 +20,5 @@ public:
 
 private:
 	Texture2D* treeTexture = nullptr;
-	Rectangle  treeTextureRec = { 80, 0, 32, 32 };
+	Rectangle  treeTextureRec = { 0, 0, 15, 15 };
 };

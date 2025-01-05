@@ -1,4 +1,4 @@
-#include "Tree.h"
+#include "ConeObstacle.h"
 #include "Box2DFactory.h"
 #include "Application.h"
 #include "ModulePhysics.h"
@@ -7,20 +7,20 @@
 
 #include <raymath.h>
 
-Tree::Tree(Module* moduleAt, Vector2 position) : PushableObstacle(moduleAt, position, { PIXEL_TO_METERS(32) * 3, PIXEL_TO_METERS(32) * 3 }, 2,1)
+ConeObstacle::ConeObstacle(Module* moduleAt, Vector2 position) : PushableObstacle(moduleAt, position, { PIXEL_TO_METERS(15) * 3, PIXEL_TO_METERS(15) * 3 }, 2,1)
 {
 	//Get Texture
-	treeTexture = moduleAt->App->texture->GetTexture("objectsSpring");
+	treeTexture = moduleAt->App->texture->GetTexture("cone");
 }
 
-update_status Tree::Update()
+update_status ConeObstacle::Update()
 {
 	PushableObstacle::Update();
 
 	return UPDATE_CONTINUE;
 }
 
-bool Tree::Render()
+bool ConeObstacle::Render()
 {
 	Vector2 treeRotatedOffset = {
 	   -treeTextureRec.width / 2.f,
@@ -35,7 +35,7 @@ bool Tree::Render()
 	return true;
 }
 
-bool Tree::CleanUp()
+bool ConeObstacle::CleanUp()
 {
 	PushableObstacle::CleanUp();
 	return true;

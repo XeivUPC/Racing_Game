@@ -15,7 +15,7 @@
 #include "Pilot.h"
 #include "PilotCPU.h"
 #include "RaceTrack.h"
-#include "Tree.h"
+#include "ConeObstacle.h"
 #include "Rock.h"
 #include "Fence.h"
 
@@ -54,7 +54,7 @@ bool SceneGame::Start()
 
 	mode->Start();
 
-	tree = new Tree(this, {10,20});
+	tree = new ConeObstacle(this, {10,20});
 	rock = new Rock(this, {20,20});
 	fence = new Fence(this, {30,20});
 

@@ -6,7 +6,7 @@
 
 RaceMode::RaceMode(SceneGame* gameAt, int NumberOfLaps) : GameMode (gameAt)
 {
-	maxLapNum = NumberOfLaps + 1;  
+	maxLapNum = NumberOfLaps + 1;
 }
 
 RaceMode::~RaceMode()
@@ -21,8 +21,8 @@ bool RaceMode::Init()
 update_status RaceMode::Update()
 {
 	GameMode::Update();
-	 
-	if(gameAt->player->CurrentLap()+1!= currentLap) 
+	
+	if(gameAt->player->CurrentLap()+1!= currentLap)
 	{
 		hasPlayerFinishedLap = true; 
 	}

@@ -14,7 +14,7 @@ class Player;
 class PauseMenu;
 class GameMode;
 class RaceTrack;
-class Tree;
+class ConeObstacle;
 class Rock;
 class Fence;
 class Pilot;
@@ -45,7 +45,7 @@ public:
 
 	RaceTrack* track = nullptr;
 
-	Tree* tree = nullptr;
+	ConeObstacle* tree = nullptr;
 	Rock* rock = nullptr;
 	Fence* fence = nullptr;
 

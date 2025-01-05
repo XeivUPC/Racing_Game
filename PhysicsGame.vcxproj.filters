@@ -209,7 +209,7 @@
     <ClCompile Include="Source\PushableObstacle.cpp">
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Tree.cpp">
+    <ClCompile Include="Source\ConeObstacle.cpp">
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
     </ClCompile>
     <ClCompile Include="Source\FixedObstacle.cpp">
@@ -223,7 +223,7 @@
     </ClCompile>
     <ClCompile Include="Source\Fence.cpp">
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="Source\SceneVehicleSelectSetup.cpp">
       <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClCompile>
@@ -369,7 +369,7 @@
     <ClInclude Include="Source\PushableObstacle.h">
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Tree.h">
+    <ClInclude Include="Source\ConeObstacle.h">
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
     </ClInclude>
     <ClInclude Include="Source\FixedObstacle.h">
@@ -383,7 +383,7 @@
     </ClInclude>
     <ClInclude Include="Source\Fence.h">
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="Source\SceneVehicleSelectSetup.h">
       <Filter>Modules\Type %28Module%29\Scene %28ModueScene%29</Filter>
     </ClInclude>

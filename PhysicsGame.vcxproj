@@ -239,7 +239,7 @@
     <ClCompile Include="Source\SceneVehicleSelectSetup.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\Obstacle.cpp" />
-    <ClCompile Include="Source\Tree.cpp" />
+    <ClCompile Include="Source\ConeObstacle.cpp" />
     <ClCompile Include="Source\UIButton.cpp" />
     <ClCompile Include="Source\UISlider.cpp" />
     <ClCompile Include="Source\Vehicle.cpp" />
@@ -294,7 +294,7 @@
     <ClInclude Include="Source\SceneVehicleSelectSetup.h" />
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\Obstacle.h" />
-    <ClInclude Include="Source\Tree.h" />
+    <ClInclude Include="Source\ConeObstacle.h" />
     <ClInclude Include="Source\UIButton.h" />
     <ClInclude Include="Source\UIElement.h" />
     <ClInclude Include="Source\UISlider.h" />
