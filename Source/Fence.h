@@ -1,3 +1,4 @@
+#pragma once
 #include "BreakableObstacle.h"
 #include "MapObject.h"
 #include "CollisionSensor.h"
