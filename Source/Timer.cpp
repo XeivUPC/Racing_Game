@@ -14,10 +14,15 @@ Timer::Timer()
 
 void Timer::Start()
 {
-	started_at = GetTime();
+	timePassed = 0;
+}
+
+void Timer::Update()
+{
+	timePassed += GetFrameTime();
 }
 
 double Timer::ReadSec() const
 {
-	return (GetTime() - started_at);
+	return timePassed;
 }
