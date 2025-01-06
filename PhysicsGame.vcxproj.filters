@@ -215,13 +215,13 @@
     <ClCompile Include="Source\FixedObstacle.cpp">
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Rock.cpp">
+    <ClCompile Include="Source\RockObstacle.cpp">
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
     </ClCompile>
     <ClCompile Include="Source\BreakableObstacle.cpp">
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Fence.cpp">
+    <ClCompile Include="Source\FenceObstacle.cpp">
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneVehicleSelectSetup.cpp">
@@ -375,13 +375,13 @@
     <ClInclude Include="Source\FixedObstacle.h">
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Rock.h">
+    <ClInclude Include="Source\RockObstacle.h">
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
     </ClInclude>
     <ClInclude Include="Source\BreakableObstacle.h">
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Fence.h">
+    <ClInclude Include="Source\FenceObstacle.h">
       <Filter>MapObjects\Type %28MapObjects%29\Obstacles\Type %28Obstacle%29</Filter>
     </ClInclude>
     <ClInclude Include="Source\SceneVehicleSelectSetup.h">

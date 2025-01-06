@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="146" height="79" tilewidth="1" tileheight="1" infinite="0" nextlayerid="8" nextobjectid="69">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="146" height="79" tilewidth="1" tileheight="1" infinite="0" nextlayerid="8" nextobjectid="99">
  <properties>
   <property name="MapScale" type="float" value="3"/>
  </properties>
- <imagelayer id="2" name="Texture">
+ <imagelayer id="2" name="Texture" locked="1">
   <image source="../Textures/Map_2.png" width="2440" height="1272"/>
   <properties>
    <property name="TextureID" value="Map2"/>
   </properties>
  </imagelayer>
- <objectgroup id="3" name="Collisions">
+ <objectgroup id="3" name="Collisions" locked="1">
   <object id="1" x="279.5" y="776.75">
    <polygon points="0,0 7.5,-6.5 152.629,-8.65909 418.5,-77.25 567,-206.25 593.5,-252.25 603,-314.25 625.75,-358.25 671,-395.75 721.25,-412.75 774.5,-409 1313.5,-183.114 1374.25,-170 1440.5,-172.5 1586.25,-189.25 1636.25,-183.5 1717.25,-148 1749.75,-113.25 1763.5,-72.25 1764.25,-32.5 1747.25,8.75 1714.25,41 1666.25,59.5 1614.75,70.25 1562.25,65.75 1366,37 1314.25,35.75 993.5,48.5833 928.5,39.9167 858.5,13.25 756.5,-40.0833 707.167,-56.4167 640.833,-62.0833 420.439,-60.9924 150.913,7.07386 9.16667,8.58333"/>
   </object>
@@ -18,124 +18,124 @@
   </object>
  </objectgroup>
  <objectgroup id="7" name="StartingPositions">
-  <object id="61" x="1348.34" y="1027.67">
+  <object id="61" x="1347.25" y="1016.22">
    <properties>
     <property name="Order" type="int" value="0"/>
    </properties>
    <point/>
   </object>
-  <object id="62" x="1381.34" y="986">
+  <object id="62" x="1387.7" y="974.182">
    <properties>
     <property name="Order" type="int" value="1"/>
    </properties>
    <point/>
   </object>
-  <object id="63" x="1419.34" y="1027.67">
+  <object id="63" x="1425.7" y="1015.85">
    <properties>
     <property name="Order" type="int" value="2"/>
    </properties>
    <point/>
   </object>
-  <object id="64" x="1461.34" y="986">
+  <object id="64" x="1467.7" y="974.182">
    <properties>
     <property name="Order" type="int" value="3"/>
    </properties>
    <point/>
   </object>
-  <object id="65" x="1496.67" y="1027.67">
+  <object id="65" x="1510.67" y="1015.85">
    <properties>
     <property name="Order" type="int" value="4"/>
    </properties>
    <point/>
   </object>
-  <object id="66" x="1537.34" y="986">
+  <object id="66" x="1554.98" y="974.182">
    <properties>
     <property name="Order" type="int" value="5"/>
    </properties>
    <point/>
   </object>
-  <object id="67" x="1581.17" y="1027.67">
+  <object id="67" x="1592.62" y="1015.49">
    <properties>
     <property name="Order" type="int" value="6"/>
    </properties>
    <point/>
   </object>
-  <object id="68" x="1616" y="986">
+  <object id="68" x="1637.45" y="972.727">
    <properties>
     <property name="Order" type="int" value="7"/>
    </properties>
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="4" name="CheckPoints">
+ <objectgroup id="4" name="CheckPoints" locked="1">
   <object id="19" x="1062.67" y="385.333">
    <properties>
     <property name="Order" type="int" value="0"/>
    </properties>
-   <polygon points="524.25,414.167 524,886.667 572,886.667 572.25,414.167"/>
+   <polygon points="213.917,373.667 209.667,893.167 232.667,892.667 235.584,373.5"/>
   </object>
   <object id="20" x="118.67" y="385.333">
    <properties>
     <property name="Order" type="int" value="1"/>
    </properties>
-   <polygon points="616.33,321 614.667,902.667 678.667,902.667 680.33,322.334"/>
+   <polygon points="634.33,322 629.667,903.667 656.667,903.667 661.33,322.334"/>
   </object>
   <object id="21" x="-95.33" y="286.666">
    <properties>
     <property name="Order" type="int" value="2"/>
    </properties>
-   <polygon points="448.833,493.758 144.667,1048 36.6667,959.333 397.53,493.788"/>
+   <polygon points="430.833,494.758 105.334,894.667 104.667,867.333 397.53,493.788"/>
   </object>
   <object id="22" x="-82.33" y="68.333">
    <properties>
     <property name="Order" type="int" value="3"/>
    </properties>
-   <polygon points="387.417,709 20,-60 192,-109 437.667,707.667"/>
+   <polygon points="387.417,709 100.333,412 101.333,385.333 417.167,709.167"/>
   </object>
   <object id="23" x="115.67" y="-3.667">
    <properties>
     <property name="Order" type="int" value="4"/>
    </properties>
-   <polygon points="428,754.667 294,-60 417,-68 506.833,729.833"/>
+   <polygon points="472,741.334 374.667,0.666667 403.333,-1 500.166,735.166"/>
   </object>
   <object id="24" x="393.337" y="-178">
    <properties>
     <property name="Order" type="int" value="5"/>
    </properties>
-   <polygon points="544,626 515.333,722 293.333,151.333 371.333,148"/>
+   <polygon points="532,599.333 516.666,615.333 356,171.333 378,169.333"/>
   </object>
   <object id="25" x="651.337" y="-288">
    <properties>
     <property name="Order" type="int" value="6"/>
    </properties>
-   <polygon points="459.667,739 590.667,230.667 502,223.333 409.667,726.333"/>
+   <polygon points="427.667,789.667 521.334,277.334 492.667,272.666 401.667,787.666"/>
   </object>
   <object id="27" x="926.67" y="194.333">
    <properties>
     <property name="Order" type="int" value="7"/>
    </properties>
-   <polygon points="457.333,356 627.667,-224.667 683.333,-220.333 513,380.667"/>
+   <polygon points="420.666,475 626.334,-206 656.666,-205.666 445.333,481.334"/>
   </object>
   <object id="29" x="1095.67" y="-20.667">
    <properties>
     <property name="Order" type="int" value="8"/>
    </properties>
-   <polygon points="918.667,-20.9697 664,674 749,670.333 1049.67,-31.9697"/>
+   <polygon points="998.667,-19.6364 661.333,780.667 681,786.333 1028.34,-17.303"/>
   </object>
   <object id="31" x="1326.67" y="166.333">
    <properties>
     <property name="Order" type="int" value="9"/>
    </properties>
-   <polygon points="632.667,496 1188,499 1160,619 624.667,564"/>
+   <polygon points="625.667,542.5 1262.33,616.333 1256,641.667 624.667,564"/>
   </object>
   <object id="32" x="1408" y="352">
    <properties>
     <property name="Order" type="int" value="10"/>
    </properties>
-   <polygon points="548.5,424.5 755.333,976 678,1006 488,448"/>
+   <polygon points="510,441.5 696.833,998.5 678,1006 488,448"/>
   </object>
  </objectgroup>
- <objectgroup id="6" name="TractionAreas">
+ <objectgroup id="6" name="TractionAreas" locked="1">
   <object id="39" x="767.333" y="901.333">
    <properties>
     <property name="Traction" type="float" value="2"/>
@@ -161,5 +161,126 @@
    <polygon points="0,0 -1,-85.75 109.5,-89.5 188.5,-109.25 261.75,-141.75 390,-227.083 925.333,-225.083 959.667,-218.75 1009.33,-206.083 1123,-170.083 1181,-158.75 1244.33,-162.083 1296.33,-171.75 1379,-204.417 1421.33,-234.417 1459.33,-273.083 1490,-311.75 1524,-365.75 1549.33,-438.417 1566,-495.75 1572.33,-547.75 1570.67,-592.75 1561.33,-663.417 1543,-714.417 1519,-766.75 1488,-811.417 1437.67,-862.083 1378,-902.417 1311.33,-930.083 1243,-944.083 1173.33,-943.417 1109.67,-931.75 1067,-921.75 1012.33,-905.417 952.333,-892.083 895.667,-888.417 842.667,-892.083 789.333,-912.417 745,-940.417 730.667,-956.083 695,-982.75 651,-1008.08 598.333,-1025.42 550.333,-1034.75 490.667,-1035.42 452.667,-1045.42 412.333,-1061.08 383.333,-1085.08 343.667,-1110.75 289.333,-1132.75 242.667,-1141.08 138.333,-1140.75 115,-1137.08 63.6667,-1121.75 -1.33333,-1081.08 -40.3333,-1034.42 -72.6667,-980.417 -84.6667,-931.417 -91.3333,-855.75 -97.3333,-836.417 -121.667,-796.417 -152.667,-769.083 -195.667,-743.417 -248.667,-734.417 -463.333,-734.75 -479.667,-732.75 -538.333,-716.417 -587.333,-689.75 -626.333,-657.417 -657,-618.75 -681,-575.75 -697.333,-512.083 -699.333,-457.75 -690,-405.75 -665.667,-356.417 -632.333,-312.083 -591.333,-275.75 -536.667,-245.083 -478.333,-227.417 -375.333,-225.417 -248.667,-142.75 -186,-113.75 -119,-94.0833 -55.6667,-87.4167 -2.33333,-85.4167 -4,-0.75 -262.667,0.25 -462.667,-0.416667 -723,0.25 -749.333,-0.0833333 -749.333,-234.417 -750.667,-473.083 -750.667,-751.75 -754.667,-939.75 -754,-1094.42 -753.333,-1249.08 -752,-1274.42 -602,-1273.75 -374.667,-1272.42 -120,-1270.42 82,-1271.08 435.333,-1273.08 684.667,-1273.08 878,-1274.42 1159.33,-1273.08 1324.67,-1273.75 1532.67,-1272.42 1600,-1272.42 1600.67,-1074.42 1600,-897.083 1600,-754.417 1600.67,-612.417 1599.33,-406.417 1600.67,-253.75 1600,-133.083 1601.33,-13.75 1601.33,-3.75 1338.67,-3.08333 1141.33,-3.08333 946.667,-3.08333 784.667,-5.75 543.333,-5.75 354,-3.75 185.333,-2.41667 88,-5.08333"/>
   </object>
  </objectgroup>
- <objectgroup id="5" name="Objects"/>
+ <objectgroup id="5" name="Objects" locked="1">
+  <object id="70" x="418.833" y="553.833">
+   <properties>
+    <property name="Type" value="cone"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="71" x="419.833" y="577.833">
+   <properties>
+    <property name="Type" value="cone"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="72" x="422.333" y="625.333">
+   <properties>
+    <property name="Type" value="cone"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="73" x="421.833" y="600.333">
+   <properties>
+    <property name="Type" value="cone"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="83" x="2184" y="717.333">
+   <properties>
+    <property name="Type" value="rock"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="84" x="2098.67" y="717.333">
+   <properties>
+    <property name="Type" value="rock"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="85" x="929.333" y="976">
+   <properties>
+    <property name="Type" value="rock"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="86" x="981.333" y="1001.33">
+   <properties>
+    <property name="Type" value="rock"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="87" x="929.333" y="1037.33">
+   <properties>
+    <property name="Type" value="rock"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="88" x="561.333" y="1000.67">
+   <properties>
+    <property name="Type" value="rock"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="89" x="613.667" y="1037.67">
+   <properties>
+    <property name="Type" value="rock"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="90" x="613.333" y="968.667">
+   <properties>
+    <property name="Type" value="rock"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="91" x="238" y="776.667">
+   <properties>
+    <property name="Type" value="rock"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="92" x="929.333" y="322.667">
+   <properties>
+    <property name="Type" value="rock"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="93" x="2042.67" y="534.667">
+   <properties>
+    <property name="Type" value="rock"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="94" x="2041.33" y="916">
+   <properties>
+    <property name="Type" value="rock"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="95" x="1661.75" y="396.25">
+   <properties>
+    <property name="Type" value="cone"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="96" x="1662.75" y="420.25">
+   <properties>
+    <property name="Type" value="cone"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="97" x="1665.25" y="467.75">
+   <properties>
+    <property name="Type" value="cone"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="98" x="1664.75" y="442.75">
+   <properties>
+    <property name="Type" value="cone"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
 </map>

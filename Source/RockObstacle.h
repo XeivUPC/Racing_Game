@@ -8,11 +8,11 @@
 
 class PhysBody;
 
-class Rock : public FixedObstacle
+class RockObstacle : public FixedObstacle
 {
 public:
-	Rock(Module* moduleAt, Vector2 position);
-	~Rock() {}
+	RockObstacle(Module* moduleAt, Vector2 position);
+	~RockObstacle() {}
 
 	update_status Update();
 	bool Render();

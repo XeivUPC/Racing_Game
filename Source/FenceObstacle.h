@@ -8,11 +8,11 @@
 
 class PhysBody;
 
-class Fence : public BreakableObstacle
+class FenceObstacle : public BreakableObstacle
 {
 public:
-	Fence(Module* moduleAt, Vector2 position);
-	~Fence() {}
+	FenceObstacle(Module* moduleAt, Vector2 position);
+	~FenceObstacle() {}
 
 	update_status Update();
 	bool Render();

@@ -44,20 +44,27 @@ MapLapSensor::~MapLapSensor()
 
 update_status MapLapSensor::Update()
 {
-	PhysBody* body = sensor.OnTriggerEnterGet();
-	if (body != nullptr && enabled) {
-		 Pilot* pilot = (Pilot*)body->GetFixtureUserData(body->GetFixtureCount() - 1).pointer;
-		if (pilot != nullptr)
-		{
-			if (order - 1 == pilot->CurrentCheckpoint() ){
-				pilot->AddCheckpoint();
+	vector<PhysBody*> bodies = sensor.GetBodiesColliding();
+
+	for (size_t i = 0; i < bodies.size(); i++)
+	{
+		PhysBody* body = bodies[i];
+
+		if (body != nullptr && enabled) {
+			Pilot* pilot = (Pilot*)body->GetFixtureUserData(body->GetFixtureCount() - 1).pointer;
+			if (pilot != nullptr)
+			{
+				if (order - 1 == pilot->CurrentCheckpoint()) {
+					pilot->AddCheckpoint();
+				}
+				else if (order == 0 && pilot->CurrentCheckpoint() == track->GetTrackSensors().size() - 1) {
+					pilot->AddLap();
+				}
+
 			}
-			else if(order == 0 && pilot->CurrentCheckpoint() == track->GetTrackSensors().size()-1){
-				pilot->AddLap();
-			}
-			
 		}
 	}
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -89,11 +96,11 @@ Vector2 MapLapSensor::GetCenter()
 	int vertexCount = vertices.size();
 
 	for (const Vector2& vertex : vertices) {
-		Vector2Add(center, vertex);
+		center = Vector2Add(center, vertex);
 	}
 
 	if (vertexCount > 0) {
-		Vector2Scale(center, 1.0f / vertexCount);
+		center =Vector2Scale(center, 1.0f / vertexCount);
 	}
 
 	return Vector2Add(position,center);

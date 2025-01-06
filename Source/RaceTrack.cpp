@@ -5,6 +5,9 @@
 #include "ModulePhysics.h"
 #include "Box2DFactory.h"
 #include "MapLapSensor.h"
+#include "ConeObstacle.h"
+#include "RockObstacle.h"
+#include "FenceObstacle.h"
 
 #include <pugixml.hpp>
 #include <sstream>
@@ -35,6 +38,9 @@ update_status RaceTrack::Update()
 {
 	for (const auto& sensor : mapLapSensors)
 		sensor->Update();
+
+	for (const auto& obstacle : trackObstacles)
+		obstacle->Update();
 	return UPDATE_CONTINUE;
 }
 
@@ -43,6 +49,10 @@ bool RaceTrack::Render()
 	moduleAt->App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_5);
 	Rectangle rect = { 0,0,2440,1272 };
 	moduleAt->App->renderer->Draw(*trackTexture, { 0,0 }, { 0,0 },&rect, 0, mapScale);
+
+	for (const auto& obstacle : trackObstacles)
+		obstacle->Render();
+
 	return true;
 }
 
@@ -51,13 +61,18 @@ bool RaceTrack::CleanUp()
 	for (const auto& collider : trackColliders) {
 		delete collider;
 	}
-	trackColliders.clear();
 
 	for (const auto& sensor : mapLapSensors) {
 		sensor->CleanUp();
 		delete sensor;
 	}
+	for (const auto& obstacle : trackObstacles){
+		obstacle->CleanUp();
+		delete obstacle;
+	}
+	trackColliders.clear();
 	mapLapSensors.clear();
+	trackObstacles.clear();
 	startingPositions.clear();
 
 	return true;
@@ -186,7 +201,25 @@ void RaceTrack::LoadTrack()
 				}
 			}
 			else if (objectGroup_name == "Objects") {
+				for (pugi::xml_node objectNode = objectGroup_node.child("object"); objectNode != NULL; objectNode = objectNode.next_sibling("object"))
+				{
 
+					float x = PIXEL_TO_METERS(objectNode.attribute("x").as_float()) * mapScale;
+					float y = PIXEL_TO_METERS(objectNode.attribute("y").as_float()) * mapScale;
+
+					xml_node type_node = objectNode.child("properties").find_child_by_attribute("property", "name", "Type");
+					string objectType = type_node.attribute("value").as_string();
+
+					if (objectType == "cone") {
+						trackObstacles.emplace_back(new ConeObstacle(moduleAt, { x,y }));
+					}
+					else if (objectType == "rock") {
+						trackObstacles.emplace_back(new RockObstacle(moduleAt, { x,y }));
+					}
+					else if (objectType == "fence") {
+						trackObstacles.emplace_back(new FenceObstacle(moduleAt, { x,y }));
+					}
+				}
 			}
 		}
 

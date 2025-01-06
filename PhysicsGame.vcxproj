@@ -205,7 +205,7 @@
     <ClCompile Include="Source\CursorChanger.cpp" />
     <ClCompile Include="Source\DriftParticle.cpp" />
     <ClCompile Include="Source\external\pugi\pugixml.cpp" />
-    <ClCompile Include="Source\Fence.cpp" />
+    <ClCompile Include="Source\FenceObstacle.cpp" />
     <ClCompile Include="Source\FixedObstacle.cpp" />
     <ClCompile Include="Source\Log.cpp" />
     <ClCompile Include="Source\Main.cpp" />
@@ -221,7 +221,7 @@
     <ClCompile Include="Source\RaceMode.cpp" />
     <ClCompile Include="Source\RaceMode.h" />
     <ClCompile Include="Source\RaceTrack.cpp" />
-    <ClCompile Include="Source\Rock.cpp" />
+    <ClCompile Include="Source\RockObstacle.cpp" />
     <ClCompile Include="Source\SceneGame.cpp" />
     <ClCompile Include="Source\ModuleLocalization.cpp" />
     <ClCompile Include="Source\SceneOptions.cpp" />
@@ -257,7 +257,7 @@
     <ClInclude Include="Source\DriftParticle.h" />
     <ClInclude Include="Source\external\pugi\pugiconfig.hpp" />
     <ClInclude Include="Source\external\pugi\pugixml.hpp" />
-    <ClInclude Include="Source\Fence.h" />
+    <ClInclude Include="Source\FenceObstacle.h" />
     <ClInclude Include="Source\FixedObstacle.h" />
     <ClInclude Include="Source\FontCreator.h" />
     <ClInclude Include="Source\GameMode.h" />
@@ -275,7 +275,7 @@
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\PushableObstacle.h" />
     <ClInclude Include="Source\RaceTrack.h" />
-    <ClInclude Include="Source\Rock.h" />
+    <ClInclude Include="Source\RockObstacle.h" />
     <ClInclude Include="Source\SceneGame.h" />
     <ClInclude Include="Source\ModuleLocalization.h" />
     <ClInclude Include="Source\SceneOptions.h" />

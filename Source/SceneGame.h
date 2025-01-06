@@ -15,8 +15,8 @@ class PauseMenu;
 class GameMode;
 class RaceTrack;
 class ConeObstacle;
-class Rock;
-class Fence;
+class RockObstacle;
+class FenceObstacle;
 class Pilot;
 
 using namespace std;
@@ -46,8 +46,8 @@ public:
 	RaceTrack* track = nullptr;
 
 	ConeObstacle* tree = nullptr;
-	Rock* rock = nullptr;
-	Fence* fence = nullptr;
+	RockObstacle* rock = nullptr;
+	FenceObstacle* fence = nullptr;
 
 	GameMode* mode = nullptr;
 
