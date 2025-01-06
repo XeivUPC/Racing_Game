@@ -38,18 +38,8 @@ update_status SceneIntro::Update()
 
 bool SceneIntro::Render()
 {
-	Font font = App->assetLoader->basicFont;
-	int fontSize = 100;
-	std::string text = "Starting...";
-
-	Vector2 textSize = MeasureTextEx(font, text.c_str(), fontSize,0);
-
-	float xTextPos = App->window->GetLogicWidth()/2 - textSize.x/2;
-	float yTextPos = App->window->GetRealHeight()/2 - textSize.y/2 ;
-
 
 	App->renderer->Draw(*BgTexture, { 0,0 }, {0,0});
-	App->renderer->DrawText(text.c_str(), {xTextPos, yTextPos}, {0,0}, font, fontSize, 0, RED);
 
 	ModuleScene::FadeRender();
 	return true;

@@ -49,8 +49,12 @@ public:
 	
 	};
 
-	virtual void CanBeInteracted(bool status) {
+	virtual void SetInteractionStatus(bool status) {
 		canBeInteracted = status;
+	}
+
+	bool CanBeInteracted() {
+		return canBeInteracted;
 	}
 
 	/// <summary>

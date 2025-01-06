@@ -17,6 +17,7 @@
 #include "RaceTrack.h"
 #include <raymath.h>
 #include <algorithm>
+#include <random>
 
 
 SceneGame::SceneGame(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
@@ -43,9 +44,17 @@ bool SceneGame::Start()
 	pilots.emplace_back(player);
 
 	vector<Vector2> startingPositions = track->GetTrackStartingPositions();
+
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> distr(1, vehicleTypeAmount);
+
+	// Generate a random number
+	
 	for (int i = 0; i < 1; i++)
 	{
-		pilots.emplace_back(new PilotCPU(this, track, vehicle_type+"type"+to_string(rand()%vehicleTypeAmount+1)));
+		int randomNumber = distr(gen);
+		pilots.emplace_back(new PilotCPU(this, track, vehicle_type+"type"+to_string(randomNumber)));
 	}
 
 	mode->Start();

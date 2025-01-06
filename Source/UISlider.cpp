@@ -48,10 +48,10 @@ void UISlider::Update()
 		DeselectThumb();
 	}
 }
-void UISlider::CanBeInteracted(bool status)
+void UISlider::SetInteractionStatus(bool status)
 {
-	UIElement::CanBeInteracted(status);
-	thumb->CanBeInteracted(status);
+	UIElement::SetInteractionStatus(status);
+	thumb->SetInteractionStatus(status);
 }
 
 

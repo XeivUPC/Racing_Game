@@ -102,7 +102,7 @@ bool SceneResults::Render() {
 			color = LIGHTGRAY;
 			break;
 		case 3:
-			color = BROWN;
+			color = {133,62,18,255};
 			break;
 		default:
 			break;

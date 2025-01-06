@@ -110,7 +110,7 @@ bool RaceMode::Render()
 			posColor = LIGHTGRAY;
 			break;
 		case 3:
-			posColor = BROWN;
+			posColor = { 133,62,18,255 };
 			break;
 		default:
 			break;

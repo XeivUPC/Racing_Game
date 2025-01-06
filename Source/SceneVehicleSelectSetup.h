@@ -28,8 +28,18 @@ public:
 	void SetData(string prefix);
 
 private:
+
+	Texture* selectionSlots_texture = nullptr;
+	Texture* bg_texture = nullptr;
+
+	Texture* btn_texture = nullptr;
+	Rectangle btn_rect = { 0,0,304,71 };
+	Rectangle btn_rect_hover = { 305,0,305,71 };
+	Rectangle btn_rect_pressed = { 305 * 2,0,305,71 };
+	Rectangle btn_rect_locked = { 305 * 3,0,305,71 };
+
+
 	vector<VehicleData> vehicleNames;
-	Texture* setup = nullptr;
 	Texture* vehicles = nullptr;
 	Texture* characters = nullptr;
 	Rectangle characterRect = { 0,0,48,48 };
@@ -43,22 +53,15 @@ private:
 
 	UIButton* previousVehicle;
 	void OnMouseClickPreviousVehicle();
-	void OnMouseOverPreviousVehicle();
-	void OnMouseExitPreviousVehicle();
+
 	UIButton* nextVehicle;
 	void OnMouseClickNextVehicle();
-	void OnMouseOverNextVehicle();
-	void OnMouseExitNextVehicle();
 	UIButton* previousCharacter;
 	void OnMouseClickPreviousCharacter();
-	void OnMouseOverPreviousCharacter();
-	void OnMouseExitPreviousCharacter();
 	UIButton* nextCharacter;
 	void OnMouseClickNextCharacter();
-	void OnMouseOverNextCharacter();
-	void OnMouseExitNextCharacter();
 	UIButton* finish;
 	void OnMouseClickFinish();
-	void OnMouseOverFinish();
-	void OnMouseExitFinish();
+
+	void DrawSelectionBtnTexture(UIButton* btn);
 };
