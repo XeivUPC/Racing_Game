@@ -45,7 +45,8 @@ bool SceneVehicleSelectSetup::Start()
 
 	finish = new UIButton(this, { SCREEN_WIDTH / 2 -50, 408 -50 }, { 100, 100 });
 	finish->onMouseClick.emplace_back([&]() {OnMouseClickFinish(); });
-
+	currentVehicle = 0;
+	currentCharacter = 0;
 	return true;
 }
 
