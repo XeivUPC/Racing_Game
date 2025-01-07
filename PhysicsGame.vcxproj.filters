@@ -227,6 +227,9 @@
     <ClCompile Include="Source\RaceMode.cpp">
       <Filter>GameModes\Type %28GameMode%29</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UIRendererCPU.cpp">
+      <Filter>Others</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ModuleAssetLoader.h">
@@ -392,6 +395,9 @@
     </ClInclude>
     <ClInclude Include="Source\RaceMode.h">
       <Filter>GameModes\Type %28GameMode%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UIRendererCPU.h">
+      <Filter>Others</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

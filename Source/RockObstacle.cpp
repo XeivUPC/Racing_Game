@@ -22,7 +22,7 @@ update_status RockObstacle::Update()
 
 bool RockObstacle::Render()
 {
-	moduleAt->App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_5);
+	moduleAt->App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_4);
 	moduleAt->App->renderer->Draw(*rockTexture, body->GetPhysicPosition(), { -rockTextureRec.width / 2.f, -rockTextureRec.height / 2.f }, &rockTextureRec, 0, 1.f );
 
 	return true;

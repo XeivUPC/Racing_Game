@@ -17,6 +17,7 @@ class RaceTrack;
 class ConeObstacle;
 class RockObstacle;
 class FenceObstacle;
+class UIRendererCPU;
 class Pilot;
 
 using namespace std;
@@ -36,6 +37,7 @@ public:
 	void SetMode(GameMode* mode);
 	void SetPlayerVehicle(string type);
 	void SetVehicleType(string type, int amount);
+	void SetPlayerCharacter(int character);
 
 	vector<Pilot*> GetRacePlacePositions() const;
 	int GetRacePlayerPosition() const;
@@ -50,12 +52,14 @@ public:
 	FenceObstacle* fence = nullptr;
 
 	GameMode* mode = nullptr;
-
+	UIRendererCPU* cpuCharacterRenderer = nullptr;
 	Player* player = nullptr;
 	vector<Pilot*> pilots;
 private:
 	string trackPath = "";
 	string player_vehicle_type;
+	int playerCharacter;
 	string vehicle_type;
 	int vehicleTypeAmount;
+	void SetPilotsCharacters();
 };

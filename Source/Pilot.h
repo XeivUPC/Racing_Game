@@ -27,6 +27,8 @@ public:
 	void AddCheckpoint();
 	int CurrentCheckpoint();
 	int CurrentLap();
+	void SetCharacterIndex(int index);
 	std::string GetPilotName();
 	Vehicle* vehicle;
+	int characterIndex = 0;
 };

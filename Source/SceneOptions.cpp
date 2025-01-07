@@ -219,12 +219,11 @@ bool SceneOptions::Render() {
 
 	App->renderer->SetCameraMode(false);
 	//Draw Background
-	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_3);
+	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_3);
 	App->renderer->Draw(*backgroundTextureSettings, { backgroundTextureSettingsRec.x, backgroundTextureSettingsRec.y }, { 0,0 }, &backgroundTextureSettingsRec, 0, 1);
 
 	//Draw Text
-	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_5);
-	App->renderer->BlockRenderLayer();
+	App->renderer->BlockRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_4);
 
 	App->renderer->DrawText(App->localization->GetString("MAINMENU_SETTINGS").c_str(), Vector2{ 40,10}, Vector2{ 0,0 }, App->assetLoader->basicFont, 120, 0, WHITE);
 
@@ -254,11 +253,7 @@ bool SceneOptions::Render() {
 	Vector2 textSize_sfx = MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SETTINGS_SFX").c_str(), 60, 0);
 	App->renderer->DrawText(App->localization->GetString("SETTINGS_SFX").c_str(), Vector2{ (SCREEN_WIDTH / 2) - (textSize_sfx.x) - (sfxVolumeSliderSize.x / 2) - OffsetTextToSliderX, (SCREEN_HEIGHT / 6) * 5.15f }, Vector2{ 0,0 }, App->assetLoader->agencyB, 60, 1, WHITE);
 
-	App->renderer->UnlockRenderLayer();
-
 	//Draw UI
-	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_2);
-	App->renderer->BlockRenderLayer();
 
 	arrowRightSettingsLanguageAnimator->Animate(Vector2{ SCREEN_WIDTH / 2 + 130, (SCREEN_HEIGHT / 6) * 2 - 70 + (textSize_language_select.y / 6) }, { 0,0 }, 0, 1, false);
 	arrowRightSettingsLanguageAnimator->Update();
@@ -278,11 +273,7 @@ bool SceneOptions::Render() {
 	App->renderer->DrawSimpleRectangle(sfxVolumeSlider->bounds, Color{ 217, 217, 217, 255 });
 	App->renderer->Draw(*thumbTextureSettings, { sfxVolumeSlider->GetThumbBounds().x, sfxVolumeSlider->GetThumbBounds().y }, { 0,0 }, &thumbTextureSettingsRec, 0, 1);
 
-	App->renderer->UnlockRenderLayer();
-
 	//Draw Values
-	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_2);
-	App->renderer->BlockRenderLayer();
 
 	int generalVolumeValue = (int)(generalVolumeSlider->GetValue() * 100);
 	std::string generalVolumeValueString = std::to_string(generalVolumeValue);
