@@ -10,7 +10,7 @@ class PhysBody;
 class FixedObstacle : public Obstacle
 {
 public:
-	FixedObstacle(Module* moduleAt, Vector2 position, Vector2 size);
+	FixedObstacle(Module* moduleAt, Vector2 position, float radius);
 	~FixedObstacle() {}
 
 	update_status Update();

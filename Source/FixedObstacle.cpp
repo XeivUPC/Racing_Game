@@ -7,13 +7,13 @@
 
 #include <raymath.h>
 
-FixedObstacle::FixedObstacle(Module* moduleAt, Vector2 position, Vector2 size) : Obstacle(moduleAt, position)
+FixedObstacle::FixedObstacle(Module* moduleAt, Vector2 position, float radius) : Obstacle(moduleAt, position)
 {
 	b2FixtureUserData fixtureData;
 	fixtureData.pointer = (uintptr_t)(&sensor);
 
 	const Box2DFactory& factory = moduleAt->App->physics->factory();
-	body = factory.CreateBox({ position.x,position.y }, size.x, size.y, fixtureData);
+	body = factory.CreateCircle({ position.x,position.y }, radius, fixtureData);
 	body->SetType(PhysBody::BodyType::Static);
 
 	sensor.SetFixtureToTrack(body, 0);

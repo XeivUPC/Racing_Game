@@ -66,6 +66,7 @@ bool ModuleAssetLoader::Init()
 	// Game
 	textureModule->CreateTexture("Assets/Textures/objectsSpring.png", "objectsSpring");
 	textureModule->CreateTexture("Assets/Textures/conekko-chan.png", "cone");
+	textureModule->CreateTexture("Assets/Textures/Rock.png", "rock");
 	textureModule->CreateTexture("Assets/Textures/objectsWinter.png", "objectsWinter");
 	textureModule->CreateTexture("Assets/Textures/Map_1.png", "Map1");
 	textureModule->CreateTexture("Assets/Textures/Map_1_Preview.png", "Map1_Preview");

@@ -7,10 +7,10 @@
 
 #include <raymath.h>
 
-RockObstacle::RockObstacle(Module* moduleAt, Vector2 position) : FixedObstacle(moduleAt, position, { PIXEL_TO_METERS(15) * 3, PIXEL_TO_METERS(16) * 3 })
+RockObstacle::RockObstacle(Module* moduleAt, Vector2 position) : FixedObstacle(moduleAt, position, PIXEL_TO_METERS(120/2) )
 {
 	//Get Texture
-	rockTexture = moduleAt->App->texture->GetTexture("objectsSpring");
+	rockTexture = moduleAt->App->texture->GetTexture("rock");
 }
 
 update_status RockObstacle::Update()
@@ -23,7 +23,7 @@ update_status RockObstacle::Update()
 bool RockObstacle::Render()
 {
 	moduleAt->App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_5);
-	moduleAt->App->renderer->Draw(*rockTexture, body->GetPhysicPosition(), { -rockTextureRec.width / 2.f, -rockTextureRec.height / 2.f }, &rockTextureRec, 0, 1.f * 3);
+	moduleAt->App->renderer->Draw(*rockTexture, body->GetPhysicPosition(), { -rockTextureRec.width / 2.f, -rockTextureRec.height / 2.f }, &rockTextureRec, 0, 1.f );
 
 	return true;
 }
