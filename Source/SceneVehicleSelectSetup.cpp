@@ -172,7 +172,7 @@ void SceneVehicleSelectSetup::OnMouseClickNextVehicle()
 {
 	nextVehicle->SetInteractionStatus(true);
 	previousVehicle->SetInteractionStatus(true);
-	if (currentVehicle < vehicleNames.size() - 1)
+	if (currentVehicle < (int)vehicleNames.size() - 1)
 		currentVehicle++;
 	if (currentVehicle == vehicleNames.size()-1)
 		nextVehicle->SetInteractionStatus(false);

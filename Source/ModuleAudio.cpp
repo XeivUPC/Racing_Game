@@ -207,6 +207,7 @@ bool ModuleAudio::ResumeFx(unsigned int soundId)
 			ResumeSound(sound);
 		}
 	}
+	return ret;
 }
 
 void ModuleAudio::ChangeGeneralVolume(float volume)

@@ -123,6 +123,8 @@ bool PauseMenu::Render()
 
 	moduleAt->App->renderer->SetCameraMode(true);
 	moduleAt->App->renderer->UnlockRenderLayer();
+
+	return true;
 }
 
 bool PauseMenu::CleanUp()

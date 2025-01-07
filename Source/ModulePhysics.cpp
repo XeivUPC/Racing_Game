@@ -50,10 +50,10 @@ update_status ModulePhysics::PostUpdate()
 {
 
 	auto GetLineRectangle = [](Vector2 p1, Vector2 p2) -> Rectangle {
-		float minX = fmin(p1.x, p2.x) - 1;
-		float minY = fmin(p1.y, p2.y) - 1;
-		float maxX = fmax(p1.x, p2.x) + 1;
-		float maxY = fmax(p1.y, p2.y) + 1;
+		float minX = (float)fmin(p1.x, p2.x) - 1;
+		float minY = (float)fmin(p1.y, p2.y) - 1;
+		float maxX = (float)fmax(p1.x, p2.x) + 1;
+		float maxY = (float)fmax(p1.y, p2.y) + 1;
 
 		return { minX, minY, maxX - minX, maxY - minY };
 	};

@@ -123,7 +123,7 @@ vector<Pilot*> SceneGame::GetRacePlacePositions() const
 		if (a->CurrentLap() == b->CurrentLap()) {
 			if (a->CurrentCheckpoint() == b->CurrentCheckpoint()) {
 				int checkPointIndex = b->CurrentCheckpoint()+1;
-				if (checkPointIndex >= trackRef->GetTrackSensors().size())
+				if (checkPointIndex >= (int)trackRef->GetTrackSensors().size())
 					checkPointIndex = 0;
 				MapLapSensor* checkPoint = trackRef->GetTrackSensors()[checkPointIndex];
 				float distanceA = Vector2Distance(a->vehicle->body->GetPosition(), checkPoint->GetCenter());
@@ -167,7 +167,7 @@ update_status SceneGame::Update()
 		}
 		else {
 			vector<Vector2> startingPositions = track->GetTrackStartingPositions();
-			for (int i = 0; i < pilots.size(); i++)
+			for (size_t i = 0; i < pilots.size(); i++)
 			{
 				pilots[i]->vehicle->body->SetRotation(PI / 2.f);
 				pilots[i]->vehicle->body->SetPosition(startingPositions[i].x, startingPositions[i].y);

@@ -69,7 +69,7 @@ bool BoomMode::Render()
 
 	if (IsRaceStarted()) {
 		App->renderer->DrawText(App->localization->GetString("BOOMMODE_TIME_TILL_EXPLOSION").c_str(), { 0, 0 }, { 0, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
-		App->renderer->DrawText(App->localization->FormatNumber(explosionTime - timeToExplode.ReadSec(), 0).c_str(), { 0, 0 }, { MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("BOOMMODE_TIME_TILL_EXPLOSION").c_str(), 80, 0).x, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
+		App->renderer->DrawText(App->localization->FormatNumber(explosionTime - (float)timeToExplode.ReadSec(), 0).c_str(), { 0, 0 }, { MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("BOOMMODE_TIME_TILL_EXPLOSION").c_str(), 80, 0).x, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
 
 		if (isPlayerLast) {
 			App->renderer->DrawText(App->localization->GetString("BOOMMODE_LAST").c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("BOOMMODE_TIME_TILL_EXPLOSION").c_str(), 80, 0).y + 10 }, App->assetLoader->agencyB, 40, 0, WHITE);
@@ -148,7 +148,7 @@ double BoomMode::GetTimeToExplodeSec() const
 
 void BoomMode::SetTimeToExplodeSec(double time)
 {
-	explosionTime = time;
+	explosionTime = (int)time;
 }
 
 void BoomMode::EndRace()

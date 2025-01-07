@@ -22,7 +22,6 @@ bool SceneMainMenu::Start()
 {
 	LOG("Loading Main Menu assets");
 	bool ret = true;
-
 	// Background
 	backgroundTexture = App->texture->GetTexture("main_menu");
 
