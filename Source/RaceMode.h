@@ -34,7 +34,7 @@ private:
 
 	int currentLap = 1;
 	Timer lapTimeCounter;
-	
+
 	int maxLapNum = 0;
 	std::vector<double> lapTimes;
 

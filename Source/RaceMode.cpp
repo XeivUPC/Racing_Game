@@ -4,7 +4,7 @@
 #include "SceneResults.h"
 #include "Player.h" 
 
-RaceMode::RaceMode(SceneGame* gameAt, int NumberOfLaps) : GameMode (gameAt)
+RaceMode::RaceMode(SceneGame* gameAt, int NumberOfLaps) : GameMode(gameAt)
 {
 	maxLapNum = NumberOfLaps + 1;
 }
@@ -17,14 +17,14 @@ bool RaceMode::Init()
 {
 	return false;
 }
-  
+
 update_status RaceMode::Update()
 {
 	GameMode::Update();
-	
-	if(gameAt->player->CurrentLap()+1!= currentLap)
+
+	if (gameAt->player->CurrentLap() + 1 != currentLap)
 	{
-		hasPlayerFinishedLap = true; 
+		hasPlayerFinishedLap = true;
 	}
 
 	if (hasPlayerFinishedLap) {
@@ -64,7 +64,7 @@ bool RaceMode::Render()
 	}
 	if (IsRaceStarted()) {
 		if (currentLap != maxLapNum) {
-			App->renderer->DrawText(App->localization->GetString("RACEMODE_LAP").c_str(), {0, 0}, {0, 0}, App->assetLoader->agencyB, 80, 0, WHITE);
+			App->renderer->DrawText(App->localization->GetString("RACEMODE_LAP").c_str(), { 0, 0 }, { 0, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
 			App->renderer->DrawText(App->localization->FormatNumber((float)currentLap, 0).c_str(), { 0, 0 }, { MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("RACEMODE_LAP").c_str(), 80, 0).x, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
 
 			App->renderer->DrawText(App->localization->FormatNumber((float)GetCurrentLapTimeSec(), 2).c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber((float)GetCurrentLapTimeSec(), 2).c_str() , 80, 0).y + 10 }, App->assetLoader->agencyB, 70, 0, WHITE);
@@ -98,7 +98,7 @@ bool RaceMode::Render()
 		}
 
 		int position = gameAt->GetRacePlayerPosition();
-		string infoPosition = to_string(position)+"*";
+		string infoPosition = to_string(position) + "*";
 		Vector2 posSize = MeasureTextEx(App->assetLoader->agencyB, infoPosition.c_str(), 100, 0);
 		Color posColor = WHITE;
 		switch (position)
@@ -115,7 +115,7 @@ bool RaceMode::Render()
 		default:
 			break;
 		}
-		App->renderer->DrawText(infoPosition.c_str(), { 0,SCREEN_HEIGHT - posSize.y }, {0,0 }, App->assetLoader->agencyB, 120, 0, posColor);
+		App->renderer->DrawText(infoPosition.c_str(), { 0,SCREEN_HEIGHT - posSize.y }, { 0,0 }, App->assetLoader->agencyB, 120, 0, posColor);
 
 	}
 	App->renderer->UnlockRenderLayer();
@@ -192,7 +192,7 @@ void RaceMode::SetLapNum(int lapNum)
 
 double RaceMode::GetLapTimeSec(int lapNum) const
 {
-	return lapTimes[lapNum-1];
+	return lapTimes[lapNum - 1];
 }
 
 double RaceMode::GetCurrentLapTimeSec() const
