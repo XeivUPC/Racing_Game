@@ -3,13 +3,14 @@
 #include "raylib.h"
 class Pilot;
 class SceneGame;
-class UIRendererCPU
+
+class GamePositionsDisplayer
 {
 private:
 	SceneGame* gameAt;
 	Texture2D* texture = nullptr;
 public:
-	UIRendererCPU(SceneGame* GameAt);
-	~UIRendererCPU();
+	GamePositionsDisplayer(SceneGame* GameAt);
+	~GamePositionsDisplayer();
 	void Render();
 };

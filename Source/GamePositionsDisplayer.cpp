@@ -1,4 +1,4 @@
-#include "UIRendererCPU.h"
+#include "GamePositionsDisplayer.h"
 #include "Pilot.h"
 #include "ModuleRender.h"
 #include "ModuleTexture.h"
@@ -6,19 +6,19 @@
 #include "Application.h"
 #include "ModuleAssetLoader.h"
 
-UIRendererCPU::UIRendererCPU(SceneGame* GameAt)
+GamePositionsDisplayer::GamePositionsDisplayer(SceneGame* GameAt)
 {
 	gameAt = GameAt;
 	texture = gameAt->App->texture->GetTexture("Characters");
 }
 
-UIRendererCPU::~UIRendererCPU()
+GamePositionsDisplayer::~GamePositionsDisplayer()
 {
 }
 
-void UIRendererCPU::Render()
+void GamePositionsDisplayer::Render()
 {
-	Vector2 anchor = { 0,350 };
+	Vector2 anchor = { 0,200 };
 
 	vector<Pilot*>pilots = gameAt->GetRacePlacePositions();
 	Rectangle rect = { 0,0,48,48 };

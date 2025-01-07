@@ -240,7 +240,7 @@
     <ClCompile Include="Source\Obstacle.cpp" />
     <ClCompile Include="Source\ConeObstacle.cpp" />
     <ClCompile Include="Source\UIButton.cpp" />
-    <ClCompile Include="Source\UIRendererCPU.cpp" />
+    <ClCompile Include="Source\GamePositionsDisplayer.cpp" />
     <ClCompile Include="Source\UISlider.cpp" />
     <ClCompile Include="Source\UIToggle.cpp" />
     <ClCompile Include="Source\Vehicle.cpp" />
@@ -299,7 +299,7 @@
     <ClInclude Include="Source\ConeObstacle.h" />
     <ClInclude Include="Source\UIButton.h" />
     <ClInclude Include="Source\UIElement.h" />
-    <ClInclude Include="Source\UIRendererCPU.h" />
+    <ClInclude Include="Source\GamePositionsDisplayer.h" />
     <ClInclude Include="Source\UISlider.h" />
     <ClInclude Include="Source\UIToggle.h" />
     <ClInclude Include="Source\Vehicle.h" />

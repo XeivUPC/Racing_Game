@@ -12,7 +12,7 @@
 #include "PauseMenu.h"
 #include "GameMode.h"
 #include "Player.h"
-#include "UIRendererCPU.h"
+#include "GamePositionsDisplayer.h"
 #include "Vehicle.h"
 #include "Pilot.h"
 #include "PilotCPU.h"
@@ -45,7 +45,7 @@ bool SceneGame::Start()
 	player = new Player(this, track, player_vehicle_type);
 	pilots.emplace_back(player);
 
-	cpuCharacterRenderer = new UIRendererCPU(this);
+	positionsDisplayer = new GamePositionsDisplayer(this);
 
 	vector<Vector2> startingPositions = track->GetTrackStartingPositions();
 
@@ -55,7 +55,7 @@ bool SceneGame::Start()
 
 	// Generate a random number
 	
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		int randomNumber = distr(gen);
 		pilots.emplace_back(new PilotCPU(this, track, vehicle_type+"type"+to_string(randomNumber)));
@@ -169,7 +169,7 @@ void SceneGame::SetPilotsCharacters()
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::vector<int> characters = { 0,1,2,3,4,5,6,7 };
-	characters.erase(characters.begin() + player->characterIndex);
+	characters.erase(characters.begin() + playerCharacter);
 	for each (Pilot* pilot in pilots)
 	{
 		std::uniform_int_distribution<> distr(0, characters.size()-1);
@@ -230,7 +230,7 @@ bool SceneGame::Render()
 	}
 
 	mode->Render();
-	cpuCharacterRenderer->Render();
+	positionsDisplayer->Render();
 	pauseMenu->Render();
 	ModuleScene::FadeRender();
 	return true;
