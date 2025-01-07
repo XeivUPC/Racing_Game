@@ -33,7 +33,8 @@ bool ModuleAudio::Init()
 
 update_status ModuleAudio::Update()
 {
-	UpdateMusicStream(music);
+	if(IsMusicReady(music))
+		UpdateMusicStream(music);
 	return UPDATE_CONTINUE;
 }
 
@@ -66,6 +67,7 @@ bool ModuleAudio::PlayMusic(std::string path)
 		return false;
 
 	bool ret = true;
+	
 	
     StopMusicStream(music);
 	UnloadMusicStream(music);
