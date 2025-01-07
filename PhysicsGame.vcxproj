@@ -242,6 +242,7 @@
     <ClCompile Include="Source\ConeObstacle.cpp" />
     <ClCompile Include="Source\UIButton.cpp" />
     <ClCompile Include="Source\UISlider.cpp" />
+    <ClCompile Include="Source\UIToggle.cpp" />
     <ClCompile Include="Source\Vehicle.cpp" />
     <ClCompile Include="Source\Wheel.cpp" />
   </ItemGroup>
@@ -298,6 +299,7 @@
     <ClInclude Include="Source\UIButton.h" />
     <ClInclude Include="Source\UIElement.h" />
     <ClInclude Include="Source\UISlider.h" />
+    <ClInclude Include="Source\UIToggle.h" />
     <ClInclude Include="Source\Vehicle.h" />
     <ClInclude Include="Source\Wheel.h" />
   </ItemGroup>

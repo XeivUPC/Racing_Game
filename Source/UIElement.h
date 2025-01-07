@@ -53,6 +53,20 @@ public:
 		canBeInteracted = status;
 	}
 
+	Vector2 GetCenterFromBounds(Rectangle bounds, bool local = false) {
+		Vector2 center = { 0,0 };
+		if (local) {
+			center.x = bounds.width / 2;
+			center.y = bounds.width / 2;
+
+		}
+		else {
+			center.x = bounds.x + bounds.width / 2;
+			center.y = bounds.y + bounds.width / 2;
+		}
+		return center;
+	}
+
 	bool CanBeInteracted() {
 		return canBeInteracted;
 	}

@@ -21,15 +21,7 @@ public:
 
 	BUTTON_STATE GetState();
 
-protected:
-	Texture2D* texture = nullptr;
-	Color color = WHITE;
-
 private:
-
-	
-
 	BUTTON_STATE state = NORMAL;
-	bool isMouseOver = false;
 };
 
