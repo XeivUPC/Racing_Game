@@ -54,7 +54,7 @@ bool SceneGame::Start()
 
 	// Generate a random number
 	
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		int randomNumber = distr(gen);
 		pilots.emplace_back(new PilotCPU(this, track, vehicle_type+"type"+to_string(randomNumber)));
