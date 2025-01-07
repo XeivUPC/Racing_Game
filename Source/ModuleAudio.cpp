@@ -68,6 +68,8 @@ bool ModuleAudio::PlayMusic(std::string path)
 	bool ret = true;
 	
     StopMusicStream(music);
+	UnloadMusicStream(music);
+
     music = LoadMusicStream(path.c_str());
     
     PlayMusicStream(music);
