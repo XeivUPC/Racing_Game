@@ -11,6 +11,7 @@
 #include "PauseMenu.h"
 #include "GameMode.h"
 #include "Player.h"
+#include "UIRendererCPU.h"
 #include "Vehicle.h"
 #include "Pilot.h"
 #include "PilotCPU.h"
@@ -43,6 +44,8 @@ bool SceneGame::Start()
 	player = new Player(this, track, player_vehicle_type);
 	pilots.emplace_back(player);
 
+	cpuCharacterRenderer = new UIRendererCPU(this);
+
 	vector<Vector2> startingPositions = track->GetTrackStartingPositions();
 
 	std::random_device rd;
@@ -64,6 +67,7 @@ bool SceneGame::Start()
 	App->renderer->camera.zoom = 2/track->GetScale();
 
 	App->audio->PlayMusic("Assets/Sounds/Music/Race.wav");
+	SetPilotsCharacters();
 	return ret;
 }
 
@@ -115,6 +119,11 @@ void SceneGame::SetVehicleType(string type, int amount)
 	vehicleTypeAmount = amount;
 }
 
+void SceneGame::SetPlayerCharacter(int character)
+{
+	playerCharacter = character;
+}
+
 vector<Pilot*> SceneGame::GetRacePlacePositions() const
 {
 	vector<Pilot*> orderedPlacePositions = pilots;
@@ -152,6 +161,26 @@ int SceneGame::GetRacePlayerPosition() const
 		}
 	}
 	return position + 1;
+}
+
+void SceneGame::SetPilotsCharacters()
+{
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::vector<int> characters = { 0,1,2,3,4,5,6,7 };
+	characters.erase(characters.begin() + player->characterIndex);
+	for each (Pilot* pilot in pilots)
+	{
+		std::uniform_int_distribution<> distr(0, characters.size()-1);
+		if (pilot == player)
+		{
+			player->characterIndex = playerCharacter;
+			continue;
+		}
+		int listIndex = distr(gen);
+		pilot->characterIndex = characters[listIndex];
+		characters.erase(characters.begin() + listIndex);
+	}
 }
 
 // Update: draw background
@@ -199,6 +228,7 @@ bool SceneGame::Render()
 	}
 
 	mode->Render();
+	cpuCharacterRenderer->Render();
 	pauseMenu->Render();
 	ModuleScene::FadeRender();
 	return true;

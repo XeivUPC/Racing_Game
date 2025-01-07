@@ -60,6 +60,11 @@ int Pilot::CurrentLap()
 	return lap;
 }
 
+void Pilot::SetCharacterIndex(int index)
+{
+	characterIndex = index;
+}
+
 std::string Pilot::GetPilotName()
 {
 	return pilotName;

@@ -230,6 +230,9 @@
     <ClCompile Include="Source\UIToggle.cpp">
       <Filter>Systems\UI Elements\Type %28UI Elements%29</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UIRendererCPU.cpp">
+      <Filter>Systems\UI Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ModuleAssetLoader.h">
@@ -392,6 +395,9 @@
     </ClInclude>
     <ClInclude Include="Source\UIToggle.h">
       <Filter>Systems\UI Elements\Type %28UI Elements%29</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UIRendererCPU.h">
+      <Filter>Systems\UI Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

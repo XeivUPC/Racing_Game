@@ -202,6 +202,7 @@ void SceneVehicleSelectSetup::OnMouseClickFinish()
 	App->audio->PlayFx(App->assetLoader->audioMotorId);
 	App->scene_game->SetPlayerVehicle(vehicleNames[currentVehicle].name);
 	App->scene_game->SetVehicleType(vehicleType,vehicleNames.size());
+	App->scene_game->SetPlayerCharacter(currentCharacter);
 	StartFadeIn(App->scene_game, BLACK, 0.3f);
 }
 
