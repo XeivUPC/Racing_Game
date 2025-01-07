@@ -164,7 +164,7 @@ void SceneVehicleSelectSetup::OnMouseClickPreviousVehicle()
 	nextVehicle->SetInteractionStatus(true);
 	if (currentVehicle > 0)
 		currentVehicle--;
-	else
+	if (currentVehicle == 0)
 		previousVehicle->SetInteractionStatus(false);
 }
 
@@ -174,7 +174,7 @@ void SceneVehicleSelectSetup::OnMouseClickNextVehicle()
 	previousVehicle->SetInteractionStatus(true);
 	if (currentVehicle < vehicleNames.size() - 1)
 		currentVehicle++;
-	else
+	if (currentVehicle == vehicleNames.size()-1)
 		nextVehicle->SetInteractionStatus(false);
 }
 void SceneVehicleSelectSetup::OnMouseClickPreviousCharacter()
@@ -183,7 +183,7 @@ void SceneVehicleSelectSetup::OnMouseClickPreviousCharacter()
 	nextCharacter->SetInteractionStatus(true);
 	if(currentCharacter > 0)
 		currentCharacter--;
-	else
+	if (currentCharacter == 0)
 		previousCharacter->SetInteractionStatus(false);
 }
 
@@ -193,7 +193,7 @@ void SceneVehicleSelectSetup::OnMouseClickNextCharacter()
 	previousCharacter->SetInteractionStatus(true);
 	if (currentCharacter < maxCharacters)
 		currentCharacter++;
-	else
+	if (currentCharacter == maxCharacters)
 		nextCharacter->SetInteractionStatus(false);
 }
 
