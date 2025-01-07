@@ -4,6 +4,7 @@
 #include "ModuleWindow.h"
 #include "ModuleAssetLoader.h"
 #include "SceneGame.h"
+#include "SceneOptions.h"
 #include "ModuleAudio.h"
 #include "ModuleTexture.h"
 #include "ModulePhysics.h"
@@ -11,7 +12,7 @@
 #include "PauseMenu.h"
 #include "GameMode.h"
 #include "Player.h"
-#include "UIRendererCPU.h"
+#include "GamePositionsDisplayer.h"
 #include "Vehicle.h"
 #include "Pilot.h"
 #include "PilotCPU.h"
@@ -44,7 +45,7 @@ bool SceneGame::Start()
 	player = new Player(this, track, player_vehicle_type);
 	pilots.emplace_back(player);
 
-	cpuCharacterRenderer = new UIRendererCPU(this);
+	positionsDisplayer = new GamePositionsDisplayer(this);
 
 	vector<Vector2> startingPositions = track->GetTrackStartingPositions();
 
@@ -132,7 +133,7 @@ vector<Pilot*> SceneGame::GetRacePlacePositions() const
 		if (a->CurrentLap() == b->CurrentLap()) {
 			if (a->CurrentCheckpoint() == b->CurrentCheckpoint()) {
 				int checkPointIndex = b->CurrentCheckpoint()+1;
-				if (checkPointIndex >= trackRef->GetTrackSensors().size())
+				if (checkPointIndex >= (int)trackRef->GetTrackSensors().size())
 					checkPointIndex = 0;
 				MapLapSensor* checkPoint = trackRef->GetTrackSensors()[checkPointIndex];
 				float distanceA = Vector2Distance(a->vehicle->body->GetPosition(), checkPoint->GetCenter());
@@ -168,7 +169,7 @@ void SceneGame::SetPilotsCharacters()
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::vector<int> characters = { 0,1,2,3,4,5,6,7 };
-	characters.erase(characters.begin() + player->characterIndex);
+	characters.erase(characters.begin() + playerCharacter);
 	for each (Pilot* pilot in pilots)
 	{
 		std::uniform_int_distribution<> distr(0, characters.size()-1);
@@ -196,7 +197,7 @@ update_status SceneGame::Update()
 		}
 		else {
 			vector<Vector2> startingPositions = track->GetTrackStartingPositions();
-			for (int i = 0; i < pilots.size(); i++)
+			for (size_t i = 0; i < pilots.size(); i++)
 			{
 				pilots[i]->vehicle->body->SetRotation(PI / 2.f);
 				pilots[i]->vehicle->body->SetPosition(startingPositions[i].x, startingPositions[i].y);
@@ -215,7 +216,8 @@ update_status SceneGame::Update()
 		pauseMenu->Pause();
 	/// Last Things To Do
 	Render();
-	pauseMenu->Update();
+	if(!App->scene_options->IsEnabled())
+		pauseMenu->Update();
 	ModuleScene::FadeUpdate();
 	return UPDATE_CONTINUE;
 }
@@ -228,7 +230,7 @@ bool SceneGame::Render()
 	}
 
 	mode->Render();
-	cpuCharacterRenderer->Render();
+	positionsDisplayer->Render();
 	pauseMenu->Render();
 	ModuleScene::FadeRender();
 	return true;

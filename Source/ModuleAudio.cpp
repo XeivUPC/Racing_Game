@@ -33,7 +33,8 @@ bool ModuleAudio::Init()
 
 update_status ModuleAudio::Update()
 {
-	UpdateMusicStream(music);
+	if(IsMusicReady(music))
+		UpdateMusicStream(music);
 	return UPDATE_CONTINUE;
 }
 
@@ -67,7 +68,10 @@ bool ModuleAudio::PlayMusic(std::string path)
 
 	bool ret = true;
 	
+	
     StopMusicStream(music);
+	UnloadMusicStream(music);
+
     music = LoadMusicStream(path.c_str());
     
     PlayMusicStream(music);
@@ -207,6 +211,7 @@ bool ModuleAudio::ResumeFx(unsigned int soundId)
 			ResumeSound(sound);
 		}
 	}
+	return ret;
 }
 
 void ModuleAudio::ChangeGeneralVolume(float volume)

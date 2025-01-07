@@ -17,7 +17,7 @@ class RaceTrack;
 class ConeObstacle;
 class RockObstacle;
 class FenceObstacle;
-class UIRendererCPU;
+class GamePositionsDisplayer;
 class Pilot;
 
 using namespace std;
@@ -52,7 +52,7 @@ public:
 	FenceObstacle* fence = nullptr;
 
 	GameMode* mode = nullptr;
-	UIRendererCPU* cpuCharacterRenderer = nullptr;
+	GamePositionsDisplayer* positionsDisplayer = nullptr;
 	Player* player = nullptr;
 	vector<Pilot*> pilots;
 private:

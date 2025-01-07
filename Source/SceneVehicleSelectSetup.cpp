@@ -34,7 +34,8 @@ bool SceneVehicleSelectSetup::Start()
 
 	nextVehicle = new UIButton(this, { 174, 551 }, { btn_rect.width,btn_rect.height });
 	nextVehicle->onMouseClick.emplace_back([&]() {OnMouseClickNextVehicle(); });
-
+	if ((int)vehicleNames.size() == 1)
+		nextVehicle->SetInteractionStatus(false);
 
 	previousCharacter = new UIButton(this, { 802, 194 }, { btn_rect.width,btn_rect.height });
 	previousCharacter->onMouseClick.emplace_back([&]() {OnMouseClickPreviousCharacter(); });
@@ -42,9 +43,12 @@ bool SceneVehicleSelectSetup::Start()
 
 	nextCharacter = new UIButton(this, { 802, 551 }, { btn_rect.width,btn_rect.height });
 	nextCharacter->onMouseClick.emplace_back([&]() {OnMouseClickNextCharacter();});
+	if(maxCharacters==1)
+		nextCharacter->SetInteractionStatus(false);
 
 	finish = new UIButton(this, { SCREEN_WIDTH / 2 -50, 408 -50 }, { 100, 100 });
 	finish->onMouseClick.emplace_back([&]() {OnMouseClickFinish(); });
+
 	currentVehicle = 0;
 	currentCharacter = 0;
 	return true;
@@ -172,7 +176,7 @@ void SceneVehicleSelectSetup::OnMouseClickNextVehicle()
 {
 	nextVehicle->SetInteractionStatus(true);
 	previousVehicle->SetInteractionStatus(true);
-	if (currentVehicle < vehicleNames.size() - 1)
+	if (currentVehicle < (int)vehicleNames.size() - 1)
 		currentVehicle++;
 	if (currentVehicle == vehicleNames.size()-1)
 		nextVehicle->SetInteractionStatus(false);

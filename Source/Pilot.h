@@ -4,7 +4,7 @@
 
 class SceneGame;
 class Vehicle;
-class Vector2;
+struct Vector2;
 class RaceTrack;
 
 class Pilot : public MapObject

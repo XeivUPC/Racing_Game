@@ -56,7 +56,7 @@ bool PauseMenu::Render()
 {
 	if (!paused || moduleAt->App->scene_options->IsEnabled())
 		return true;
-	moduleAt->App->renderer->BlockRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_1);
+	moduleAt->App->renderer->BlockRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_2);
 	moduleAt->App->renderer->SetCameraMode(false);
 
 	moduleAt->App->renderer->Draw(*bg_texture, { 0,0 }, { 0,0 });
@@ -123,6 +123,8 @@ bool PauseMenu::Render()
 
 	moduleAt->App->renderer->SetCameraMode(true);
 	moduleAt->App->renderer->UnlockRenderLayer();
+
+	return true;
 }
 
 bool PauseMenu::CleanUp()

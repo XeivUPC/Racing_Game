@@ -22,7 +22,7 @@ update_status FenceObstacle::Update()
 
 bool FenceObstacle::Render()
 {
-    moduleAt->App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_5);
+    moduleAt->App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_4);
     moduleAt->App->renderer->Draw(*fenceTexture, body->GetPhysicPosition(), { -fenceTextureRec.width / 2.f, -fenceTextureRec.height / 2.f }, &fenceTextureRec, 0, 1.f * 3);
 
     return true;

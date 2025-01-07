@@ -41,28 +41,28 @@ PilotCPU::PilotCPU(SceneGame* gameAt, RaceTrack* track, std::string vehicleType)
 
 
     /// Curve Sensors
-    vertices = { {0,0},{0,1},{0.8,0.8},{1,0} };
+    vertices = { {0,0},{0,1},{0.8f,0.8f},{1,0} };
     fixtureData.pointer = (uintptr_t)(&leftCurveSensor);
     fixtureIndex = factory.AddPolygon(vehicle->body, { 1,3 }, vertices, fixtureData);
     vehicle->body->SetSensor(fixtureIndex, true);
     vehicle->body->SetFilter(fixtureIndex, physics->VEHICLE_SENSOR_LAYER, physics->FRICTION_AREA_LAYER, 0);
     leftCurveSensor.SetFixtureToTrack(vehicle->body, fixtureIndex);
 
-    vertices = { {0,0},{0,2},{1.8, 1.8},{2,0} };
+    vertices = { {0,0},{0,2},{1.8f, 1.8f},{2,0} };
     fixtureData.pointer = (uintptr_t)(&leftCurveSensorFar);
     fixtureIndex = factory.AddPolygon(vehicle->body, { 1,3 }, vertices, fixtureData);
     vehicle->body->SetSensor(fixtureIndex, true);
     vehicle->body->SetFilter(fixtureIndex, physics->VEHICLE_SENSOR_LAYER, physics->FRICTION_AREA_LAYER, 0);
     leftCurveSensorFar.SetFixtureToTrack(vehicle->body, fixtureIndex);
 
-    vertices = { {0,0},{0,1},{-0.8,0.8},{-1,0} };
+    vertices = { {0,0},{0,1},{-0.8f,0.8f},{-1,0} };
     fixtureData.pointer = (uintptr_t)(&rightCurveSensor);
     fixtureIndex = factory.AddPolygon(vehicle->body, { -1,3 }, vertices, fixtureData);
     vehicle->body->SetSensor(fixtureIndex, true);
     vehicle->body->SetFilter(fixtureIndex, physics->VEHICLE_SENSOR_LAYER, physics->FRICTION_AREA_LAYER, 0);
     rightCurveSensor.SetFixtureToTrack(vehicle->body, fixtureIndex);
 
-    vertices = { {0,0},{0,2},{-1.8, 1.8},{-2,0} };
+    vertices = { {0,0},{0,2},{-1.8f, 1.8f},{-2,0} };
     fixtureData.pointer = (uintptr_t)(&rightCurveSensorFar);
     fixtureIndex = factory.AddPolygon(vehicle->body, { -1,3 }, vertices, fixtureData);
     vehicle->body->SetSensor(fixtureIndex, true);

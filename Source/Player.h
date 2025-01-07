@@ -4,7 +4,7 @@
 
 class Vehicle;
 class SceneGame;
-class Vector2;
+struct Vector2;
 
 class Player : public Pilot
 {
