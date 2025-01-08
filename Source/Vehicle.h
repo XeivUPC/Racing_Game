@@ -38,7 +38,8 @@ private:
 	float maxBackwardSpeed = -70;
 
 	Texture2D* vehicleTexture;
-	Rectangle  vehicleTextureRec;
+	Rectangle  vehicleTextureRecColor;
+	Rectangle  vehicleTextureRecFixed;
 	Color vehicleColor;
 
 	ParticleSystem* particleSystem;

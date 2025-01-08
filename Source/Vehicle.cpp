@@ -19,11 +19,11 @@ using namespace pugi;
 Vehicle::Vehicle(Module* moduleAt, Pilot* pilot, string id, Color vehicleColor) : MapObject(moduleAt)
 {
 	this->pilot = pilot;
+	this->vehicleColor = vehicleColor;
 	CreateVehicle(id);
 	//particleSystem = new ParticleSystem(moduleAt);
 	engineTimer.Start();
 	moduleAt->App->audio->PlayFx(moduleAt->App->assetLoader->audioEngineStartId);
-	this->vehicleColor = vehicleColor;
 }
 
 Vehicle::~Vehicle()
@@ -85,8 +85,8 @@ bool Vehicle::Render()
 	double radianAngle = body->GetAngle();
 
 	Vector2 vehicleRotatedOffset = {
-	   -vehicleTextureRec.width / 2.f,
-	   -vehicleTextureRec.height / 2.f
+	   -vehicleTextureRecColor.width / 2.f,
+	   -vehicleTextureRecColor.height / 2.f
 	};
 
 	for (const auto& wheel : wheels)
@@ -96,7 +96,9 @@ bool Vehicle::Render()
 	}
 
 	radianAngle = body->GetAngle();
-	moduleAt->App->renderer->Draw(*vehicleTexture, body->GetPhysicPosition(), vehicleRotatedOffset, &vehicleTextureRec, RAD2DEG * radianAngle, 1.8f*3, (int)cos(-vehicleRotatedOffset.x), (int)sin(-vehicleRotatedOffset.y), vehicleColor);
+	moduleAt->App->renderer->Draw(*vehicleTexture, body->GetPhysicPosition(), vehicleRotatedOffset, &vehicleTextureRecColor, RAD2DEG * radianAngle, 1.8f*3, (int)cos(-vehicleRotatedOffset.x), (int)sin(-vehicleRotatedOffset.y), vehicleColor);
+
+	moduleAt->App->renderer->Draw(*vehicleTexture, body->GetPhysicPosition(), vehicleRotatedOffset, &vehicleTextureRecFixed, RAD2DEG * radianAngle, 1.8f*3, (int)cos(-vehicleRotatedOffset.x), (int)sin(-vehicleRotatedOffset.y), vehicleColor);
 
 	for (const auto& wheel : wheels)
 	{
@@ -161,7 +163,8 @@ void Vehicle::CreateVehicle(string id)
 	Vector2 textureOffset = { texture_node.attribute("pos-x").as_float(),texture_node.attribute("pos-y").as_float() };
 	Vector2 textureSize = { texture_node.attribute("size-x").as_float(),texture_node.attribute("size-y").as_float() };
 	vehicleTexture = moduleAt->App->texture->GetTexture(textureName.c_str());
-	vehicleTextureRec = { textureOffset.x,textureOffset.y,textureSize.x,textureSize.y };
+	vehicleTextureRecColor = { textureOffset.x,textureOffset.y,textureSize.x,textureSize.y };
+	vehicleTextureRecFixed = { textureOffset.x,textureOffset.y+vehicleTextureRecColor.height,textureSize.x,textureSize.y };
 
 	//// Create Car
 	Vector2 size = { vehicleNode.attribute("size-x").as_float(), vehicleNode.attribute("size-y").as_float() };
@@ -207,12 +210,17 @@ void Vehicle::CreateVehicle(string id)
 		std::string textureName = texture_node.attribute("name").as_string();
 		Vector2 texturePos = { texture_node.attribute("pos-x").as_float(),texture_node.attribute("pos-y").as_float() };
 		Vector2 textureSize = { texture_node.attribute("size-x").as_float(),texture_node.attribute("size-y").as_float() };
+
 		Texture2D* wheelTexture = moduleAt->App->texture->GetTexture(textureName.c_str());
 		Rectangle wheelTextureRec = { texturePos.x,texturePos.y,textureSize.x,textureSize.y };
 
 		bool rendereable = wheel_properties_node.child("rendereable").attribute("value").as_bool();
 		bool renderOverVehicle = wheel_properties_node.child("renders-over-vehicle").attribute("value").as_bool();
-		wheel->SetUpWheelRenderCharacteristics(wheelTexture, wheelTextureRec, rendereable, renderOverVehicle);
+		bool copyOwnerColor = texture_node.attribute("copyOwnerColor").as_bool();
+		Color wheelColor = WHITE;
+		if (copyOwnerColor)
+			wheelColor = vehicleColor;
+		wheel->SetUpWheelRenderCharacteristics(wheelTexture, wheelTextureRec, wheelColor, rendereable, renderOverVehicle);
 
 		PhysJoint* joint = factory.CreateRevoluteJoint(body, wheel->body, wheelOffset, { 0,0 }, true, 0, 0);
 		wheel->InstallJoint(joint);
