@@ -32,55 +32,62 @@ Vehicle::~Vehicle()
 
 update_status Vehicle::Update()
 {
-	//particleSystem->UpdateParticles();
-
-	for (const auto& wheel : wheels)
-	{
-		wheel->Update();	
+	if (exploded) {
+		//CleanUp();
 	}
-	for (const auto& wheel : throttlingWheels)
-	{
-		wheel->Move(moveInput.y);
+	else {
+		//particleSystem->UpdateParticles();
+
+		for (const auto& wheel : wheels)
+		{
+			wheel->Update();
+		}
+		for (const auto& wheel : throttlingWheels)
+		{
+			wheel->Move(moveInput.y);
+		}
+
+		float lockAngle = 35 * DEGTORAD;
+		float turnSpeedPerSec = 160 * DEGTORAD;
+		float turnPerTimeStep = turnSpeedPerSec / 60.0f;
+		float desiredAngle = 0;
+
+		desiredAngle = moveInput.x * lockAngle;
+
+		for (const auto& wheel : steeringWheels)
+		{
+			float angleNow = wheel->GetJoint()->GetJointAngle();
+			float angleToTurn = desiredAngle - angleNow;
+			angleToTurn = b2Clamp(angleToTurn, -turnPerTimeStep, turnPerTimeStep);
+			float newAngle = angleNow + angleToTurn;
+			wheel->GetJoint()->SetLimits(newAngle, newAngle);
+		}
+
+		float vehicleSpeed = Vector2Length(body->GetLinearVelocity());
+
+		//if (carSpeed > 1)
+		//{
+		//	for (const auto& wheel : throttlingWheels)
+		//	{
+		//		particleSystem->AddParticle(new DriftParticle({ wheel->GetJoint()->GetPhysicPositionBodyB() }, body->GetAngle(), 1.5f));
+		//		particleSystem->AddParticle(new DriftParticle({ wheel->GetJoint()->GetPhysicPositionBodyB() }, body->GetAngle(), 1.5f));
+		//	}
+		//}
+
+		if (engineTimer.ReadSec() > 2.9) {
+			moduleAt->App->audio->PlayFx(moduleAt->App->assetLoader->audioEngineId);
+			engineTimer.Start();
+		}
 	}
-
-	float lockAngle = 35 * DEGTORAD;
-	float turnSpeedPerSec = 160 * DEGTORAD;
-	float turnPerTimeStep = turnSpeedPerSec / 60.0f;
-	float desiredAngle = 0;
-
-	desiredAngle = moveInput.x * lockAngle;
-
-	for (const auto& wheel : steeringWheels)
-	{
-		float angleNow = wheel->GetJoint()->GetJointAngle();
-		float angleToTurn = desiredAngle - angleNow;
-		angleToTurn = b2Clamp(angleToTurn, -turnPerTimeStep, turnPerTimeStep);
-		float newAngle = angleNow + angleToTurn;
-		wheel->GetJoint()->SetLimits(newAngle, newAngle);
-	}
-
-	float vehicleSpeed = Vector2Length(body->GetLinearVelocity());
-
-	//if (carSpeed > 1)
-	//{
-	//	for (const auto& wheel : throttlingWheels)
-	//	{
-	//		particleSystem->AddParticle(new DriftParticle({ wheel->GetJoint()->GetPhysicPositionBodyB() }, body->GetAngle(), 1.5f));
-	//		particleSystem->AddParticle(new DriftParticle({ wheel->GetJoint()->GetPhysicPositionBodyB() }, body->GetAngle(), 1.5f));
-	//	}
-	//}
-	
-	if (engineTimer.ReadSec() > 2.9) {
-		moduleAt->App->audio->PlayFx(moduleAt->App->assetLoader->audioEngineId);
-		engineTimer.Start();
-	}
-	
 	engineTimer.Update();
 	return UPDATE_CONTINUE;
 }
 
 bool Vehicle::Render()
 {
+	if (exploded) {
+		return true;
+	}
 	moduleAt->App->renderer->BlockRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_4);
 	double radianAngle = body->GetAngle();
 
@@ -130,6 +137,11 @@ bool Vehicle::CleanUp()
 void Vehicle::SetInput(Vector2 input)
 {
 	moveInput = input;
+}
+
+void Vehicle::Explode()
+{
+	exploded = true;
 }
 
 

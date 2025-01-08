@@ -15,6 +15,7 @@ protected:
 	RaceTrack* track;
 	SceneGame* gameAt;
 	std::string pilotName = "The Unamed";
+	bool exploded = false;
 public:
 	Pilot(SceneGame* gameAt, RaceTrack* track, std::string vehicleType, Color vehicleColor);
 	~Pilot();
@@ -29,6 +30,8 @@ public:
 	int CurrentLap();
 	void SetCharacterIndex(int index);
 	std::string GetPilotName();
+	void Explode();
+	bool IsExploded() const;
 	Vehicle* vehicle;
 	int characterIndex = 0;
 };

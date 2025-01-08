@@ -26,8 +26,11 @@ update_status BoomMode::Update()
 {
 	GameMode::Update();
 
-	if (gameAt->GetRacePlayerPosition() == gameAt->pilots.size()) {
+	if (gameAt->GetRacePlayerPosition() == gameAt->GetRacePlacePositions().size() - (explodedNum)) {
 		isPlayerLast = true;
+		if (explodedNum == 7) {
+			EndRace();
+		}
 	}
 	else {
 		isPlayerLast = false;
@@ -53,7 +56,7 @@ update_status BoomMode::Update()
 	}
 	if (isPlayerLast)
 	{
-		if (intenseBeepTimer.ReadSec() > intenseBeepTime && timeToExplode.ReadSec() > 25)
+		if (intenseBeepTimer.ReadSec() > intenseBeepTime && timeToExplode.ReadSec() > explosionTime + 5)
 		{
 			gameAt->App->audio->PlayFx(gameAt->App->assetLoader->audioBombCountdownBeepId, true);
 			intenseBeepTimer.Start();
@@ -162,8 +165,8 @@ void BoomMode::ExplodeCPU()
 	// Explode CPU's car
 	timeToExplode.Start();
 	gameAt->App->audio->PlayFx(gameAt->App->assetLoader->audioExplosionId, true);
-	//gameAt->GetRacePlacePositions().at(gameAt->GetRacePlacePositions().size()-1)->CleanUp();
-	//gameAt->GetRacePlacePositions().pop_back();
+	gameAt->GetRacePlacePositions().at(gameAt->GetRacePlacePositions().size() - (explodedNum + 1))->Explode();
+	explodedNum++;
 }
 
 double BoomMode::GetTimeToExplodeSec() const

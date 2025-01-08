@@ -69,3 +69,14 @@ std::string Pilot::GetPilotName()
 {
 	return pilotName;
 }
+
+void Pilot::Explode()
+{
+	exploded = true;
+	vehicle->Explode();
+}
+
+bool Pilot::IsExploded() const
+{
+	return exploded;
+}
