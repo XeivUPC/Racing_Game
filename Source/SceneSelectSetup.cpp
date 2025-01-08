@@ -36,7 +36,7 @@ bool SceneSelectSetup::Start()
 	// Background
 	backgroundTexture = App->texture->GetTexture("UI_SelectSetup_Bg");
 	// Arrows
-	arrows_texture = App->texture->GetTexture("arrowSettings");
+	arrows_texture = App->texture->GetTexture("UI_Arrow");
 
 	//// Select Buttons
 	// Texture
@@ -111,7 +111,7 @@ bool SceneSelectSetup::Start()
 
 	//// Map Selection
 	// Texture
-	map_bg_texture = App->texture->GetTexture("select_setup_map_bg");
+	map_bg_texture = App->texture->GetTexture("UI_SelectSetupMap_Bg");
 	finish_map_button_texture_hover = App->texture->GetTexture("select_setup_map_button_hover");
 
 	// Finish map button
@@ -254,7 +254,7 @@ bool SceneSelectSetup::Render()
 
 
 		string mapName = App->localization->GetString(maps[currentSelectedMap].name);
-		App->renderer->DrawText(mapName.c_str(), map_name_text_pos, { -MeasureTextEx(App->assetLoader->agencyB, mapName.c_str(), 40, 0).x / 2,0 }, App->assetLoader->agencyB, 40, 0, BLACK);
+		App->renderer->DrawText(mapName.c_str(), map_name_text_pos, { -MeasureTextEx(App->assetLoader->agencyB, mapName.c_str(), 40, 0).x / 2,0 }, App->assetLoader->agencyB, 40, 0, WHITE);
 
 		App->renderer->Draw(*mapPreviewTexture, { 194*2,124*2 }, {0,0},&mapPreviewTextureRec,0,2);
 

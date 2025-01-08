@@ -26,6 +26,7 @@ bool ModuleAssetLoader::Init()
 	textureModule->CreateTexture("Assets/Textures/UI/UI_Background.png", "UI_Bg");
 	textureModule->CreateTexture("Assets/Textures/UI/UI_MainMenuBackground.png", "UI_MainMenu_Bg");
 	textureModule->CreateTexture("Assets/Textures/UI/UI_SelectSetupBackground.png", "UI_SelectSetup_Bg");
+	textureModule->CreateTexture("Assets/Textures/UI/UI_MapSelectionSlot.png", "UI_SelectSetupMap_Bg");
 
 	textureModule->CreateTexture("Assets/Textures/UI/UI_SliderThumb.png", "UI_SliderThumb");
 	textureModule->CreateTexture("Assets/Textures/UI/UI_Arrow.png", "UI_Arrow");
