@@ -128,6 +128,11 @@ void SceneGame::SetPlayerCharacter(int character)
 	playerCharacter = character;
 }
 
+int SceneGame::GetPilotAmount()
+{
+	return pilots.size();
+}
+
 vector<Pilot*> SceneGame::GetRacePlacePositions() const
 {
 	vector<Pilot*> orderedPlacePositions = pilots;

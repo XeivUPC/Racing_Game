@@ -13,11 +13,6 @@ RaceMode::~RaceMode()
 {
 }
 
-bool RaceMode::Init()
-{
-	return false;
-}
-
 update_status RaceMode::Update()
 {
 	GameMode::Update();

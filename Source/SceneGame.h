@@ -38,6 +38,7 @@ public:
 	void SetPlayerVehicle(string type, Color color);
 	void SetVehicleType(string type, int amount);
 	void SetPlayerCharacter(int character);
+	int GetPilotAmount();
 
 	vector<Pilot*> GetRacePlacePositions() const;
 	int GetRacePlayerPosition() const;

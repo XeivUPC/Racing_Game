@@ -2,20 +2,21 @@
 #include "Application.h"
 #include "SceneGame.h"
 #include "SceneResults.h"
+#include "ModuleTexture.h"
+#include "Pilot.h"
+#include "Vehicle.h"
+#include "ModulePhysics.h"
 #include "Player.h"
 
 BoomMode::BoomMode(SceneGame* gameAt) : GameMode(gameAt)
 {
+	setup = gameAt->App->texture->GetTexture("boomMode");
 }
 
 BoomMode::~BoomMode()
 {
 }
 
-bool BoomMode::Init()
-{
-	return false;
-}
 
 update_status BoomMode::Update()
 {
@@ -70,11 +71,20 @@ bool BoomMode::Render()
 	if (IsRaceStarted()) {
 		App->renderer->DrawText(App->localization->GetString("BOOMMODE_TIME_TILL_EXPLOSION").c_str(), { 0, 0 }, { 0, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
 		App->renderer->DrawText(App->localization->FormatNumber(explosionTime - (float)timeToExplode.ReadSec(), 0).c_str(), { 0, 0 }, { MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("BOOMMODE_TIME_TILL_EXPLOSION").c_str(), 80, 0).x, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
-
+		Rectangle rect;
 		if (isPlayerLast) {
 			App->renderer->DrawText(App->localization->GetString("BOOMMODE_LAST").c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("BOOMMODE_TIME_TILL_EXPLOSION").c_str(), 80, 0).y + 10 }, App->assetLoader->agencyB, 40, 0, WHITE);
+			rect = { 81,0,80,45 };
+			App->renderer->SetCameraMode(false);
+			App->renderer->Draw(*setup, { 0,0 }, { 0,0 }, &rect, 0, 16);
+			rect = { 18,15,63,30};
+			App->renderer->Draw(*setup, { SCREEN_WIDTH/2-rect.width/2*2,0 }, { 0,0 }, &rect, 0, 2);
+			App->renderer->SetCameraMode(true);
 		}
-
+		
+		Vector2 lastPlayerPosition = App->scene_game->GetRacePlacePositions()[App->scene_game->GetPilotAmount() - 1 /*- Exploded pilots*/]->vehicle->body->GetPhysicPosition();
+		rect = {0,26,18,19};
+		App->renderer->Draw(*setup, lastPlayerPosition, {0,15}, &rect);
 
 		int position = gameAt->GetRacePlayerPosition();
 		string infoPosition = to_string(position) + "/" + to_string(gameAt->pilots.size());

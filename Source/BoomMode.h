@@ -9,7 +9,6 @@ public:
 	BoomMode(SceneGame* gameAt);
 	~BoomMode();
 
-	bool Init();
 	update_status Update();
 	bool Render();
 	bool CleanUp();
@@ -17,8 +16,6 @@ public:
 	void ExecuteFunction(std::string Id) override;
 	void ExecuteFunctionGivenDouble(std::string Id, double input) override;
 	double GetDoubleParameter(std::string Id) override;
-
-
 
 private:
 
@@ -32,6 +29,7 @@ private:
 
 	int explosionTime = 60;
 	Timer timeToExplode;
+	Texture2D* setup = nullptr;
 
 	// Temporal bools
 	bool isPlayerLast = false;

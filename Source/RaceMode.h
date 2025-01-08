@@ -9,7 +9,6 @@ public:
 	RaceMode(SceneGame* gameAt, int NumberOfLaps);
 	~RaceMode();
 
-	bool Init();
 	update_status Update();
 	bool Render();
 	bool CleanUp();
