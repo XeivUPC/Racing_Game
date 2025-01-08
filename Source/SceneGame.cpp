@@ -86,6 +86,7 @@ bool SceneGame::CleanUp()
 	}
 	pilots.clear();
 
+	pauseMenu->Resume();
 	pauseMenu->CleanUp();
 	delete pauseMenu;
 
@@ -217,8 +218,14 @@ update_status SceneGame::Update()
 		mode->Update();
 	}
 
-	if (IsKeyPressed(KEY_P))
-		pauseMenu->Pause();
+	if (IsKeyPressed(KEY_P)) {
+		if(pauseMenu->IsPaused())
+			pauseMenu->Resume();
+		else {
+			pauseMenu->Pause();
+		}
+
+	}
 	/// Last Things To Do
 	Render();
 	if(!App->scene_options->IsEnabled())
