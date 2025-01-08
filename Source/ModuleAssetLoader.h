@@ -20,5 +20,6 @@ public:
 	int audioEngineId = -1;
 	int audioEngineStartId = -1;
 	int audioBombCountdownBeepId = -1;
+	int audioExplosionId = -1;
 };
 

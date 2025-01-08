@@ -21,6 +21,7 @@ public:
 	bool Render();
 	bool CleanUp();
 	void SetInput(Vector2 input);
+	void Explode();
 
 	PhysBody* body = nullptr;
 private:
@@ -50,5 +51,7 @@ private:
 	string vehicleDescription;
 
 	Timer engineTimer;
+
+	bool exploded = false;
 };
 

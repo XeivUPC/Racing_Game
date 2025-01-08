@@ -30,7 +30,7 @@ private:
 
 	void EndRace();
 
-	int explosionTime = 30;
+	int explosionTime = 5;
 	Timer timeToExplode;
 
 	int beepTime = 2;
@@ -43,5 +43,6 @@ private:
 	bool isPlayerLast = false;
 	bool timerStarted = false;
 
+	int explodedNum = 0;
 };
 

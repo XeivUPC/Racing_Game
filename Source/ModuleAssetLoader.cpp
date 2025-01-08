@@ -74,7 +74,7 @@ bool ModuleAssetLoader::Init()
 	textureModule->CreateTexture("Assets/Textures/Map_1_Preview.png", "Map1_Preview");
 	textureModule->CreateTexture("Assets/Textures/Map_2.png", "Map2");
 	textureModule->CreateTexture("Assets/Textures/Map_2_Preview.png", "Map2_Preview");
-	textureModule->CreateTexture("Assets/Textures/map.png", "Map3");
+	textureModule->CreateTexture("Assets/Textures/explosion.png", "explosion");
 
 	//// Audios
 	audioMotorId = audioModule->LoadFx("Assets/Sounds/Sfx/MotorSFX.ogg");
@@ -82,6 +82,7 @@ bool ModuleAssetLoader::Init()
 	audioEngineId = audioModule->LoadFx("Assets/Sounds/Sfx/Engine.ogg");
 	audioEngineStartId = audioModule->LoadFx("Assets/Sounds/Sfx/EngineStart.ogg");
 	audioBombCountdownBeepId = audioModule->LoadFx("Assets/Sounds/Sfx/Bomb_Countdown_Beep.ogg");
+	audioExplosionId = audioModule->LoadFx("Assets/Sounds/Sfx/Explosion.ogg");
 
 	//// Fonts
 	std::vector<int> codepoints = {

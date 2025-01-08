@@ -84,9 +84,12 @@ PilotCPU::~PilotCPU()
 
 update_status PilotCPU::Update()
 {
-	Brain();
-	vehicle->SetInput(direction);
-	vehicle->Update();
+    Pilot::Update();
+    if (!exploded) {
+	    Brain();
+	    vehicle->SetInput(direction);
+	    vehicle->Update();
+    }
 	return UPDATE_CONTINUE;
 }
 
