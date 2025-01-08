@@ -143,6 +143,7 @@ bool PauseMenu::IsPaused()
 
 void PauseMenu::Pause()
 {
+	moduleAt->App->audio->PlayFx(moduleAt->App->assetLoader->audioMotorId);
 	paused = true;
 	moduleAt->App->physics->PauseSimulation();
 }
