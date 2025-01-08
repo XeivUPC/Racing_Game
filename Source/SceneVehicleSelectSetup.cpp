@@ -8,6 +8,7 @@
 #include "ModuleAssetLoader.h"
 #include "ModuleLocalization.h"
 #include "UIButton.h"
+#include <algorithm>
 using namespace pugi;
 
 SceneVehicleSelectSetup::SceneVehicleSelectSetup(Application* app, bool start_enabled) : ModuleScene(app, start_enabled)
@@ -49,6 +50,18 @@ bool SceneVehicleSelectSetup::Start()
 	finish = new UIButton(this, { SCREEN_WIDTH / 2 -50, 408 -50 }, { 100, 100 });
 	finish->onMouseClick.emplace_back([&]() {OnMouseClickFinish(); });
 
+	for (size_t i = 0; i < availableColors.size(); i++)
+	{
+		UIButton* colorBtn;
+		Vector2 positionBtn = colorBtnAnchor;
+		positionBtn.y += i * colorBtnSize.y + i*4;
+
+		colorBtn = new UIButton(this, positionBtn, colorBtnSize);
+		Color color = availableColors[i];
+		colorBtn->onMouseClick.emplace_back([&, colorBtn]() {ChangeVehicleColor(colorBtn); });
+		colorBtns.emplace_back(colorBtn);
+	}
+	vehicleColor = WHITE;
 	currentVehicle = 0;
 	currentCharacter = 0;
 	return true;
@@ -61,6 +74,11 @@ update_status SceneVehicleSelectSetup::Update()
 	previousCharacter->Update();
 	nextCharacter->Update();
 	finish->Update();
+
+	for (size_t i = 0; i < colorBtns.size(); i++)
+	{
+		colorBtns[i]->Update();
+	}
 
 	Render();
 	FadeUpdate();
@@ -100,11 +118,20 @@ bool SceneVehicleSelectSetup::Render()
 
 	App->renderer->BlockRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_2);
 
-	App->renderer->Draw(*vehicles, { 326 - vehicleNames[currentVehicle].rectangle.width/2*6,408 - vehicleNames[currentVehicle].rectangle.height / 2 * 6 }, { 0,0 }, &vehicleNames[currentVehicle].rectangle, 0, 6);
+	App->renderer->Draw(*vehicles, { 326 - vehicleNames[currentVehicle].rectangle.width/2*6,408 - vehicleNames[currentVehicle].rectangle.height / 2 * 6 }, { 0,0 }, &vehicleNames[currentVehicle].rectangle, 0, 6,0,0,vehicleColor);
 	rect = characterRect;
 	rect.x = rect.width * currentCharacter;
 
 	App->renderer->Draw(*characters, { 954-48*2.5f,408-48*2.5f}, { 0,0 }, &rect, 0, 5);
+
+	for (size_t i = 0; i < colorBtns.size(); i++)
+	{
+		Vector2 positionBtn = colorBtnAnchor;
+		positionBtn.y += i * colorBtnSize.y + i * 4;
+		App->renderer->DrawSimpleRectangle({ positionBtn.x,positionBtn.y,colorBtnSize.x,colorBtnSize.y}, BLACK);
+		App->renderer->DrawSimpleRectangle({ positionBtn.x+1,positionBtn.y+1,colorBtnSize.x-2,colorBtnSize.y-2}, availableColors[i]);
+
+	}
 
 	App->renderer->UnlockRenderLayer();
 	return true;
@@ -120,6 +147,11 @@ bool SceneVehicleSelectSetup::CleanUp()
 	delete previousCharacter;
 	delete nextCharacter;
 	delete finish;
+	for (size_t i = 0; i < colorBtns.size(); i++)
+	{
+		delete colorBtns[i];
+	}
+	colorBtns.clear();
 	return true;
 }
 
@@ -204,7 +236,7 @@ void SceneVehicleSelectSetup::OnMouseClickNextCharacter()
 void SceneVehicleSelectSetup::OnMouseClickFinish()
 {
 	App->audio->PlayFx(App->assetLoader->audioMotorId);
-	App->scene_game->SetPlayerVehicle(vehicleNames[currentVehicle].name);
+	App->scene_game->SetPlayerVehicle(vehicleNames[currentVehicle].name,vehicleColor);
 	App->scene_game->SetVehicleType(vehicleType,vehicleNames.size());
 	App->scene_game->SetPlayerCharacter(currentCharacter);
 	StartFadeIn(App->scene_game, BLACK, 0.3f);
@@ -233,4 +265,13 @@ void SceneVehicleSelectSetup::DrawSelectionBtnTexture(UIButton* btn)
 		}
 	}
 	
+}
+
+void SceneVehicleSelectSetup::ChangeVehicleColor(UIButton* colorBtn)
+{
+	auto it = find(colorBtns.begin(), colorBtns.end(), colorBtn);
+	if (it != colorBtns.end()) {
+		int btnIndex = distance(colorBtns.begin(), it);
+		vehicleColor = availableColors[btnIndex];
+	}
 }

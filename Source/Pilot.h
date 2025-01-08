@@ -16,7 +16,7 @@ protected:
 	SceneGame* gameAt;
 	std::string pilotName = "The Unamed";
 public:
-	Pilot(SceneGame* gameAt, RaceTrack* track, std::string vehicleType);
+	Pilot(SceneGame* gameAt, RaceTrack* track, std::string vehicleType, Color vehicleColor);
 	~Pilot();
 	bool Start();
 	update_status Update();

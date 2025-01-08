@@ -15,7 +15,7 @@ class Vehicle : public MapObject
 {
 public:
 
-	Vehicle(Module* moduleAt, Pilot* pilot, string id);
+	Vehicle(Module* moduleAt, Pilot* pilot, string id, Color vehicleColor);
 	~Vehicle();
 	update_status Update();
 	bool Render();
@@ -39,7 +39,7 @@ private:
 
 	Texture2D* vehicleTexture;
 	Rectangle  vehicleTextureRec;
-
+	Color vehicleColor;
 
 	ParticleSystem* particleSystem;
 

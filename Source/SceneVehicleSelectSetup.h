@@ -48,7 +48,7 @@ private:
 	int currentVehicle;
 	int currentCharacter;
 	bool sameVehicle;
-	Color color = WHITE;
+	Color vehicleColor = WHITE;
 	string configPath = "Assets/Data/vehicle_data.xml";
 
 	UIButton* previousVehicle;
@@ -62,6 +62,13 @@ private:
 	void OnMouseClickNextCharacter();
 	UIButton* finish;
 	void OnMouseClickFinish();
-
 	void DrawSelectionBtnTexture(UIButton* btn);
+
+
+	vector<Color> availableColors = {WHITE, BLACK, RED, BLUE, YELLOW, GREEN, ORANGE, PURPLE};
+	vector<UIButton*> colorBtns;
+	Vector2 colorBtnSize = {39,39 };
+	Vector2 colorBtnAnchor = { 76,271 };
+	void ChangeVehicleColor(UIButton* colorBtn);
+
 };

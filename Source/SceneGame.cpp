@@ -42,7 +42,7 @@ bool SceneGame::Start()
 
 	track = new RaceTrack(this, trackPath);
 
-	player = new Player(this, track, player_vehicle_type);
+	player = new Player(this, track, player_vehicle_type, player_vehicle_color);
 	pilots.emplace_back(player);
 
 	positionsDisplayer = new GamePositionsDisplayer(this);
@@ -111,9 +111,10 @@ void SceneGame::SetMode(GameMode* mode)
 	this->mode = mode;
 }
 
-void SceneGame::SetPlayerVehicle(string type)
+void SceneGame::SetPlayerVehicle(string type, Color color)
 {
 	player_vehicle_type = type;
+	player_vehicle_color = color;
 }
 
 void SceneGame::SetVehicleType(string type, int amount)

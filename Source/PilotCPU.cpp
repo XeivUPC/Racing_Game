@@ -9,7 +9,7 @@
 #include <cmath>
 #include <raymath.h>
 
-PilotCPU::PilotCPU(SceneGame* gameAt, RaceTrack* track, std::string vehicleType) : Pilot(gameAt, track, vehicleType)
+PilotCPU::PilotCPU(SceneGame* gameAt, RaceTrack* track, std::string vehicleType) : Pilot(gameAt, track, vehicleType, WHITE)
 {
     pilotName = "CPU";
     ModulePhysics* physics = moduleAt->App->physics;
