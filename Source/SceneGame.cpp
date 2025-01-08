@@ -52,13 +52,15 @@ bool SceneGame::Start()
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> distr(1, vehicleTypeAmount);
+	std::uniform_int_distribution<> distrColor(0, 255);
 
 	// Generate a random number
 	
 	for (int i = 0; i < 7; i++)
 	{
 		int randomNumber = distr(gen);
-		pilots.emplace_back(new PilotCPU(this, track, vehicle_type+"type"+to_string(randomNumber)));
+		Color randomColor = { distrColor(gen),distrColor(gen) ,distrColor(gen) ,255 };
+		pilots.emplace_back(new PilotCPU(this, track, vehicle_type+"type"+to_string(randomNumber), randomColor));
 	}
 
 	mode->Start();
@@ -84,6 +86,7 @@ bool SceneGame::CleanUp()
 	}
 	pilots.clear();
 
+	pauseMenu->Resume();
 	pauseMenu->CleanUp();
 	delete pauseMenu;
 
@@ -171,7 +174,7 @@ void SceneGame::SetPilotsCharacters()
 {
 	std::random_device rd;
 	std::mt19937 gen(rd());
-	std::vector<int> characters = {0,1,2,3,4,5,6,7};
+	std::vector<int> characters = {0,1,2,3,4,5,6,7,8,9,10,11};
 	characters.erase(characters.begin() + playerCharacter);
 	for each (Pilot* pilot in pilots)
 	{
@@ -206,8 +209,6 @@ update_status SceneGame::Update()
 				pilots[i]->vehicle->body->SetPosition(startingPositions[i].x, startingPositions[i].y);
 			}
 		}
-
-
 		track->Update();
 
 		App->renderer->camera.target =player->vehicle->body->GetPhysicPosition();
@@ -215,8 +216,14 @@ update_status SceneGame::Update()
 		mode->Update();
 	}
 
-	if (IsKeyPressed(KEY_P))
-		pauseMenu->Pause();
+	if (IsKeyPressed(KEY_P) && !App->scene_options->IsEnabled()) {
+		if(pauseMenu->IsPaused())
+			pauseMenu->Resume();
+		else {
+			pauseMenu->Pause();
+		}
+
+	}
 	/// Last Things To Do
 	Render();
 	if(!App->scene_options->IsEnabled())

@@ -928,19 +928,17 @@
 		<texture name ="Truck" size-x="21" size-y="46" pos-x="63"  pos-y="0"/>
 	</truck-type4>
 
-	<!--<moto-type1 size-x ="1" size-y ="3.5" mass ="100" inertia ="30">
+	<moto-type1 size-x ="1" size-y ="3.5" mass ="100" inertia ="30">
 		<information>
 			<name value="SuperMoto"/>
 			<title value="TurboWheels x Xeiv"/>
 			<created-by value="XeivUPC"/>
 			<description value="Super moto super fast ultra cool for just you!"/>
 		</information>
-
 		<properties>
 			<max-forward-speed value = "150"/>
 			<max-backward-speed value = "-70"/>
 		</properties>
-
 		<wheels>
 			<wheel radius ="0.5" width ="0.5" offset-x="0" offset-y="-1.5" can-steer ="false" can-throttle ="true">
 				<properties>
@@ -949,23 +947,21 @@
 					<rendereable value = "false"/>
 					<renders-over-vehicle value = "false"/>
 				</properties>
-				<texture name ="Wheel" size-x="3" size-y="5" pos-x="0"  pos-y="0"/>
+				<texture name ="Wheel" size-x="4" size-y="5" pos-x="162"  pos-y="0"/>
 
 			</wheel>
-			<wheel radius ="0.5" width ="0.5" offset-x="0" offset-y="2.3" can-steer ="true" can-throttle ="true" >
+			<wheel radius ="0.5" width ="0.5" offset-x="0" offset-y="1.5" can-steer ="true" can-throttle ="true" >
 				<properties>
 					<max-drive-force value = "150"/>
 					<max-lateral-impulse value = "8.5"/>
 					<rendereable value = "true"/>
 					<renders-over-vehicle value = "false"/>
 				</properties>
-				<texture name ="Wheel" size-x="4" size-y="5" pos-x="48"  pos-y="0"/>
+				<texture name ="Wheel" size-x="4" size-y="5" pos-x="162"  pos-y="0" copyOwnerColor="true"/>
 			</wheel>
 		</wheels>
-
-		<texture name ="Motos" size-x="16" size-y="25" pos-x="32"  pos-y="0"/>
+		<texture name ="Motos" size-x="10" size-y="25" pos-x="18"  pos-y="0"/>
 	</moto-type1>
-	
 	<moto-type2 size-x ="1" size-y ="3.8" mass ="100" inertia ="30">
 		<information>
 			<name value="SuperMoto"/>
@@ -987,23 +983,22 @@
 					<rendereable value = "false"/>
 					<renders-over-vehicle value = "false"/>
 				</properties>
-				<texture name ="Wheel" size-x="3" size-y="5" pos-x="0"  pos-y="0"/>
+				<texture name ="Wheel" size-x="3" size-y="5" pos-x="0"  pos-y="0" />
 
 			</wheel>
-			<wheel radius ="0.5" width ="0.5" offset-x="0" offset-y="1.8" can-steer ="true" can-throttle ="true" >
+			<wheel radius ="0.5" width ="0.5" offset-x="0" offset-y="1.5" can-steer ="true" can-throttle ="true" >
 				<properties>
 					<max-drive-force value = "150"/>
 					<max-lateral-impulse value = "8.5"/>
 					<rendereable value = "true"/>
 					<renders-over-vehicle value = "true"/>
 				</properties>
-				<texture name ="Wheel" size-x="10" size-y="9" pos-x="16"  pos-y="0"/>
+				<texture name ="Wheel" size-x="10" size-y="9" pos-x="148"  pos-y="0" copyOwnerColor="true"/>
 			</wheel>
 		</wheels>
 
-		<texture name ="Motos" size-x="16" size-y="22" pos-x="0"  pos-y="0"/>
+		<texture name ="Motos" size-x="6" size-y="21" pos-x="0"  pos-y="0"/>
 	</moto-type2>
-
 	<moto-type3 size-x ="1" size-y ="4.5" mass ="100" inertia ="30">
 		<information>
 			<name value="SuperMoto"/>
@@ -1025,20 +1020,20 @@
 					<rendereable value = "false"/>
 					<renders-over-vehicle value = "false"/>
 				</properties>
-				<texture name ="Wheel" size-x="3" size-y="5"  pos-x="0"  pos-y="0"/>
+				<texture name ="Wheel" size-x="4" size-y="5"  pos-x="0"  pos-y="0"/>
 
 			</wheel>
-			<wheel radius ="0.5" width ="0.5" offset-x="0" offset-y="2.65" can-steer ="true" can-throttle ="true" >
+			<wheel radius ="0.5" width ="0.5" offset-x="0" offset-y="1.75" can-steer ="true" can-throttle ="true" >
 				<properties>
 					<max-drive-force value = "150"/>
 					<max-lateral-impulse value = "8.5"/>
 					<rendereable value = "true"/>
 					<renders-over-vehicle value = "false"/>
 				</properties>
-				<texture name ="Wheel" size-x="4" size-y="8" pos-x="32" pos-y="0"/>
+				<texture name ="Wheel" size-x="4" size-y="8" pos-x="158" pos-y="0" copyOwnerColor="true"/>
 			</wheel>
 		</wheels>
 
-		<texture name ="Motos" size-x="16" size-y="29" pos-x="16" pos-y="0"/>
-	</moto-type3>-->
+		<texture name ="Motos" size-x="10" size-y="30" pos-x="7" pos-y="0"/>
+	</moto-type3>
 </vehicle>

@@ -22,10 +22,11 @@ SceneVehicleSelectSetup::~SceneVehicleSelectSetup()
 bool SceneVehicleSelectSetup::Start()
 {
 	LoadVehicles();
+	
+
 	bg_texture = App->texture->GetTexture("UI_Bg");
 	selectionSlots_texture = App->texture->GetTexture("UI_VehicleSelect_Slots");
 	btn_texture = App->texture->GetTexture("UI_Btn1");
-
 	vehicles = App->texture->GetTexture(vehicleNames[currentVehicle].id);
 	characters = App->texture->GetTexture("Characters");
 
@@ -58,7 +59,7 @@ bool SceneVehicleSelectSetup::Start()
 
 		colorBtn = new UIButton(this, positionBtn, colorBtnSize);
 		Color color = availableColors[i];
-		colorBtn->onMouseClick.emplace_back([&, colorBtn]() {ChangeVehicleColor(colorBtn); });
+		colorBtn->onMouseClick.emplace_back([&, color]() {ChangeVehicleColor(color); });
 		colorBtns.emplace_back(colorBtn);
 	}
 	vehicleColor = WHITE;
@@ -166,6 +167,7 @@ void SceneVehicleSelectSetup::LoadVehicles()
 		LOG("config.xml parsed without errors");
 
 		for (pugi::xml_node child : vehiclesFile.child("vehicle").children()) {
+			
 			string name = child.name();
 			if (name.find(vehicleType))
 			{
@@ -279,11 +281,7 @@ void SceneVehicleSelectSetup::DrawSelectionBtnTexture(UIButton* btn)
 	
 }
 
-void SceneVehicleSelectSetup::ChangeVehicleColor(UIButton* colorBtn)
+void SceneVehicleSelectSetup::ChangeVehicleColor(Color colorBtn)
 {
-	auto it = find(colorBtns.begin(), colorBtns.end(), colorBtn);
-	if (it != colorBtns.end()) {
-		int btnIndex = distance(colorBtns.begin(), it);
-		vehicleColor = availableColors[btnIndex];
-	}
+	vehicleColor = colorBtn;
 }

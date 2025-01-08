@@ -34,7 +34,7 @@ bool SceneSelectSetup::Start()
 	bool ret = true;
 
 	// Background
-	backgroundTexture = App->texture->GetTexture("select_setup");
+	backgroundTexture = App->texture->GetTexture("UI_SelectSetup_Bg");
 	// Arrows
 	arrows_texture = App->texture->GetTexture("arrowSettings");
 
