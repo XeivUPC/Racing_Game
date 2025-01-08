@@ -24,6 +24,8 @@ bool ModuleAssetLoader::Init()
 	
 	//// General UI
 	textureModule->CreateTexture("Assets/Textures/UI/UI_Background.png", "UI_Bg");
+	textureModule->CreateTexture("Assets/Textures/UI/UI_MainMenuBackground.png", "UI_MainMenu_Bg");
+	textureModule->CreateTexture("Assets/Textures/UI/UI_SelectSetupBackground.png", "UI_SelectSetup_Bg");
 
 	textureModule->CreateTexture("Assets/Textures/UI/UI_SliderThumb.png", "UI_SliderThumb");
 	textureModule->CreateTexture("Assets/Textures/UI/UI_Arrow.png", "UI_Arrow");
@@ -75,12 +77,15 @@ bool ModuleAssetLoader::Init()
 	textureModule->CreateTexture("Assets/Textures/Map_1_Preview.png", "Map1_Preview");
 	textureModule->CreateTexture("Assets/Textures/Map_2.png", "Map2");
 	textureModule->CreateTexture("Assets/Textures/Map_2_Preview.png", "Map2_Preview");
+	textureModule->CreateTexture("Assets/Textures/explosion.png", "explosion");
 
 	//// Audios
 	audioMotorId = audioModule->LoadFx("Assets/Sounds/Sfx/MotorSFX.ogg");
 	audioClickId = audioModule->LoadFx("Assets/Sounds/Sfx/Ui_Click.ogg");
 	audioEngineId = audioModule->LoadFx("Assets/Sounds/Sfx/Engine.ogg");
 	audioEngineStartId = audioModule->LoadFx("Assets/Sounds/Sfx/EngineStart.ogg");
+	audioBombCountdownBeepId = audioModule->LoadFx("Assets/Sounds/Sfx/Bomb_Countdown_Beep.ogg");
+	audioExplosionId = audioModule->LoadFx("Assets/Sounds/Sfx/Explosion.ogg");
 
 	//// Fonts
 	std::vector<int> codepoints = {

@@ -27,13 +27,20 @@ private:
 
 	void EndRace();
 
-	int explosionTime = 60;
+	int explosionTime = 5;
 	Timer timeToExplode;
 	Texture2D* setup = nullptr;
+
+	int beepTime = 2;
+	Timer beepTimer;
+
+	int intenseBeepTime = 1;
+	Timer intenseBeepTimer;
 
 	// Temporal bools
 	bool isPlayerLast = false;
 	bool timerStarted = false;
 
+	int explodedNum = 0;
 };
 

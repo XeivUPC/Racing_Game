@@ -7,10 +7,14 @@
 #include "Vehicle.h"
 #include "ModulePhysics.h"
 #include "Player.h"
+#include "Pilot.h"
+#include "ModuleAudio.h"
 
 BoomMode::BoomMode(SceneGame* gameAt) : GameMode(gameAt)
 {
 	setup = gameAt->App->texture->GetTexture("boomMode");
+	beepTimer.Start();
+	intenseBeepTimer.Start();
 }
 
 BoomMode::~BoomMode()
@@ -22,8 +26,11 @@ update_status BoomMode::Update()
 {
 	GameMode::Update();
 
-	if (gameAt->GetRacePlayerPosition() == gameAt->pilots.size()) {
+	if (gameAt->GetRacePlayerPosition() == gameAt->GetRacePlacePositions().size() - (explodedNum)) {
 		isPlayerLast = true;
+		if (explodedNum == 7) {
+			EndRace();
+		}
 	}
 	else {
 		isPlayerLast = false;
@@ -47,8 +54,24 @@ update_status BoomMode::Update()
 	if (IsKeyPressed(KEY_N)) {
 		App->scene_game->StartFadeIn(App->scene_results, BLACK, 0.3f);
 	}
-
+	if (isPlayerLast)
+	{
+		if (intenseBeepTimer.ReadSec() > intenseBeepTime && timeToExplode.ReadSec() > explosionTime + 5)
+		{
+			gameAt->App->audio->PlayFx(gameAt->App->assetLoader->audioBombCountdownBeepId, true);
+			intenseBeepTimer.Start();
+		}
+		else if (beepTimer.ReadSec() > beepTime)
+		{
+			gameAt->App->audio->PlayFx(gameAt->App->assetLoader->audioBombCountdownBeepId, true);
+			beepTimer.Start();
+		}
+	}
+	
 	timeToExplode.Update();
+	beepTimer.Update();
+	intenseBeepTimer.Update();
+
 	return UPDATE_CONTINUE;
 }
 
@@ -141,7 +164,14 @@ double BoomMode::GetDoubleParameter(std::string Id)
 void BoomMode::ExplodePlayer()
 {
 	// Explode player's car and loose
-	gameAt->App->renderer->DrawText("BOOOOOM!!", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(gameAt->App->assetLoader->agencyB, "BOOOOOM!!", 160, 0).x / 2, -MeasureTextEx(gameAt->App->assetLoader->agencyB, "BOOOOOM!!", 120, 0).y / 2}, gameAt->App->assetLoader->agencyB, 160, 0, WHITE);
+	gameAt->App->audio->PlayFx(gameAt->App->assetLoader->audioExplosionId, true);
+	auto& racePositions = gameAt->GetRacePlacePositions();
+	size_t startPosition = racePositions.size() - (explodedNum + 1);
+
+	for (size_t i = startPosition; i < racePositions.size(); ++i) {
+		racePositions.at(i)->BeginExplosion();
+	}
+	explodedNum++;
 	EndRace();
 }
 
@@ -149,6 +179,14 @@ void BoomMode::ExplodeCPU()
 {
 	// Explode CPU's car
 	timeToExplode.Start();
+	gameAt->App->audio->PlayFx(gameAt->App->assetLoader->audioExplosionId, true);
+	auto& racePositions = gameAt->GetRacePlacePositions();
+	size_t startPosition = racePositions.size() - (explodedNum + 1);
+
+	for (size_t i = startPosition; i < racePositions.size(); ++i) {
+		racePositions.at(i)->BeginExplosion();
+	}
+	explodedNum++;
 }
 
 double BoomMode::GetTimeToExplodeSec() const

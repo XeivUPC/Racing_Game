@@ -6,6 +6,7 @@ class SceneGame;
 class Vehicle;
 struct Vector2;
 class RaceTrack;
+class Animator;
 
 class Pilot : public MapObject
 {
@@ -15,6 +16,10 @@ protected:
 	RaceTrack* track;
 	SceneGame* gameAt;
 	std::string pilotName = "The Unamed";
+	bool exploded = false;
+	bool exploding = false;
+	Texture2D* explosionTex = nullptr;
+	Animator* explosionAnimator = nullptr;
 public:
 	Pilot(SceneGame* gameAt, RaceTrack* track, std::string vehicleType, Color vehicleColor);
 	~Pilot();
@@ -29,6 +34,9 @@ public:
 	int CurrentLap();
 	void SetCharacterIndex(int index);
 	std::string GetPilotName();
+	void Explode();
+	bool IsExploded() const;
+	void BeginExplosion();
 	Vehicle* vehicle;
 	int characterIndex = 0;
 };

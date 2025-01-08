@@ -129,7 +129,6 @@ bool PauseMenu::Render()
 
 bool PauseMenu::CleanUp()
 {
-	Resume();
 	delete resume;
 	delete settings;
 	delete mainMenu;
@@ -143,12 +142,14 @@ bool PauseMenu::IsPaused()
 
 void PauseMenu::Pause()
 {
+	moduleAt->App->audio->PlayFx(moduleAt->App->assetLoader->audioMotorId);
 	paused = true;
 	moduleAt->App->physics->PauseSimulation();
 }
 
 void PauseMenu::Resume()
 {
+	moduleAt->App->audio->PlayFx(moduleAt->App->assetLoader->audioMotorId);
 	paused = false;
 	moduleAt->App->physics->StartSimulation();
 }
