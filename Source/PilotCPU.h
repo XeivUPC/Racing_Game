@@ -11,7 +11,7 @@ struct Vector2;
 class PilotCPU : public Pilot
 {
 public:
-	PilotCPU(SceneGame* gameAt, RaceTrack* track, std::string vehicleType);
+	PilotCPU(SceneGame* gameAt, RaceTrack* track, std::string vehicleType, Color color);
 	~PilotCPU();
 	update_status Update();
 	void Brain();

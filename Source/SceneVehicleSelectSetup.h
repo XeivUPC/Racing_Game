@@ -45,7 +45,7 @@ private:
 	Texture* characters = nullptr;
 	Rectangle characterRect = { 0,0,48,48 };
 	string vehicleType;
-	int maxCharacters = 5;
+	int maxCharacters = 11;
 	int currentVehicle;
 	int currentCharacter;
 	bool sameVehicle;

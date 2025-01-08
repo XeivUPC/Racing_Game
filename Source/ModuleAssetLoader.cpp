@@ -74,6 +74,7 @@ bool ModuleAssetLoader::Init()
 	textureModule->CreateTexture("Assets/Textures/Map_1_Preview.png", "Map1_Preview");
 	textureModule->CreateTexture("Assets/Textures/Map_2.png", "Map2");
 	textureModule->CreateTexture("Assets/Textures/Map_2_Preview.png", "Map2_Preview");
+	textureModule->CreateTexture("Assets/Textures/map.png", "Map3");
 
 	//// Audios
 	audioMotorId = audioModule->LoadFx("Assets/Sounds/Sfx/MotorSFX.ogg");
