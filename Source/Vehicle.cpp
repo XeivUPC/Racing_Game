@@ -98,7 +98,7 @@ bool Vehicle::Render()
 	radianAngle = body->GetAngle();
 	moduleAt->App->renderer->Draw(*vehicleTexture, body->GetPhysicPosition(), vehicleRotatedOffset, &vehicleTextureRecColor, RAD2DEG * radianAngle, 1.8f*2, (int)cos(-vehicleRotatedOffset.x), (int)sin(-vehicleRotatedOffset.y), vehicleColor);
 
-	moduleAt->App->renderer->Draw(*vehicleTexture, body->GetPhysicPosition(), vehicleRotatedOffset, &vehicleTextureRecFixed, RAD2DEG * radianAngle, 1.8f*2, (int)cos(-vehicleRotatedOffset.x), (int)sin(-vehicleRotatedOffset.y), vehicleColor);
+	moduleAt->App->renderer->Draw(*vehicleTexture, body->GetPhysicPosition(), vehicleRotatedOffset, &vehicleTextureRecFixed, RAD2DEG * radianAngle, 1.8f*2, (int)cos(-vehicleRotatedOffset.x), (int)sin(-vehicleRotatedOffset.y));
 
 	for (const auto& wheel : wheels)
 	{
