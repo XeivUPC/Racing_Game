@@ -3,6 +3,7 @@
 #include "SceneGame.h"
 #include "SceneResults.h"
 #include "Player.h"
+#include "Pilot.h"
 #include "ModuleAudio.h"
 
 BoomMode::BoomMode(SceneGame* gameAt) : GameMode(gameAt)
@@ -152,6 +153,7 @@ void BoomMode::ExplodePlayer()
 {
 	// Explode player's car and loose
 	gameAt->App->renderer->DrawText("BOOOOOM!!", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(gameAt->App->assetLoader->agencyB, "BOOOOOM!!", 160, 0).x / 2, -MeasureTextEx(gameAt->App->assetLoader->agencyB, "BOOOOOM!!", 120, 0).y / 2}, gameAt->App->assetLoader->agencyB, 160, 0, WHITE);
+	gameAt->App->audio->PlayFx(gameAt->App->assetLoader->audioExplosionId, true);
 	EndRace();
 }
 
@@ -159,6 +161,9 @@ void BoomMode::ExplodeCPU()
 {
 	// Explode CPU's car
 	timeToExplode.Start();
+	gameAt->App->audio->PlayFx(gameAt->App->assetLoader->audioExplosionId, true);
+	//gameAt->GetRacePlacePositions().at(gameAt->GetRacePlacePositions().size()-1)->CleanUp();
+	//gameAt->GetRacePlacePositions().pop_back();
 }
 
 double BoomMode::GetTimeToExplodeSec() const

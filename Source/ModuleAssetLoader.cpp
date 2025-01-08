@@ -81,6 +81,7 @@ bool ModuleAssetLoader::Init()
 	audioEngineId = audioModule->LoadFx("Assets/Sounds/Sfx/Engine.ogg");
 	audioEngineStartId = audioModule->LoadFx("Assets/Sounds/Sfx/EngineStart.ogg");
 	audioBombCountdownBeepId = audioModule->LoadFx("Assets/Sounds/Sfx/Bomb_Countdown_Beep.ogg");
+	audioExplosionId = audioModule->LoadFx("Assets/Sounds/Sfx/Explosion.ogg");
 
 	//// Fonts
 	std::vector<int> codepoints = {
