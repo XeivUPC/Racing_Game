@@ -18,7 +18,7 @@ GamePositionsDisplayer::~GamePositionsDisplayer()
 
 void GamePositionsDisplayer::Render()
 {
-	Vector2 anchor = { 0,200 };
+	Vector2 anchor = { 0,225 };
 
 	vector<Pilot*>pilots = gameAt->GetRacePlacePositions();
 	Rectangle rect = { 0,0,48,48 };
