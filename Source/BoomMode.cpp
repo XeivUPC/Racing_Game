@@ -118,8 +118,9 @@ bool BoomMode::CleanUp()
 
 void BoomMode::ExplodePlayer()
 {
+	if (playerExploded) return;
 	// Explode player's car and loose
-	gameAt->App->audio->PlayFx(gameAt->App->assetLoader->audioExplosionId, true);
+	playerExploded = true;
 	auto& racePositions = gameAt->GetRacePlacePositions();
 	size_t startPosition = racePositions.size() - (explodedNum + 1);
 
@@ -133,7 +134,6 @@ void BoomMode::ExplodeCPU()
 {
 	// Explode CPU's car
 	timeToExplode.Start();
-	gameAt->App->audio->PlayFx(gameAt->App->assetLoader->audioExplosionId, true);
 	auto& racePositions = gameAt->GetRacePlacePositions();
 	size_t startPosition = racePositions.size() - (explodedNum + 1);
 

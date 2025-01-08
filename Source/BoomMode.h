@@ -36,6 +36,7 @@ private:
 	// Temporal bools
 	bool isPlayerLast = false;
 	bool timerStarted = false;
+	bool playerExploded = false;
 
 	int explodedNum = 0;
 };

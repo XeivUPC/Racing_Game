@@ -5,6 +5,8 @@
 #include "ModuleTexture.h"
 #include "Application.h"
 #include "ModulePhysics.h"
+#include "ModuleAssetLoader.h"
+#include "ModuleAudio.h"
 
 
 Pilot::Pilot(SceneGame* gameAt, RaceTrack* track, std::string vehicleType, Color vehicleColor) : MapObject((Module*)gameAt)
@@ -118,5 +120,6 @@ bool Pilot::IsExploded() const
 void Pilot::BeginExplosion()
 {
 	exploding = true;
+	gameAt->App->audio->PlayFx(gameAt->App->assetLoader->audioExplosionId, true);
 	Explode();
 }
