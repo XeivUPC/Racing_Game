@@ -11,7 +11,7 @@
 			<max-backward-speed value ="-70"/>
 		</properties>
 		<wheels>
-			<wheel radius ="0.5" width ="2" offset-x ="0" offset-y ="1.5" can-steer ="true" can-throttle ="true">
+			<wheel radius ="0.5" width ="0.5" offset-x ="0" offset-y ="1.5" can-steer ="true" can-throttle ="true">
 				<properties>
 					<max-drive-force value = "150"/>
 					<max-lateral-impulse value = "8.5"/>
@@ -20,7 +20,7 @@
 				</properties>
 				<texture name ="Wheel" size-x="28" size-y="8" pos-x="20" pos-y="5"/>
 			</wheel>
-			<wheel radius ="0.5" width ="2" offset-x ="0" offset-y ="-1.5" can-steer ="false" can-throttle ="true">
+			<wheel radius ="0.5" width ="0.5" offset-x ="0" offset-y ="-1.5" can-steer ="false" can-throttle ="true">
 				<properties>
 					<max-drive-force value = "100"/>
 					<max-lateral-impulse value = "12.5"/>

@@ -118,7 +118,7 @@ bool SceneVehicleSelectSetup::Render()
 
 	App->renderer->BlockRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_2);
 
-	App->renderer->Draw(*vehicles, { 326 - vehicleNames[currentVehicle].rectangle.width/2*6,408 - vehicleNames[currentVehicle].rectangle.height / 2 * 6 }, { 0,0 }, &vehicleNames[currentVehicle].rectangle, 0, 6,0,0,vehicleColor);
+	App->renderer->Draw(*vehicles, { 326 - vehicleNames[currentVehicle].rectangle.width/2*4,408 - vehicleNames[currentVehicle].rectangle.height / 2 * 4 }, { 0,0 }, &vehicleNames[currentVehicle].rectangle, 0, 4,0,0,vehicleColor);
 	rect = characterRect;
 	rect.x = rect.width * currentCharacter;
 
