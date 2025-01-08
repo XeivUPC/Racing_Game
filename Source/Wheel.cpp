@@ -9,7 +9,6 @@
 Wheel::Wheel(Vehicle* owner, float radius, float width)
 {
 	this->owner = owner;
-
 	b2FixtureUserData fixtureData;
 	fixtureData.pointer = (uintptr_t)(&sensor);
 
@@ -88,12 +87,13 @@ void Wheel::SetUpWheelCharacteristics(float maxForwardSpeed, float maxBackwardSp
 	this->maxLateralImpulse = maxLateralImpulse;
 }
 
-void Wheel::SetUpWheelRenderCharacteristics(Texture2D* wheelTexture, Rectangle wheelTextureRec, bool rendereable, bool rendersOverVehicle)
+void Wheel::SetUpWheelRenderCharacteristics(Texture2D* wheelTexture, Rectangle wheelTextureRec, Color color, bool rendereable, bool rendersOverVehicle)
 {
 	this->wheelTexture = wheelTexture;
 	this->wheelTextureRec = wheelTextureRec;
 	this->rendereable = rendereable;
 	this->rendersOverVehicle = rendersOverVehicle;
+	this->wheelColor = color;
 }
 
 Vector2 Wheel::GetLateralVelocity()
@@ -171,5 +171,5 @@ void Wheel::Render()
 	if (GetJoint() != nullptr)
 		extraAngle = GetJoint()->GetJointAngle();
 	radianAngle += extraAngle;
-	owner->GetModuleAt()->App->renderer->Draw(*wheelTexture, body->GetPhysicPosition(), wheelRotatedOffset, &wheelTextureRec, RAD2DEG * (radianAngle), 1.8f*3, (int)cos(-wheelRotatedOffset.x), (int)sin(-wheelRotatedOffset.y));
+	owner->GetModuleAt()->App->renderer->Draw(*wheelTexture, body->GetPhysicPosition(), wheelRotatedOffset, &wheelTextureRec, RAD2DEG * (radianAngle), 1.8f*3, (int)cos(-wheelRotatedOffset.x), (int)sin(-wheelRotatedOffset.y), wheelColor);
 }

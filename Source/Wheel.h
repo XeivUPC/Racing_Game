@@ -22,7 +22,7 @@ public:
 	void Render();
 
 	void SetUpWheelCharacteristics(float maxForwardSpeed, float maxBackwardSpeed, float maxDriveForce, float maxLateralImpulse);
-	void SetUpWheelRenderCharacteristics(Texture2D* wheelTexture, Rectangle wheelTextureRec, bool rendereable, bool rendersOverVehicle);
+	void SetUpWheelRenderCharacteristics(Texture2D* wheelTexture, Rectangle wheelTextureRec, Color color, bool rendereable, bool rendersOverVehicle);
 	Vector2 GetForwardVelocity();
 	Vector2 GetLateralVelocity();
 
@@ -38,6 +38,7 @@ private:
 
 	CollisionSensor sensor;
 	Vehicle* owner=nullptr;
+	Color wheelColor = WHITE;
 
 	float maxForwardSpeed=0;
 	float maxBackwardSpeed = 0;
