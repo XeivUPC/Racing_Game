@@ -155,8 +155,14 @@ double BoomMode::GetDoubleParameter(std::string Id)
 void BoomMode::ExplodePlayer()
 {
 	// Explode player's car and loose
-	gameAt->App->renderer->DrawText("BOOOOOM!!", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(gameAt->App->assetLoader->agencyB, "BOOOOOM!!", 160, 0).x / 2, -MeasureTextEx(gameAt->App->assetLoader->agencyB, "BOOOOOM!!", 120, 0).y / 2}, gameAt->App->assetLoader->agencyB, 160, 0, WHITE);
 	gameAt->App->audio->PlayFx(gameAt->App->assetLoader->audioExplosionId, true);
+	auto& racePositions = gameAt->GetRacePlacePositions();
+	size_t startPosition = racePositions.size() - (explodedNum + 1);
+
+	for (size_t i = startPosition; i < racePositions.size(); ++i) {
+		racePositions.at(i)->BeginExplosion();
+	}
+	explodedNum++;
 	EndRace();
 }
 
@@ -165,7 +171,12 @@ void BoomMode::ExplodeCPU()
 	// Explode CPU's car
 	timeToExplode.Start();
 	gameAt->App->audio->PlayFx(gameAt->App->assetLoader->audioExplosionId, true);
-	gameAt->GetRacePlacePositions().at(gameAt->GetRacePlacePositions().size() - (explodedNum + 1))->Explode();
+	auto& racePositions = gameAt->GetRacePlacePositions();
+	size_t startPosition = racePositions.size() - (explodedNum + 1);
+
+	for (size_t i = startPosition; i < racePositions.size(); ++i) {
+		racePositions.at(i)->BeginExplosion();
+	}
 	explodedNum++;
 }
 

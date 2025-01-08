@@ -30,7 +30,7 @@ private:
 
 	void EndRace();
 
-	int explosionTime = 20;
+	int explosionTime = 5;
 	Timer timeToExplode;
 
 	int beepTime = 2;

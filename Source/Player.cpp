@@ -15,6 +15,7 @@ Player::~Player()
 
 update_status Player::Update()
 {
+	Pilot::Update();
 	if (!exploded) {
 		Vector2 moveInput = { 0,0 };
 

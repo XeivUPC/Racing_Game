@@ -84,6 +84,7 @@ PilotCPU::~PilotCPU()
 
 update_status PilotCPU::Update()
 {
+    Pilot::Update();
     if (!exploded) {
 	    Brain();
 	    vehicle->SetInput(direction);
