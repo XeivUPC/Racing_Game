@@ -93,6 +93,8 @@ bool SceneGame::CleanUp()
 	mode->CleanUp();
 	delete mode;
 
+	delete positionsDisplayer;
+
 	App->renderer->camera.target = { 0,0 };
 	App->renderer->camera.offset = { 0,0 };
 	App->renderer->camera.zoom = 1;
@@ -168,7 +170,7 @@ void SceneGame::SetPilotsCharacters()
 {
 	std::random_device rd;
 	std::mt19937 gen(rd());
-	std::vector<int> characters = { 0,1,2,3,4,5,6,7 };
+	std::vector<int> characters = {0,1,2,3,4,5,6,7};
 	characters.erase(characters.begin() + playerCharacter);
 	for each (Pilot* pilot in pilots)
 	{
