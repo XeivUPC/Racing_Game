@@ -204,6 +204,7 @@ void SceneVehicleSelectSetup::SetData(string prefix)
 
 void SceneVehicleSelectSetup::OnMouseClickPreviousVehicle()
 {
+	App->audio->PlayFx(App->assetLoader->audioClickId);
 	previousVehicle->SetInteractionStatus(true);
 	nextVehicle->SetInteractionStatus(true);
 	if (currentVehicle > 0)
@@ -214,6 +215,7 @@ void SceneVehicleSelectSetup::OnMouseClickPreviousVehicle()
 
 void SceneVehicleSelectSetup::OnMouseClickNextVehicle()
 {
+	App->audio->PlayFx(App->assetLoader->audioClickId);
 	nextVehicle->SetInteractionStatus(true);
 	previousVehicle->SetInteractionStatus(true);
 	if (currentVehicle < (int)vehicleNames.size() - 1)
@@ -223,6 +225,7 @@ void SceneVehicleSelectSetup::OnMouseClickNextVehicle()
 }
 void SceneVehicleSelectSetup::OnMouseClickPreviousCharacter()
 {
+	App->audio->PlayFx(App->assetLoader->audioClickId);
 	previousCharacter->SetInteractionStatus(true);
 	nextCharacter->SetInteractionStatus(true);
 	if(currentCharacter > 0)
@@ -233,6 +236,7 @@ void SceneVehicleSelectSetup::OnMouseClickPreviousCharacter()
 
 void SceneVehicleSelectSetup::OnMouseClickNextCharacter()
 {
+	App->audio->PlayFx(App->assetLoader->audioClickId);
 	nextCharacter->SetInteractionStatus(true);
 	previousCharacter->SetInteractionStatus(true);
 	if (currentCharacter < maxCharacters)

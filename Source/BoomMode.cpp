@@ -3,9 +3,12 @@
 #include "SceneGame.h"
 #include "SceneResults.h"
 #include "Player.h"
+#include "ModuleAudio.h"
 
 BoomMode::BoomMode(SceneGame* gameAt) : GameMode(gameAt)
 {
+	beepTimer.Start();
+	intenseBeepTimer.Start();
 }
 
 BoomMode::~BoomMode()
@@ -14,6 +17,7 @@ BoomMode::~BoomMode()
 
 bool BoomMode::Init()
 {
+
 	return false;
 }
 
@@ -46,8 +50,24 @@ update_status BoomMode::Update()
 	if (IsKeyPressed(KEY_N)) {
 		App->scene_game->StartFadeIn(App->scene_results, BLACK, 0.3f);
 	}
-
+	if (isPlayerLast)
+	{
+		if (intenseBeepTimer.ReadSec() > intenseBeepTime && timeToExplode.ReadSec() > 25)
+		{
+			gameAt->App->audio->PlayFx(gameAt->App->assetLoader->audioBombCountdownBeepId, true);
+			intenseBeepTimer.Start();
+		}
+		else if (beepTimer.ReadSec() > beepTime)
+		{
+			gameAt->App->audio->PlayFx(gameAt->App->assetLoader->audioBombCountdownBeepId, true);
+			beepTimer.Start();
+		}
+	}
+	
 	timeToExplode.Update();
+	beepTimer.Update();
+	intenseBeepTimer.Update();
+
 	return UPDATE_CONTINUE;
 }
 
