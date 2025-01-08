@@ -65,7 +65,7 @@ private:
 	void DrawSelectionBtnTexture(UIButton* btn);
 
 
-	vector<Color> availableColors = {WHITE, BLACK, RED, BLUE, YELLOW, GREEN, ORANGE, PURPLE};
+	vector<Color> availableColors = {WHITE, BLACK, RED, BLUE, YELLOW, GREEN,SKYBLUE, MAGENTA, ORANGE };
 	vector<UIButton*> colorBtns;
 	Vector2 colorBtnSize = {39,39 };
 	Vector2 colorBtnAnchor = { 76,271 };
