@@ -11,25 +11,26 @@
 			<max-backward-speed value ="-70"/>
 		</properties>
 		<wheels>
-			<wheel radius ="0.5" width ="0.5" offset-x ="-1.1" offset-y ="-1.5" can-steer ="false" can-throttle ="true">
-				<properties>
-					<max-drive-force value = "100"/>
-					<max-lateral-impulse value = "12.5"/>
-					<rendereable value = "true"/>
-					<renders-over-vehicle value = "false"/>
-				</properties>
-				<texture name ="Wheel" size-x="3" size-y="5" pos-x="0" pos-y="0" copyOwnerColor="false"/>
-			</wheel>
-			<wheel radius ="0.5" width ="0.5" offset-x ="-1.1" offset-y ="-1.5" can-steer ="false" can-throttle ="true">
+			<wheel radius ="0.5" width ="2" offset-x ="0" offset-y ="1.5" can-steer ="true" can-throttle ="true">
 				<properties>
 					<max-drive-force value = "150"/>
 					<max-lateral-impulse value = "8.5"/>
 					<rendereable value = "true"/>
 					<renders-over-vehicle value = "false"/>
 				</properties>
-				<texture name ="Wheel" size-x="3" size-y="5" pos-x="0" pos-y="0" copyOwnerColor="false"/>
+				<texture name ="Wheel" size-x="28" size-y="8" pos-x="20" pos-y="5"/>
+			</wheel>
+			<wheel radius ="0.5" width ="2" offset-x ="0" offset-y ="-1.5" can-steer ="false" can-throttle ="true">
+				<properties>
+					<max-drive-force value = "100"/>
+					<max-lateral-impulse value = "12.5"/>
+					<rendereable value = "true"/>
+					<renders-over-vehicle value = "false"/>
+				</properties>
+				<texture name ="Wheel" size-x="28" size-y="8" pos-x="20" pos-y="5"/>
 			</wheel>
 		</wheels>
+		<texture name ="Car" size-x="22" size-y="45" pos-x="0"  pos-y="0"/>
 	</car-type1>
 	<!--<car-type1 size-x ="2" size-y ="4.5" mass ="100" inertia ="30">
 		<information>
