@@ -32,10 +32,7 @@ Vehicle::~Vehicle()
 
 update_status Vehicle::Update()
 {
-	if (exploded) {
-		//CleanUp();
-	}
-	else {
+	if (!exploded) {
 		//particleSystem->UpdateParticles();
 
 		for (const auto& wheel : wheels)
@@ -85,9 +82,6 @@ update_status Vehicle::Update()
 
 bool Vehicle::Render()
 {
-	if (exploded) {
-		return true;
-	}
 	moduleAt->App->renderer->BlockRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_4);
 	double radianAngle = body->GetAngle();
 
