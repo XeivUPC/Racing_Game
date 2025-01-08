@@ -35,7 +35,7 @@ public:
 
 	void SetUpTrack(string path);
 	void SetMode(GameMode* mode);
-	void SetPlayerVehicle(string type);
+	void SetPlayerVehicle(string type, Color color);
 	void SetVehicleType(string type, int amount);
 	void SetPlayerCharacter(int character);
 
@@ -58,6 +58,7 @@ public:
 private:
 	string trackPath = "";
 	string player_vehicle_type;
+	Color player_vehicle_color;
 	int playerCharacter;
 	string vehicle_type;
 	int vehicleTypeAmount;

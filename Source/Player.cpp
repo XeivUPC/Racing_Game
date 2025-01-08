@@ -3,7 +3,7 @@
 #include "SceneGame.h"
 #include <string>
 
-Player::Player(SceneGame* gameAt, RaceTrack* track, std::string vehicleType) : Pilot(gameAt, track, vehicleType)
+Player::Player(SceneGame* gameAt, RaceTrack* track, std::string vehicleType, Color vehicleColor) : Pilot(gameAt, track, vehicleType, vehicleColor)
 {
 	pilotName = "Player";
 	characterIndex = 0;

@@ -16,13 +16,14 @@
 
 using namespace pugi;
 
-Vehicle::Vehicle(Module* moduleAt, Pilot* pilot, string id) : MapObject(moduleAt)
+Vehicle::Vehicle(Module* moduleAt, Pilot* pilot, string id, Color vehicleColor) : MapObject(moduleAt)
 {
 	this->pilot = pilot;
 	CreateVehicle(id);
 	//particleSystem = new ParticleSystem(moduleAt);
 	engineTimer.Start();
 	moduleAt->App->audio->PlayFx(moduleAt->App->assetLoader->audioEngineStartId);
+	this->vehicleColor = vehicleColor;
 }
 
 Vehicle::~Vehicle()
@@ -95,7 +96,7 @@ bool Vehicle::Render()
 	}
 
 	radianAngle = body->GetAngle();
-	moduleAt->App->renderer->Draw(*vehicleTexture, body->GetPhysicPosition(), vehicleRotatedOffset, &vehicleTextureRec, RAD2DEG * radianAngle, 1.8f*3, (int)cos(-vehicleRotatedOffset.x), (int)sin(-vehicleRotatedOffset.y));
+	moduleAt->App->renderer->Draw(*vehicleTexture, body->GetPhysicPosition(), vehicleRotatedOffset, &vehicleTextureRec, RAD2DEG * radianAngle, 1.8f*3, (int)cos(-vehicleRotatedOffset.x), (int)sin(-vehicleRotatedOffset.y), vehicleColor);
 
 	for (const auto& wheel : wheels)
 	{

@@ -2,12 +2,12 @@
 #include "Vehicle.h"
 
 
-Pilot::Pilot(SceneGame* gameAt, RaceTrack* track, std::string vehicleType) : MapObject((Module*)gameAt)
+Pilot::Pilot(SceneGame* gameAt, RaceTrack* track, std::string vehicleType, Color vehicleColor) : MapObject((Module*)gameAt)
 {
 	this->gameAt = gameAt;
 	this->track = track;
 
-	vehicle = new Vehicle(moduleAt,this, vehicleType);
+	vehicle = new Vehicle(moduleAt,this, vehicleType, vehicleColor);
 	checkpoint = 0;
 	lap = 0;
 }

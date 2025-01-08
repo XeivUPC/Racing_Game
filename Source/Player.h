@@ -9,7 +9,7 @@ struct Vector2;
 class Player : public Pilot
 {
 public:
-	Player(SceneGame* gameAt, RaceTrack* track, std::string vehicleType);
+	Player(SceneGame* gameAt, RaceTrack* track, std::string vehicleType, Color vehicleColor);
 	~Player();
 	update_status Update();
 };
