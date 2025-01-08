@@ -209,8 +209,6 @@ update_status SceneGame::Update()
 				pilots[i]->vehicle->body->SetPosition(startingPositions[i].x, startingPositions[i].y);
 			}
 		}
-
-
 		track->Update();
 
 		App->renderer->camera.target =player->vehicle->body->GetPhysicPosition();
