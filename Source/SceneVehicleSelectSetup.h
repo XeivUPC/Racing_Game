@@ -16,6 +16,7 @@ public:
 		string id;
 		string name;
 		Rectangle rectangle;
+		Rectangle fixedRectangle;
 	};
 	SceneVehicleSelectSetup(Application* app, bool start_enabled = false);
 	~SceneVehicleSelectSetup();
@@ -65,7 +66,7 @@ private:
 	void DrawSelectionBtnTexture(UIButton* btn);
 
 
-	vector<Color> availableColors = {WHITE, BLACK, RED, BLUE, YELLOW, GREEN,SKYBLUE, MAGENTA, ORANGE };
+	vector<Color> availableColors = {WHITE, DARKGRAY, RED, BLUE, YELLOW, GREEN,SKYBLUE, MAGENTA, ORANGE };
 	vector<UIButton*> colorBtns;
 	Vector2 colorBtnSize = {39,39 };
 	Vector2 colorBtnAnchor = { 76,271 };
