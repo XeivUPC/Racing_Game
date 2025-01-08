@@ -44,24 +44,24 @@ private:
 	Texture* vehicles = nullptr;
 	Texture* characters = nullptr;
 	Rectangle characterRect = { 0,0,48,48 };
-	string vehicleType;
+	string vehicleType ="";
 	int maxCharacters = 11;
-	int currentVehicle;
-	int currentCharacter;
-	bool sameVehicle;
+	int currentVehicle= 0;
+	int currentCharacter = 0;
+	bool sameVehicle = false;
 	Color vehicleColor = WHITE;
 	string configPath = "Assets/Data/vehicle_data.xml";
 
-	UIButton* previousVehicle;
+	UIButton* previousVehicle = nullptr;
 	void OnMouseClickPreviousVehicle();
 
-	UIButton* nextVehicle;
+	UIButton* nextVehicle = nullptr;
 	void OnMouseClickNextVehicle();
-	UIButton* previousCharacter;
+	UIButton* previousCharacter = nullptr;
 	void OnMouseClickPreviousCharacter();
-	UIButton* nextCharacter;
+	UIButton* nextCharacter = nullptr;
 	void OnMouseClickNextCharacter();
-	UIButton* finish;
+	UIButton* finish = nullptr;
 	void OnMouseClickFinish();
 	void DrawSelectionBtnTexture(UIButton* btn);
 
@@ -70,6 +70,6 @@ private:
 	vector<UIButton*> colorBtns;
 	Vector2 colorBtnSize = {39,39 };
 	Vector2 colorBtnAnchor = { 76,271 };
-	void ChangeVehicleColor(UIButton* colorBtn);
+	void ChangeVehicleColor(Color colorBtn);
 
 };

@@ -218,7 +218,7 @@ update_status SceneGame::Update()
 		mode->Update();
 	}
 
-	if (IsKeyPressed(KEY_P)) {
+	if (IsKeyPressed(KEY_P) && !App->scene_options->IsEnabled()) {
 		if(pauseMenu->IsPaused())
 			pauseMenu->Resume();
 		else {
