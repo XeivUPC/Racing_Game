@@ -118,7 +118,8 @@ bool SceneVehicleSelectSetup::Render()
 
 	App->renderer->BlockRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_2);
 
-	App->renderer->Draw(*vehicles, { 326 - vehicleNames[currentVehicle].rectangle.width/2*6,408 - vehicleNames[currentVehicle].rectangle.height / 2 * 6 }, { 0,0 }, &vehicleNames[currentVehicle].rectangle, 0, 6,0,0,vehicleColor);
+	App->renderer->Draw(*vehicles, { 326 - vehicleNames[currentVehicle].rectangle.width/2*4,408 - vehicleNames[currentVehicle].rectangle.height / 2 * 4 }, { 0,0 }, &vehicleNames[currentVehicle].rectangle, 0, 4,0,0,vehicleColor);
+	App->renderer->Draw(*vehicles, { 326 - vehicleNames[currentVehicle].rectangle.width/2*4,408 - vehicleNames[currentVehicle].rectangle.height / 2 * 4 }, { 0,0 }, &vehicleNames[currentVehicle].fixedRectangle, 0, 4);
 	rect = characterRect;
 	rect.x = rect.width * currentCharacter;
 
@@ -170,14 +171,21 @@ void SceneVehicleSelectSetup::LoadVehicles()
 			{
 				continue;
 			}
+			Rectangle rect{
+				child.child("texture").attribute("pos-x").as_float(),
+				child.child("texture").attribute("pos-y").as_float(),
+				child.child("texture").attribute("size-x").as_float(),
+				child.child("texture").attribute("size-y").as_float(),
+			};
 			VehicleData data = VehicleData{
 				child.child("texture").attribute("name").as_string(),
 				name,
+				rect,
 				Rectangle{
-					child.child("texture").attribute("pos-x").as_float(),
-					child.child("texture").attribute("pos-y").as_float(),
-					child.child("texture").attribute("size-x").as_float(),
-					child.child("texture").attribute("size-y").as_float(),
+					rect.x,
+					rect.y + rect.height,
+					rect.width,
+					rect.height,
 				}
 			};
 			vehicleNames.emplace_back(data);

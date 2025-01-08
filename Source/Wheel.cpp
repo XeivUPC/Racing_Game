@@ -171,5 +171,5 @@ void Wheel::Render()
 	if (GetJoint() != nullptr)
 		extraAngle = GetJoint()->GetJointAngle();
 	radianAngle += extraAngle;
-	owner->GetModuleAt()->App->renderer->Draw(*wheelTexture, body->GetPhysicPosition(), wheelRotatedOffset, &wheelTextureRec, RAD2DEG * (radianAngle), 1.8f*3, (int)cos(-wheelRotatedOffset.x), (int)sin(-wheelRotatedOffset.y), wheelColor);
+	owner->GetModuleAt()->App->renderer->Draw(*wheelTexture, body->GetPhysicPosition(), wheelRotatedOffset, &wheelTextureRec, RAD2DEG * (radianAngle), 1.8f*2, (int)cos(-wheelRotatedOffset.x), (int)sin(-wheelRotatedOffset.y), wheelColor);
 }
