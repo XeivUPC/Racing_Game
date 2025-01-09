@@ -40,16 +40,15 @@ bool SceneSelectSetup::Start()
 
 	//// Select Buttons
 	// Texture
-	buttons_texture = App->texture->GetTexture("select_setup_mode_buttons");
-	buttons_texture_hover = App->texture->GetTexture("select_setup_mode_buttons_hover");
 
 	// Race button
-	race_button = new UIButton(this, { race_buttonTextureRec.x, race_buttonTextureRec.y }, { race_buttonTextureRec.width, race_buttonTextureRec.height });
+	Vector2 posOffset = { SCREEN_WIDTH / 2 - btn_rect.width,SCREEN_HEIGHT / 2 - btn_rect.height +40};
+	race_button = new UIButton(this, { posOffset.x, posOffset.y -100}, { btn_rect.width*2, btn_rect.height*2 });
 	race_button->onMouseClick.emplace_back([&]() {ClickRACE(); });
 	race_button->onMouseOver.emplace_back([&]() {OnMouseOverRACE(); });
 
 	// Boom button
-	boom_button = new UIButton(this, { boom_buttonTextureRec.x, boom_buttonTextureRec.y }, { boom_buttonTextureRec.width, boom_buttonTextureRec.height });
+	boom_button = new UIButton(this, { posOffset.x, posOffset.y +100}, { btn_rect.width*2, btn_rect.height*2 });
 	boom_button->onMouseClick.emplace_back([&]() {ClickBOOM(); });
 	boom_button->onMouseOver.emplace_back([&]() {OnMouseOverBOOM(); });
 
@@ -209,16 +208,52 @@ bool SceneSelectSetup::Render()
 
 	if (!isModeChosen && !isCarChosen && !isMapChosen) {
 		App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_2);
-		App->renderer->Draw(*buttons_texture, { buttons_textureRec.x, buttons_textureRec.y }, { 0,0 }, &buttons_textureRec, 0, 2);
 
-		float race_x = SCREEN_WIDTH / 2 - MeasureTextEx(App->assetLoader->titleFont, App->localization->GetString("SELECTMENU_MODE_RACE").c_str(), 100, 0).x/2;
-		if (App->localization->GetString("SELECTMENU_MODE_RACE").length() > 6) {
-			race_x -= App->assetLoader->titleFont.recs->width;
+
+		switch (race_button->GetState())
+		{
+		case UIButton::BUTTON_STATE::NORMAL:
+			App->renderer->Draw(*btn_texture, { race_button->bounds.x , race_button->bounds.y }, { 0,0 }, &btn_rect, 0, 2);
+			break;
+		case UIButton::BUTTON_STATE::OVER:
+			App->renderer->Draw(*btn_texture, { race_button->bounds.x , race_button->bounds.y }, { 0,0 }, &btn_rect_hover, 0, 2);
+			break;
+		case UIButton::BUTTON_STATE::PRESSED:
+			App->renderer->Draw(*btn_texture, { race_button->bounds.x , race_button->bounds.y }, { 0,0 }, &btn_rect_pressed, 0, 2);
+			break;
+		default:
+			App->renderer->Draw(*btn_texture, { race_button->bounds.x , race_button->bounds.y }, { 0,0 }, &btn_rect_pressed, 0, 2);
+			break;
 		}
-		App->renderer->DrawText(App->localization->GetString("SELECTMENU_MODE_RACE").c_str(), { race_x , race_buttonTextureRec.y }, buttonsText_Offset, App->assetLoader->titleFont, 100, 0, WHITE);
+
+
+		switch (boom_button->GetState())
+		{
+		case UIButton::BUTTON_STATE::NORMAL:
+			App->renderer->Draw(*btn_texture, { boom_button->bounds.x , boom_button->bounds.y }, { 0,0 }, &btn_rect, 0, 2);
+			break;
+		case UIButton::BUTTON_STATE::OVER:
+			App->renderer->Draw(*btn_texture, { boom_button->bounds.x , boom_button->bounds.y }, { 0,0 }, &btn_rect_hover, 0, 2);
+			break;
+		case UIButton::BUTTON_STATE::PRESSED:
+			App->renderer->Draw(*btn_texture, { boom_button->bounds.x , boom_button->bounds.y }, { 0,0 }, &btn_rect_pressed, 0, 2);
+			break;
+		default:
+			App->renderer->Draw(*btn_texture, { boom_button->bounds.x , boom_button->bounds.y }, { 0,0 }, &btn_rect_pressed, 0, 2);
+			break;
+		}
+
+
+
+
+		float race_x = SCREEN_WIDTH / 2 - MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_MODE_RACE").c_str(), 100, 0).x/2;
+		if (App->localization->GetString("SELECTMENU_MODE_RACE").length() > 6) {
+			race_x -= App->assetLoader->agencyB.recs->width;
+		}
+		App->renderer->DrawText(App->localization->GetString("SELECTMENU_MODE_RACE").c_str(), { race_x , race_button->bounds.y+10 }, buttonsText_Offset, App->assetLoader->agencyB, 100, 0, BLACK);
 	
-		float boom_x = SCREEN_WIDTH / 2 - MeasureTextEx(App->assetLoader->titleFont, App->localization->GetString("SELECTMENU_MODE_BOOM").c_str(), 100, 0).x/2;
-		App->renderer->DrawText(App->localization->GetString("SELECTMENU_MODE_BOOM").c_str(), { boom_x , boom_buttonTextureRec.y }, buttonsText_Offset, App->assetLoader->titleFont, 100, 0, WHITE);
+		float boom_x = SCREEN_WIDTH / 2 - MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_MODE_BOOM").c_str(), 100, 0).x/2;
+		App->renderer->DrawText(App->localization->GetString("SELECTMENU_MODE_BOOM").c_str(), { boom_x , boom_button->bounds.y+10 }, buttonsText_Offset, App->assetLoader->agencyB, 100, 0, BLACK);
 	}
 	if (isModeChosen && !isCarChosen && !isMapChosen) {
 		App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_2);
@@ -414,14 +449,12 @@ void SceneSelectSetup::ClickBOOM()
 void SceneSelectSetup::OnMouseOverRACE()
 {
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_1);
-	App->renderer->Draw(*buttons_texture_hover, { race_buttonTextureRec.x , race_buttonTextureRec.y }, { 0,0 }, &buttons_texture_hover_section, 0, 2);
 	App->renderer->DrawText(App->localization->GetString("SELECTMENU_MODE_CLASSIC_DESC").c_str(), {description_middle_pos.x - MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_MODE_CLASSIC_DESC").c_str(), 40, 0).x/2 , description_middle_pos.y}, {0,0}, App->assetLoader->agencyB, 40, 0, BLACK);
 }
 
 void SceneSelectSetup::OnMouseOverBOOM()
 {
 	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_1);
-	App->renderer->Draw(*buttons_texture_hover, { boom_buttonTextureRec.x , boom_buttonTextureRec.y }, { 0,0 }, &buttons_texture_hover_section, 0, 2);
 	App->renderer->DrawText(App->localization->GetString("SELECTMENU_MODE_BOOM_DESC").c_str(), {description_middle_pos.x - MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_MODE_BOOM_DESC").c_str(), 40, 0).x/2 , description_middle_pos.y}, {0,0}, App->assetLoader->agencyB, 40, 0, BLACK);
 }
 
