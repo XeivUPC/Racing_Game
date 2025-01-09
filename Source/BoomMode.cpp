@@ -81,14 +81,18 @@ bool BoomMode::Render()
 
 	App->renderer->SelectRenderLayer(App->renderer->SUB_LAYER_4);
 	App->renderer->BlockRenderLayer();
-	if (GetCountdownTime() >= 4 && GetCountdownTime() < 5 && !IsRaceStarted()) {
-		App->renderer->DrawText(App->localization->FormatNumber(1, 0).c_str(), { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(1,0).c_str(), 120, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(1,0).c_str(), 120, 0).y / 2 }, App->assetLoader->agencyB, 120, 0, WHITE);
-	}
-	else if (GetCountdownTime() >= 3 && GetCountdownTime() < 4 && !IsRaceStarted()) {
-		App->renderer->DrawText(App->localization->FormatNumber(2, 0).c_str(), { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(2,0).c_str(), 120, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(2,0).c_str(), 120, 0).y / 2 }, App->assetLoader->agencyB, 120, 0, WHITE);
-	}
-	else if (GetCountdownTime() >= 2 && GetCountdownTime() < 3 && !IsRaceStarted()) {
-		App->renderer->DrawText(App->localization->FormatNumber(3, 0).c_str(), { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(3,0).c_str(), 120, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(3,0).c_str(), 120, 0).y / 2 }, App->assetLoader->agencyB, 120, 0, WHITE);
+	if (!IsRaceStarted())
+	{
+		App->renderer->DrawSimpleCircle({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, 80, { 0,0,0,127 });
+		if (GetCountdownTime() >= 4 && GetCountdownTime() < 5) {
+			App->renderer->DrawText(App->localization->FormatNumber(1, 0).c_str(), { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(1,0).c_str(), 120, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(1,0).c_str(), 120, 0).y / 2 }, App->assetLoader->agencyB, 120, 0, WHITE);
+		}
+		else if (GetCountdownTime() >= 3 && GetCountdownTime() < 4) {
+			App->renderer->DrawText(App->localization->FormatNumber(2, 0).c_str(), { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(2,0).c_str(), 120, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(2,0).c_str(), 120, 0).y / 2 }, App->assetLoader->agencyB, 120, 0, WHITE);
+		}
+		else if (GetCountdownTime() >= 2 && GetCountdownTime() < 3) {
+			App->renderer->DrawText(App->localization->FormatNumber(3, 0).c_str(), { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(3,0).c_str(), 120, 0).x / 2, -MeasureTextEx(App->assetLoader->agencyB, App->localization->FormatNumber(3,0).c_str(), 120, 0).y / 2 }, App->assetLoader->agencyB, 120, 0, WHITE);
+		}
 	}
 
 	if (IsRaceStarted()) {
@@ -96,24 +100,27 @@ bool BoomMode::Render()
 		App->renderer->DrawText(App->localization->FormatNumber(explosionTime - (float)timeToExplode.ReadSec(), 0).c_str(), { 0, 0 }, { MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("BOOMMODE_TIME_TILL_EXPLOSION").c_str(), 80, 0).x, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
 		Rectangle rect;
 		if (isPlayerLast) {
-			App->renderer->DrawText(App->localization->GetString("BOOMMODE_LAST").c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("BOOMMODE_TIME_TILL_EXPLOSION").c_str(), 80, 0).y + 10 }, App->assetLoader->agencyB, 40, 0, WHITE);
+			/*App->renderer->DrawText(App->localization->GetString("BOOMMODE_LAST").c_str(), { 0, 0 }, { 0, MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("BOOMMODE_TIME_TILL_EXPLOSION").c_str(), 80, 0).y + 10 }, App->assetLoader->agencyB, 40, 0, WHITE);*/
 			rect = { 81,0,80,45 };
 			App->renderer->SetCameraMode(false);
 			App->renderer->Draw(*setup, { 0,0 }, { 0,0 }, &rect, 0, 16);
 			rect = { 18,15,63,30};
 			App->renderer->Draw(*setup, { SCREEN_WIDTH/2-rect.width/2*2,0 }, { 0,0 }, &rect, 0, 2);
+			string countdown("00:"+App->localization->FormatNumber(explosionTime - (float)timeToExplode.ReadSec(), 0));
+			Vector2 position = { SCREEN_WIDTH / 2 - MeasureTextEx(App->assetLoader->basicFont, countdown.c_str(), 30, 0).x / 2, MeasureTextEx(App->assetLoader->basicFont, countdown.c_str(), 30, 0).y*2 };
+			App->renderer->DrawText(countdown.c_str(), { position.x+2, 21 }, { 0,0 }, App->assetLoader->basicFont, 30, 0, { 76,206,136, 255 });
 			App->renderer->SetCameraMode(true);
 		}
-		
-		Vector2 lastPlayerPosition = App->scene_game->GetRacePlacePositions()[App->scene_game->GetPilotAmount() - 1 /*- Exploded pilots*/]->vehicle->body->GetPhysicPosition();
+		int lastPilot = App->scene_game->GetPilotAmount() - 1 - explodedNum;
+		Vector2 lastPlayerPosition = App->scene_game->GetRacePlacePositions()[lastPilot]->vehicle->body->GetPhysicPosition();
 		rect = {0,26,18,19};
-		App->renderer->Draw(*setup, lastPlayerPosition, {0,15}, &rect);
+		App->renderer->Draw(*setup, { lastPlayerPosition.x-18, lastPlayerPosition.y - 19 }, { 0,-30 }, &rect, 0, 2);
 
 		int position = gameAt->GetRacePlayerPosition();
 		string infoPosition = to_string(position) + "/" + to_string(gameAt->pilots.size());
 		Vector2 posSize = MeasureTextEx(App->assetLoader->agencyB, infoPosition.c_str(), 100, 0);
 		App->renderer->DrawText(infoPosition.c_str(), { 0,SCREEN_HEIGHT - posSize.y }, { 0,0 }, App->assetLoader->agencyB, 120, 0, WHITE);
-
+		printf("%d\n", explodedNum);
 	}
 	App->renderer->UnlockRenderLayer();
 
