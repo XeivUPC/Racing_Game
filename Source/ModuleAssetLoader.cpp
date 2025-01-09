@@ -69,6 +69,7 @@ bool ModuleAssetLoader::Init()
 	textureModule->CreateTexture("Assets/Textures/Results_next_button.png", "results_next_button");
 
 	// Game
+	textureModule->CreateTexture("Assets/Textures/boomMode_setup.png", "boomMode");
 	textureModule->CreateTexture("Assets/Textures/objectsSpring.png", "objectsSpring");
 	textureModule->CreateTexture("Assets/Textures/conekko-chan.png", "cone");
 	textureModule->CreateTexture("Assets/Textures/Rock.png", "rock");
