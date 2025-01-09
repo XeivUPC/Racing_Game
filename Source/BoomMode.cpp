@@ -121,14 +121,13 @@ bool BoomMode::Render()
 		Vector2 lastPlayerPosition = App->scene_game->GetRacePlacePositions()[lastPilot]->vehicle->body->GetPhysicPosition();
 		rect = {0,26,18,19};
 		App->renderer->Draw(*setup, { lastPlayerPosition.x-18, lastPlayerPosition.y - 19 }, { 0,-30 }, &rect, 0, 2);
-
 		int position = gameAt->GetRacePlayerPosition();
-		string infoPosition = to_string(position) + "/" + to_string(gameAt->pilots.size());
-		Vector2 posSize = MeasureTextEx(App->assetLoader->agencyB, infoPosition.c_str(), 100, 0);
-		App->renderer->DrawText(infoPosition.c_str(), { 0,SCREEN_HEIGHT - posSize.y }, { 0,0 }, App->assetLoader->agencyB, 120, 0, WHITE);
+		Vector2 posSize = MeasureTextEx(App->assetLoader->agencyB, to_string(position).c_str(), 100, 0);
+		App->renderer->DrawText(to_string(position).c_str(), { 0,SCREEN_HEIGHT - posSize.y }, { 0, 0 }, App->assetLoader->agencyB, 80, 0, WHITE);
+		string remainingPilots = "/" + App->localization->FormatNumber((float)gameAt->pilots.size() - 1 - explodedNum, 0);
+		App->renderer->DrawText(remainingPilots.c_str(), { posSize.x,SCREEN_HEIGHT - posSize.y }, { 0, 0 }, App->assetLoader->agencyB, 40, 0, WHITE);
 	}
 	App->renderer->UnlockRenderLayer();
-
 	return true;
 }
 
