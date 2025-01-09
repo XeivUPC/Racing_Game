@@ -55,13 +55,12 @@ bool SceneSelectSetup::Start()
 
 	//// Car Selection
 	//Texture
+	btn_texture = App->texture->GetTexture("UI_Btn1");
 	car_bg_texture = App->texture->GetTexture("select_setup_car_bg");
-	finish_car_button_texture_hover = App->texture->GetTexture("select_setup_mode_buttons_hover");
 
 	// Finish car button
 	finish_car_button = new UIButton(this, { finish_car_button_textureRec.x, finish_car_button_textureRec.y }, { finish_car_button_textureRec.width, finish_car_button_textureRec.height });
 	finish_car_button->onMouseClick.emplace_back([&]() {ClickFINISH(); });
-	finish_car_button->onMouseOver.emplace_back([&]() {OnMouseOverFINISH(); });
 
 	// Right arrow button
 	car_arrow_right = new UIButton(this, { car_arrow_right_rec.x, car_arrow_right_rec.y }, { car_arrow_right_rec.width, car_arrow_right_rec.height });
@@ -112,7 +111,7 @@ bool SceneSelectSetup::Start()
 	//// Map Selection
 	// Texture
 	map_bg_texture = App->texture->GetTexture("UI_SelectSetupMap_Bg");
-	finish_map_button_texture_hover = App->texture->GetTexture("select_setup_map_button_hover");
+
 
 	// Finish map button
 	finish_map_button = new UIButton(this, { finish_map_button_textureRec.x, finish_map_button_textureRec.y }, { finish_map_button_textureRec.width, finish_map_button_textureRec.height });
@@ -225,10 +224,33 @@ bool SceneSelectSetup::Render()
 		App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_2);
 		App->renderer->Draw(*car_bg_texture, { car_bg_textureRec.x, car_bg_textureRec.y }, { 0,0 }, &car_bg_textureRec, 0, 2);
 		
-		App->renderer->DrawText(App->localization->GetString("SELECTMENU_FINISH").c_str(), { finish_car_button_textureRec.x , finish_car_button_textureRec.y }, finish_car_button_textOffset, App->assetLoader->titleFont, 100, 0, WHITE);
+		switch (finish_car_button->GetState())
+		{
+		case UIButton::BUTTON_STATE::NORMAL:
+			App->renderer->Draw(*btn_texture, { finish_car_button->bounds.x , finish_car_button->bounds.y }, { 0,0 }, &btn_rect, 0, 1);
+			break;
+		case UIButton::BUTTON_STATE::OVER:
+			App->renderer->Draw(*btn_texture, { finish_car_button->bounds.x , finish_car_button->bounds.y }, { 0,0 }, &btn_rect_hover, 0, 1);
+			break;
+		case UIButton::BUTTON_STATE::PRESSED:
+			App->renderer->Draw(*btn_texture, { finish_car_button->bounds.x , finish_car_button->bounds.y }, { 0,0 }, &btn_rect_pressed, 0, 1);
+			break;
+		default:
+			App->renderer->Draw(*btn_texture, { finish_car_button->bounds.x , finish_car_button->bounds.y }, { 0,0 }, &btn_rect_pressed, 0, 1);
+			break;
+		}
+		App->renderer->DrawText(App->localization->GetString("SELECTMENU_FINISH").c_str(), { SCREEN_WIDTH / 2 , finish_car_button_textureRec.y }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_FINISH").c_str(), 60, 0).x / 2, 7}, App->assetLoader->agencyB, 60, 0, BLACK);
 
-		string vehicleName = App->localization->GetString(vehicles [currentSelectedVehicle].name);
-		App->renderer->DrawText(vehicleName.c_str(), car_name_text_pos, { -MeasureTextEx(App->assetLoader->agencyB, vehicleName.c_str(), 40, 0).x / 2,0 }, App->assetLoader->agencyB, 40, 0, BLACK);
+		App->renderer->DrawText(App->localization->GetString("SELECTMENU_VELOCITY").c_str(), velocity_text_pos, {-MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_VELOCITY").c_str(), 60, 0).x / 2, 0}, App->assetLoader->agencyB, 60, 0, WHITE);
+		App->renderer->DrawText(App->localization->GetString("SELECTMENU_DRIFT").c_str(), drift_text_pos, {-MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_DRIFT").c_str(), 60, 0).x / 2, 0}, App->assetLoader->agencyB, 60, 0, WHITE);
+		App->renderer->DrawText(App->localization->GetString("SELECTMENU_CONTROL").c_str(), control_text_pos, {-MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_CONTROL").c_str(), 60, 0).x / 2, 0}, App->assetLoader->agencyB, 60, 0, WHITE);
+		
+		App->renderer->DrawSimpleRectangle(Rectangle{ 134 * 2, 74 * 2, 40, 200  *(1- vehicles[currentSelectedVehicle].velocity)  }, { 0,0,0,255 });
+		App->renderer->DrawSimpleRectangle(Rectangle{ 310 * 2, 74 * 2, 40, 200  *(1-vehicles[currentSelectedVehicle].control) }, { 0,0,0,255});
+		App->renderer->DrawSimpleRectangle(Rectangle{ 485 * 2, 74 * 2, 40, 200  *(1- vehicles[currentSelectedVehicle].drift) }, { 0,0,0,255 });
+		
+		string vehicleName = App->localization->GetString(vehicles[currentSelectedVehicle].name);
+		App->renderer->DrawText(vehicleName.c_str(), car_name_text_pos, { -MeasureTextEx(App->assetLoader->agencyB, vehicleName.c_str(), 60, 0).x / 2,0 }, App->assetLoader->agencyB, 60, 0, BLACK);
 		
 
 		arrowRightSetupCarAnimator->Animate({ car_arrow_right_rec.x, car_arrow_right_rec.y }, { 0,0 }, 0, 1, false);
@@ -250,8 +272,27 @@ bool SceneSelectSetup::Render()
 		App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_2);
 		App->renderer->Draw(*map_bg_texture, { map_bg_textureRec.x, map_bg_textureRec.y }, { 0,0 }, &map_bg_textureRec, 0, 2);
 
-		App->renderer->DrawText(App->localization->GetString("SELECTMENU_FINISH").c_str(), map_finish_text_pos, { -MeasureTextEx(App->assetLoader->titleFont, App->localization->GetString("SELECTMENU_FINISH").c_str(), 50, 0).x / 2, 0 }, App->assetLoader->titleFont, 50, 0, WHITE);
+		
 
+
+
+		switch (finish_map_button->GetState())
+		{
+		case UIButton::BUTTON_STATE::NORMAL:
+			App->renderer->Draw(*btn_texture, { finish_map_button->bounds.x , finish_map_button->bounds.y }, { 0,0 }, &btn_rect, 0, 1);
+			break;
+		case UIButton::BUTTON_STATE::OVER:
+			App->renderer->Draw(*btn_texture, { finish_map_button->bounds.x , finish_map_button->bounds.y }, { 0,0 }, &btn_rect_hover, 0, 1);
+			break;
+		case UIButton::BUTTON_STATE::PRESSED:
+			App->renderer->Draw(*btn_texture, { finish_map_button->bounds.x , finish_map_button->bounds.y }, { 0,0 }, &btn_rect_pressed, 0, 1);
+			break;
+		default:
+			App->renderer->Draw(*btn_texture, { finish_map_button->bounds.x , finish_map_button->bounds.y }, { 0,0 }, &btn_rect_pressed, 0, 1);
+			break;
+		}
+
+		App->renderer->DrawText(App->localization->GetString("SELECTMENU_FINISH").c_str(), { SCREEN_WIDTH / 2 , finish_map_button_textureRec.y }, { -MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_FINISH").c_str(), 60, 0).x / 2, 7 }, App->assetLoader->agencyB, 60, 0, BLACK);
 
 		string mapName = App->localization->GetString(maps[currentSelectedMap].name);
 		App->renderer->DrawText(mapName.c_str(), map_name_text_pos, { -MeasureTextEx(App->assetLoader->agencyB, mapName.c_str(), 40, 0).x / 2,0 }, App->assetLoader->agencyB, 40, 0, WHITE);
@@ -334,7 +375,13 @@ void SceneSelectSetup::LoadSetUpInformation()
 		for (xml_node vehicle_node = vehicles_node.child("vehicle"); vehicle_node != NULL; vehicle_node = vehicle_node.next_sibling("vehicle")) {
 			string vehicleName = vehicle_node.attribute("name").as_string();
 			string vehiclePrefix = vehicle_node.attribute("prefix").as_string();
-			VehicleTypeData vehicleData = { vehicleName,vehiclePrefix };
+
+			xml_node vehicleStats_node = vehicle_node.child("stats");
+			float velocity = vehicleStats_node.child("velocity").attribute("value").as_float();
+			float control = vehicleStats_node.child("control").attribute("value").as_float();
+			float drift = vehicleStats_node.child("drift").attribute("value").as_float();
+
+			VehicleTypeData vehicleData = { vehicleName,vehiclePrefix,velocity,control,drift};
 			vehicles.emplace_back(vehicleData);
 		}
 	}
@@ -385,13 +432,6 @@ void SceneSelectSetup::ClickFINISH()
 	
 	App->scene_vehicle_select_setup->SetData(vehicles[currentSelectedVehicle].prefix);
 	StartFadeOut(BLACK, 0.3f);
-}
-
-void SceneSelectSetup::OnMouseOverFINISH()
-{
-	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_1);
-	App->renderer->Draw(*finish_car_button_texture_hover, { finish_car_button_textureRec.x , finish_car_button_textureRec.y }, { 0,0 }, &finish_car_button_texture_hover_section, 0, 2);
-	App->renderer->DrawText(App->localization->GetString("SELECTMENU_VEHICLE_FINISH_DESC").c_str(), { description_middle_pos.x - MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_VEHICLE_FINISH_DESC").c_str(), 40, 0).x / 2 , description_middle_pos.y }, { 0,0 }, App->assetLoader->agencyB, 40, 0, BLACK);
 }
 
 void SceneSelectSetup::ClickCarRightArrow()
@@ -449,8 +489,6 @@ void SceneSelectSetup::ClickMapFINISH()
 
 void SceneSelectSetup::OnMouseOverMapFINISH()
 {
-	App->renderer->SelectRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_1);
-	App->renderer->Draw(*finish_map_button_texture_hover, { finish_map_button_textureRec.x , finish_map_button_textureRec.y }, { 0,0 }, &finish_map_button_texture_hover_section, 0, 2);
 	App->renderer->DrawText(App->localization->GetString("SELECTMENU_MAP_FINISH_DESC").c_str(), { description_middle_pos.x - MeasureTextEx(App->assetLoader->agencyB, App->localization->GetString("SELECTMENU_MAP_FINISH_DESC").c_str(), 40, 0).x / 2 , description_middle_pos.y }, { 0,0 }, App->assetLoader->agencyB, 40, 0, BLACK);
 }
 

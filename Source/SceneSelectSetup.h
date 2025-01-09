@@ -52,9 +52,12 @@ private:
 	struct VehicleTypeData {
 		string name;
 		string prefix;
+		float velocity;
+		float control;
+		float drift;
 
-		VehicleTypeData(const string& name, const string& prefix)
-			: name(name), prefix(prefix)
+		VehicleTypeData(const string& name, const string& prefix, float velocity, float control, float drift)
+			: name(name), prefix(prefix), velocity(velocity), control(control), drift(drift)
 		{
 		}
 	};
@@ -105,7 +108,6 @@ private:
 	
 	// Choosing Car Type
 	void ClickFINISH();
-	void OnMouseOverFINISH();
 
 	void ClickCarRightArrow();
 	void OverCarRightArrow();
@@ -119,17 +121,22 @@ private:
 	Rectangle  car_bg_textureRec = { 0, 0, 640, 360 };
 
 	UIButton* finish_car_button = nullptr;
-	Rectangle finish_car_button_textureRec = { (282 * 2), (240 * 2), 304 * 2, 64 * 2 };
-	Texture2D* finish_car_button_texture_hover = nullptr;
-	Rectangle  finish_car_button_texture_hover_section = { 0, 0, 304, 64 };
-	Vector2 finish_car_button_textOffset = { 80, 7 };
+	Rectangle finish_car_button_textureRec = { (243 * 2), (272 * 2), 152 * 2, 36 * 2 };
 
-	Vector2 car_name_text_pos = { 141 * 2 , 283 * 2 };
+	Texture2D* btn_texture = nullptr;
+	Rectangle btn_rect = { 0,0,304,71 };
+	Rectangle btn_rect_hover = { 305,0,305,71 };
+	Rectangle btn_rect_pressed = { 305 * 2,0,305,71 };
 
+	Vector2 velocity_text_pos = { 143 * 2 , 182 * 2 };
+	Vector2 control_text_pos = { SCREEN_WIDTH/2 , 182 * 2 };
+	Vector2 drift_text_pos = { 495 * 2 , 182 * 2 };
+
+	Vector2 car_name_text_pos = { SCREEN_WIDTH/2 , 226 * 2 };
 	UIButton* car_arrow_right = nullptr;
-	Rectangle car_arrow_right_rec = { (233 * 2), (164 * 2), 15 * 2, 13 * 2 };
+	Rectangle car_arrow_right_rec = { (446 * 2), (239 * 2) - 13, 15 * 2, 13 * 2 };
 	UIButton* car_arrow_left = nullptr;
-	Rectangle car_arrow_left_rec = { (36 * 2), (164 * 2), 15 * 2, 13 * 2 };
+	Rectangle car_arrow_left_rec = { (192 * 2) - 15*2, (239 * 2) - 13, 15 * 2, 13 * 2 };
 
 	Texture2D* arrows_texture = nullptr;
 	Animator* arrowRightSetupCarAnimator = nullptr;
@@ -142,6 +149,7 @@ private:
 
 	// Choosing Map
 	void ClickMapFINISH();
+
 	void OnMouseOverMapFINISH();
 
 	void ClickMapRightArrow();
@@ -156,10 +164,7 @@ private:
 	Rectangle  map_bg_textureRec = { 0, 0, 640, 360 };
 
 	UIButton* finish_map_button = nullptr;
-	Rectangle finish_map_button_textureRec = { (222 * 2), (283 * 2), 200 * 2, 32 * 2 };
-	Texture2D* finish_map_button_texture_hover = nullptr;
-	Rectangle  finish_map_button_texture_hover_section = { 0, 0, 200, 32 };
-	Vector2 finish_map_button_textOffset = { 80, 7 };
+	Rectangle finish_map_button_textureRec = { (243 * 2), (272 * 2), 152 * 2, 36 * 2 };
 
 	Vector2 map_name_text_pos = { SCREEN_WIDTH/2 , 84 * 2 };
 	Vector2 map_finish_text_pos = { SCREEN_WIDTH/2 , 284 * 2 };
