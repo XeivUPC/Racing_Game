@@ -143,7 +143,12 @@ vector<Pilot*> SceneGame::GetRacePlacePositions() const
 	std::sort(orderedPlacePositions.begin(), orderedPlacePositions.end(), [trackRef](Pilot* a, Pilot* b) {
 
 		if (a->IsExploded() != b->IsExploded()) {
-			return !a->IsExploded();
+			return !a->IsExploded(); // Non-exploded pilots come first
+		}
+
+		// If both pilots are exploded, maintain their relative order
+		if (a->IsExploded() && b->IsExploded()) {
+			return false; // Keep their relative order unchanged
 		}
 
 		if (a->CurrentLap() == b->CurrentLap()) {
