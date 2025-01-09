@@ -11,5 +11,5 @@ public:
 private:
 	bool CleanUp();
 	void Init(ParticleSystem* system);
-	double angle;
+	double angle = 0;
 };

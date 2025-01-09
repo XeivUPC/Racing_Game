@@ -18,7 +18,7 @@ public:
 
 private:
 	
-	Vector2 direction;
+	Vector2 direction = {0,0};
 
 	CollisionSensor curvePredictorSensor;
 	CollisionSensor curvePredictorHelperSensorLeft;

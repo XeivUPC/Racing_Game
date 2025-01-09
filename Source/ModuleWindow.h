@@ -45,7 +45,7 @@ public:
     bool GetWindowEvent(WindowEvent ev);
 
 private:
-	float scale;
+	float scale=1;
 
 	uint game_width;
 	uint game_height;
