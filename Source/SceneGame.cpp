@@ -136,6 +136,11 @@ vector<Pilot*> SceneGame::GetRacePlacePositions() const
 	vector<Pilot*> orderedPlacePositions = pilots;
 	RaceTrack* trackRef = track;
 	std::sort(orderedPlacePositions.begin(), orderedPlacePositions.end(), [trackRef](Pilot* a, Pilot* b) {
+
+		if (a->IsExploded() != b->IsExploded()) {
+			return !a->IsExploded();
+		}
+
 		if (a->CurrentLap() == b->CurrentLap()) {
 			if (a->CurrentCheckpoint() == b->CurrentCheckpoint()) {
 				int checkPointIndex = b->CurrentCheckpoint()+1;
