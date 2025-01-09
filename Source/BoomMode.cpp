@@ -132,53 +132,17 @@ bool BoomMode::CleanUp()
 	return false;
 }
 
-void BoomMode::ExecuteFunction(std::string Id)
-{
-	if (Id.c_str() == "ExplodePlayer") {
-		ExplodePlayer();
-	}
-	else if (Id.c_str() == "ExplodeCPU") {
-		ExplodeCPU();
-	}
-	else if (Id.c_str() == "EndRace") {
-		EndRace();
-	}
-	else {
-		return;
-	}
-}
-
-void BoomMode::ExecuteFunctionGivenDouble(std::string Id, double input)
-{
-	if (Id.c_str() == "SetTimeToExplodeSec") {
-		SetTimeToExplodeSec(input);
-	}
-	else {
-		return;
-	}
-}
-
-double BoomMode::GetDoubleParameter(std::string Id)
-{
-	if (Id.c_str() == "GetTimeToExplodeSec") {
-		return GetTimeToExplodeSec();
-	}
-	else {
-		return 0.0;
-	}
-}
-
 void BoomMode::ExplodePlayer()
 {
+	if (playerExploded) return;
 	// Explode player's car and loose
-	gameAt->App->audio->PlayFx(gameAt->App->assetLoader->audioExplosionId, true);
+	playerExploded = true;
 	auto& racePositions = gameAt->GetRacePlacePositions();
 	size_t startPosition = racePositions.size() - (explodedNum + 1);
 
 	for (size_t i = startPosition; i < racePositions.size(); ++i) {
 		racePositions.at(i)->BeginExplosion();
 	}
-	explodedNum++;
 	EndRace();
 }
 
@@ -186,7 +150,6 @@ void BoomMode::ExplodeCPU()
 {
 	// Explode CPU's car
 	timeToExplode.Start();
-	gameAt->App->audio->PlayFx(gameAt->App->assetLoader->audioExplosionId, true);
 	auto& racePositions = gameAt->GetRacePlacePositions();
 	size_t startPosition = racePositions.size() - (explodedNum + 1);
 

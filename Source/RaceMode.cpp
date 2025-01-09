@@ -130,56 +130,6 @@ bool RaceMode::CleanUp()
 	return false;
 }
 
-void RaceMode::ExecuteFunction(std::string Id)
-{
-	if (Id.c_str() == "EndRace") {
-		EndRace();
-	}
-	else {
-		return;
-	}
-}
-
-void RaceMode::ExecuteFunctionGivenInt(std::string Id, int input)
-{
-	if (Id.c_str() == "SetLapNum") {
-		SetLapNum(input);
-	}
-	else {
-		return;
-	}
-}
-
-double RaceMode::GetDoubleParameter(std::string Id)
-{
-	if (Id.c_str() == "GetCurrentLapTimeSec") {
-		return GetCurrentLapTimeSec();
-	}
-	else {
-		return 0.0;
-	}
-}
-
-double RaceMode::GetDoubleParameterGivenInt(std::string Id, int input)
-{
-	if (Id.c_str() == "GetLapTimeSec") {
-		return GetLapTimeSec(input);
-	}
-	else {
-		return 0.0;
-	}
-}
-
-int RaceMode::GetIntParameter(std::string Id)
-{
-	if (Id.c_str() == "GetCurrentLapNum") {
-		return GetCurrentLapNum();
-	}
-	else {
-		return 0;
-	}
-}
-
 int RaceMode::GetCurrentLapNum() const
 {
 	return currentLap;

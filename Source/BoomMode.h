@@ -13,10 +13,6 @@ public:
 	bool Render();
 	bool CleanUp();
 
-	void ExecuteFunction(std::string Id) override;
-	void ExecuteFunctionGivenDouble(std::string Id, double input) override;
-	double GetDoubleParameter(std::string Id) override;
-
 private:
 
 	void ExplodePlayer();
@@ -40,6 +36,7 @@ private:
 	// Temporal bools
 	bool isPlayerLast = false;
 	bool timerStarted = false;
+	bool playerExploded = false;
 
 	int explodedNum = 0;
 };

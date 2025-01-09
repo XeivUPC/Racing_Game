@@ -13,12 +13,6 @@ public:
 	bool Render();
 	bool CleanUp();
 
-	void ExecuteFunction(std::string Id) override;
-	void ExecuteFunctionGivenInt(std::string Id, int input) override;
-	double GetDoubleParameter(std::string Id) override;
-	double GetDoubleParameterGivenInt(std::string Id, int input) override;
-	int GetIntParameter(std::string Id) override;
-
 	double GetBestLapTimeSec() const;
 	int GetBestLapIndex() const;
 
