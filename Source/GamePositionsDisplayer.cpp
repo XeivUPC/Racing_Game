@@ -39,6 +39,8 @@ void GamePositionsDisplayer::Render()
 		if (pilots[i]->IsExploded()) {
 			color = RED;
 		}
+		else if (pilots[i] == (Pilot*)gameAt->player)
+			color = ORANGE;
 
 		string text = to_string(i + 1);
 		Vector2 textSize = MeasureTextEx(gameAt->App->assetLoader->agencyB, text.c_str(), 15, 0);
