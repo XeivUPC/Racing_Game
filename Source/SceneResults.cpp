@@ -91,7 +91,7 @@ bool SceneResults::Render() {
 	for (const auto& pilot : pilotDatas) {
 		text = std::to_string(pos) + " - " + pilot.name;
 		Vector2 lapSize = { 0,0 };
-		if (pilot.isPlayer) {
+		if (pilot.isPlayer && bestLapTime != -1) {
 			std::ostringstream stream;
 			stream << std::fixed << std::setprecision(2) << bestLapTime;
 			text += " " + stream.str();
