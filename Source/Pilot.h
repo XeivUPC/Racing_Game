@@ -15,7 +15,7 @@ protected:
 	int checkpoint=0;
 	RaceTrack* track = nullptr;
 	SceneGame* gameAt = nullptr;
-	std::string pilotName = "The Unamed";
+	std::string pilotName = "The Unnamed";
 	bool exploded = false;
 	bool exploding = false;
 	Texture2D* explosionTex = nullptr;
@@ -34,6 +34,7 @@ public:
 	int CurrentLap();
 	void SetCharacterIndex(int index);
 	std::string GetPilotName();
+	void SetPilotName(std::string name);
 	void Explode();
 	bool IsExploded() const;
 	void BeginExplosion();

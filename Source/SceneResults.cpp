@@ -47,6 +47,9 @@ bool SceneResults::Start()
 	for (auto* pilot : App->scene_game->GetRacePlacePositions()) {
 		PilotDataResults data;
 		data.name = pilot->GetPilotName();
+		data.characterIndex = pilot->characterIndex;
+		if (pilot == (Pilot*)App->scene_game->player)
+			data.isPlayer = true;
 		pilotDatas.emplace_back(data);
 	}
 
@@ -87,10 +90,12 @@ bool SceneResults::Render() {
 	std::string text = "null";
 	for (const auto& pilot : pilotDatas) {
 		text = std::to_string(pos) + " - " + pilot.name;
-		if (bestLapTime != -1 && pilot.name == "Player") {
+		Vector2 lapSize = { 0,0 };
+		if (pilot.isPlayer) {
 			std::ostringstream stream;
 			stream << std::fixed << std::setprecision(2) << bestLapTime;
 			text += " " + stream.str();
+			lapSize = MeasureTextEx(App->assetLoader->agencyB, (stream.str()).c_str(), 40, 0);
 		}
 		Color color = WHITE;
 		switch (pos)
@@ -107,7 +112,10 @@ bool SceneResults::Render() {
 		default:
 			break;
 		}
-		App->renderer->DrawText(text.c_str(), pilotsPos, {-MeasureTextEx(App->assetLoader->agencyB, text.c_str(), 40, 0).x / 2, buttonsText_Offset.y + increasing_offset}, App->assetLoader->agencyB, 40, 0, color);
+		App->renderer->DrawText(text.c_str(), pilotsPos, { -MeasureTextEx(App->assetLoader->agencyB,text.c_str(), 40,0).x / 2 + lapSize.x, buttonsText_Offset.y + increasing_offset}, App->assetLoader->agencyB, 40, 0, color);
+		Rectangle rect = { 0,0,48,48 };
+		rect.x = 48 * pilot.characterIndex;
+		App->renderer->Draw(*App->texture->GetTexture("Characters"), {-75 - MeasureTextEx(App->assetLoader->agencyB,text.c_str(), 40,0).x / 2 + lapSize.x, buttonsText_Offset.y + increasing_offset-12}, {pilotsPos}, &rect, 0, 1);
 		increasing_offset += 55;
 		pos++;
 	}

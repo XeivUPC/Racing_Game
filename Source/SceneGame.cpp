@@ -190,6 +190,7 @@ void SceneGame::SetPilotsCharacters()
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::vector<int> characters = {0,1,2,3,4,5,6,7,8,9,10,11};
+	std::vector<string> characterNames = {"FlutterShy","Kirby","Frieren","Toffee","Pikachu","Jinx","Chema","Adria","Ana","Max","Guillem","Alonso"};
 	characters.erase(characters.begin() + playerCharacter);
 	for each (Pilot* pilot in pilots)
 	{
@@ -197,11 +198,15 @@ void SceneGame::SetPilotsCharacters()
 		if (pilot == player)
 		{
 			player->characterIndex = playerCharacter;
+			player->SetPilotName(characterNames[playerCharacter] + " - You");
+			characterNames.erase(characterNames.begin() + playerCharacter);
 			continue;
 		}
 		int listIndex = distr(gen);
 		pilot->characterIndex = characters[listIndex];
+		pilot->SetPilotName(characterNames[listIndex]);
 		characters.erase(characters.begin() + listIndex);
+		characterNames.erase(characterNames.begin() + listIndex);
 	}
 }
 

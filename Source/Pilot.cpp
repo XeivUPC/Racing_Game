@@ -106,6 +106,11 @@ std::string Pilot::GetPilotName()
 	return pilotName;
 }
 
+void Pilot::SetPilotName(std::string name)
+{
+	pilotName = name;
+}
+
 void Pilot::Explode()
 {
 	exploded = true;
