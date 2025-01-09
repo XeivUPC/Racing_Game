@@ -13,8 +13,8 @@ class Pilot : public MapObject
 protected:
 	int lap=0;
 	int checkpoint=0;
-	RaceTrack* track;
-	SceneGame* gameAt;
+	RaceTrack* track = nullptr;
+	SceneGame* gameAt = nullptr;
 	std::string pilotName = "The Unamed";
 	bool exploded = false;
 	bool exploding = false;
@@ -37,6 +37,6 @@ public:
 	void Explode();
 	bool IsExploded() const;
 	void BeginExplosion();
-	Vehicle* vehicle;
+	Vehicle* vehicle = nullptr;
 	int characterIndex = 0;
 };

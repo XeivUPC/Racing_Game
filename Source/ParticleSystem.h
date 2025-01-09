@@ -18,6 +18,6 @@ private:
 	void RemoveParticle(Particle* particle);
 	std::vector<Particle*> particles;
 	std::vector<Particle*> particlesToRemove;
-	Module* moduleAt;
+	Module* moduleAt = nullptr;
 };
 

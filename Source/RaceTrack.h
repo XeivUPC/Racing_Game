@@ -30,7 +30,7 @@ private:
 
 	void FromStringToVertices(std::string stringData, float scale, std::vector<Vector2>& vector);
 
-	string trackPath;
+	string trackPath = "";
 	float mapScale = 1;
 
 	Texture* trackTexture = nullptr;

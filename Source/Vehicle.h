@@ -32,23 +32,23 @@ private:
 	vector<Wheel*> throttlingWheels;
 	vector<Wheel*> wheels;
 
-	Vector2 moveInput;
-	Pilot* pilot;
+	Vector2 moveInput = {0,0};
+	Pilot* pilot = nullptr;
 
 	float maxForwardSpeed = 150;
 	float maxBackwardSpeed = -70;
 
-	Texture2D* vehicleTexture;
+	Texture2D* vehicleTexture = nullptr;
 	Rectangle  vehicleTextureRecColor;
 	Rectangle  vehicleTextureRecFixed;
-	Color vehicleColor;
+	Color vehicleColor = WHITE;
 
-	ParticleSystem* particleSystem;
+	ParticleSystem* particleSystem = nullptr;
 
-	string vehicleName;
-	string vehicleTitle;
-	string vehicleCreator;
-	string vehicleDescription;
+	string vehicleName="";
+	string vehicleTitle="";
+	string vehicleCreator="";
+	string vehicleDescription="";
 
 	Timer engineTimer;
 

@@ -65,7 +65,7 @@ private:
 	string setupDataPath = "Assets/Data/game_setup_options.xml";
 	void LoadSetUpInformation();
 	vector<MapTypeData> maps;
-	Texture* mapPreviewTexture;
+	Texture* mapPreviewTexture = nullptr;
 	Rectangle mapPreviewTextureRec = { 0,0, 256,145};
 
 	vector<VehicleTypeData> vehicles;
