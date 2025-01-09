@@ -6,9 +6,27 @@
     </map-type>
 
     <vehicle-type>
-        <vehicle name = "SELECTMENU_VEHICLE_CAR" prefix = "car-"/>
-        <vehicle name = "SELECTMENU_VEHICLE_MOTO" prefix = "moto-"/>
-        <vehicle name = "SELECTMENU_VEHICLE_TRUCK" prefix = "truck-"/>
+		<vehicle name = "SELECTMENU_VEHICLE_CAR" prefix = "car-">
+			<stats>
+				<velocity value ="1"/>
+				<control value ="0.7"/>
+				<drift value ="0.3"/>
+			</stats>
+		</vehicle>
+        <vehicle name = "SELECTMENU_VEHICLE_MOTO" prefix = "moto-">
+			<stats>
+				<velocity value ="0.8"/>
+				<control value ="0.5"/>
+				<drift value ="1"/>
+			</stats>
+		</vehicle>
+        <vehicle name = "SELECTMENU_VEHICLE_TRUCK" prefix = "truck-">
+			<stats>
+				<velocity value ="0.3"/>
+				<control value ="0.4"/>
+				<drift value ="0.2"/>
+			</stats>
+		</vehicle>
     </vehicle-type>
 
 </setup>

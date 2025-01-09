@@ -52,9 +52,12 @@ private:
 	struct VehicleTypeData {
 		string name;
 		string prefix;
+		float velocity;
+		float control;
+		float drift;
 
-		VehicleTypeData(const string& name, const string& prefix)
-			: name(name), prefix(prefix)
+		VehicleTypeData(const string& name, const string& prefix, float velocity, float control, float drift)
+			: name(name), prefix(prefix), velocity(velocity), control(control), drift(drift)
 		{
 		}
 	};
@@ -146,6 +149,7 @@ private:
 
 	// Choosing Map
 	void ClickMapFINISH();
+
 	void OnMouseOverMapFINISH();
 
 	void ClickMapRightArrow();
@@ -160,10 +164,7 @@ private:
 	Rectangle  map_bg_textureRec = { 0, 0, 640, 360 };
 
 	UIButton* finish_map_button = nullptr;
-	Rectangle finish_map_button_textureRec = { (222 * 2), (283 * 2), 200 * 2, 32 * 2 };
-	Texture2D* finish_map_button_texture_hover = nullptr;
-	Rectangle  finish_map_button_texture_hover_section = { 0, 0, 200, 32 };
-	Vector2 finish_map_button_textOffset = { 80, 7 };
+	Rectangle finish_map_button_textureRec = { (243 * 2), (272 * 2), 152 * 2, 36 * 2 };
 
 	Vector2 map_name_text_pos = { SCREEN_WIDTH/2 , 84 * 2 };
 	Vector2 map_finish_text_pos = { SCREEN_WIDTH/2 , 284 * 2 };
