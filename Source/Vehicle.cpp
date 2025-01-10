@@ -85,6 +85,7 @@ update_status Vehicle::Update()
 
 bool Vehicle::Render()
 {
+	nitro->Render();
 	moduleAt->App->renderer->BlockRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_4);
 	double radianAngle = body->GetAngle();
 
@@ -110,7 +111,7 @@ bool Vehicle::Render()
 			wheel->Render();
 	}
 	moduleAt->App->renderer->UnlockRenderLayer();
-	nitro->Render();
+	
 	return true;
 }
 

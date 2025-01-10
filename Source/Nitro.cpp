@@ -21,8 +21,10 @@ void Nitro::Enable()
 {
 	if (!isEnabled)
 	{
-		isEnabled = true;
-		enabledTimer->Start();
+		if (currentSecondsEnabled > minSecondsToEnabled) {
+			isEnabled = true;
+			enabledTimer->Start();
+		}
 	}
 }
 
@@ -44,10 +46,10 @@ bool Nitro::IsEnabled()
 
 void Nitro::Update()
 {
-	enabledTimer->Update();
+	
 	if (isEnabled)
 	{
-		currentSecondsEnabled -= enabledTimer->ReadSec();
+		currentSecondsEnabled -= GetFrameTime()*4;
 		if (currentSecondsEnabled <= 0.0f)
 		{
 			currentSecondsEnabled = 0;
@@ -57,7 +59,7 @@ void Nitro::Update()
 	else
 	{
 		if(currentSecondsEnabled < maxSecondsEnabled)
-			currentSecondsEnabled += enabledTimer->ReadSec()/50;
+			currentSecondsEnabled += GetFrameTime();
 		else
 		{
 			currentSecondsEnabled == maxSecondsEnabled;
@@ -67,9 +69,15 @@ void Nitro::Update()
 
 void Nitro::Render()
 {
-	moduleAt->App->renderer->BlockRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_4);
-	if(currentSecondsEnabled < maxSecondsEnabled)
-		moduleAt->App->renderer->DrawSimpleRectangle({vehicle->body->GetPhysicPosition().x-currentSecondsEnabled*10/2,vehicle->body->GetPhysicPosition().y + 50,currentSecondsEnabled *10, 5}, SKYBLUE);
+	moduleAt->App->renderer->BlockRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_5);
+	if (currentSecondsEnabled < maxSecondsEnabled)
+	{
+		if (currentSecondsEnabled < minSecondsToEnabled && !isEnabled) {
+			moduleAt->App->renderer->DrawSimpleRectangle({ vehicle->body->GetPhysicPosition().x - currentSecondsEnabled * 10 / 2,vehicle->body->GetPhysicPosition().y + 50,currentSecondsEnabled * 10, 5 }, RED);
+
+		}else
+			moduleAt->App->renderer->DrawSimpleRectangle({vehicle->body->GetPhysicPosition().x-currentSecondsEnabled*10/2,vehicle->body->GetPhysicPosition().y + 50,currentSecondsEnabled *10, 5}, SKYBLUE);
+	}
 	moduleAt->App->renderer->UnlockRenderLayer();
 }
 
