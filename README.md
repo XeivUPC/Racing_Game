@@ -61,5 +61,17 @@ Access the source code and contribute to the project here:
 
 ---
 
-Thank you for supporting **Turbo Wheels**! 🏎️💨
+## ⚙️ **Technical Details**
 
+### **Custom Layer Rendering System**
+- Turbo Wheels features a completely custom-built layer rendering system that ensures objects are drawn in the correct order based on their layers.
+
+### **Particle System**
+- The game integrates a flexible particle system designed from scratch.
+
+### **Custom UI Elements System**
+- Turbo Wheels uses a fully custom-designed UI elements made by the team, allowing complete control over interface components like buttons, sliders, and menus.
+
+---
+
+Thank you for supporting **Turbo Wheels**! 🏎️💨
