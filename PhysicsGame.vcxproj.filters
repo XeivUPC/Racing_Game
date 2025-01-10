@@ -405,6 +405,9 @@
     <ClInclude Include="Source\Nitro.h">
       <Filter>Others</Filter>
     </ClInclude>
+    <ClInclude Include="Source\GameDebug.h">
+      <Filter>Others</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Assets\Data\vehicle_data.xml">

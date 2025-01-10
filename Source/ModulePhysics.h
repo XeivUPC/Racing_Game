@@ -165,14 +165,18 @@ public:
 
 	bool Start();
 	update_status PreUpdate();
+	update_status Update();
 	update_status PostUpdate();
 	bool CleanUp();
 
+	bool IsDebugActive();
 	void PauseSimulation();
 	void StartSimulation();
 	bool IsSimulationPaused();
 
 	const Box2DFactory& factory();
+
+	PhysBody* ground = nullptr;
 
 private:
 	bool debug = false;

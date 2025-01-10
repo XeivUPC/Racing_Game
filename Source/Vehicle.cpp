@@ -137,6 +137,12 @@ void Vehicle::Explode()
 	exploded = true;
 }
 
+Rectangle Vehicle::GetBounds()
+{
+	Vector2 position = body->GetPhysicPosition();
+	return { position.x,position.y,bounds.width, bounds.height};
+}
+
 
 void Vehicle::CreateVehicle(string id)
 {
@@ -173,6 +179,8 @@ void Vehicle::CreateVehicle(string id)
 
 	//// Create Car
 	Vector2 size = { vehicleNode.attribute("size-x").as_float(), vehicleNode.attribute("size-y").as_float() };
+	bounds.width = METERS_TO_PIXELS(size.x);
+	bounds.height = METERS_TO_PIXELS(size.y);
 	float inertia = vehicleNode.attribute("inertia").as_float();
 	float mass = vehicleNode.attribute("mass").as_float();
 

@@ -3,6 +3,7 @@
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
 #include "ModuleAssetLoader.h"
+#include "Box2DFactory.h"
 #include "SceneGame.h"
 #include "SceneOptions.h"
 #include "ModuleAudio.h"
@@ -17,6 +18,7 @@
 #include "Pilot.h"
 #include "PilotCPU.h"
 #include "RaceTrack.h"
+#include "GameDebug.h"
 #include <raymath.h>
 #include <algorithm>
 #include <random>
@@ -41,6 +43,7 @@ bool SceneGame::Start()
 	pauseMenu->Start();
 
 	track = new RaceTrack(this, trackPath);
+	debugGame = new GameDebug(this);
 
 	player = new Player(this, track, player_vehicle_type, player_vehicle_color);
 	pilots.emplace_back(player);
@@ -85,6 +88,8 @@ bool SceneGame::CleanUp()
 		delete pilot;
 	}
 	pilots.clear();
+
+	delete debugGame;
 
 	pauseMenu->Resume();
 	pauseMenu->CleanUp();
@@ -213,7 +218,6 @@ void SceneGame::SetPilotsCharacters()
 // Update: draw background
 update_status SceneGame::Update()
 {
-	
 	if (!pauseMenu->IsPaused())
 	{
 		if (mode->IsRaceStarted()) {
@@ -234,6 +238,10 @@ update_status SceneGame::Update()
 		App->renderer->camera.target =player->vehicle->body->GetPhysicPosition();
 		App->renderer->camera.offset = { App->window->GetLogicWidth() / 2.f,App->window->GetLogicHeight() / 2.f };
 		mode->Update();
+		debugGame->Update();
+		
+			
+
 	}
 
 	if (IsKeyPressed(KEY_P) && !App->scene_options->IsEnabled()) {

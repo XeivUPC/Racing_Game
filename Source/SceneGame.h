@@ -10,6 +10,7 @@
 #include <string>
 
 class PhysBody;
+class PhysJoint;
 class Player;
 class PauseMenu;
 class GameMode;
@@ -19,6 +20,7 @@ class RockObstacle;
 class FenceObstacle;
 class GamePositionsDisplayer;
 class Pilot;
+class GameDebug;
 
 using namespace std;
 
@@ -64,4 +66,6 @@ private:
 	string vehicle_type="";
 	int vehicleTypeAmount=0;
 	void SetPilotsCharacters();
+
+	GameDebug* debugGame= nullptr;
 };

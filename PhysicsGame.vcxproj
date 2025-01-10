@@ -262,6 +262,7 @@
     <ClInclude Include="Source\FenceObstacle.h" />
     <ClInclude Include="Source\FixedObstacle.h" />
     <ClInclude Include="Source\FontCreator.h" />
+    <ClInclude Include="Source\GameDebug.h" />
     <ClInclude Include="Source\GameMode.h" />
     <ClInclude Include="Source\Globals.h" />
     <ClInclude Include="Source\MapLapSensor.h" />

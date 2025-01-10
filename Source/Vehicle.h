@@ -23,6 +23,7 @@ public:
 	bool CleanUp();
 	void SetInput(Vector2 input);
 	void Explode();
+	Rectangle GetBounds();
 
 	PhysBody* body = nullptr;
 	Nitro* nitro = nullptr;
@@ -36,6 +37,7 @@ private:
 
 	Vector2 moveInput = {0,0};
 	Pilot* pilot = nullptr;
+	Rectangle bounds = { 0,0,0,0 };
 
 	float maxForwardSpeed = 150;
 	float maxBackwardSpeed = -70;

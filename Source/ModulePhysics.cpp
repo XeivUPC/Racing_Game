@@ -15,7 +15,6 @@ ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app,
 {
 	debug = false;
 	collisionsManager = new CollisionsDispatcher();
-	
 }
 
 // Destructor
@@ -31,6 +30,10 @@ bool ModulePhysics::Start()
 	world = new b2World(gravity);
 	box2Dfactory = new Box2DFactory(world);
 
+	ground = box2Dfactory->CreateBox({ 0,0 }, 1, 1);
+	ground->SetType(PhysBody::BodyType::Static);
+	ground->SetSensor(0,true);
+
 	world->SetContactListener(collisionsManager);
 
 	return true;
@@ -42,6 +45,12 @@ update_status ModulePhysics::PreUpdate()
 
 	if(simulationOn)
 		world->Step(1/60.f, 6, 2);
+	return UPDATE_CONTINUE;
+}
+
+update_status ModulePhysics::Update()
+{
+
 	return UPDATE_CONTINUE;
 }
 
@@ -222,9 +231,15 @@ bool ModulePhysics::CleanUp()
 	delete box2Dfactory;
 
 	// Delete the whole physics world!
+	delete ground;
 	delete world;
 
 	return true;
+}
+
+bool ModulePhysics::IsDebugActive()
+{
+	return debug;
 }
 
 void ModulePhysics::PauseSimulation()
