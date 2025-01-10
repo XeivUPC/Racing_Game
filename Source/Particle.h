@@ -26,6 +26,4 @@ protected:
 
 	Vector2 position = {0,0};
 	Texture2D* texture = nullptr;
-
-
 };

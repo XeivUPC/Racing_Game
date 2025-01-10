@@ -62,16 +62,8 @@ update_status Vehicle::Update()
 			wheel->MultiplyForwardVelocity(nitro->GetNitroMultiplier());
 		}
 
-		float vehicleSpeed = Vector2Length(body->GetLinearVelocity());
-
-		if (nitro->IsEnabled())
-		{
-			for (const auto& wheel : throttlingWheels)
-			{
-				particleSystem->AddParticle(new DriftParticle({ wheel->GetJoint()->GetPhysicPositionBodyB() }, body->GetAngle(), 1.5f));
-				particleSystem->AddParticle(new DriftParticle({ wheel->GetJoint()->GetPhysicPositionBodyB() }, body->GetAngle(), 1.5f));
-			}
-		}
+		if(nitro->IsEnabled())
+			particleSystem->AddParticle(new DriftParticle({ body->GetPhysicPosition()}, body->GetAngle(), 1.5f));
 
 		if (engineTimer.ReadSec() > 2.9) {
 			moduleAt->App->audio->PlayFx(moduleAt->App->assetLoader->audioEngineId);

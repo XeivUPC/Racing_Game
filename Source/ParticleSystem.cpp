@@ -34,7 +34,6 @@ void ParticleSystem::AddParticleToRemove(Particle* particle)
 void ParticleSystem::RemoveParticle(Particle* particle)
 {
 	int index = -1;
-
 	auto it = std::find(particles.begin(), particles.end(), particle);
 	if (it != particles.end()) {
 		index  = std::distance(particles.begin(), it);
