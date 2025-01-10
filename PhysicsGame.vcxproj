@@ -213,6 +213,7 @@
     <ClCompile Include="Source\ModuleAssetLoader.cpp" />
     <ClCompile Include="Source\ModuleAudio.cpp" />
     <ClCompile Include="Source\ModuleUserPreferences.cpp" />
+    <ClCompile Include="Source\Nitro.cpp" />
     <ClCompile Include="Source\PauseMenu.cpp" />
     <ClCompile Include="Source\Pilot.cpp" />
     <ClCompile Include="Source\PilotCPU.cpp" />
@@ -270,6 +271,7 @@
     <ClInclude Include="Source\ModuleAssetLoader.h" />
     <ClInclude Include="Source\ModuleAudio.h" />
     <ClInclude Include="Source\ModuleUserPreferences.h" />
+    <ClInclude Include="Source\Nitro.h" />
     <ClInclude Include="Source\PauseMenu.h" />
     <ClInclude Include="Source\Pilot.h" />
     <ClInclude Include="Source\PilotCPU.h" />

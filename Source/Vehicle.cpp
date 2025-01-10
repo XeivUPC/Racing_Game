@@ -10,6 +10,7 @@
 #include "DriftParticle.h"
 #include "ParticleSystem.h"
 #include "Pilot.h"
+#include "Nitro.h"
 #include <raymath.h>
 
 #include <pugixml.hpp>
@@ -58,24 +59,26 @@ update_status Vehicle::Update()
 			angleToTurn = b2Clamp(angleToTurn, -turnPerTimeStep, turnPerTimeStep);
 			float newAngle = angleNow + angleToTurn;
 			wheel->GetJoint()->SetLimits(newAngle, newAngle);
+			wheel->MultiplyForwardVelocity(nitro->GetNitroMultiplier());
 		}
 
 		float vehicleSpeed = Vector2Length(body->GetLinearVelocity());
 
-		//if (carSpeed > 1)
-		//{
-		//	for (const auto& wheel : throttlingWheels)
-		//	{
-		//		particleSystem->AddParticle(new DriftParticle({ wheel->GetJoint()->GetPhysicPositionBodyB() }, body->GetAngle(), 1.5f));
-		//		particleSystem->AddParticle(new DriftParticle({ wheel->GetJoint()->GetPhysicPositionBodyB() }, body->GetAngle(), 1.5f));
-		//	}
-		//}
+		/*if (nitro->IsEnabled())
+		{
+			for (const auto& wheel : throttlingWheels)
+			{
+				particleSystem->AddParticle(new DriftParticle({ wheel->GetJoint()->GetPhysicPositionBodyB() }, body->GetAngle(), 1.5f));
+				particleSystem->AddParticle(new DriftParticle({ wheel->GetJoint()->GetPhysicPositionBodyB() }, body->GetAngle(), 1.5f));
+			}
+		}*/
 
 		if (engineTimer.ReadSec() > 2.9) {
 			moduleAt->App->audio->PlayFx(moduleAt->App->assetLoader->audioEngineId);
 			engineTimer.Start();
 		}
 	}
+	nitro->Update();
 	engineTimer.Update();
 	return UPDATE_CONTINUE;
 }
@@ -107,6 +110,7 @@ bool Vehicle::Render()
 			wheel->Render();
 	}
 	moduleAt->App->renderer->UnlockRenderLayer();
+	nitro->Render();
 	return true;
 }
 
@@ -120,6 +124,8 @@ bool Vehicle::CleanUp()
 		delete wheel;
 	}
 	delete body;
+	nitro->CleanUp();
+	delete nitro;
 	wheels.clear();
 	throttlingWheels.clear();
 	steeringWheels.clear();
@@ -237,4 +243,5 @@ void Vehicle::CreateVehicle(string id)
 		if (canSteer)
 			steeringWheels.emplace_back(wheel);
 	}
+	nitro = new Nitro(moduleAt, this);
 }

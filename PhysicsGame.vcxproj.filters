@@ -230,6 +230,9 @@
     <ClCompile Include="Source\GamePositionsDisplayer.cpp">
       <Filter>Others</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Nitro.cpp">
+      <Filter>Others</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ModuleAssetLoader.h">
@@ -397,6 +400,9 @@
       <Filter>GameModes\Type %28GameMode%29</Filter>
     </ClInclude>
     <ClInclude Include="Source\GamePositionsDisplayer.h">
+      <Filter>Others</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Nitro.h">
       <Filter>Others</Filter>
     </ClInclude>
   </ItemGroup>

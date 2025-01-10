@@ -23,6 +23,7 @@ public:
 
 	void SetUpWheelCharacteristics(float maxForwardSpeed, float maxBackwardSpeed, float maxDriveForce, float maxLateralImpulse);
 	void SetUpWheelRenderCharacteristics(Texture2D* wheelTexture, Rectangle wheelTextureRec, Color color, bool rendereable, bool rendersOverVehicle);
+	void MultiplyForwardVelocity(float multiplier);
 	Vector2 GetForwardVelocity();
 	Vector2 GetLateralVelocity();
 
@@ -44,6 +45,7 @@ private:
 	float maxBackwardSpeed = 0;
 	float maxDriveForce = 0;
 	float maxLateralImpulse = 0;
+	float forwardSpeedModification = 1;
 
 	float currentTraction=5;
 

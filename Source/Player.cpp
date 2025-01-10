@@ -2,6 +2,7 @@
 #include "Vehicle.h"
 #include "SceneGame.h"
 #include <string>
+#include "Nitro.h"
 
 Player::Player(SceneGame* gameAt, RaceTrack* track, std::string vehicleType, Color vehicleColor) : Pilot(gameAt, track, vehicleType, vehicleColor)
 {
@@ -28,6 +29,10 @@ update_status Player::Update()
 			moveInput.x -= 1;
 		if (IsKeyDown(KEY_D))
 			moveInput.x += 1;
+		if (IsKeyDown(KEY_SPACE))
+			vehicle->nitro->Enable();
+		else
+			vehicle->nitro->Disable();
 
 		vehicle->SetInput(moveInput);
 		vehicle->Update();
