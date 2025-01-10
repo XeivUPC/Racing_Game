@@ -22,7 +22,7 @@ Vehicle::Vehicle(Module* moduleAt, Pilot* pilot, string id, Color vehicleColor) 
 	this->pilot = pilot;
 	this->vehicleColor = vehicleColor;
 	CreateVehicle(id);
-	//particleSystem = new ParticleSystem(moduleAt);
+	particleSystem = new ParticleSystem(moduleAt);
 	engineTimer.Start();
 	moduleAt->App->audio->PlayFx(moduleAt->App->assetLoader->audioEngineStartId);
 }
@@ -34,7 +34,7 @@ Vehicle::~Vehicle()
 update_status Vehicle::Update()
 {
 	if (!exploded) {
-		//particleSystem->UpdateParticles();
+		particleSystem->UpdateParticles();
 
 		for (const auto& wheel : wheels)
 		{
@@ -64,14 +64,14 @@ update_status Vehicle::Update()
 
 		float vehicleSpeed = Vector2Length(body->GetLinearVelocity());
 
-		/*if (nitro->IsEnabled())
+		if (nitro->IsEnabled())
 		{
 			for (const auto& wheel : throttlingWheels)
 			{
 				particleSystem->AddParticle(new DriftParticle({ wheel->GetJoint()->GetPhysicPositionBodyB() }, body->GetAngle(), 1.5f));
 				particleSystem->AddParticle(new DriftParticle({ wheel->GetJoint()->GetPhysicPositionBodyB() }, body->GetAngle(), 1.5f));
 			}
-		}*/
+		}
 
 		if (engineTimer.ReadSec() > 2.9) {
 			moduleAt->App->audio->PlayFx(moduleAt->App->assetLoader->audioEngineId);
@@ -116,7 +116,7 @@ bool Vehicle::Render()
 
 bool Vehicle::CleanUp()
 {
-	//delete particleSystem;
+	delete particleSystem;
 	for (const auto& wheel : wheels)
 	{
 		/// Do Clean Up
