@@ -23,7 +23,7 @@ private:
 
 	void EndRace();
 
-	int explosionTime = 5;
+	int explosionTime = 15;
 	Timer timeToExplode;
 	Texture2D* setup = nullptr;
 

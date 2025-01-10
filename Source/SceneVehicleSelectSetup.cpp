@@ -23,6 +23,9 @@ bool SceneVehicleSelectSetup::Start()
 {
 	LoadVehicles();
 	
+	vehicleColor = WHITE;
+	currentVehicle = 0;
+	currentCharacter = 0;
 
 	bg_texture = App->texture->GetTexture("UI_Bg");
 	selectionSlots_texture = App->texture->GetTexture("UI_VehicleSelect_Slots");
@@ -62,9 +65,7 @@ bool SceneVehicleSelectSetup::Start()
 		colorBtn->onMouseClick.emplace_back([&, color]() {ChangeVehicleColor(color); });
 		colorBtns.emplace_back(colorBtn);
 	}
-	vehicleColor = WHITE;
-	currentVehicle = 0;
-	currentCharacter = 0;
+
 	return true;
 }
 
