@@ -11,8 +11,9 @@ Compete against AI opponents in thrilling races where being first means victory,
 - **Car Selection**: Choose your car type, customize its look, and pick your favorite color.
 - **Pilot Choice**: Select the perfect driver to compete against others.
 
-### 🌍 **Map Options**
+### 🌍 **Maps**
 - Race across **two unique maps**, each offering its own challenges and surprises.
+- Drive through the road, **terrains** affect your driving!
 
 ### 🎮 **Game Modes**
 - **Race Mode**: Focus on speed to secure a podium spot or beat your personal best.
