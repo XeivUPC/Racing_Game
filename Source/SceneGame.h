@@ -38,6 +38,7 @@ public:
 	void SetPlayerVehicle(string type, Color color);
 	void SetVehicleType(string type, int amount);
 	void SetPlayerCharacter(int character);
+	int GetPilotAmount();
 
 	vector<Pilot*> GetRacePlacePositions() const;
 	int GetRacePlayerPosition() const;
@@ -57,10 +58,10 @@ public:
 	vector<Pilot*> pilots;
 private:
 	string trackPath = "";
-	string player_vehicle_type;
-	Color player_vehicle_color;
-	int playerCharacter;
-	string vehicle_type;
-	int vehicleTypeAmount;
+	string player_vehicle_type="";
+	Color player_vehicle_color=WHITE;
+	int playerCharacter=0;
+	string vehicle_type="";
+	int vehicleTypeAmount=0;
 	void SetPilotsCharacters();
 };

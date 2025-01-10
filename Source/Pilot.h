@@ -13,9 +13,9 @@ class Pilot : public MapObject
 protected:
 	int lap=0;
 	int checkpoint=0;
-	RaceTrack* track;
-	SceneGame* gameAt;
-	std::string pilotName = "The Unamed";
+	RaceTrack* track = nullptr;
+	SceneGame* gameAt = nullptr;
+	std::string pilotName = "The Unnamed";
 	bool exploded = false;
 	bool exploding = false;
 	Texture2D* explosionTex = nullptr;
@@ -34,9 +34,10 @@ public:
 	int CurrentLap();
 	void SetCharacterIndex(int index);
 	std::string GetPilotName();
+	void SetPilotName(std::string name);
 	void Explode();
 	bool IsExploded() const;
 	void BeginExplosion();
-	Vehicle* vehicle;
+	Vehicle* vehicle = nullptr;
 	int characterIndex = 0;
 };

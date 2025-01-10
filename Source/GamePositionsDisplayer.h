@@ -7,7 +7,7 @@ class SceneGame;
 class GamePositionsDisplayer
 {
 private:
-	SceneGame* gameAt;
+	SceneGame* gameAt = nullptr;
 	Texture2D* texture = nullptr;
 public:
 	GamePositionsDisplayer(SceneGame* GameAt);

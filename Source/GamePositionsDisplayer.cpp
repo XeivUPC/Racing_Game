@@ -25,7 +25,7 @@ void GamePositionsDisplayer::Render()
 	gameAt->App->renderer->SetCameraMode(false);
 	gameAt->App->renderer->BlockRenderLayer(ModuleRender::RenderLayer::OVER_LAYER_1);
 
-	gameAt->App->renderer->DrawSimpleRectangle({ anchor.x,anchor.y, 140, 50.f*pilots.size()}, {0,0,0,175});
+	gameAt->App->renderer->DrawSimpleRectangle({ anchor.x,anchor.y, 150, 50.f*pilots.size()}, {0,0,0,175});
 	for (size_t i = 0; i < pilots.size(); i++)
 	{
 		rect.x = rect.width * (pilots[i]->characterIndex);
@@ -39,17 +39,23 @@ void GamePositionsDisplayer::Render()
 		if (pilots[i]->IsExploded()) {
 			color = RED;
 		}
+		else if (pilots[i] == (Pilot*)gameAt->player)
+			color = ORANGE;
 
 		string text = to_string(i + 1);
-		Vector2 textSize = MeasureTextEx(gameAt->App->assetLoader->agencyB, text.c_str(), 20, 0);
+		Vector2 textSize = MeasureTextEx(gameAt->App->assetLoader->agencyB, text.c_str(), 15, 0);
 		Vector2 positionPosition = { slotAnchor.x, slotAnchor.y + textSize.y / 2 };
-		gameAt->App->renderer->DrawText(text.c_str(), positionPosition, { 0,0 }, gameAt->App->assetLoader->agencyB, 20, 0, color);
+		gameAt->App->renderer->DrawText(text.c_str(), positionPosition, { 0,5 }, gameAt->App->assetLoader->agencyB,15, 0, color);
 
 
 		text = pilots[i]->GetPilotName();
-		textSize = MeasureTextEx(gameAt->App->assetLoader->agencyB, text.c_str(), 20, 0);
+		if (pilots[i] == (Pilot*)gameAt->player)
+		{
+			text = "You";
+		}
+		textSize = MeasureTextEx(gameAt->App->assetLoader->agencyB, text.c_str(), 15, 0);
 		Vector2 namePosition = { slotAnchor.x + 60, slotAnchor.y + textSize.y / 2 };
-		gameAt->App->renderer->DrawText(text.c_str(), namePosition, {0,0}, gameAt->App->assetLoader->agencyB, 20, 0, color);
+		gameAt->App->renderer->DrawText(text.c_str(), namePosition, {0,5}, gameAt->App->assetLoader->agencyB, 15, 0, color);
 	}
 	gameAt->App->renderer->UnlockRenderLayer();
 	gameAt->App->renderer->SetCameraMode(true);

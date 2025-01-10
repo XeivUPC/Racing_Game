@@ -28,7 +28,7 @@ private:
 
 	PhysBody* body = nullptr;
 	CollisionSensor sensor;
-	RaceTrack* track;
+	RaceTrack* track = nullptr;
 
 	int order = -1;
 

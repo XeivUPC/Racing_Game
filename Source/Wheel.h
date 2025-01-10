@@ -29,7 +29,7 @@ public:
 	PhysBody* body = nullptr;
 	PhysJoint* joint = nullptr;
 
-	bool rendersOverVehicle;
+	bool rendersOverVehicle = false;
 
 private:
 
@@ -47,10 +47,10 @@ private:
 
 	float currentTraction=5;
 
-	bool rendereable;
+	bool rendereable=true;
 
-	Texture2D* wheelTexture;
-	Rectangle  wheelTextureRec;
+	Texture2D* wheelTexture = nullptr;
+	Rectangle  wheelTextureRec = {0,0,0,0};
 
 protected:
 };

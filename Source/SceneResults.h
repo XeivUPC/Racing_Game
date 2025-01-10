@@ -19,6 +19,8 @@ public:
 
 	struct PilotDataResults {
 		std::string name;
+		int characterIndex;
+		bool isPlayer = false;
 	};
 
 private:
@@ -36,7 +38,7 @@ private:
 
 	Vector2 buttonsText_Offset = { 0, 8 };
 
-	Vector2 pilotsPos = { SCREEN_WIDTH / 2, 72 };
+	Vector2 pilotsPos = { SCREEN_WIDTH / 2, 80 };
 	std::vector<PilotDataResults> pilotDatas;
 
 	double bestLapTime = -1;

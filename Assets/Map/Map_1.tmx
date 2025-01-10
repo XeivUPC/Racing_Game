@@ -27,43 +27,43 @@
    </properties>
    <point/>
   </object>
-  <object id="71" x="1452.13" y="936.174">
+  <object id="71" x="1460.13" y="936.174">
    <properties>
     <property name="Order" type="int" value="1"/>
    </properties>
    <point/>
   </object>
-  <object id="72" x="1490.29" y="981.288">
+  <object id="72" x="1512.47" y="980.924">
    <properties>
     <property name="Order" type="int" value="2"/>
    </properties>
    <point/>
   </object>
-  <object id="73" x="1533.01" y="936.174">
+  <object id="73" x="1564.1" y="936.174">
    <properties>
     <property name="Order" type="int" value="3"/>
    </properties>
    <point/>
   </object>
-  <object id="74" x="1575.75" y="981.288">
+  <object id="74" x="1615.75" y="981.288">
    <properties>
     <property name="Order" type="int" value="4"/>
    </properties>
    <point/>
   </object>
-  <object id="75" x="1617.88" y="936.674">
+  <object id="75" x="1668.97" y="936.31">
    <properties>
     <property name="Order" type="int" value="5"/>
    </properties>
    <point/>
   </object>
-  <object id="76" x="1656.37" y="981.288">
+  <object id="76" x="1721.46" y="980.924">
    <properties>
     <property name="Order" type="int" value="6"/>
    </properties>
    <point/>
   </object>
-  <object id="77" x="1699.17" y="934.424">
+  <object id="77" x="1773.53" y="935.151">
    <properties>
     <property name="Order" type="int" value="7"/>
    </properties>

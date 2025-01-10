@@ -65,7 +65,7 @@ private:
 	string setupDataPath = "Assets/Data/game_setup_options.xml";
 	void LoadSetUpInformation();
 	vector<MapTypeData> maps;
-	Texture* mapPreviewTexture;
+	Texture* mapPreviewTexture = nullptr;
 	Rectangle mapPreviewTextureRec = { 0,0, 256,145};
 
 	vector<VehicleTypeData> vehicles;
@@ -87,17 +87,8 @@ private:
 	Texture2D* backgroundTexture = nullptr;
 	Rectangle  backgroundTextureRec = { 0, 0, 640, 360 };
 
-	Texture2D* buttons_texture = nullptr;
-	Rectangle  buttons_textureRec = { 0, 0, 640, 360 };
-
-	Texture2D* buttons_texture_hover = nullptr;
-	Rectangle  buttons_texture_hover_section = { 0, 0, 304, 64 };
-
 	UIButton* race_button = nullptr;
-	Rectangle race_buttonTextureRec = { (176 * 2), (107 * 2), 304 * 2, 64 * 2 };
-
 	UIButton* boom_button = nullptr;
-	Rectangle boom_buttonTextureRec = { (176 * 2), (206 * 2), 304 * 2, 64 * 2 };
 
 	Vector2 buttonsText_Offset = { 0, 7 };
 

@@ -9,7 +9,6 @@ public:
 	BoomMode(SceneGame* gameAt);
 	~BoomMode();
 
-	bool Init();
 	update_status Update();
 	bool Render();
 	bool CleanUp();
@@ -26,6 +25,7 @@ private:
 
 	int explosionTime = 5;
 	Timer timeToExplode;
+	Texture2D* setup = nullptr;
 
 	int beepTime = 2;
 	Timer beepTimer;
