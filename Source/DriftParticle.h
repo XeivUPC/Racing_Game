@@ -12,4 +12,7 @@ private:
 	bool CleanUp();
 	void Init(ParticleSystem* system);
 	double angle = 0;
+	Rectangle rect;
+	Vector2 offset;
+	Color color = WHITE;
 };

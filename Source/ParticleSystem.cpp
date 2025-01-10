@@ -1,5 +1,6 @@
 #include "ParticleSystem.h"
 #include "Particle.h"
+#include <algorithm>
 
 ParticleSystem::ParticleSystem(Module* moduleAt)
 {
@@ -33,17 +34,11 @@ void ParticleSystem::AddParticleToRemove(Particle* particle)
 void ParticleSystem::RemoveParticle(Particle* particle)
 {
 	int index = -1;
-	for (size_t i = 0; i < particles.size(); i++)
-	{
-		if (particle == particles[i])
-		{
-			index = i;
-			break;
-		}
+	auto it = std::find(particles.begin(), particles.end(), particle);
+	if (it != particles.end()) {
+		index  = std::distance(particles.begin(), it);
+		particles.erase(particles.begin() + index);
 	}
-	if (index == -1)
-		return;
-	particles.erase(particles.begin() + index);
 }
 
 void ParticleSystem::UpdateParticles()

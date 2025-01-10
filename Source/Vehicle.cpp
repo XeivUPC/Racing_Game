@@ -10,6 +10,7 @@
 #include "DriftParticle.h"
 #include "ParticleSystem.h"
 #include "Pilot.h"
+#include "Nitro.h"
 #include <raymath.h>
 
 #include <pugixml.hpp>
@@ -21,7 +22,7 @@ Vehicle::Vehicle(Module* moduleAt, Pilot* pilot, string id, Color vehicleColor) 
 	this->pilot = pilot;
 	this->vehicleColor = vehicleColor;
 	CreateVehicle(id);
-	//particleSystem = new ParticleSystem(moduleAt);
+	particleSystem = new ParticleSystem(moduleAt);
 	engineTimer.Start();
 	moduleAt->App->audio->PlayFx(moduleAt->App->assetLoader->audioEngineStartId);
 }
@@ -33,7 +34,7 @@ Vehicle::~Vehicle()
 update_status Vehicle::Update()
 {
 	if (!exploded) {
-		//particleSystem->UpdateParticles();
+		particleSystem->UpdateParticles();
 
 		for (const auto& wheel : wheels)
 		{
@@ -58,30 +59,25 @@ update_status Vehicle::Update()
 			angleToTurn = b2Clamp(angleToTurn, -turnPerTimeStep, turnPerTimeStep);
 			float newAngle = angleNow + angleToTurn;
 			wheel->GetJoint()->SetLimits(newAngle, newAngle);
+			wheel->MultiplyForwardVelocity(nitro->GetNitroMultiplier());
 		}
 
-		float vehicleSpeed = Vector2Length(body->GetLinearVelocity());
-
-		//if (carSpeed > 1)
-		//{
-		//	for (const auto& wheel : throttlingWheels)
-		//	{
-		//		particleSystem->AddParticle(new DriftParticle({ wheel->GetJoint()->GetPhysicPositionBodyB() }, body->GetAngle(), 1.5f));
-		//		particleSystem->AddParticle(new DriftParticle({ wheel->GetJoint()->GetPhysicPositionBodyB() }, body->GetAngle(), 1.5f));
-		//	}
-		//}
+		if(nitro->IsEnabled())
+			particleSystem->AddParticle(new DriftParticle({ body->GetPhysicPosition()}, body->GetAngle(), 1.5f));
 
 		if (engineTimer.ReadSec() > 2.9) {
 			moduleAt->App->audio->PlayFx(moduleAt->App->assetLoader->audioEngineId);
 			engineTimer.Start();
 		}
 	}
+	nitro->Update();
 	engineTimer.Update();
 	return UPDATE_CONTINUE;
 }
 
 bool Vehicle::Render()
 {
+	nitro->Render();
 	moduleAt->App->renderer->BlockRenderLayer(ModuleRender::RenderLayer::SUB_LAYER_4);
 	double radianAngle = body->GetAngle();
 
@@ -107,12 +103,13 @@ bool Vehicle::Render()
 			wheel->Render();
 	}
 	moduleAt->App->renderer->UnlockRenderLayer();
+	
 	return true;
 }
 
 bool Vehicle::CleanUp()
 {
-	//delete particleSystem;
+	delete particleSystem;
 	for (const auto& wheel : wheels)
 	{
 		/// Do Clean Up
@@ -120,6 +117,8 @@ bool Vehicle::CleanUp()
 		delete wheel;
 	}
 	delete body;
+	nitro->CleanUp();
+	delete nitro;
 	wheels.clear();
 	throttlingWheels.clear();
 	steeringWheels.clear();
@@ -237,4 +236,5 @@ void Vehicle::CreateVehicle(string id)
 		if (canSteer)
 			steeringWheels.emplace_back(wheel);
 	}
+	nitro = new Nitro(moduleAt, this);
 }

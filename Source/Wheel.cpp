@@ -96,6 +96,11 @@ void Wheel::SetUpWheelRenderCharacteristics(Texture2D* wheelTexture, Rectangle w
 	this->wheelColor = color;
 }
 
+void Wheel::MultiplyForwardVelocity(float multiplier)
+{
+	forwardSpeedModification = multiplier;
+}
+
 Vector2 Wheel::GetLateralVelocity()
 {
 	Vector2 currentRightNormal = body->GetWorldVector({ 1,0 });
@@ -134,7 +139,6 @@ void Wheel::Move(float direction)
 	Vector2 currentForwardNormal = body->GetWorldVector({ 0, 1 });
 	float currentSpeed = Vector2DotProduct(GetForwardVelocity(), currentForwardNormal);
 
-
 	//find desired speed
 	float desiredSpeed = 0;
 	if (direction != 0) {
@@ -143,18 +147,20 @@ void Wheel::Move(float direction)
 	else
 		desiredSpeed = currentSpeed;
 
+	
 
 	//apply necessary force
 	float force = 0;
 	if (desiredSpeed > currentSpeed)
-		force = maxDriveForce;
+		force = maxDriveForce * forwardSpeedModification;
 	else if (desiredSpeed < currentSpeed)
-		force = -maxDriveForce;
+		force = -maxDriveForce * forwardSpeedModification;
 	else
 		return;
 
 	Vector2 forceVector = Vector2Scale(currentForwardNormal, currentTraction * force);
 	body->ApplyForce(forceVector, body->GetWorldCenter());
+	
 }
 
 void Wheel::Render()

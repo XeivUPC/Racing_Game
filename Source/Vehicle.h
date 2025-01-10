@@ -10,6 +10,7 @@ class Wheel;
 class PhysBody;
 class ParticleSystem;
 class Pilot;
+class Nitro;
 
 class Vehicle : public MapObject
 {
@@ -24,6 +25,7 @@ public:
 	void Explode();
 
 	PhysBody* body = nullptr;
+	Nitro* nitro = nullptr;
 private:
 
 	void CreateVehicle(string id);

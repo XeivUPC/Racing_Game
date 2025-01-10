@@ -37,5 +37,7 @@ private:
 	CollisionSensor carSensor;
 
 	CollisionSensor frontSensor;
+	CollisionSensor vehicleSensor;
+	CollisionSensor nitroSensor;
 
 };

@@ -5,6 +5,7 @@
 #include "RaceTrack.h"
 #include "MapLapSensor.h"
 #include "Box2DFactory.h"
+#include "Nitro.h"
 #include <string>
 #include <cmath>
 #include <raymath.h>
@@ -76,6 +77,18 @@ PilotCPU::PilotCPU(SceneGame* gameAt, RaceTrack* track, std::string vehicleType,
     vehicle->body->SetSensor(fixtureIndex, true);
     vehicle->body->SetFilter(fixtureIndex, physics->VEHICLE_SENSOR_LAYER, physics->FRICTION_AREA_LAYER, 0);
     frontSensor.SetFixtureToTrack(vehicle->body, fixtureIndex);
+
+    fixtureData.pointer = (uintptr_t)(&vehicleSensor);
+    fixtureIndex = factory.AddBox(vehicle->body, { 0,8 }, 2, 0.5f, fixtureData);
+    vehicle->body->SetSensor(fixtureIndex, true);
+    vehicle->body->SetFilter(fixtureIndex, physics->VEHICLE_SENSOR_LAYER, physics->VEHICLE_LAYER, 0);
+    vehicleSensor.SetFixtureToTrack(vehicle->body, fixtureIndex);
+
+    fixtureData.pointer = (uintptr_t)(&nitroSensor);
+    fixtureIndex = factory.AddBox(vehicle->body, { 0,20 }, 4, 30, fixtureData);
+    vehicle->body->SetSensor(fixtureIndex, true);
+    vehicle->body->SetFilter(fixtureIndex, physics->VEHICLE_SENSOR_LAYER, physics->FRICTION_AREA_LAYER, 0);
+    nitroSensor.SetFixtureToTrack(vehicle->body, fixtureIndex);
 }
 
 PilotCPU::~PilotCPU()
@@ -124,6 +137,15 @@ void PilotCPU::Brain()
     if (frontSensor.IsBeingTriggered()) {
         throttle /= 5.f;
         steering += steering / 2;
+    }
+
+    if (nitroSensor.IsBeingTriggered() || vehicleSensor.IsBeingTriggered())
+    {
+        vehicle->nitro->Disable();
+    }
+    else
+    {
+        vehicle->nitro->Enable();
     }
 
 
